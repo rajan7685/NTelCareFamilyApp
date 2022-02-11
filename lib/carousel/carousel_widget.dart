@@ -40,6 +40,7 @@ class _CarouselWidgetState extends State<CarouselWidget> {
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
                 mainAxisSize: MainAxisSize.max,
@@ -62,19 +63,19 @@ class _CarouselWidgetState extends State<CarouselWidget> {
                                   scrollDirection: Axis.horizontal,
                                   children: [
                                     Image.network(
-                                      'https://picsum.photos/seed/354/600',
+                                      'https://picsum.photos/seed/961/600',
                                       width: 100,
                                       height: 100,
                                       fit: BoxFit.cover,
                                     ),
                                     Image.network(
-                                      'https://picsum.photos/seed/729/600',
+                                      'https://picsum.photos/seed/879/600',
                                       width: 100,
                                       height: 100,
                                       fit: BoxFit.cover,
                                     ),
                                     Image.network(
-                                      'https://picsum.photos/seed/615/600',
+                                      'https://picsum.photos/seed/684/600',
                                       width: 100,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -118,29 +119,26 @@ class _CarouselWidgetState extends State<CarouselWidget> {
                       ),
                     ],
                   ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
                   Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Expanded(
-                        child: Text(
-                          'Hello World',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.bodyText1,
-                        ),
+                      Text(
+                        'Hello World',
+                        style: FlutterFlowTheme.bodyText1,
                       ),
-                      Expanded(
-                        child: Text(
-                          'Hello World',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.bodyText1,
-                        ),
+                      Text(
+                        'Hello World',
+                        style: FlutterFlowTheme.bodyText1,
                       ),
-                      Expanded(
-                        child: Text(
-                          'Hello World',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.bodyText1,
-                        ),
+                      Text(
+                        'Hello World',
+                        style: FlutterFlowTheme.bodyText1,
                       ),
                     ],
                   ),

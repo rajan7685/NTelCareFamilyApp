@@ -62,25 +62,22 @@ class _EditWidgetState extends State<EditWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 45, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        child: Align(
-                          alignment: AlignmentDirectional(-0.9, 0),
-                          child: Icon(
-                            Icons.settings_outlined,
-                            color: Colors.black,
-                            size: 24,
-                          ),
+                      Align(
+                        alignment: AlignmentDirectional(0, 0),
+                        child: Icon(
+                          Icons.settings_outlined,
+                          color: Colors.black,
+                          size: 24,
                         ),
                       ),
-                      Expanded(
-                        child: Align(
-                          alignment: AlignmentDirectional(0.85, 0),
-                          child: Icon(
-                            Icons.settings_outlined,
-                            color: Colors.black,
-                            size: 24,
-                          ),
+                      Align(
+                        alignment: AlignmentDirectional(0, 0),
+                        child: Icon(
+                          Icons.settings_outlined,
+                          color: Colors.black,
+                          size: 24,
                         ),
                       ),
                     ],

@@ -1,6 +1,7 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -36,7 +37,6 @@ class _Login1WidgetState extends State<Login1Widget> {
               width: double.infinity,
               height: double.infinity,
               decoration: BoxDecoration(
-                color: Color(0xFFEEEEEE),
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: Image.asset(
@@ -44,6 +44,25 @@ class _Login1WidgetState extends State<Login1Widget> {
                   ).image,
                 ),
               ),
+              child: ClipRect(
+                child: ImageFiltered(
+                  imageFilter: ImageFilter.blur(
+                    sigmaX: 0,
+                    sigmaY: 2,
+                  ),
+                  child: Image.network(
+                    'https://picsum.photos/seed/74/600',
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
