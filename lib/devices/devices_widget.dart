@@ -60,19 +60,21 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                           child: Text(
                             'Devices',
                             textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: FlutterFlowTheme.tertiaryColor,
-                              fontSize: 40,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                           ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                           child: FaIcon(
                             FontAwesomeIcons.bell,
-                            color: FlutterFlowTheme.tertiaryColor,
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
                             size: 24,
                           ),
                         ),
@@ -123,16 +125,21 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                 ),
                                                 title: Text(
                                                   'Mi Band',
-                                                  style: FlutterFlowTheme.title3
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title3
                                                       .override(
-                                                    fontFamily: 'Poppins',
-                                                    color: FlutterFlowTheme
-                                                        .tertiaryColor,
-                                                  ),
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tertiaryColor,
+                                                      ),
                                                 ),
                                                 subtitle: Text(
                                                   'Grandpa',
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2,
                                                 ),
                                                 tileColor: Color(0xFFF5F5F5),
@@ -153,12 +160,14 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                 child: ListTile(
                                                   title: Text(
                                                     'Lorem ipsum dolor...',
-                                                    style:
-                                                        FlutterFlowTheme.title3,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .title3,
                                                   ),
                                                   subtitle: Text(
                                                     'Lorem ipsum dolor...',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2,
                                                   ),
                                                   trailing: Icon(
@@ -185,12 +194,14 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                 child: ListTile(
                                                   title: Text(
                                                     'Lorem ipsum dolor...',
-                                                    style:
-                                                        FlutterFlowTheme.title3,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .title3,
                                                   ),
                                                   subtitle: Text(
                                                     'Lorem ipsum dolor...',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2,
                                                   ),
                                                   trailing: Icon(
@@ -217,12 +228,14 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                 child: ListTile(
                                                   title: Text(
                                                     'Lorem ipsum dolor...',
-                                                    style:
-                                                        FlutterFlowTheme.title3,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .title3,
                                                   ),
                                                   subtitle: Text(
                                                     'Lorem ipsum dolor...',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2,
                                                   ),
                                                   trailing: Icon(
@@ -249,12 +262,14 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                 child: ListTile(
                                                   title: Text(
                                                     'Lorem ipsum dolor...',
-                                                    style:
-                                                        FlutterFlowTheme.title3,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .title3,
                                                   ),
                                                   subtitle: Text(
                                                     'Lorem ipsum dolor...',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2,
                                                   ),
                                                   trailing: Icon(
@@ -281,12 +296,14 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                 child: ListTile(
                                                   title: Text(
                                                     'Lorem ipsum dolor...',
-                                                    style:
-                                                        FlutterFlowTheme.title3,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .title3,
                                                   ),
                                                   subtitle: Text(
                                                     'Lorem ipsum dolor...',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2,
                                                   ),
                                                   trailing: Icon(

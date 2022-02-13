@@ -88,11 +88,11 @@ class _EditWidgetState extends State<EditWidget> {
                   children: [
                     Text(
                       'Edit Profile',
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: FlutterFlowTheme.tertiaryColor,
-                        fontSize: 40,
-                      ),
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            fontSize: 40,
+                          ),
                     ),
                   ],
                 ),
@@ -154,7 +154,8 @@ class _EditWidgetState extends State<EditWidget> {
                                             ),
                                           ),
                                         ),
-                                        style: FlutterFlowTheme.bodyText1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
                                       ),
                                     ),
                                   ),
@@ -195,7 +196,8 @@ class _EditWidgetState extends State<EditWidget> {
                                           ),
                                         ),
                                       ),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                   ),
                                 ),
@@ -235,7 +237,8 @@ class _EditWidgetState extends State<EditWidget> {
                                           ),
                                         ),
                                       ),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                   ),
                                 ),
@@ -275,27 +278,36 @@ class _EditWidgetState extends State<EditWidget> {
                                           ),
                                         ),
                                       ),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                   ),
                                 ),
-                                CheckboxListTile(
-                                  value: checkboxListTileValue ??= true,
-                                  onChanged: (newValue) => setState(
-                                      () => checkboxListTileValue = newValue),
-                                  title: Text(
-                                    'Enable live view',
-                                    style: FlutterFlowTheme.title3.override(
-                                      fontFamily: 'Poppins',
-                                      color: FlutterFlowTheme.tertiaryColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                    ),
+                                Theme(
+                                  data: ThemeData(
+                                    unselectedWidgetColor: Color(0xFF707070),
                                   ),
-                                  tileColor: Color(0xFFF5F5F5),
-                                  dense: false,
-                                  controlAffinity:
-                                      ListTileControlAffinity.leading,
+                                  child: CheckboxListTile(
+                                    value: checkboxListTileValue ??= true,
+                                    onChanged: (newValue) => setState(
+                                        () => checkboxListTileValue = newValue),
+                                    title: Text(
+                                      'Enable live view',
+                                      style: FlutterFlowTheme.of(context)
+                                          .title3
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .tertiaryColor,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                    ),
+                                    tileColor: Color(0xFFF5F5F5),
+                                    dense: false,
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
+                                  ),
                                 ),
                               ],
                             ),
@@ -310,12 +322,14 @@ class _EditWidgetState extends State<EditWidget> {
                                 options: FFButtonOptions(
                                   width: 350,
                                   height: 40,
-                                  color: FlutterFlowTheme.primaryColor,
-                                  textStyle:
-                                      FlutterFlowTheme.subtitle2.override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                  ),
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
                                   borderSide: BorderSide(
                                     color: Colors.transparent,
                                     width: 1,
@@ -335,12 +349,14 @@ class _EditWidgetState extends State<EditWidget> {
                                 options: FFButtonOptions(
                                   width: 350,
                                   height: 40,
-                                  color: FlutterFlowTheme.primaryColor,
-                                  textStyle:
-                                      FlutterFlowTheme.subtitle2.override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                  ),
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
                                   borderSide: BorderSide(
                                     color: Colors.transparent,
                                     width: 1,

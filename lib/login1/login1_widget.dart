@@ -93,12 +93,15 @@ class _Login1WidgetState extends State<Login1Widget> {
                             child: Text(
                               'Lets Keep \nyour Senior \nMember Safe',
                               textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Poppins',
-                                color: FlutterFlowTheme.tertiaryColor,
-                                fontSize: 45,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context)
+                                        .tertiaryColor,
+                                    fontSize: 45,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                             ),
                           ),
                         ),
@@ -141,7 +144,7 @@ class _Login1WidgetState extends State<Login1Widget> {
                                       ),
                                     ),
                                   ),
-                                  style: FlutterFlowTheme.bodyText1,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
                               ),
                             ),
@@ -181,7 +184,7 @@ class _Login1WidgetState extends State<Login1Widget> {
                                       ),
                                     ),
                                   ),
-                                  style: FlutterFlowTheme.bodyText1,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
                               ),
                             ),
@@ -198,12 +201,14 @@ class _Login1WidgetState extends State<Login1Widget> {
                               width: 350,
                               height: 50,
                               color: Color(0xFF00B89F),
-                              textStyle: FlutterFlowTheme.subtitle2.override(
-                                fontFamily: 'Poppins',
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                               borderSide: BorderSide(
                                 color: Colors.transparent,
                                 width: 1,
@@ -216,7 +221,7 @@ class _Login1WidgetState extends State<Login1Widget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 25),
                           child: Text(
                             'Forgot Password?',
-                            style: FlutterFlowTheme.subtitle2,
+                            style: FlutterFlowTheme.of(context).subtitle2,
                           ),
                         ),
                       ],
