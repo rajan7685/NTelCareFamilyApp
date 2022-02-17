@@ -19,34 +19,34 @@ class _DevicesWidgetState extends State<DevicesWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 300,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF005C50),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
                     width: double.infinity,
-                    height: 200,
                     decoration: BoxDecoration(
-                      color: Color(0xFF005C50),
+                      color: Color(0xFF292929),
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF292929),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+              child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
@@ -83,7 +83,7 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(5, 20, 5, 0),
                       child: Container(
                         width: double.infinity,
                         height: 300,
@@ -93,7 +93,7 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                         ),
                         child: SingleChildScrollView(
                           child: Column(
-                            mainAxisSize: MainAxisSize.min,
+                            mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
                                 padding:
@@ -110,47 +110,10 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                           shrinkWrap: true,
                                           scrollDirection: Axis.vertical,
                                           children: [
-                                            Container(
-                                              height: 75,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF262626),
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                              ),
-                                              child: ListTile(
-                                                leading: Icon(
-                                                  Icons.watch_sharp,
-                                                  color: Color(0xFF005C50),
-                                                  size: 40,
-                                                ),
-                                                title: Text(
-                                                  'Mi Band',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .title3
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiaryColor,
-                                                      ),
-                                                ),
-                                                subtitle: Text(
-                                                  'Grandpa',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .subtitle2,
-                                                ),
-                                                tileColor: Color(0xFFF5F5F5),
-                                                dense: false,
-                                              ),
-                                            ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 10, 0, 0),
+                                                  .fromSTEB(0, 0, 0, 5),
                                               child: Container(
-                                                width: 100,
                                                 height: 75,
                                                 decoration: BoxDecoration(
                                                   color: Color(0xFF262626),
@@ -158,22 +121,28 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                       BorderRadius.circular(25),
                                                 ),
                                                 child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.watch_sharp,
+                                                    color: Color(0xFF005C50),
+                                                    size: 40,
+                                                  ),
                                                   title: Text(
-                                                    'Lorem ipsum dolor...',
+                                                    'Mi Band',
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .title3,
+                                                        .title3
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiaryColor,
+                                                        ),
                                                   ),
                                                   subtitle: Text(
-                                                    'Lorem ipsum dolor...',
+                                                    'Grandpa',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .subtitle2,
-                                                  ),
-                                                  trailing: Icon(
-                                                    Icons.arrow_forward_ios,
-                                                    color: Color(0xFF303030),
-                                                    size: 20,
                                                   ),
                                                   tileColor: Color(0xFFF5F5F5),
                                                   dense: false,
@@ -182,9 +151,8 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 10, 0, 0),
+                                                  .fromSTEB(0, 0, 0, 5),
                                               child: Container(
-                                                width: 100,
                                                 height: 75,
                                                 decoration: BoxDecoration(
                                                   color: Color(0xFF262626),
@@ -192,22 +160,28 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                       BorderRadius.circular(25),
                                                 ),
                                                 child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.watch_sharp,
+                                                    color: Color(0xFF005C50),
+                                                    size: 40,
+                                                  ),
                                                   title: Text(
-                                                    'Lorem ipsum dolor...',
+                                                    'Mi Band',
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .title3,
+                                                        .title3
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiaryColor,
+                                                        ),
                                                   ),
                                                   subtitle: Text(
-                                                    'Lorem ipsum dolor...',
+                                                    'Grandpa',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .subtitle2,
-                                                  ),
-                                                  trailing: Icon(
-                                                    Icons.arrow_forward_ios,
-                                                    color: Color(0xFF303030),
-                                                    size: 20,
                                                   ),
                                                   tileColor: Color(0xFFF5F5F5),
                                                   dense: false,
@@ -216,9 +190,8 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 10, 0, 0),
+                                                  .fromSTEB(0, 0, 0, 5),
                                               child: Container(
-                                                width: 100,
                                                 height: 75,
                                                 decoration: BoxDecoration(
                                                   color: Color(0xFF262626),
@@ -226,22 +199,28 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                       BorderRadius.circular(25),
                                                 ),
                                                 child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.watch_sharp,
+                                                    color: Color(0xFF005C50),
+                                                    size: 40,
+                                                  ),
                                                   title: Text(
-                                                    'Lorem ipsum dolor...',
+                                                    'Mi Band',
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .title3,
+                                                        .title3
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiaryColor,
+                                                        ),
                                                   ),
                                                   subtitle: Text(
-                                                    'Lorem ipsum dolor...',
+                                                    'Grandpa',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .subtitle2,
-                                                  ),
-                                                  trailing: Icon(
-                                                    Icons.arrow_forward_ios,
-                                                    color: Color(0xFF303030),
-                                                    size: 20,
                                                   ),
                                                   tileColor: Color(0xFFF5F5F5),
                                                   dense: false,
@@ -250,9 +229,8 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 10, 0, 0),
+                                                  .fromSTEB(0, 0, 0, 5),
                                               child: Container(
-                                                width: 100,
                                                 height: 75,
                                                 decoration: BoxDecoration(
                                                   color: Color(0xFF262626),
@@ -260,22 +238,28 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                       BorderRadius.circular(25),
                                                 ),
                                                 child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.watch_sharp,
+                                                    color: Color(0xFF005C50),
+                                                    size: 40,
+                                                  ),
                                                   title: Text(
-                                                    'Lorem ipsum dolor...',
+                                                    'Mi Band',
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .title3,
+                                                        .title3
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiaryColor,
+                                                        ),
                                                   ),
                                                   subtitle: Text(
-                                                    'Lorem ipsum dolor...',
+                                                    'Grandpa',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .subtitle2,
-                                                  ),
-                                                  trailing: Icon(
-                                                    Icons.arrow_forward_ios,
-                                                    color: Color(0xFF303030),
-                                                    size: 20,
                                                   ),
                                                   tileColor: Color(0xFFF5F5F5),
                                                   dense: false,
@@ -284,9 +268,8 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 10, 0, 0),
+                                                  .fromSTEB(0, 0, 0, 5),
                                               child: Container(
-                                                width: 100,
                                                 height: 75,
                                                 decoration: BoxDecoration(
                                                   color: Color(0xFF262626),
@@ -294,22 +277,106 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                       BorderRadius.circular(25),
                                                 ),
                                                 child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.watch_sharp,
+                                                    color: Color(0xFF005C50),
+                                                    size: 40,
+                                                  ),
                                                   title: Text(
-                                                    'Lorem ipsum dolor...',
+                                                    'Mi Band',
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .title3,
+                                                        .title3
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiaryColor,
+                                                        ),
                                                   ),
                                                   subtitle: Text(
-                                                    'Lorem ipsum dolor...',
+                                                    'Grandpa',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .subtitle2,
                                                   ),
-                                                  trailing: Icon(
-                                                    Icons.arrow_forward_ios,
-                                                    color: Color(0xFF303030),
-                                                    size: 20,
+                                                  tileColor: Color(0xFFF5F5F5),
+                                                  dense: false,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 0, 5),
+                                              child: Container(
+                                                height: 75,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF262626),
+                                                  borderRadius:
+                                                      BorderRadius.circular(25),
+                                                ),
+                                                child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.watch_sharp,
+                                                    color: Color(0xFF005C50),
+                                                    size: 40,
+                                                  ),
+                                                  title: Text(
+                                                    'Mi Band',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .title3
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiaryColor,
+                                                        ),
+                                                  ),
+                                                  subtitle: Text(
+                                                    'Grandpa',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .subtitle2,
+                                                  ),
+                                                  tileColor: Color(0xFFF5F5F5),
+                                                  dense: false,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 0, 5),
+                                              child: Container(
+                                                height: 75,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF262626),
+                                                  borderRadius:
+                                                      BorderRadius.circular(25),
+                                                ),
+                                                child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.watch_sharp,
+                                                    color: Color(0xFF005C50),
+                                                    size: 40,
+                                                  ),
+                                                  title: Text(
+                                                    'Mi Band',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .title3
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiaryColor,
+                                                        ),
+                                                  ),
+                                                  subtitle: Text(
+                                                    'Grandpa',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .subtitle2,
                                                   ),
                                                   tileColor: Color(0xFFF5F5F5),
                                                   dense: false,
@@ -331,8 +398,8 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -11,6 +11,7 @@ import '../main.dart';
 
 import 'lat_lng.dart';
 
+export '../app_state.dart';
 export 'dart:math' show min, max;
 export 'package:intl/intl.dart';
 export 'package:page_transition/page_transition.dart';

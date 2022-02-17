@@ -1,7 +1,7 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
+import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,13 +15,15 @@ class Login1Widget extends StatefulWidget {
 class _Login1WidgetState extends State<Login1Widget> {
   TextEditingController textController1;
   TextEditingController textController2;
+  bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-    textController2 = TextEditingController();
+    textController1 = TextEditingController(text: '8439999116');
+    textController2 = TextEditingController(text: '********');
+    passwordVisibility = false;
   }
 
   @override
@@ -38,44 +40,27 @@ class _Login1WidgetState extends State<Login1Widget> {
               height: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                   image: Image.asset(
-                    'assets/images/image.jpg',
+                    'assets/images/login__2.png',
                   ).image,
                 ),
               ),
-              child: ClipRect(
-                child: ImageFiltered(
-                  imageFilter: ImageFilter.blur(
-                    sigmaX: 0,
-                    sigmaY: 2,
-                  ),
-                  child: Image.network(
-                    'https://picsum.photos/seed/74/600',
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEEEEEE),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset(
-                          'assets/images/image.jpg',
-                        ).image,
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(15, 50, 15, 0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: Image.asset(
+                            'assets/images/Group_598.png',
+                          ).image,
+                        ),
                       ),
                     ),
                   ),
@@ -87,22 +72,63 @@ class _Login1WidgetState extends State<Login1Widget> {
                       children: [
                         Align(
                           alignment: AlignmentDirectional(-0.9, 0),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 20),
-                            child: Text(
-                              'Lets Keep \nyour Senior \nMember Safe',
-                              textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.of(context)
-                                        .tertiaryColor,
-                                    fontSize: 45,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
+                          child: Text(
+                            'Lets Keep ',
+                            textAlign: TextAlign.start,
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      fontSize: 45,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                'your',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      fontSize: 45,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                              ),
+                              Text(
+                                ' Senior',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      fontSize: 45,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(-0.85, 0),
+                          child: Text(
+                            'Member Safe',
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      fontSize: 45,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                           ),
                         ),
                         Column(
@@ -113,38 +139,47 @@ class _Login1WidgetState extends State<Login1Widget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                               child: Container(
                                 width: 350,
-                                height: 50,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFEEEEEE),
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: TextFormField(
-                                  controller: textController1,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    hintText: '[Some hint text...]',
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 0, 0, 0),
+                                  child: TextFormField(
+                                    controller: textController1,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Username',
+                                      hintText: '[Some hint text...]',
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
                                       ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
                                       ),
                                     ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 18,
+                                        ),
                                   ),
-                                  style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
                               ),
                             ),
@@ -153,38 +188,60 @@ class _Login1WidgetState extends State<Login1Widget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                               child: Container(
                                 width: 350,
-                                height: 50,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFEEEEEE),
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: TextFormField(
-                                  controller: textController2,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    hintText: '[Some hint text...]',
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 0, 0, 0),
+                                  child: TextFormField(
+                                    controller: textController2,
+                                    obscureText: !passwordVisibility,
+                                    decoration: InputDecoration(
+                                      labelText: 'Password',
+                                      hintText: '[Some hint text...]',
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
                                       ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      suffixIcon: InkWell(
+                                        onTap: () => setState(
+                                          () => passwordVisibility =
+                                              !passwordVisibility,
+                                        ),
+                                        child: Icon(
+                                          passwordVisibility
+                                              ? Icons.visibility_outlined
+                                              : Icons.visibility_off_outlined,
+                                          color: Color(0xFF757575),
+                                          size: 22,
+                                        ),
                                       ),
                                     ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 18,
+                                        ),
                                   ),
-                                  style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
                               ),
                             ),
@@ -193,8 +250,14 @@ class _Login1WidgetState extends State<Login1Widget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                           child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
+                            onPressed: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      NavBarPage(initialPage: 'Landing'),
+                                ),
+                              );
                             },
                             text: 'Login',
                             options: FFButtonOptions(
@@ -221,7 +284,11 @@ class _Login1WidgetState extends State<Login1Widget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 25),
                           child: Text(
                             'Forgot Password?',
-                            style: FlutterFlowTheme.of(context).subtitle2,
+                            style:
+                                FlutterFlowTheme.of(context).subtitle2.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFFAFAFAF),
+                                    ),
                           ),
                         ),
                       ],

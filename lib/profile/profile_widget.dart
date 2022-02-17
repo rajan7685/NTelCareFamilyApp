@@ -1,8 +1,9 @@
+import '../edit/edit_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfileWidget extends StatefulWidget {
@@ -21,38 +22,39 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 350,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xFF00B89F), Color(0xFF005C50)],
+                      stops: [0, 1],
+                      begin: AlignmentDirectional(1, 0.87),
+                      end: AlignmentDirectional(-1, -0.87),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
                     width: double.infinity,
-                    height: 350,
+                    height: 100,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xFF00B89F), Color(0xFF005C50)],
-                        stops: [0, 1],
-                        begin: AlignmentDirectional(1, 0.87),
-                        end: AlignmentDirectional(-1, -0.87),
-                      ),
+                      color: Color(0xFF292929),
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF292929),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+              child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Row(
@@ -77,93 +79,199 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFEEEEEE),
-                              shape: BoxShape.rectangle,
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(55),
-                              child: CachedNetworkImage(
-                                imageUrl: 'https://picsum.photos/seed/815/600',
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Hello World',
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Hello World',
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Hello World',
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Hello World',
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                '_____________',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF9E9E9E),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Stack(
+                              children: [
+                                Container(
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFEEEEEE),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: Image.asset(
+                                        'assets/images/Screenshot_2022-02-17_213808.jpg',
+                                      ).image,
                                     ),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(0.35, 0.35),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20, 20, 0, 0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(60),
+                                      child: Image.asset(
+                                        'assets/images/sundar.jpg',
+                                        width: 110,
+                                        height: 110,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'Kenny',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      ' Alter',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .tertiaryColor,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 4, 0, 0),
+                                  child: Text(
+                                    'kennys@gmail.com',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .tertiaryColor,
+                                          fontWeight: FontWeight.w200,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 4, 0, 0),
+                                  child: Text(
+                                    '8439999116',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .tertiaryColor,
+                                          fontWeight: FontWeight.w200,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional(0.6, 0),
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    FaIcon(
+                                      FontAwesomeIcons.edit,
+                                      color: Color(0xFF00FFDC),
+                                      size: 14,
+                                    ),
+                                    Text(
+                                      ' Edit Profile',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .tertiaryColor,
+                                            fontWeight: FontWeight.w200,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Hello World',
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                            ],
-                          ),
-                        ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '--------------',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiaryColor,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Icon(
+                                  Icons.logout,
+                                  color: Color(0xFF00FFDC),
+                                  size: 16,
+                                ),
+                                Text(
+                                  '  Logout',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiaryColor,
+                                        fontWeight: FontWeight.w200,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -240,142 +348,184 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     padding: EdgeInsets.zero,
                                     scrollDirection: Axis.vertical,
                                     children: [
-                                      Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: Color(0xFF262626),
-                                        child: ListTile(
-                                          title: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3,
+                                      InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditWidget(),
+                                            ),
+                                          );
+                                        },
+                                        child: Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: Color(0xFF262626),
+                                          child: ListTile(
+                                            title: Text(
+                                              'Lorem ipsum dolor...',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .title3,
+                                            ),
+                                            subtitle: Text(
+                                              'Lorem ipsum dolor...',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle2,
+                                            ),
+                                            trailing: Icon(
+                                              Icons.arrow_forward_ios,
+                                              color: Color(0xFF303030),
+                                              size: 20,
+                                            ),
+                                            dense: false,
                                           ),
-                                          subtitle: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .subtitle2,
-                                          ),
-                                          trailing: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Color(0xFF303030),
-                                            size: 20,
-                                          ),
-                                          dense: false,
                                         ),
                                       ),
-                                      Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: Color(0xFF262626),
-                                        child: ListTile(
-                                          title: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3,
+                                      InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditWidget(),
+                                            ),
+                                          );
+                                        },
+                                        child: Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: Color(0xFF262626),
+                                          child: ListTile(
+                                            title: Text(
+                                              'Lorem ipsum dolor...',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .title3,
+                                            ),
+                                            subtitle: Text(
+                                              'Lorem ipsum dolor...',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle2,
+                                            ),
+                                            trailing: Icon(
+                                              Icons.arrow_forward_ios,
+                                              color: Color(0xFF303030),
+                                              size: 20,
+                                            ),
+                                            dense: false,
                                           ),
-                                          subtitle: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .subtitle2,
-                                          ),
-                                          trailing: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Color(0xFF303030),
-                                            size: 20,
-                                          ),
-                                          dense: false,
                                         ),
                                       ),
-                                      Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: Color(0xFF262626),
-                                        child: ListTile(
-                                          title: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3,
+                                      InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditWidget(),
+                                            ),
+                                          );
+                                        },
+                                        child: Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: Color(0xFF262626),
+                                          child: ListTile(
+                                            title: Text(
+                                              'Lorem ipsum dolor...',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .title3,
+                                            ),
+                                            subtitle: Text(
+                                              'Lorem ipsum dolor...',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle2,
+                                            ),
+                                            trailing: Icon(
+                                              Icons.arrow_forward_ios,
+                                              color: Color(0xFF303030),
+                                              size: 20,
+                                            ),
+                                            dense: false,
                                           ),
-                                          subtitle: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .subtitle2,
-                                          ),
-                                          trailing: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Color(0xFF303030),
-                                            size: 20,
-                                          ),
-                                          dense: false,
                                         ),
                                       ),
-                                      Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: Color(0xFF262626),
-                                        child: ListTile(
-                                          title: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3,
+                                      InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditWidget(),
+                                            ),
+                                          );
+                                        },
+                                        child: Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: Color(0xFF262626),
+                                          child: ListTile(
+                                            title: Text(
+                                              'Lorem ipsum dolor...',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .title3,
+                                            ),
+                                            subtitle: Text(
+                                              'Lorem ipsum dolor...',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle2,
+                                            ),
+                                            trailing: Icon(
+                                              Icons.arrow_forward_ios,
+                                              color: Color(0xFF303030),
+                                              size: 20,
+                                            ),
+                                            dense: false,
                                           ),
-                                          subtitle: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .subtitle2,
-                                          ),
-                                          trailing: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Color(0xFF303030),
-                                            size: 20,
-                                          ),
-                                          dense: false,
                                         ),
                                       ),
-                                      Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: Color(0xFF262626),
-                                        child: ListTile(
-                                          title: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3,
+                                      InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditWidget(),
+                                            ),
+                                          );
+                                        },
+                                        child: Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: Color(0xFF262626),
+                                          child: ListTile(
+                                            title: Text(
+                                              'Lorem ipsum dolor...',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .title3,
+                                            ),
+                                            subtitle: Text(
+                                              'Lorem ipsum dolor...',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle2,
+                                            ),
+                                            trailing: Icon(
+                                              Icons.arrow_forward_ios,
+                                              color: Color(0xFF303030),
+                                              size: 20,
+                                            ),
+                                            dense: false,
                                           ),
-                                          subtitle: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .subtitle2,
-                                          ),
-                                          trailing: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Color(0xFF303030),
-                                            size: 20,
-                                          ),
-                                          dense: false,
-                                        ),
-                                      ),
-                                      Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        color: Color(0xFF262626),
-                                        child: ListTile(
-                                          title: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3,
-                                          ),
-                                          subtitle: Text(
-                                            'Lorem ipsum dolor...',
-                                            style: FlutterFlowTheme.of(context)
-                                                .subtitle2,
-                                          ),
-                                          trailing: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Color(0xFF303030),
-                                            size: 20,
-                                          ),
-                                          dense: false,
                                         ),
                                       ),
                                     ],
@@ -390,7 +540,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   ),
                 ],
               ),
-              Column(
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 70),
+              child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -404,8 +557,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Container(
-                              width: 80,
-                              height: 80,
+                              width: 70,
+                              height: 70,
                               decoration: BoxDecoration(
                                 color: Color(0xFF00B89F),
                                 shape: BoxShape.circle,
@@ -414,7 +567,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                 Icons.add,
                                 color:
                                     FlutterFlowTheme.of(context).tertiaryColor,
-                                size: 70,
+                                size: 50,
                               ),
                             ),
                             Text(
@@ -434,8 +587,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

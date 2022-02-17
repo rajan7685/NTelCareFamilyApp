@@ -5,11 +5,19 @@ import 'package:n_tel_care_family_app/home_page/home_page_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'edit/edit_widget.dart';
+import 'landing/landing_widget.dart';
 import 'devices/devices_widget.dart';
+import 'video/video_widget.dart';
+import 'profile/profile_widget.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize FFAppState.
+  FFAppState();
+
   runApp(MyApp());
 }
 
@@ -62,7 +70,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPage = 'Edit';
+  String _currentPage = 'Landing';
 
   @override
   void initState() {
@@ -73,8 +81,10 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'Edit': EditWidget(),
+      'Landing': LandingWidget(),
       'Devices': DevicesWidget(),
+      'Video': VideoWidget(),
+      'Profile': ProfileWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -83,9 +93,9 @@ class _NavBarPageState extends State<NavBarPage> {
       bottomNavigationBar: FloatingNavbar(
         currentIndex: currentIndex,
         onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
-        backgroundColor: Colors.black,
-        selectedItemColor: Color(0x00000000),
-        unselectedItemColor: Color(0x00000000),
+        backgroundColor: Color(0xFF1A1A1A),
+        selectedItemColor: Color(0xFF00B89F),
+        unselectedItemColor: Color(0xFF535353),
         selectedBackgroundColor: Color(0x00000000),
         borderRadius: 8,
         itemBorderRadius: 8,
@@ -99,9 +109,9 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_outlined,
+                  Icons.now_widgets_sharp,
                   color:
-                      currentIndex == 0 ? Color(0x00000000) : Color(0x00000000),
+                      currentIndex == 0 ? Color(0xFF00B89F) : Color(0xFF535353),
                   size: 24,
                 ),
                 Text(
@@ -109,8 +119,8 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0
-                        ? Color(0x00000000)
-                        : Color(0x00000000),
+                        ? Color(0xFF00B89F)
+                        : Color(0xFF535353),
                     fontSize: 11.0,
                   ),
                 ),
@@ -122,16 +132,65 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_outlined,
+                  Icons.watch_outlined,
                   color:
-                      currentIndex == 1 ? Color(0x00000000) : Color(0x00000000),
+                      currentIndex == 1 ? Color(0xFF00B89F) : Color(0xFF535353),
                   size: 24,
                 ),
                 Text(
-                  'Home',
+                  'Devices',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: Colors.black,
+                    color: currentIndex == 1
+                        ? Color(0xFF00B89F)
+                        : Color(0xFF535353),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.ondemand_video,
+                  color:
+                      currentIndex == 2 ? Color(0xFF00B89F) : Color(0xFF535353),
+                  size: 24,
+                ),
+                Text(
+                  'Video',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 2
+                        ? Color(0xFF00B89F)
+                        : Color(0xFF535353),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.person,
+                  color:
+                      currentIndex == 3 ? Color(0xFF00B89F) : Color(0xFF535353),
+                  size: 24,
+                ),
+                Text(
+                  'Profile',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 3
+                        ? Color(0xFF00B89F)
+                        : Color(0xFF535353),
+                    fontSize: 11.0,
                   ),
                 ),
               ],
