@@ -44,7 +44,7 @@ class _EditWidgetState extends State<EditWidget> {
                 width: double.infinity,
                 height: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: Color(0xFF292929),
                 ),
               ),
             ),
@@ -55,8 +55,8 @@ class _EditWidgetState extends State<EditWidget> {
                 gradient: LinearGradient(
                   colors: [Color(0xFF00B89F), Color(0xFF005C50)],
                   stops: [0, 1],
-                  begin: AlignmentDirectional(0.94, -1),
-                  end: AlignmentDirectional(-0.94, 1),
+                  begin: AlignmentDirectional(0.77, -1),
+                  end: AlignmentDirectional(-0.77, 1),
                 ),
               ),
             ),
@@ -123,7 +123,7 @@ class _EditWidgetState extends State<EditWidget> {
                       width: double.infinity,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Colors.black,
+                        color: Color(0xFF292929),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: SingleChildScrollView(

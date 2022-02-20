@@ -1,3 +1,4 @@
+import '../critical/critical_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -28,13 +29,13 @@ class _LandingWidgetState extends State<LandingWidget> {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 350,
+                  height: 400,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [Color(0xFF00B89F), Color(0xFF005C50)],
                       stops: [0, 1],
-                      begin: AlignmentDirectional(0.98, -1),
-                      end: AlignmentDirectional(-0.98, 1),
+                      begin: AlignmentDirectional(0.77, -1),
+                      end: AlignmentDirectional(-0.77, 1),
                     ),
                   ),
                 ),
@@ -117,126 +118,140 @@ class _LandingWidgetState extends State<LandingWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFF262626),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/Group_666.png',
-                                        width: 45,
-                                        height: 45,
-                                        fit: BoxFit.contain,
-                                      ),
-                                      Text(
-                                        '15',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiaryColor,
-                                              fontSize: 35,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 8),
-                                    child: Row(
+                          child: InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CriticalWidget(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 115,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF262626),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Row(
                                       mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
+                                        Image.asset(
+                                          'assets/images/Group_666.png',
+                                          width: 45,
+                                          height: 45,
+                                          fit: BoxFit.contain,
+                                        ),
                                         Text(
-                                          'NEW Alerts',
-                                          textAlign: TextAlign.center,
+                                          '15',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
                                                 fontFamily: 'Poppins',
-                                                color: Color(0xFFFFCC00),
-                                                fontSize: 12,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .tertiaryColor,
+                                                fontSize: 35,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 0, 5),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.end,
                                         children: [
-                                          FaIcon(
-                                            FontAwesomeIcons.solidCircle,
-                                            color: Color(0xFFB54141),
-                                            size: 12,
-                                          ),
                                           Text(
-                                            '05 Critical',
+                                            'NEW Alerts',
+                                            textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1
                                                 .override(
                                                   fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .tertiaryColor,
-                                                  fontSize: 8,
+                                                  color: Color(0xFFFFCC00),
+                                                  fontSize: 12,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
                                         ],
                                       ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          FaIcon(
-                                            FontAwesomeIcons.solidCircle,
-                                            color: Color(0xFFFFCC00),
-                                            size: 12,
-                                          ),
-                                          Text(
-                                            '10 Technical',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .tertiaryColor,
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            FaIcon(
+                                              FontAwesomeIcons.solidCircle,
+                                              color: Color(0xFFB54141),
+                                              size: 12,
+                                            ),
+                                            Text(
+                                              '05 Critical',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .tertiaryColor,
+                                                    fontSize: 8,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            FaIcon(
+                                              FontAwesomeIcons.solidCircle,
+                                              color: Color(0xFFFFCC00),
+                                              size: 12,
+                                            ),
+                                            Text(
+                                              '10 Technical',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .tertiaryColor,
+                                                    fontSize: 8,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -244,18 +259,19 @@ class _LandingWidgetState extends State<LandingWidget> {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Row(
                             mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15, 0, 0, 10),
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(15, 0, 0, 5),
                                 child: Text(
-                                  'Grandpa\'s Status',
+                                  'Sensors',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
@@ -271,9 +287,10 @@ class _LandingWidgetState extends State<LandingWidget> {
                                 EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Container(
+                                  width: 110,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
@@ -282,11 +299,11 @@ class _LandingWidgetState extends State<LandingWidget> {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 2, 5, 2),
+                                        3, 0, 3, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Image.asset(
                                           'assets/images/15-health.png',
@@ -306,7 +323,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Heart Rate',
+                                                'Door',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyText1
@@ -316,20 +333,20 @@ class _LandingWidgetState extends State<LandingWidget> {
                                                               Color(0xFFE5E5E5),
                                                           fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight.w200,
+                                                              FontWeight.w100,
                                                         ),
                                               ),
                                               Text(
-                                                '70',
+                                                'Closed',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'Poppins',
                                                           color: Colors.white,
-                                                          fontSize: 13,
+                                                          fontSize: 11,
                                                           fontWeight:
-                                                              FontWeight.bold,
+                                                              FontWeight.w500,
                                                         ),
                                               ),
                                             ],
@@ -340,6 +357,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                   ),
                                 ),
                                 Container(
+                                  width: 110,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
@@ -348,11 +366,11 @@ class _LandingWidgetState extends State<LandingWidget> {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 2, 5, 2),
+                                        3, 0, 3, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Image.asset(
                                           'assets/images/15-health.png',
@@ -363,7 +381,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 0, 0),
+                                                  10, 0, 0, 0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -372,7 +390,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Heart Rate',
+                                                'Bath Tub',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyText1
@@ -382,20 +400,20 @@ class _LandingWidgetState extends State<LandingWidget> {
                                                               Color(0xFFE5E5E5),
                                                           fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight.w200,
+                                                              FontWeight.w100,
                                                         ),
                                               ),
                                               Text(
-                                                '70',
+                                                'Accessed',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'Poppins',
                                                           color: Colors.white,
-                                                          fontSize: 13,
+                                                          fontSize: 11,
                                                           fontWeight:
-                                                              FontWeight.bold,
+                                                              FontWeight.w500,
                                                         ),
                                               ),
                                             ],
@@ -406,6 +424,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                   ),
                                 ),
                                 Container(
+                                  width: 110,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
@@ -414,11 +433,11 @@ class _LandingWidgetState extends State<LandingWidget> {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 2, 5, 2),
+                                        3, 0, 3, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Image.asset(
                                           'assets/images/15-health.png',
@@ -429,7 +448,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 0, 0),
+                                                  10, 0, 0, 0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -438,7 +457,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Heart Rate',
+                                                'Pillbox',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyText1
@@ -448,228 +467,20 @@ class _LandingWidgetState extends State<LandingWidget> {
                                                               Color(0xFFE5E5E5),
                                                           fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight.w200,
+                                                              FontWeight.w100,
                                                         ),
                                               ),
                                               Text(
-                                                '70',
+                                                'Opened',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'Poppins',
                                                           color: Colors.white,
-                                                          fontSize: 13,
+                                                          fontSize: 11,
                                                           fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(
-                                      color: Color(0x5EE5E5E5),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 2, 5, 2),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/15-health.png',
-                                          width: 22,
-                                          height: 22,
-                                          fit: BoxFit.contain,
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 0, 0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Heart Rate',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color:
-                                                              Color(0xFFE5E5E5),
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w200,
-                                                        ),
-                                              ),
-                                              Text(
-                                                '70',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: Colors.white,
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(
-                                      color: Color(0x5EE5E5E5),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 2, 5, 2),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/15-health.png',
-                                          width: 22,
-                                          height: 22,
-                                          fit: BoxFit.contain,
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 0, 0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Heart Rate',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color:
-                                                              Color(0xFFE5E5E5),
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w200,
-                                                        ),
-                                              ),
-                                              Text(
-                                                '70',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: Colors.white,
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(
-                                      color: Color(0x5EE5E5E5),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 2, 5, 2),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/15-health.png',
-                                          width: 22,
-                                          height: 22,
-                                          fit: BoxFit.contain,
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 0, 0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Heart Rate',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color:
-                                                              Color(0xFFE5E5E5),
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w200,
-                                                        ),
-                                              ),
-                                              Text(
-                                                '70',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: Colors.white,
-                                                          fontSize: 13,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                              FontWeight.w500,
                                                         ),
                                               ),
                                             ],
@@ -685,173 +496,625 @@ class _LandingWidgetState extends State<LandingWidget> {
                         ],
                       ),
                     ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(15, 0, 0, 5),
+                              child: Text(
+                                'Grandpa\'s Status',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFFE5E5E5),
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: Color(0x5EE5E5E5),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      3, 0, 3, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/15-health.png',
+                                        width: 22,
+                                        height: 22,
+                                        fit: BoxFit.contain,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 0, 0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Heart Rate',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFFE5E5E5),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
+                                            ),
+                                            Text(
+                                              '70 BPM',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: Color(0x5EE5E5E5),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      3, 0, 3, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/15-health.png',
+                                        width: 22,
+                                        height: 22,
+                                        fit: BoxFit.contain,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 0, 0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Steps',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFFE5E5E5),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
+                                            ),
+                                            Text(
+                                              '67780',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: Color(0x5EE5E5E5),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      3, 0, 3, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/15-health.png',
+                                        width: 22,
+                                        height: 22,
+                                        fit: BoxFit.contain,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 0, 0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'BPM',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFFE5E5E5),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
+                                            ),
+                                            Text(
+                                              '100',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: Color(0x5EE5E5E5),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      3, 0, 3, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/15-health.png',
+                                        width: 22,
+                                        height: 22,
+                                        fit: BoxFit.contain,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 0, 0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Calories',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFFE5E5E5),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
+                                            ),
+                                            Text(
+                                              '110',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: Color(0x5EE5E5E5),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      3, 0, 3, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/15-health.png',
+                                        width: 22,
+                                        height: 22,
+                                        fit: BoxFit.contain,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 0, 0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Sleep',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFFE5E5E5),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
+                                            ),
+                                            Text(
+                                              '70',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: Color(0x5EE5E5E5),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      3, 0, 3, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/15-health.png',
+                                        width: 22,
+                                        height: 22,
+                                        fit: BoxFit.contain,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 0, 0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Battery',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFFE5E5E5),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w100,
+                                                  ),
+                                            ),
+                                            Text(
+                                              '40%',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFF292929),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                InkWell(
-                                  onTap: () async {
-                                    setState(
-                                        () => FFAppState().Heart = 'misiing');
-                                    setState(() =>
-                                        FFAppState().hear = FFAppState().hear);
-                                  },
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.contain,
-                                        image: Image.asset(
-                                          'assets/images/15-health_active.png',
-                                        ).image,
+                          Container(
+                            width: double.infinity,
+                            height: 75,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Color(0xFF1A1A1A),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  InkWell(
+                                    onTap: () async {
+                                      setState(() => FFAppState().Heart =
+                                          'Data Not Found');
+                                      setState(() => FFAppState().hear =
+                                          FFAppState().hear);
+                                    },
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.contain,
+                                          image: Image.asset(
+                                            'assets/images/15-health_active.png',
+                                          ).image,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Image.network(
-                                  'https://picsum.photos/seed/803/600',
-                                  width: 2,
-                                  height: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                InkWell(
-                                  onTap: () async {
-                                    setState(() =>
-                                        FFAppState().Heart = ' Data Missing');
-                                    setState(() => FFAppState().hear =
-                                        '8679613_footprint_line_icon_active.jpg');
-                                  },
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.contain,
-                                        image: Image.asset(
-                                          'assets/images/8679613_footprint_line_icon_.png',
-                                        ).image,
+                                  Image.asset(
+                                    'assets/images/Line_49.png',
+                                    width: 2,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      setState(() =>
+                                          FFAppState().Heart = ' Data Missing');
+                                      setState(() => FFAppState().hear =
+                                          '8679613_footprint_line_icon_active.jpg');
+                                    },
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.contain,
+                                          image: Image.asset(
+                                            'assets/images/8679613_footprint_line_icon_.png',
+                                          ).image,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Image.network(
-                                  'https://picsum.photos/seed/803/600',
-                                  width: 2,
-                                  height: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                InkWell(
-                                  onTap: () async {
-                                    setState(() =>
-                                        FFAppState().Heart = 'Data Not Found');
-                                  },
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.contain,
-                                        image: Image.asset(
-                                          'assets/images/01_.png',
-                                        ).image,
+                                  Image.asset(
+                                    'assets/images/Line_49.png',
+                                    width: 2,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      setState(() => FFAppState().Heart =
+                                          'Data Not Found');
+                                    },
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.contain,
+                                          image: Image.asset(
+                                            'assets/images/01_.png',
+                                          ).image,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Image.network(
-                                  'https://picsum.photos/seed/803/600',
-                                  width: 2,
-                                  height: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                InkWell(
-                                  onTap: () async {
-                                    setState(() =>
-                                        FFAppState().Heart = 'Data Missing');
-                                  },
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.contain,
-                                        image: Image.asset(
-                                          'assets/images/Group_689_.png',
-                                        ).image,
+                                  Image.asset(
+                                    'assets/images/Line_49.png',
+                                    width: 2,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      setState(() =>
+                                          FFAppState().Heart = 'Data Missing');
+                                    },
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.contain,
+                                          image: Image.asset(
+                                            'assets/images/Group_689_.png',
+                                          ).image,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Image.network(
-                                  'https://picsum.photos/seed/803/600',
-                                  width: 2,
-                                  height: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                InkWell(
-                                  onTap: () async {
-                                    setState(() =>
-                                        FFAppState().Heart = 'Data Missing');
-                                  },
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.contain,
-                                        image: Image.asset(
-                                          'assets/images/Layer_2_.png',
-                                        ).image,
+                                  Image.asset(
+                                    'assets/images/Line_49.png',
+                                    width: 2,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      setState(() =>
+                                          FFAppState().Heart = 'Data Missing');
+                                    },
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.contain,
+                                          image: Image.asset(
+                                            'assets/images/Layer_2_.png',
+                                          ).image,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Image.network(
-                                  'https://picsum.photos/seed/803/600',
-                                  width: 2,
-                                  height: 40,
-                                  fit: BoxFit.cover,
-                                ),
-                                InkWell(
-                                  onTap: () async {
-                                    setState(() =>
-                                        FFAppState().Heart = 'Data Missing');
-                                  },
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.contain,
-                                        image: Image.asset(
-                                          'assets/images/65-battery_.png',
-                                        ).image,
+                                  Image.asset(
+                                    'assets/images/Line_49.png',
+                                    width: 2,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      setState(() =>
+                                          FFAppState().Heart = 'Data Missing');
+                                    },
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.contain,
+                                          image: Image.asset(
+                                            'assets/images/65-battery_.png',
+                                          ).image,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFFF5F5F5),
-                            child: Text(
-                              valueOrDefault<String>(
-                                FFAppState().Heart,
-                                'Data Not Found',
+                          Stack(
+                            children: [
+                              Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                color: Color(0xFFF5F5F5),
+                                child: Image.asset(
+                                  'assets/images/Picsart_22-02-20_10-11-12-012.jpg',
+                                  width: 400,
+                                  height: 300,
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                              style: FlutterFlowTheme.of(context).bodyText1,
-                            ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      color: Color(0xFFF5F5F5),
+                                      child: Text(
+                                        valueOrDefault<String>(
+                                          FFAppState().Heart,
+                                          'Data Not Found',
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -859,6 +1122,58 @@ class _LandingWidgetState extends State<LandingWidget> {
                   ],
                 ),
               ),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 80),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF00B89F),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    'assets/images/bubble.png',
+                                    width: 40,
+                                    height: 40,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              'Chat',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFFE5E5E5),
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),

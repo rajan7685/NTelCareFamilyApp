@@ -32,6 +32,73 @@ class _Landing2WidgetState extends State<Landing2Widget> {
                     decoration: BoxDecoration(
                       color: Color(0xFF00FFDC),
                     ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: DefaultTabController(
+                            length: 3,
+                            initialIndex: 0,
+                            child: Column(
+                              children: [
+                                TabBar(
+                                  labelColor:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  labelStyle:
+                                      FlutterFlowTheme.of(context).bodyText1,
+                                  indicatorColor: FlutterFlowTheme.of(context)
+                                      .secondaryColor,
+                                  tabs: [
+                                    Tab(
+                                      text: 'Example 1',
+                                    ),
+                                    Tab(
+                                      text: 'Example 2',
+                                    ),
+                                    Tab(
+                                      text: 'Example 3',
+                                    ),
+                                  ],
+                                ),
+                                Expanded(
+                                  child: TabBarView(
+                                    children: [
+                                      Text(
+                                        'Tab View 1',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              fontSize: 32,
+                                            ),
+                                      ),
+                                      Text(
+                                        'Tab View 2',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              fontSize: 32,
+                                            ),
+                                      ),
+                                      Text(
+                                        'Tab View 3',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              fontSize: 32,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Expanded(
                     child: Container(
