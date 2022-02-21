@@ -170,7 +170,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 4, 0, 0),
                                   child: Text(
-                                    'kennys@gmail.com',
+                                    FFAppState().Email,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(

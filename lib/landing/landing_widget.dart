@@ -6,7 +6,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LandingWidget extends StatefulWidget {
-  const LandingWidget({Key key}) : super(key: key);
+  const LandingWidget({
+    Key key,
+    this.email,
+  }) : super(key: key);
+
+  final String email;
 
   @override
   _LandingWidgetState createState() => _LandingWidgetState();

@@ -23,6 +23,10 @@ class FFAppState {
   String hear;
 
   String Heart = 'Missing';
+
+  String FirstName = '';
+
+  String Email = '';
 }
 
 LatLng _latLngFromString(String val) {
