@@ -43,6 +43,18 @@ class _LoginWidgetState extends State<LoginWidget> {
               height: double.infinity,
               fit: BoxFit.fill,
             ),
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0x3443504E), Color(0x4C00B89F)],
+                  stops: [0, 1],
+                  begin: AlignmentDirectional(0, -1),
+                  end: AlignmentDirectional(0, 1),
+                ),
+              ),
+            ),
             Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,

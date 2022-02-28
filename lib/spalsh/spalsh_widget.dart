@@ -2,17 +2,27 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../login/login_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SplashWidget extends StatefulWidget {
-  const SplashWidget({Key key}) : super(key: key);
+class SpalshWidget extends StatefulWidget {
+  const SpalshWidget({Key key}) : super(key: key);
 
   @override
-  _SplashWidgetState createState() => _SplashWidgetState();
+  _SpalshWidgetState createState() => _SpalshWidgetState();
 }
 
-class _SplashWidgetState extends State<SplashWidget> {
+class _SpalshWidgetState extends State<SpalshWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(milliseconds: 1000));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

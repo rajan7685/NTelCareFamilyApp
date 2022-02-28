@@ -7,7 +7,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfileWidget extends StatefulWidget {
-  const ProfileWidget({Key key}) : super(key: key);
+  const ProfileWidget({
+    Key key,
+    this.chattoggle,
+  }) : super(key: key);
+
+  final bool chattoggle;
 
   @override
   _ProfileWidgetState createState() => _ProfileWidgetState();
@@ -208,28 +213,39 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               child: Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    FaIcon(
-                                      FontAwesomeIcons.edit,
-                                      color: Color(0xFF00FFDC),
-                                      size: 14,
-                                    ),
-                                    Text(
-                                      ' Edit Profile',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiaryColor,
-                                            fontWeight: FontWeight.w200,
-                                          ),
-                                    ),
-                                  ],
+                                child: InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => EditWidget(),
+                                      ),
+                                    );
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      FaIcon(
+                                        FontAwesomeIcons.edit,
+                                        color: Color(0xFF00FFDC),
+                                        size: 14,
+                                      ),
+                                      Text(
+                                        ' Edit Profile',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
+                                              fontWeight: FontWeight.w200,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -296,7 +312,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               SwitchListTile(
-                                value: switchListTileValue ??= true,
+                                value: switchListTileValue ??=
+                                    widget.chattoggle,
                                 onChanged: (newValue) => setState(
                                     () => switchListTileValue = newValue),
                                 title: Text(

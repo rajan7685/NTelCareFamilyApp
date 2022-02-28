@@ -27,6 +27,8 @@ class FFAppState {
   String FirstName = '';
 
   String Email = '';
+
+  bool Chattoggle = false;
 }
 
 LatLng _latLngFromString(String val) {

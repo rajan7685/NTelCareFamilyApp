@@ -1,4 +1,4 @@
-import '../flutter_flow/flutter_flow_icon_button.dart';
+import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -71,19 +71,10 @@ class _VideoWidgetState extends State<VideoWidget> {
                                   ),
                         ),
                       ),
-                      FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 30,
-                        borderWidth: 1,
-                        buttonSize: 60,
-                        icon: Icon(
-                          Icons.notifications_outlined,
-                          color: FlutterFlowTheme.of(context).tertiaryColor,
-                          size: 40,
-                        ),
-                        onPressed: () {
-                          print('IconButton pressed ...');
-                        },
+                      Icon(
+                        Icons.notifications_none,
+                        color: Color(0xFFE5E5E5),
+                        size: 30,
                       ),
                     ],
                   ),
@@ -117,7 +108,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                                 ),
                                 child: DefaultTabController(
                                   length: 2,
-                                  initialIndex: 40,
+                                  initialIndex: 1,
                                   child: Column(
                                     children: [
                                       TabBar(
@@ -683,55 +674,69 @@ class _VideoWidgetState extends State<VideoWidget> {
                                                                         0,
                                                                         15,
                                                                         0),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Container(
-                                                                  width: 60,
-                                                                  height: 60,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Color(
-                                                                        0xFF00B89F),
-                                                                    shape: BoxShape
-                                                                        .circle,
+                                                            child: InkWell(
+                                                              onTap: () async {
+                                                                await Navigator
+                                                                    .push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            ChatWidget(),
                                                                   ),
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Image
-                                                                          .asset(
-                                                                        'assets/images/bubble.png',
-                                                                        width:
-                                                                            40,
-                                                                        height:
-                                                                            40,
-                                                                        fit: BoxFit
-                                                                            .fill,
-                                                                      ),
-                                                                    ],
+                                                                );
+                                                              },
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 60,
+                                                                    height: 60,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Color(
+                                                                          0xFF00B89F),
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                    ),
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Image
+                                                                            .asset(
+                                                                          'assets/images/bubble.png',
+                                                                          width:
+                                                                              40,
+                                                                          height:
+                                                                              40,
+                                                                          fit: BoxFit
+                                                                              .fill,
+                                                                        ),
+                                                                      ],
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'Chat',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: Color(
-                                                                            0xFFE5E5E5),
-                                                                      ),
-                                                                ),
-                                                              ],
+                                                                  Text(
+                                                                    'Chat',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              Color(0xFFE5E5E5),
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
                                                         ],
@@ -1409,55 +1414,69 @@ class _VideoWidgetState extends State<VideoWidget> {
                                                                         0,
                                                                         15,
                                                                         0),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Container(
-                                                                  width: 60,
-                                                                  height: 60,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Color(
-                                                                        0xFF00B89F),
-                                                                    shape: BoxShape
-                                                                        .circle,
+                                                            child: InkWell(
+                                                              onTap: () async {
+                                                                await Navigator
+                                                                    .push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            ChatWidget(),
                                                                   ),
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Image
-                                                                          .asset(
-                                                                        'assets/images/bubble.png',
-                                                                        width:
-                                                                            40,
-                                                                        height:
-                                                                            40,
-                                                                        fit: BoxFit
-                                                                            .fill,
-                                                                      ),
-                                                                    ],
+                                                                );
+                                                              },
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 60,
+                                                                    height: 60,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Color(
+                                                                          0xFF00B89F),
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                    ),
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Image
+                                                                            .asset(
+                                                                          'assets/images/bubble.png',
+                                                                          width:
+                                                                              40,
+                                                                          height:
+                                                                              40,
+                                                                          fit: BoxFit
+                                                                              .fill,
+                                                                        ),
+                                                                      ],
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Text(
-                                                                  'Chat',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: Color(
-                                                                            0xFFE5E5E5),
-                                                                      ),
-                                                                ),
-                                                              ],
+                                                                  Text(
+                                                                    'Chat',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              Color(0xFFE5E5E5),
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
                                                         ],
