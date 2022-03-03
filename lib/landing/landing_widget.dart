@@ -60,7 +60,7 @@ class _LandingWidgetState extends State<LandingWidget> {
             Align(
               alignment: AlignmentDirectional(0, -6.56),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -106,7 +106,10 @@ class _LandingWidgetState extends State<LandingWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        'Kenny Alter   ',
+                                        valueOrDefault<String>(
+                                          FFAppState().Email,
+                                          'Kenny',
+                                        ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
                                             .override(
@@ -177,7 +180,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 5),
+                                          0, 0, 0, 2),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment:
@@ -206,26 +209,31 @@ class _LandingWidgetState extends State<LandingWidget> {
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             FaIcon(
                                               FontAwesomeIcons.solidCircle,
                                               color: Color(0xFFB54141),
                                               size: 12,
                                             ),
-                                            Text(
-                                              '05 Critical',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Poppins',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .tertiaryColor,
-                                                    fontSize: 8,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(3, 0, 0, 0),
+                                              child: Text(
+                                                '05 Critical',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiaryColor,
+                                                          fontSize: 8,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -239,19 +247,24 @@ class _LandingWidgetState extends State<LandingWidget> {
                                               color: Color(0xFFFFCC00),
                                               size: 12,
                                             ),
-                                            Text(
-                                              '10 Technical',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Poppins',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .tertiaryColor,
-                                                    fontSize: 8,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(3, 0, 0, 0),
+                                              child: Text(
+                                                '10 Technical',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiaryColor,
+                                                          fontSize: 8,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -1003,7 +1016,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -1220,53 +1233,54 @@ class _LandingWidgetState extends State<LandingWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChatWidget(),
-                              ),
-                            );
-                          },
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Container(
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF00B89F),
-                                  shape: BoxShape.circle,
+                      if (FFAppState().Chattoggle2 ?? true)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                          child: InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatWidget(),
                                 ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/bubble.png',
-                                      width: 40,
-                                      height: 40,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ],
+                              );
+                            },
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF00B89F),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/bubble.png',
+                                        width: 40,
+                                        height: 40,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                'Chat',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFFE5E5E5),
-                                    ),
-                              ),
-                            ],
+                                Text(
+                                  'Chat',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFFE5E5E5),
+                                      ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ),

@@ -14,6 +14,7 @@ class FFAppState {
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
+    _Chattoggle2 = prefs.getBool('ff_Chattoggle2') ?? _Chattoggle2;
   }
 
   SharedPreferences prefs;
@@ -29,6 +30,13 @@ class FFAppState {
   String Email = '';
 
   bool Chattoggle = false;
+
+  bool _Chattoggle2 = false;
+  bool get Chattoggle2 => _Chattoggle2;
+  set Chattoggle2(bool _value) {
+    _Chattoggle2 = _value;
+    prefs.setBool('ff_Chattoggle2', _value);
+  }
 }
 
 LatLng _latLngFromString(String val) {

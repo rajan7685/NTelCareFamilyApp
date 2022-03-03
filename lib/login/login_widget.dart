@@ -231,12 +231,23 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                       ),
                     ),
-                    Text(
-                      'Forgot Password?',
-                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                            fontFamily: 'Poppins',
-                            color: Color(0xFFAFAFAF),
+                    InkWell(
+                      onTap: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                NavBarPage(initialPage: 'Landing'),
                           ),
+                        );
+                      },
+                      child: Text(
+                        'Forgot Password?',
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFFAFAFAF),
+                            ),
+                      ),
                     ),
                   ],
                 ),
