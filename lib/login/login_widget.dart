@@ -23,8 +23,8 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController(text: 'Prateek Gupta');
-    textController2 = TextEditingController(text: '**********');
+    textController1 = TextEditingController();
+    textController2 = TextEditingController();
     passwordVisibility = false;
   }
 
@@ -93,7 +93,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w300,
                                   ),
-                              hintText: '[Some hint text...]',
+                              hintText: 'Enter Your Username',
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
@@ -147,7 +147,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w300,
                                   ),
-                              hintText: '[Some hint text...]',
+                              hintText: 'Enter Your Password',
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
@@ -196,7 +196,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          apiCallOutput = await LoginCall.call();
+                          apiCallOutput = await LoginCall.call(
+                            username: textController1.text,
+                            password: textController2.text,
+                          );
                           if (apiCallOutput.succeeded) {
                             await Navigator.push(
                               context,

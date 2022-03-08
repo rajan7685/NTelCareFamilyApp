@@ -14,6 +14,7 @@ class EditWidget extends StatefulWidget {
 }
 
 class _EditWidgetState extends State<EditWidget> {
+  ApiCallResponse apiCallOutput;
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
@@ -443,8 +444,24 @@ class _EditWidgetState extends State<EditWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 10, 0, 0),
                                   child: FFButtonWidget(
-                                    onPressed: () {
-                                      print('Button pressed ...');
+                                    onPressed: () async {
+                                      apiCallOutput = await DeleteUserCall.call(
+                                        token: getJsonField(
+                                          (columnLoginResponse?.jsonBody ?? ''),
+                                          r'''$[:].Token''',
+                                        ).toString(),
+                                      );
+                                      if (apiCallOutput.succeeded) {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => NavBarPage(
+                                                initialPage: 'Profile'),
+                                          ),
+                                        );
+                                      }
+
+                                      setState(() {});
                                     },
                                     text: 'Delete User',
                                     options: FFButtonOptions(
