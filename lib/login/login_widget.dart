@@ -1,8 +1,6 @@
-import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,7 +12,6 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  ApiCallResponse apiCallOutput;
   TextEditingController textController1;
   TextEditingController textController2;
   bool passwordVisibility;
@@ -38,7 +35,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         child: Stack(
           children: [
             Image.asset(
-              'assets/images/login__2.png',
+              'assets/images/MicrosoftTeams-image.png',
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.fill,
@@ -63,8 +60,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 150),
                   child: Image.asset(
                     'assets/images/Group_598.png',
-                    width: 350,
-                    height: 100,
+                    width: 300,
+                    height: 200,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -195,26 +192,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                       child: FFButtonWidget(
-                        onPressed: () async {
-                          apiCallOutput = await LoginCall.call(
-                            username: textController1.text,
-                            password: textController2.text,
-                          );
-                          if (apiCallOutput.succeeded) {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    NavBarPage(initialPage: 'Landing'),
-                              ),
-                            );
-                          }
-                          setState(() => FFAppState().Email = getJsonField(
-                                (apiCallOutput?.jsonBody ?? ''),
-                                r'''$[:].Email''',
-                              ).toString());
-
-                          setState(() {});
+                        onPressed: () {
+                          print('Button pressed ...');
                         },
                         text: 'Login',
                         options: FFButtonOptions(
@@ -234,23 +213,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                       ),
                     ),
-                    InkWell(
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                NavBarPage(initialPage: 'Landing'),
+                    Text(
+                      'Forgot Password?',
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFAFAFAF),
                           ),
-                        );
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFFAFAFAF),
-                            ),
-                      ),
                     ),
                   ],
                 ),
