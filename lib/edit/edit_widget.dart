@@ -17,6 +17,7 @@ class EditWidget extends StatefulWidget {
 class _EditWidgetState extends State<EditWidget> {
   ApiCallResponse apiCallOutput;
 
+  TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
   TextEditingController textController4;

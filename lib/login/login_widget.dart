@@ -3,7 +3,6 @@ import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,7 +14,6 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  ApiCallResponse apiCallOutput;
   TextEditingController textController1;
   TextEditingController textController2;
   bool passwordVisibility;
@@ -237,7 +235,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                               builder: (alertDialogContext) {
                                 return AlertDialog(
                                   title: Text('Error'),
-                                  content: Text("Incorrect Username or Password"),
+                                  content:
+                                      Text("Incorrect Username or Password"),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>

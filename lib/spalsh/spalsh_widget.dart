@@ -66,7 +66,7 @@ class _SpalshWidgetState extends State<SpalshWidget> {
                         ),
                         child: Padding(
                           padding:
-                          EdgeInsetsDirectional.fromSTEB(10, 15, 10, 0),
+                              EdgeInsetsDirectional.fromSTEB(10, 15, 10, 0),
                           child: Image.asset(
                             'assets/images/Group 598.png',
                             width: 300,
