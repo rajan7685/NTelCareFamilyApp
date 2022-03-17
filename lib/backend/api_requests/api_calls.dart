@@ -70,3 +70,19 @@ class UserAddCall {
     );
   }
 }
+
+class ForgotPasswordCall {
+  static Future<ApiCallResponse> call({
+    String email = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'ForgotPassword',
+      apiUrl:
+          'https://ntelcare.com/MobiPortal/ForgotPassword.aspx?Email=${email}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+    );
+  }
+}

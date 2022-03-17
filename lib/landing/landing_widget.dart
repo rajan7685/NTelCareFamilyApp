@@ -1,3 +1,5 @@
+import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
+
 import '../chat/chat_widget.dart';
 import '../critical/critical_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -60,7 +62,7 @@ class _LandingWidgetState extends State<LandingWidget> {
             Align(
               alignment: AlignmentDirectional(0, -6.56),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -106,18 +108,35 @@ class _LandingWidgetState extends State<LandingWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        valueOrDefault<String>(
-                                          FFAppState().Email,
-                                          'Kenny',
-                                        ),
+                                        FFAppState().First_Name.toString(),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
                                             .override(
                                               fontFamily: 'Poppins',
-                                              color: Color(0xFF00B89F),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
                                               fontSize: 30,
                                               fontWeight: FontWeight.w600,
                                             ),
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            FFAppState().Last_Name.toString(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .tertiaryColor,
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -159,8 +178,8 @@ class _LandingWidgetState extends State<LandingWidget> {
                                       children: [
                                         Image.asset(
                                           'assets/images/Group_666.png',
-                                          width: 45,
-                                          height: 45,
+                                          width: 35,
+                                          height: 35,
                                           fit: BoxFit.contain,
                                         ),
                                         Text(
@@ -172,7 +191,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .tertiaryColor,
-                                                fontSize: 35,
+                                                fontSize: 25,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
@@ -180,7 +199,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 0, 2),
+                                          0, 5, 0, 5),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         mainAxisAlignment:
@@ -209,31 +228,26 @@ class _LandingWidgetState extends State<LandingWidget> {
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             FaIcon(
                                               FontAwesomeIcons.solidCircle,
                                               color: Color(0xFFB54141),
                                               size: 12,
                                             ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(3, 0, 0, 0),
-                                              child: Text(
-                                                '05 Critical',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .tertiaryColor,
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                              ),
+                                            Text(
+                                              '05 Critical',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .tertiaryColor,
+                                                    fontSize: 8,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
                                             ),
                                           ],
                                         ),
@@ -247,24 +261,19 @@ class _LandingWidgetState extends State<LandingWidget> {
                                               color: Color(0xFFFFCC00),
                                               size: 12,
                                             ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(3, 0, 0, 0),
-                                              child: Text(
-                                                '10 Technical',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .tertiaryColor,
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                              ),
+                                            Text(
+                                              '10 Technical',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .tertiaryColor,
+                                                    fontSize: 8,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
                                             ),
                                           ],
                                         ),
@@ -1016,7 +1025,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [

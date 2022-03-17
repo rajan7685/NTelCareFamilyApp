@@ -1,3 +1,4 @@
+import 'package:n_tel_care_family_app/model/loginmodel.dart';
 import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -38,7 +39,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         child: Stack(
           children: [
             Image.asset(
-              'assets/images/login__2.png',
+              'assets/images/MicrosoftTeams-image.png',
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.fill,
@@ -62,9 +63,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 150),
                   child: Image.asset(
-                    'assets/images/Group_598.png',
-                    width: 350,
-                    height: 100,
+                    'assets/images/Group 598.png',
+                    width: 300,
+                    height: 200,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -196,11 +197,33 @@ class _LoginWidgetState extends State<LoginWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          apiCallOutput = await LoginCall.call(
+                          final data = await LoginCall.call(
                             username: textController1.text,
                             password: textController2.text,
                           );
-                          if (apiCallOutput.succeeded) {
+                          print(data?.jsonBody[0].runtimeType);
+
+                          if ((getJsonField(
+                                (data?.jsonBody ?? ''),
+                                r'''$[:].Error''',
+                              )) ==
+                              ('Nill')) {
+                            LoginModel loginModel =
+                                LoginModel.fromJsonData(data.jsonBody[0]);
+                            FFAppState().IsUserLogin = loginModel.IsUserLogin;
+                            FFAppState().IsLiveView = loginModel.IsLiveView;
+                            FFAppState().Error = loginModel.Error;
+                            FFAppState().Email = loginModel.Email;
+                            FFAppState().Token = loginModel.Token;
+                            FFAppState().UserId = loginModel.UserId;
+                            FFAppState().AccountId = loginModel.AccountId;
+                            FFAppState().RoleId = loginModel.RoleId;
+                            FFAppState().First_Name = loginModel.FirstName;
+                            FFAppState().Last_Name = loginModel.LastName;
+                            FFAppState().Profile_Picture =
+                                loginModel.ProfilePicture;
+
+                            print(loginModel.FirstName);
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -208,11 +231,24 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     NavBarPage(initialPage: 'Landing'),
                               ),
                             );
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Error'),
+                                  content: Text("Incorrect Username or Password"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           }
-                          setState(() => FFAppState().Email = getJsonField(
-                                (apiCallOutput?.jsonBody ?? ''),
-                                r'''$[:].Email''',
-                              ).toString());
 
                           setState(() {});
                         },
@@ -234,23 +270,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                       ),
                     ),
-                    InkWell(
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                NavBarPage(initialPage: 'Landing'),
+                    Text(
+                      'Forgot Password?',
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFAFAFAF),
                           ),
-                        );
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFFAFAFAF),
-                            ),
-                      ),
                     ),
                   ],
                 ),

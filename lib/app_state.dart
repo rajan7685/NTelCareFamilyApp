@@ -25,10 +25,17 @@ class FFAppState {
 
   String Heart = 'Missing';
 
-  String FirstName = '';
-
   String Email = '';
-
+  String First_Name = '';
+  String Last_Name = '';
+  String Profile_Picture = '';
+  String IsUserLogin = '';
+  String Error = '';
+  String Token = '';
+  String UserId = '';
+  String AccountId = '';
+  String RoleId = '';
+  String IsLiveView = '';
   bool Chattoggle = false;
 
   bool _Chattoggle2 = false;

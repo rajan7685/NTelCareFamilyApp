@@ -88,10 +88,10 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                 ),
                               );
                             },
-                            child: FaIcon(
-                              FontAwesomeIcons.bell,
-                              color: FlutterFlowTheme.of(context).tertiaryColor,
-                              size: 24,
+                            child: Icon(
+                              Icons.notifications_none,
+                              color: Color(0xFFE5E5E5),
+                              size: 30,
                             ),
                           ),
                         ),
@@ -934,79 +934,76 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                               MainAxisAlignment
                                                                   .end,
                                                           children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          0,
-                                                                          15,
-                                                                          0),
-                                                              child: InkWell(
-                                                                onTap:
-                                                                    () async {
-                                                                  await Navigator
-                                                                      .push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              ChatWidget(),
-                                                                    ),
-                                                                  );
-                                                                },
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Container(
-                                                                      width: 60,
-                                                                      height:
-                                                                          60,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFF00B89F),
-                                                                        shape: BoxShape
-                                                                            .circle,
+                                                            if (FFAppState()
+                                                                    .Chattoggle2 ??
+                                                                true)
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            15,
+                                                                            0),
+                                                                child: InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    await Navigator
+                                                                        .push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                ChatWidget(),
                                                                       ),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Image
-                                                                              .asset(
-                                                                            'assets/images/bubble.png',
-                                                                            width:
-                                                                                40,
-                                                                            height:
-                                                                                40,
-                                                                            fit:
-                                                                                BoxFit.fill,
-                                                                          ),
-                                                                        ],
+                                                                    );
+                                                                  },
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Container(
+                                                                        width:
+                                                                            60,
+                                                                        height:
+                                                                            60,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              Color(0xFF00B89F),
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Image.asset(
+                                                                              'assets/images/bubble.png',
+                                                                              width: 40,
+                                                                              height: 40,
+                                                                              fit: BoxFit.fill,
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                    Text(
-                                                                      'Chat',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText1
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Poppins',
-                                                                            color:
-                                                                                Color(0xFFE5E5E5),
-                                                                          ),
-                                                                    ),
-                                                                  ],
+                                                                      Text(
+                                                                        'Chat',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyText1
+                                                                            .override(
+                                                                              fontFamily: 'Poppins',
+                                                                              color: Color(0xFFE5E5E5),
+                                                                            ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
                                                           ],
                                                         ),
                                                       ),
@@ -1059,7 +1056,7 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                                             -0.12),
                                                                     child: Image
                                                                         .asset(
-                                                                      'assets/images/Group_704.png',
+                                                                      'assets/images/7068954_furniture_door_interior_house_front_icon.png',
                                                                       width: 35,
                                                                       height:
                                                                           35,
@@ -1092,7 +1089,7 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                                             .max,
                                                                     children: [
                                                                       Text(
-                                                                        'Mi Band',
+                                                                        'Doors',
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(
@@ -1108,7 +1105,7 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                                             .max,
                                                                     children: [
                                                                       Text(
-                                                                        'Grandpa',
+                                                                        'Closed',
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(
@@ -1187,7 +1184,7 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                                             -0.12),
                                                                     child: Image
                                                                         .asset(
-                                                                      'assets/images/Group_704.png',
+                                                                      'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon.png',
                                                                       width: 35,
                                                                       height:
                                                                           35,
@@ -1220,7 +1217,7 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                                             .max,
                                                                     children: [
                                                                       Text(
-                                                                        'Mi Band',
+                                                                        'Bathtub',
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(
@@ -1236,7 +1233,7 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                                             .max,
                                                                     children: [
                                                                       Text(
-                                                                        'Grandpa',
+                                                                        'Accessed at 40C',
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(
@@ -1315,7 +1312,7 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                                             -0.12),
                                                                     child: Image
                                                                         .asset(
-                                                                      'assets/images/Group_704.png',
+                                                                      'assets/images/8675105_ic_fluent_pill_regular_icon.png',
                                                                       width: 35,
                                                                       height:
                                                                           35,
@@ -1348,7 +1345,7 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                                             .max,
                                                                     children: [
                                                                       Text(
-                                                                        'Mi Band',
+                                                                        'Pillbox',
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(
@@ -1364,7 +1361,7 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                                                                             .max,
                                                                     children: [
                                                                       Text(
-                                                                        'Grandpa',
+                                                                        'Opened',
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(
