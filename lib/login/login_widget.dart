@@ -6,6 +6,8 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../main.dart';
+
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key key}) : super(key: key);
 
@@ -59,7 +61,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 150),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 75),
                   child: Image.asset(
                     'assets/images/Group 598.png',
                     width: 300,

@@ -12,7 +12,7 @@ class LoginCall {
     return ApiManager.instance.makeApiCall(
       callName: 'Login',
       apiUrl:
-          'https://ntelcare.com/MobiPortal/Signin.aspx?UserName=${username}&Password=${password}&OSType=I',
+          'http://demo.ntelcare.com/MobiPortal/Signin.aspx?UserName=${username}&Password=${password}&OSType=I',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -27,7 +27,8 @@ class DeleteUserCall {
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'DeleteUser',
-      apiUrl: 'https://ntelcare.com/MobiPortal/UserDelete.aspx?Token=${token}',
+      apiUrl:
+          'http://demo.ntelcare.com/MobiPortal/UserDelete.aspx?Token=${token}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -43,7 +44,7 @@ class CameraLIstCall {
     return ApiManager.instance.makeApiCall(
       callName: 'CameraLIst',
       apiUrl:
-          'https://ntelcare.com/MobiPortal/Cameras.aspx?Token=${token}&OSType=I',
+          'http://demo.ntelcare.com/MobiPortal/Cameras.aspx?Token=${token}&OSType=I',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -62,7 +63,7 @@ class UserAddCall {
     return ApiManager.instance.makeApiCall(
       callName: 'UserAdd',
       apiUrl:
-          'https://ntelcare.com/MobiPortal/UserAdd.aspx?Token=${token}&FirstName=${firstName}&LastName=${lastName}&Email=${email}',
+          'http://demo.ntelcare.com/MobiPortal/UserAdd.aspx?Token=${token}&FirstName=${firstName}&LastName=${lastName}&Email=${email}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -78,7 +79,23 @@ class ForgotPasswordCall {
     return ApiManager.instance.makeApiCall(
       callName: 'ForgotPassword',
       apiUrl:
-          'https://ntelcare.com/MobiPortal/ForgotPassword.aspx?Email=${email}',
+          'http://demo.ntelcare.com/MobiPortal/ForgotPassword.aspx?Email=${email}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+    );
+  }
+}
+
+class UserList {
+  static Future<dynamic> call({
+    String token = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'UserList',
+      apiUrl:
+          'http://demo.ntelcare.com/MobiPortal/UserList.aspx?Token=${token}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},

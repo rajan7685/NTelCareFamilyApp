@@ -108,7 +108,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        FFAppState().First_Name.toString(),
+                                        FFAppState().First_Name + " ",
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
                                             .override(

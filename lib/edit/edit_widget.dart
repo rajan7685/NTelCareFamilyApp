@@ -8,14 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditWidget extends StatefulWidget {
-  const EditWidget({Key key}) : super(key: key);
+  dynamic info;
+  EditWidget({Key key, @required this.info}) : super(key: key);
 
   @override
-  _EditWidgetState createState() => _EditWidgetState();
+  _EditWidgetState createState() => _EditWidgetState(info);
 }
 
 class _EditWidgetState extends State<EditWidget> {
   ApiCallResponse apiCallOutput;
+  dynamic info;
+  _EditWidgetState(this.info);
 
   TextEditingController textController1;
   TextEditingController textController2;
@@ -151,7 +154,7 @@ class _EditWidgetState extends State<EditWidget> {
                                           10, 5, 0, 0),
                                       child: TextFormField(
                                         controller: TextEditingController(
-                                          text: FFAppState().First_Name,
+                                          text: info["FirstName"],
                                         ),
                                         obscureText: false,
                                         decoration: InputDecoration(
@@ -204,7 +207,7 @@ class _EditWidgetState extends State<EditWidget> {
                                           10, 0, 0, 0),
                                       child: TextFormField(
                                         controller: TextEditingController(
-                                          text: FFAppState().Last_Name,
+                                          text: info["LastName"],
                                         ),
                                         obscureText: false,
                                         decoration: InputDecoration(
@@ -256,11 +259,12 @@ class _EditWidgetState extends State<EditWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 0, 0),
                                       child: TextFormField(
-                                        controller: textController3,
+                                        controller: TextEditingController(
+                                          text: info["Mobile"],
+                                        ),
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Phone Number',
-                                          hintText: '9874563210',
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0x00000000),
@@ -308,12 +312,11 @@ class _EditWidgetState extends State<EditWidget> {
                                           10, 0, 0, 0),
                                       child: TextFormField(
                                         controller: TextEditingController(
-                                          text: FFAppState().Email,
+                                          text: info["Email"],
                                         ),
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Email',
-                                          hintText: 'steve.key@gmail.com',
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0x00000000),
