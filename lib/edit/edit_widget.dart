@@ -294,6 +294,7 @@ class _EditWidgetState extends State<EditWidget> {
                                               fontFamily: 'Poppins',
                                               fontSize: 16,
                                             ),
+                                        keyboardType: TextInputType.number,
                                       ),
                                     ),
                                   ),
@@ -382,7 +383,36 @@ class _EditWidgetState extends State<EditWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                               child: FFButtonWidget(
-                                onPressed: () {
+                                onPressed: () async {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text("Save New User Details"),
+                                        content: Text("Are you Sure"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () async {
+                                              apiCallOutput =
+                                                  await UserEditCall.call(
+                                                token: FFAppState().Token,
+                                                userId: FFAppState().UserId,
+                                                firstName: textController1.text,
+                                                lastName: textController2.text,
+                                                email: textController4.text,
+                                              );
+                                            },
+                                            child: Text("Yes"),
+                                          ),
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Cancel'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                   print('Button pressed ...');
                                 },
                                 text: 'Save',
@@ -411,20 +441,42 @@ class _EditWidgetState extends State<EditWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  apiCallOutput = await DeleteUserCall.call(
-                                    token: FFAppState().Token,
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Delete User'),
+                                        content: Text('Are you sure?'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () async {
+                                              apiCallOutput =
+                                                  await DeleteUserCall.call(
+                                                token: FFAppState().Token,
+                                              );
+                                              if (apiCallOutput.succeeded) {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        NavBarPage(
+                                                            initialPage:
+                                                                'Profile'),
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            child: Text('Yes'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Cancel'),
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   );
-                                  if (apiCallOutput.succeeded) {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            NavBarPage(initialPage: 'Profile'),
-                                      ),
-                                    );
-                                  }
-
-                                  setState(() {});
                                 },
                                 text: 'Delete User',
                                 options: FFButtonOptions(
@@ -447,6 +499,47 @@ class _EditWidgetState extends State<EditWidget> {
                                 ),
                               ),
                             ),
+                            // Padding(
+                            //   padding:
+                            //       EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                            //   child: FFButtonWidget(
+                            //     onPressed: () async {
+                            //       apiCallOutput = await DeleteUserCall.call(
+                            //         token: FFAppState().Token,
+                            //       );
+                            //       if (apiCallOutput.succeeded) {
+                            //         await Navigator.push(
+                            //           context,
+                            //           MaterialPageRoute(
+                            //             builder: (context) =>
+                            //                 NavBarPage(initialPage: 'Profile'),
+                            //           ),
+                            //         );
+                            //       }
+
+                            //       setState(() {});
+                            //     },
+                            //     text: 'Delete User',
+                            //     options: FFButtonOptions(
+                            //       width: 350,
+                            //       height: 40,
+                            //       color: FlutterFlowTheme.of(context).alternate,
+                            //       textStyle: FlutterFlowTheme.of(context)
+                            //           .subtitle2
+                            //           .override(
+                            //             fontFamily: 'Poppins',
+                            //             color: Color(0xFFDF0808),
+                            //             fontSize: 20,
+                            //             fontWeight: FontWeight.w600,
+                            //           ),
+                            //       borderSide: BorderSide(
+                            //         color: Color(0xFFDF0808),
+                            //         width: 1,
+                            //       ),
+                            //       borderRadius: 12,
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

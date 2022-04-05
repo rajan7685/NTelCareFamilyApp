@@ -14,6 +14,7 @@ class NewUserWidget extends StatefulWidget {
 }
 
 class _NewUserWidgetState extends State<NewUserWidget> {
+  ApiCallResponse apiCallOutput;
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
@@ -320,6 +321,7 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                                   fontFamily: 'Poppins',
                                                   fontSize: 16,
                                                 ),
+                                            keyboardType: TextInputType.number,
                                           ),
                                         ),
                                       ),
@@ -416,11 +418,36 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                       0, 15, 0, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      final data = await UserAddCall.call(
-                                        token: FFAppState().Token,
-                                        firstName: textController1.text,
-                                        lastName: textController2.text,
-                                        email: textController4.text,
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title:
+                                                Text("Save New User Details"),
+                                            content: Text("Are you Sure"),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () async {
+                                                  apiCallOutput =
+                                                      await UserAddCall.call(
+                                                    token: FFAppState().Token,
+                                                    firstName:
+                                                        textController1.text,
+                                                    lastName:
+                                                        textController2.text,
+                                                    email: textController4.text,
+                                                  );
+                                                },
+                                                child: Text("Yes"),
+                                              ),
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: Text('Cancel'),
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       );
                                       print('Button pressed ...');
                                     },

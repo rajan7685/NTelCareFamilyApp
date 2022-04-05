@@ -279,13 +279,35 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             ),
                             InkWell(
                               onTap: () async {
-                                await Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginWidget(),
-                                  ),
-                                  (r) => false,
-                                );
+                                await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Logout'),
+                                        content: Text('Are you sure'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () async {
+                                              await Navigator
+                                                  .pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LoginWidget(),
+                                                ),
+                                                (r) => false,
+                                              );
+                                            },
+                                            child: Text('Yes'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Cancel'),
+                                          ),
+                                        ],
+                                      );
+                                    });
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -376,7 +398,15 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       builder: (context, snapshot) {
                                         final inf = snapshot.data;
                                         if (!snapshot.hasData) {
-                                          return Text("Loading");
+                                          return Text(
+                                            "Loading",
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFFE5E5E5),
+                                                    fontSize: 20),
+                                          );
                                         } else {
                                           return ListView.builder(
                                               padding: EdgeInsets.zero,
@@ -633,15 +663,15 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     if (info2 != null) {
       return Image.network(
         info2,
-        width: 35,
-        height: 35,
+        width: 40,
+        height: 40,
         fit: BoxFit.contain,
       );
     } else {
       return Image.asset(
         'assets/images/Group_702.png',
-        width: 35,
-        height: 35,
+        width: 40,
+        height: 40,
         fit: BoxFit.contain,
       );
     }

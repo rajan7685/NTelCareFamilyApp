@@ -72,6 +72,26 @@ class UserAddCall {
   }
 }
 
+class UserEditCall {
+  static Future<ApiCallResponse> call({
+    String token = '',
+    String userId = '',
+    String firstName = '',
+    String lastName = '',
+    String email = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'UserEdit',
+      apiUrl:
+          'http://demo.ntelcare.com/MobiPortal/UserEdit.aspx?Token=${token}&UserID=${userId}FirstName=${firstName}&LastName=${lastName}&Email=${email}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+    );
+  }
+}
+
 class ForgotPasswordCall {
   static Future<ApiCallResponse> call({
     String email = '',

@@ -271,12 +271,19 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                       ),
                     ),
-                    Text(
-                      'Forgot Password?',
-                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                            fontFamily: 'Poppins',
-                            color: Color(0xFFAFAFAF),
-                          ),
+                    InkWell(
+                      onTap: () async {
+                        await ForgotPasswordCall.call(
+                          email: FFAppState().Email,
+                        );
+                      },
+                      child: Text(
+                        'Forgot Password?',
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFFAFAFAF),
+                            ),
+                      ),
                     ),
                   ],
                 ),

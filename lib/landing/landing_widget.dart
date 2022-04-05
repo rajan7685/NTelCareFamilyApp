@@ -23,6 +23,19 @@ class LandingWidget extends StatefulWidget {
 
 class _LandingWidgetState extends State<LandingWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  String heart = "assets/images/15-health_active.png";
+  String steps = "assets/images/8679613_footprint_line_icon_.png";
+
+  var color1 = Color(0xFF00B89F);
+  var color2 = Color(0xFF1A1A1A);
+  var color3 = Color(0xFF1A1A1A);
+
+  String ImgHeart = "assets/images/15-health_active.png";
+  String ImgSteps = "assets/images/8679613_footprint_line_icon_.png";
+  String ImgBpm = "assets/images/01_.png";
+  String ImgCalories = "assets/images/Group_689_.png";
+  String ImgSleep = "assets/images/Layer_2_.png";
+  String ImgBattery = "assets/images/65-battery_.png";
 
   @override
   Widget build(BuildContext context) {
@@ -353,7 +366,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Image.asset(
-                                                    'assets/images/15-health.png',
+                                                    'assets/images/7068954_furniture_door_interior_house_front_icon.png',
                                                     width: 22,
                                                     height: 22,
                                                     fit: BoxFit.contain,
@@ -430,7 +443,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Image.asset(
-                                                    'assets/images/15-health.png',
+                                                    'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon.png',
                                                     width: 22,
                                                     height: 22,
                                                     fit: BoxFit.contain,
@@ -507,7 +520,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Image.asset(
-                                                    'assets/images/15-health.png',
+                                                    'assets/images/8675105_ic_fluent_pill_regular_icon.png',
                                                     width: 22,
                                                     height: 22,
                                                     fit: BoxFit.contain,
@@ -688,7 +701,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Image.asset(
-                                            'assets/images/15-health.png',
+                                            'assets/images/8679613_footprint_line_icon_active.png',
                                             width: 22,
                                             height: 22,
                                             fit: BoxFit.contain,
@@ -755,7 +768,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Image.asset(
-                                            'assets/images/15-health.png',
+                                            'assets/images/01.png',
                                             width: 22,
                                             height: 22,
                                             fit: BoxFit.contain,
@@ -833,7 +846,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Image.asset(
-                                            'assets/images/15-health.png',
+                                            'assets/images/Group 709_active.png',
                                             width: 22,
                                             height: 22,
                                             fit: BoxFit.contain,
@@ -900,7 +913,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Image.asset(
-                                            'assets/images/15-health.png',
+                                            'assets/images/Layer_2_active.png',
                                             width: 22,
                                             height: 22,
                                             fit: BoxFit.contain,
@@ -967,7 +980,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Image.asset(
-                                            'assets/images/15-health.png',
+                                            'assets/images/65-battery_active.png',
                                             width: 22,
                                             height: 22,
                                             fit: BoxFit.contain,
@@ -1045,10 +1058,92 @@ class _LandingWidgetState extends State<LandingWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
+                                      setState(
+                                        () => FFAppState().Heart =
+                                            'Data Not Found',
+                                      );
+                                      setState(() {
+                                        ImgHeart =
+                                            "assets/images/15-health_active.png";
+                                        ImgSteps =
+                                            "assets/images/8679613_footprint_line_icon_.png";
+                                        ImgBpm = "assets/images/01_.png";
+                                        ImgCalories =
+                                            "assets/images/Group_689_.png";
+                                        ImgSleep = "assets/images/Layer_2_.png";
+                                        ImgBattery =
+                                            "assets/images/65-battery_.png";
+                                      });
+                                    },
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.contain,
+                                          image: Image.asset(
+                                            ImgHeart,
+                                          ).image,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Image.asset(
+                                    'assets/images/Line_49.png',
+                                    width: 2,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      setState(() =>
+                                          FFAppState().Heart = 'Data Missing');
+                                      setState(() {
+                                        ImgHeart =
+                                            "assets/images/15-health_.png";
+                                        ImgSteps =
+                                            "assets/images/8679613_footprint_line_icon_active.png";
+                                        ImgBpm = "assets/images/01_.png";
+                                        ImgCalories =
+                                            "assets/images/Group_689_.png";
+                                        ImgSleep = "assets/images/Layer_2_.png";
+                                        ImgBattery =
+                                            "assets/images/65-battery_.png";
+                                      });
+                                    },
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.contain,
+                                          image: Image.asset(ImgSteps).image,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Image.asset(
+                                    'assets/images/Line_49.png',
+                                    width: 2,
+                                    height: 40,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
                                       setState(() => FFAppState().Heart =
                                           'Data Not Found');
-                                      setState(() => FFAppState().hear =
-                                          FFAppState().hear);
+                                      setState(() {
+                                        ImgHeart =
+                                            "assets/images/15-health_.png";
+                                        ImgSteps =
+                                            "assets/images/8679613_footprint_line_icon_.png";
+                                        ImgBpm = "assets/images/01.png";
+                                        ImgCalories =
+                                            "assets/images/Group_689_.png";
+                                        ImgSleep = "assets/images/Layer_2_.png";
+                                        ImgBattery =
+                                            "assets/images/65-battery_.png";
+                                      });
                                     },
                                     child: Container(
                                       width: 30,
@@ -1056,9 +1151,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                           fit: BoxFit.contain,
-                                          image: Image.asset(
-                                            'assets/images/15-health_active.png',
-                                          ).image,
+                                          image: Image.asset(ImgBpm).image,
                                         ),
                                       ),
                                     ),
@@ -1072,9 +1165,19 @@ class _LandingWidgetState extends State<LandingWidget> {
                                   InkWell(
                                     onTap: () async {
                                       setState(() =>
-                                          FFAppState().Heart = ' Data Missing');
-                                      setState(() => FFAppState().hear =
-                                          '8679613_footprint_line_icon_active.jpg');
+                                          FFAppState().Heart = 'Data Missing');
+                                      setState(() {
+                                        ImgHeart =
+                                            "assets/images/15-health_.png";
+                                        ImgSteps =
+                                            "assets/images/8679613_footprint_line_icon_.png";
+                                        ImgBpm = "assets/images/01_.png";
+                                        ImgCalories =
+                                            "assets/images/Group 709_active.png";
+                                        ImgSleep = "assets/images/Layer_2_.png";
+                                        ImgBattery =
+                                            "assets/images/65-battery_.png";
+                                      });
                                     },
                                     child: Container(
                                       width: 30,
@@ -1083,31 +1186,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                         image: DecorationImage(
                                           fit: BoxFit.contain,
                                           image: Image.asset(
-                                            'assets/images/8679613_footprint_line_icon_.png',
-                                          ).image,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Image.asset(
-                                    'assets/images/Line_49.png',
-                                    width: 2,
-                                    height: 40,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      setState(() => FFAppState().Heart =
-                                          'Data Not Found');
-                                    },
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          fit: BoxFit.contain,
-                                          image: Image.asset(
-                                            'assets/images/01_.png',
+                                            ImgCalories,
                                           ).image,
                                         ),
                                       ),
@@ -1123,6 +1202,19 @@ class _LandingWidgetState extends State<LandingWidget> {
                                     onTap: () async {
                                       setState(() =>
                                           FFAppState().Heart = 'Data Missing');
+                                      setState(() {
+                                        ImgHeart =
+                                            "assets/images/15-health_.png";
+                                        ImgSteps =
+                                            "assets/images/8679613_footprint_line_icon_.png";
+                                        ImgBpm = "assets/images/01_.png";
+                                        ImgCalories =
+                                            "assets/images/Group_689_.png";
+                                        ImgSleep =
+                                            "assets/images/Layer_2_active.png";
+                                        ImgBattery =
+                                            "assets/images/65-battery_.png";
+                                      });
                                     },
                                     child: Container(
                                       width: 30,
@@ -1131,7 +1223,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                         image: DecorationImage(
                                           fit: BoxFit.contain,
                                           image: Image.asset(
-                                            'assets/images/Group_689_.png',
+                                            ImgSleep,
                                           ).image,
                                         ),
                                       ),
@@ -1147,6 +1239,18 @@ class _LandingWidgetState extends State<LandingWidget> {
                                     onTap: () async {
                                       setState(() =>
                                           FFAppState().Heart = 'Data Missing');
+                                      setState(() {
+                                        ImgHeart =
+                                            "assets/images/15-health_.png";
+                                        ImgSteps =
+                                            "assets/images/8679613_footprint_line_icon_.png";
+                                        ImgBpm = "assets/images/01_.png";
+                                        ImgCalories =
+                                            "assets/images/Group_689_.png";
+                                        ImgSleep = "assets/images/Layer_2_.png";
+                                        ImgBattery =
+                                            "assets/images/65-battery_active.png";
+                                      });
                                     },
                                     child: Container(
                                       width: 30,
@@ -1155,31 +1259,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                         image: DecorationImage(
                                           fit: BoxFit.contain,
                                           image: Image.asset(
-                                            'assets/images/Layer_2_.png',
-                                          ).image,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Image.asset(
-                                    'assets/images/Line_49.png',
-                                    width: 2,
-                                    height: 40,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      setState(() =>
-                                          FFAppState().Heart = 'Data Missing');
-                                    },
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          fit: BoxFit.contain,
-                                          image: Image.asset(
-                                            'assets/images/65-battery_.png',
+                                            ImgBattery,
                                           ).image,
                                         ),
                                       ),
@@ -1195,9 +1275,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 color: Color(0xFFF5F5F5),
                                 child: Image.asset(
-                                  'assets/images/Picsart_22-02-20_10-11-12-012.jpg',
-                                  width: 400,
-                                  height: 300,
+                                  'assets/images/Picsart_22-02-20_10-11-12-012(1).jpg',
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -1224,6 +1302,142 @@ class _LandingWidgetState extends State<LandingWidget> {
                                 ),
                               ),
                             ],
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(50, 20, 50, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        color1 = Color(0xFF00B89F);
+                                        color2 = Color(0xFF1A1A1A);
+                                        color3 = Color(0xFF1A1A1A);
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: color1,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(5),
+                                          bottomRight: Radius.circular(0),
+                                          topLeft: Radius.circular(5),
+                                          topRight: Radius.circular(0),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              'Daily',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            Color(0xFF6D6767),
+                                                        fontSize: 18,
+                                                      ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        color1 = Color(0xFF1A1A1A);
+                                        color2 = Color(0xFF00B89F);
+                                        color3 = Color(0xFF1A1A1A);
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: color2,
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              'Weekly',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            Color(0xFF6D6767),
+                                                        fontSize: 18,
+                                                      ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        color1 = Color(0xFF1A1A1A);
+                                        color2 = Color(0xFF1A1A1A);
+                                        color3 = Color(0xFF00B89F);
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: color3,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(0),
+                                          bottomRight: Radius.circular(5),
+                                          topLeft: Radius.circular(0),
+                                          topRight: Radius.circular(5),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Text(
+                                              'Monthly',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            Color(0xFF6D6767),
+                                                        fontSize: 18,
+                                                      ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
