@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:n_tel_care_family_app/login/login_widget.dart';
+import 'package:n_tel_care_family_app/custom_code/widgets/custom_message.dart';
 import 'package:http/http.dart' as http;
 
 class ProfileWidget extends StatefulWidget {
@@ -230,7 +231,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => EditWidget(),
+                                        builder: (context) => EditWidget(
+                                          info: null,
+                                        ),
                                       ),
                                     );
                                   },
@@ -279,36 +282,57 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             ),
                             InkWell(
                               onTap: () async {
+                                print("presses");
                                 await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('Logout'),
-                                        content: Text('Are you sure'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () async {
-                                              await Navigator
-                                                  .pushAndRemoveUntil(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      LoginWidget(),
-                                                ),
-                                                (r) => false,
-                                              );
-                                            },
-                                            child: Text('Yes'),
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return CustomMessage(
+                                      title: ("Are you sure?"),
+                                      content:
+                                          ("Are you sure you want to logout?"),
+                                      onpressed: () async {
+                                        await Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => LoginWidget(),
                                           ),
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Cancel'),
-                                          ),
-                                        ],
-                                      );
-                                    });
+                                          (r) => false,
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
                               },
+
+                              // showDialog(
+                              //     context: context,
+                              //     builder: (alertDialogContext) {
+                              //       return AlertDialog(
+                              //         title: Text('Logout'),
+                              //         content: Text('Are you sure'),
+                              //         actions: [
+                              //           TextButton(
+                              //   onPressed: () async {
+                              //     await Navigator
+                              //         .pushAndRemoveUntil(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             LoginWidget(),
+                              //       ),
+                              //       (r) => false,
+                              //     );
+                              //   },
+                              //   child: Text('Yes'),
+                              // ),
+                              //           TextButton(
+                              //             onPressed: () => Navigator.pop(
+                              //                 alertDialogContext),
+                              //             child: Text('Cancel'),
+                              //           ),
+                              //         ],
+                              //       );
+                              //     });
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [

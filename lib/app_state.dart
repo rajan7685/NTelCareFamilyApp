@@ -23,13 +23,6 @@ class FFAppState {
 
   String hear;
 
-  String ImgHeart = "assets/images/15-health_.png";
-  String ImgSteps = "assets/images/8679613_footprint_line_icon_.png";
-  String ImgBpm = "assets/images/01_.png";
-  String ImgCalories = "assets/images/Group_689_.png";
-  String ImgSleep = "assets/images/Layer_2_.png";
-  String ImgBattery = "assets/images/65-battery_.png";
-
   String Heart = 'Missing';
   String Email = '';
   String First_Name = '';
