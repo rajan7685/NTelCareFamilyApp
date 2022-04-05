@@ -418,38 +418,65 @@ class _NewUserWidgetState extends State<NewUserWidget> {
                                       0, 15, 0, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      await showDialog(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return AlertDialog(
-                                            title:
-                                                Text("Save New User Details"),
-                                            content: Text("Are you Sure"),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () async {
-                                                  apiCallOutput =
-                                                      await UserAddCall.call(
-                                                    token: FFAppState().Token,
-                                                    firstName:
-                                                        textController1.text,
-                                                    lastName:
-                                                        textController2.text,
-                                                    email: textController4.text,
-                                                  );
-                                                },
-                                                child: Text("Yes"),
-                                              ),
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext),
-                                                child: Text('Cancel'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                      print('Button pressed ...');
+                                      if (textController1.text.isEmpty ||
+                                          textController2.text.isEmpty ||
+                                          textController3.text.isEmpty ||
+                                          textController4.text.isEmpty) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                              content:
+                                                  Text("Complete the details")),
+                                        );
+                                        return;
+                                      } else {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title: Text("Are you Sure?"),
+                                              content:
+                                                  Text("Save New User Details"),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () async {
+                                                    apiCallOutput =
+                                                        await UserAddCall.call(
+                                                      token: FFAppState().Token,
+                                                      firstName:
+                                                          textController1.text,
+                                                      lastName:
+                                                          textController2.text,
+                                                      email:
+                                                          textController4.text,
+                                                    );
+                                                    if (apiCallOutput
+                                                        .succeeded) {
+                                                      await Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              NavBarPage(
+                                                                  initialPage:
+                                                                      'Profile'),
+                                                        ),
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Text("Yes"),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('Cancel'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                        print('Button pressed ...');
+                                      }
                                     },
                                     text: 'Save',
                                     options: FFButtonOptions(

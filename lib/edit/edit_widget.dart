@@ -19,6 +19,7 @@ class _EditWidgetState extends State<EditWidget> {
   ApiCallResponse apiCallOutput;
   dynamic info;
   _EditWidgetState(this.info);
+  final valkey = GlobalKey<FormState>();
 
   TextEditingController textController1;
   TextEditingController textController2;
@@ -30,10 +31,18 @@ class _EditWidgetState extends State<EditWidget> {
   @override
   void initState() {
     super.initState();
-    // textController1 = TextEditingController(text: 'Kenny');
-    textController2 = TextEditingController(text: 'Alter');
-    textController3 = TextEditingController(text: '967583222');
-    textController4 = TextEditingController(text: 'prateek@remail.solutions');
+    textController1 = TextEditingController(
+      text: info["FirstName"],
+    );
+    textController2 = TextEditingController(
+      text: info["LastName"],
+    );
+    textController3 = TextEditingController(
+      text: info["Mobile"],
+    );
+    textController4 = TextEditingController(
+      text: info["Email"],
+    );
   }
 
   @override
@@ -138,6 +147,7 @@ class _EditWidgetState extends State<EditWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Column(
+                              key: valkey,
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
@@ -153,13 +163,11 @@ class _EditWidgetState extends State<EditWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 5, 0, 0),
                                       child: TextFormField(
-                                        controller: TextEditingController(
-                                          text: info["FirstName"],
-                                        ),
+                                        controller: textController1,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'First Name',
-                                          hintText: 'Steve',
+                                          hintText: 'Enter First Name',
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0x00000000),
@@ -189,6 +197,19 @@ class _EditWidgetState extends State<EditWidget> {
                                               fontFamily: 'Poppins',
                                               fontSize: 16,
                                             ),
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            setState(() {});
+                                            //  return 'Please Enter First Name';
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                  content: Text(
+                                                      "Please Enter First Name")),
+                                            );
+                                          }
+                                          return null;
+                                        },
                                       ),
                                     ),
                                   ),
@@ -206,13 +227,11 @@ class _EditWidgetState extends State<EditWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 0, 0),
                                       child: TextFormField(
-                                        controller: TextEditingController(
-                                          text: info["LastName"],
-                                        ),
+                                        controller: textController2,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Last Name',
-                                          hintText: 'Jobs',
+                                          hintText: 'Enter Last Name',
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0x00000000),
@@ -259,12 +278,11 @@ class _EditWidgetState extends State<EditWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 0, 0),
                                       child: TextFormField(
-                                        controller: TextEditingController(
-                                          text: info["Mobile"],
-                                        ),
+                                        controller: textController3,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Phone Number',
+                                          hintText: "Enter Phone Number",
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0x00000000),
@@ -312,12 +330,11 @@ class _EditWidgetState extends State<EditWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 0, 0),
                                       child: TextFormField(
-                                        controller: TextEditingController(
-                                          text: info["Email"],
-                                        ),
+                                        controller: textController4,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Email',
+                                          hintText: 'Enter Email Address',
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
                                               color: Color(0x00000000),
@@ -384,35 +401,62 @@ class _EditWidgetState extends State<EditWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text("Save New User Details"),
-                                        content: Text("Are you Sure"),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () async {
-                                              apiCallOutput =
-                                                  await UserEditCall.call(
-                                                token: FFAppState().Token,
-                                                userId: FFAppState().UserId,
-                                                firstName: textController1.text,
-                                                lastName: textController2.text,
-                                                email: textController4.text,
-                                              );
-                                            },
-                                            child: Text("Yes"),
-                                          ),
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Cancel'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
+                                  if (textController1.text.isEmpty ||
+                                      textController2.text.isEmpty ||
+                                      textController3.text.isEmpty ||
+                                      textController4.text.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content:
+                                              Text("Complete the details")),
+                                    );
+                                    return;
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: Text("Are you Sure?"),
+                                          content: Text("Save the Details"),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () async {
+                                                {
+                                                  apiCallOutput =
+                                                      await UserEditCall.call(
+                                                    token: FFAppState().Token,
+                                                    userId: info["ID"],
+                                                    firstName:
+                                                        textController1.text,
+                                                    lastName:
+                                                        textController2.text,
+                                                    email: textController4.text,
+                                                  );
+                                                  if (apiCallOutput.succeeded) {
+                                                    await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            NavBarPage(
+                                                                initialPage:
+                                                                    'Profile'),
+                                                      ),
+                                                    );
+                                                  }
+                                                }
+                                              },
+                                              child: Text("Yes"),
+                                            ),
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Cancel'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
                                   print('Button pressed ...');
                                 },
                                 text: 'Save',
