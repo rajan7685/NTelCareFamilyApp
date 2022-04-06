@@ -100,16 +100,21 @@ class _DevicesWidgetState extends State<DevicesWidget> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 20, 5, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(5, 45, 5, 0),
                       child: Container(
                         width: double.infinity,
-                        height: 300,
+                        height: 100,
                         decoration: BoxDecoration(
                           color: Color(0xFF292929),
-                          borderRadius: BorderRadius.circular(35),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(0),
+                            bottomRight: Radius.circular(0),
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40),
+                          ),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 28, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [

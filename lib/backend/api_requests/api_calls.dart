@@ -123,3 +123,19 @@ class UserList {
     );
   }
 }
+
+class CameraList {
+  static Future<dynamic> call({
+    String token = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'CameraList',
+      apiUrl:
+          'http://demo.ntelcare.com/MobiPortal/Cameras.aspx?Token=${token}&OSType=I',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+    );
+  }
+}

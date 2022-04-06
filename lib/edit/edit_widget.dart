@@ -489,8 +489,8 @@ class _EditWidgetState extends State<EditWidget> {
                                     context: context,
                                     builder: (alertDialogContext) {
                                       return AlertDialog(
-                                        title: Text('Delete User'),
-                                        content: Text('Are you sure?'),
+                                        title: Text('Are you sure?'),
+                                        content: Text('Delete the user'),
                                         actions: [
                                           TextButton(
                                             onPressed: () async {
