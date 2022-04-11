@@ -1,5 +1,5 @@
 import 'package:n_tel_care_family_app/forgotPasword/forget_password.dart';
-import 'package:n_tel_care_family_app/model/loginmodel.dart';
+
 import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -9,14 +9,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../main.dart';
 
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key key}) : super(key: key);
+class newPassword extends StatefulWidget {
+  const newPassword({Key key}) : super(key: key);
 
   @override
-  _LoginWidgetState createState() => _LoginWidgetState();
+  _newPasswordState createState() => _newPasswordState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class _newPasswordState extends State<newPassword> {
   TextEditingController textController1;
   TextEditingController textController2;
   bool passwordVisibility;
@@ -62,7 +62,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 75),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 65),
                   child: Image.asset(
                     'assets/images/Group 598.png',
                     width: 300,
@@ -74,57 +74,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 0),
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFEEEEEE),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                          child: TextFormField(
-                            controller: textController1,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: 'UserName',
-                              labelStyle: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                              hintText: 'Enter Your Username',
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1,
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0),
-                                ),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0x00000000),
-                                  width: 1,
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0),
-                                ),
-                              ),
+                      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 15, 10),
+                      child: Text(
+                        'Forgot Password',
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: Colors.white,
+                              fontSize: 20,
                             ),
-                            style:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF292929),
-                                      fontSize: 16,
-                                    ),
-                          ),
-                        ),
                       ),
                     ),
                     Padding(
@@ -141,7 +98,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             controller: textController2,
                             obscureText: !passwordVisibility,
                             decoration: InputDecoration(
-                              labelText: 'Password',
+                              labelText: 'New Password',
                               labelStyle: FlutterFlowTheme.of(context)
                                   .bodyText1
                                   .override(
@@ -149,7 +106,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w300,
                                   ),
-                              hintText: 'Enter Your Password',
+                              hintText: 'Enter Your New Password',
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
@@ -195,66 +152,120 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                     ),
                     Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEEEEEE),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                          child: TextFormField(
+                            controller: textController2,
+                            obscureText: !passwordVisibility,
+                            decoration: InputDecoration(
+                              labelText: 'Confirm Password',
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                              hintText: 'Enter Your Password Again',
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
+                            ),
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF292929),
+                                      fontSize: 16,
+                                    ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                       child: FFButtonWidget(
-                        onPressed: () async {
-                          final data = await LoginCall.call(
-                            username: textController1.text,
-                            password: textController2.text,
-                          );
-                          print(data?.jsonBody[0].runtimeType);
+                        // onPressed: () async {
+                        //   final data = await LoginCall.call(
+                        //     username: textController1.text,
+                        //     password: textController2.text,
+                        //   );
+                        //   print(data?.jsonBody[0].runtimeType);
 
-                          if ((getJsonField(
-                                (data?.jsonBody ?? ''),
-                                r'''$[:].Error''',
-                              )) ==
-                              ('Nill')) {
-                            LoginModel loginModel =
-                                LoginModel.fromJsonData(data.jsonBody[0]);
-                            FFAppState().IsUserLogin = loginModel.IsUserLogin;
-                            FFAppState().IsLiveView = loginModel.IsLiveView;
-                            FFAppState().Error = loginModel.Error;
-                            FFAppState().Email = loginModel.Email;
-                            FFAppState().Token = loginModel.Token;
-                            FFAppState().UserId = loginModel.UserId;
-                            FFAppState().AccountId = loginModel.AccountId;
-                            FFAppState().RoleId = loginModel.RoleId;
-                            FFAppState().First_Name = loginModel.FirstName;
-                            FFAppState().Last_Name = loginModel.LastName;
-                            FFAppState().Profile_Picture =
-                                loginModel.ProfilePicture;
+                        //   if ((getJsonField(
+                        //         (data?.jsonBody ?? ''),
+                        //         r'''$[:].Error''',
+                        //       )) ==
+                        //       ('Nill')) {
+                        //     LoginModel loginModel =
+                        //         LoginModel.fromJsonData(data.jsonBody[0]);
+                        //     FFAppState().IsUserLogin = loginModel.IsUserLogin;
+                        //     FFAppState().IsLiveView = loginModel.IsLiveView;
+                        //     FFAppState().Error = loginModel.Error;
+                        //     FFAppState().Email = loginModel.Email;
+                        //     FFAppState().Token = loginModel.Token;
+                        //     FFAppState().UserId = loginModel.UserId;
+                        //     FFAppState().AccountId = loginModel.AccountId;
+                        //     FFAppState().RoleId = loginModel.RoleId;
+                        //     FFAppState().First_Name = loginModel.FirstName;
+                        //     FFAppState().Last_Name = loginModel.LastName;
+                        //     FFAppState().Profile_Picture =
+                        //         loginModel.ProfilePicture;
 
-                            print(loginModel.FirstName);
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    NavBarPage(initialPage: 'Landing'),
-                              ),
-                            );
-                          } else {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Error'),
-                                  content:
-                                      Text("Incorrect Username or Password"),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
+                        //     print(loginModel.FirstName);
+                        //     await Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             NavBarPage(initialPage: 'Landing'),
+                        //       ),
+                        //     );
+                        //   } else {
+                        //     await showDialog(
+                        //       context: context,
+                        //       builder: (alertDialogContext) {
+                        //         return AlertDialog(
+                        //           title: Text('Error'),
+                        //           content:
+                        //               Text("Incorrect Username or Password"),
+                        //           actions: [
+                        //             TextButton(
+                        //               onPressed: () =>
+                        //                   Navigator.pop(alertDialogContext),
+                        //               child: Text('Ok'),
+                        //             ),
+                        //           ],
+                        //         );
+                        //       },
+                        //     );
+                        //   }
 
-                          setState(() {});
-                        },
-                        text: 'Login',
+                        //   setState(() {});
+                        // },
+                        text: 'Confirm',
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 50,
@@ -270,23 +281,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                           borderRadius: 12,
                         ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => forget_password(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFFAFAFAF),
-                            ),
                       ),
                     ),
                   ],
