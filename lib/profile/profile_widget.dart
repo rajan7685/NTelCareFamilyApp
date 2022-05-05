@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
+import 'package:n_tel_care_family_app/edit/edit_profile.dart';
 import 'package:n_tel_care_family_app/login/login_widget.dart';
 import 'package:n_tel_care_family_app/model/listuser.dart';
 import 'package:n_tel_care_family_app/new_user/new_user.dart';
@@ -231,9 +232,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => EditWidget(
-                                          info: null,
-                                        ),
+                                        builder: (context) =>
+                                            EditProfileWidget(),
                                       ),
                                     );
                                   },

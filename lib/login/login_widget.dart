@@ -198,61 +198,68 @@ class _LoginWidgetState extends State<LoginWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          final data = await LoginCall.call(
-                            username: textController1.text,
-                            password: textController2.text,
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  NavBarPage(initialPage: 'Landing'),
+                            ),
                           );
-                          print(data?.jsonBody[0].runtimeType);
+                          // final data = await LoginCall.call(
+                          //   username: textController1.text,
+                          //   password: textController2.text,
+                          // );
+                          // print(data?.jsonBody[0].runtimeType);
 
-                          if ((getJsonField(
-                                (data?.jsonBody ?? ''),
-                                r'''$[:].Error''',
-                              )) ==
-                              ('Nill')) {
-                            LoginModel loginModel =
-                                LoginModel.fromJsonData(data.jsonBody[0]);
-                            FFAppState().IsUserLogin = loginModel.IsUserLogin;
-                            FFAppState().IsLiveView = loginModel.IsLiveView;
-                            FFAppState().Error = loginModel.Error;
-                            FFAppState().Email = loginModel.Email;
-                            FFAppState().Token = loginModel.Token;
-                            FFAppState().UserId = loginModel.UserId;
-                            FFAppState().AccountId = loginModel.AccountId;
-                            FFAppState().RoleId = loginModel.RoleId;
-                            FFAppState().First_Name = loginModel.FirstName;
-                            FFAppState().Last_Name = loginModel.LastName;
-                            FFAppState().Profile_Picture =
-                                loginModel.ProfilePicture;
+                          // if ((getJsonField(
+                          //       (data?.jsonBody ?? ''),
+                          //       r'''$[:].Error''',
+                          //     )) ==
+                          //     ('Nill')) {
+                          //   LoginModel loginModel =
+                          //       LoginModel.fromJsonData(data.jsonBody[0]);
+                          //   FFAppState().IsUserLogin = loginModel.IsUserLogin;
+                          //   FFAppState().IsLiveView = loginModel.IsLiveView;
+                          //   FFAppState().Error = loginModel.Error;
+                          //   FFAppState().Email = loginModel.Email;
+                          //   FFAppState().Token = loginModel.Token;
+                          //   FFAppState().UserId = loginModel.UserId;
+                          //   FFAppState().AccountId = loginModel.AccountId;
+                          //   FFAppState().RoleId = loginModel.RoleId;
+                          //   FFAppState().First_Name = loginModel.FirstName;
+                          //   FFAppState().Last_Name = loginModel.LastName;
+                          //   FFAppState().Profile_Picture =
+                          //       loginModel.ProfilePicture;
 
-                            print(loginModel.FirstName);
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    NavBarPage(initialPage: 'Landing'),
-                              ),
-                            );
-                          } else {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Error'),
-                                  content:
-                                      Text("Incorrect Username or Password"),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
+                          //   print(loginModel.FirstName);
+                          //   await Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           NavBarPage(initialPage: 'Landing'),
+                          //     ),
+                          //   );
+                          // } else {
+                          //   await showDialog(
+                          //     context: context,
+                          //     builder: (alertDialogContext) {
+                          //       return AlertDialog(
+                          //         title: Text('Error'),
+                          //         content:
+                          //             Text("Incorrect Username or Password"),
+                          //         actions: [
+                          //           TextButton(
+                          //             onPressed: () =>
+                          //                 Navigator.pop(alertDialogContext),
+                          //             child: Text('Ok'),
+                          //           ),
+                          //         ],
+                          //       );
+                          //     },
+                          //   );
+                          // }
 
-                          setState(() {});
+                          // setState(() {});
                         },
                         text: 'Login',
                         options: FFButtonOptions(
