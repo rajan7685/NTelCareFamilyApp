@@ -1,3 +1,5 @@
+import 'package:n_tel_care_family_app/critical/critcal.dart';
+import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/edit/edit_executive.dart';
 import 'package:n_tel_care_family_app/edit/edit_member.dart';
 import 'package:n_tel_care_family_app/new_user/add.dart';
@@ -75,10 +77,24 @@ class _MembersWidgetState extends State<MembersWidget> {
                                   ),
                                 ),
                               ),
-                              Icon(
-                                Icons.notifications_none,
-                                color: Color(0xFFE5E5E5),
-                                size: 30,
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                                child: InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => CriticalWidget(),
+                                      ),
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.notifications_none,
+                                    color: Color(0xFFE5E5E5),
+                                    size: 30,
+                                  ),
+                                ),
                               ),
                             ],
                           ),

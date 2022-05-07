@@ -1,7 +1,9 @@
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
+import 'package:n_tel_care_family_app/custom_code/widgets/custom_message.dart';
 import 'package:n_tel_care_family_app/edit/demo_editProfile.dart';
 import 'package:n_tel_care_family_app/edit/edit_member.dart';
 import 'package:n_tel_care_family_app/edit/edit_profile.dart';
+import 'package:n_tel_care_family_app/login/login_widget.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -316,29 +318,53 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
-                            child: ListTile(
-                              leading: Icon(
-                                Icons.logout,
-                                color: Color(0xFF00B89F),
-                                size: 20,
+                            child: InkWell(
+                              onTap: () async {
+                                print("presses");
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return CustomMessage(
+                                      title: ("Are you sure?"),
+                                      content:
+                                          ("Are you sure you want to logout?"),
+                                      onpressed: () async {
+                                        await Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => LoginWidget(),
+                                          ),
+                                          (r) => false,
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.logout,
+                                  color: Color(0xFF00B89F),
+                                  size: 20,
+                                ),
+                                title: Text(
+                                  'Logout',
+                                  style: FlutterFlowTheme.of(context)
+                                      .title3
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFFAFAFAF),
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Color(0xFF00B89F),
+                                  size: 25,
+                                ),
+                                tileColor: Color(0xFFF5F5F5),
+                                dense: false,
                               ),
-                              title: Text(
-                                'Logout',
-                                style: FlutterFlowTheme.of(context)
-                                    .title3
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFFAFAFAF),
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                              ),
-                              trailing: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Color(0xFF00B89F),
-                                size: 25,
-                              ),
-                              tileColor: Color(0xFFF5F5F5),
-                              dense: false,
                             ),
                           ),
                         ],

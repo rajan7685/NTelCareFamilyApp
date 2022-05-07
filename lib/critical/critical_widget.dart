@@ -19,37 +19,11 @@ class _CriticalWidgetState extends State<CriticalWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: Color(0xFF1F252B),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Stack(
           children: [
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 250,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF00B89F), Color(0xFF005C50)],
-                      stops: [0, 1],
-                      begin: AlignmentDirectional(0.77, -1),
-                      end: AlignmentDirectional(-0.77, 1),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF292929),
-                    ),
-                  ),
-                ),
-              ],
-            ),
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -106,6 +80,322 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                     ),
                   ],
                 ),
+                Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1F252B),
+                  ),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1F252B),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                width: 70,
+                                height: 70,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image.network(
+                                  'https://picsum.photos/seed/171/600',
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 20, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Julie Paul',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFF00B89F),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 2, 0, 0),
+                                          child: Text(
+                                            'Age 60, Female',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFFE5E5E5),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w200,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 6, 0, 0),
+                                          child: Text(
+                                            'More Info',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFFE5E5E5),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w200,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1F252B),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                width: 70,
+                                height: 70,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image.network(
+                                  'https://picsum.photos/seed/171/600',
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 20, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Julie Paul',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFF00B89F),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 2, 0, 0),
+                                          child: Text(
+                                            'Age 60, Female',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFFE5E5E5),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w200,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 6, 0, 0),
+                                          child: Text(
+                                            'More Info',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFFE5E5E5),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w200,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1F252B),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                width: 70,
+                                height: 70,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image.network(
+                                  'https://picsum.photos/seed/171/600',
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 20, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Julie Paul',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFF00B89F),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 2, 0, 0),
+                                          child: Text(
+                                            'Age 60, Female',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFFE5E5E5),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w200,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 6, 0, 0),
+                                          child: Text(
+                                            'More Info',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFFE5E5E5),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w200,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 0),
@@ -113,8 +403,7 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                       width: double.infinity,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Color(0xFF292929),
-                        borderRadius: BorderRadius.circular(40),
+                        color: Color(0xFF1F252B),
                       ),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
@@ -143,6 +432,24 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
+                                      Text(
+                                        'Sort ',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFFD8D8D8),
+                                            ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 12, 0),
+                                        child: Icon(
+                                          Icons.settings_outlined,
+                                          color: Colors.black,
+                                          size: 24,
+                                        ),
+                                      ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 10, 0),
@@ -158,8 +465,8 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                       ),
                                       FaIcon(
                                         FontAwesomeIcons.calendarAlt,
-                                        color: Color(0xFFAFAFAF),
-                                        size: 24,
+                                        color: Color(0xFF00B89F),
+                                        size: 19,
                                       ),
                                     ],
                                   ),
@@ -176,38 +483,42 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                         5, 5, 5, 0),
                                     child: Card(
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFF262626),
+                                      color: Color(0xFF272E36),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             3, 0, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Container(
-                                              width: 80,
-                                              height: 80,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF262626),
-                                              ),
-                                              child: Stack(
-                                                children: [
-                                                  Card(
-                                                    clipBehavior: Clip
-                                                        .antiAliasWithSaveLayer,
-                                                    color: Color(0xFF1A1A1A),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -0.06, -0.12),
-                                                    child: Image.asset(
-                                                      'assets/images/Group_706.png',
-                                                      width: 35,
-                                                      height: 35,
-                                                      fit: BoxFit.contain,
+                                            Padding(
+                                              padding: EdgeInsets.all(5),
+                                              child: Container(
+                                                width: 80,
+                                                height: 80,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF262626),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Stack(
+                                                  children: [
+                                                    Card(
+                                                      clipBehavior: Clip
+                                                          .antiAliasWithSaveLayer,
                                                     ),
-                                                  ),
-                                                ],
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -0.06, -0.12),
+                                                      child: Image.asset(
+                                                        'assets/images/Group_706.png',
+                                                        width: 35,
+                                                        height: 35,
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                             Padding(
@@ -273,38 +584,42 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                         5, 5, 5, 10),
                                     child: Card(
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFF262626),
+                                      color: Color(0xFF272E36),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             3, 0, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Container(
-                                              width: 80,
-                                              height: 80,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF262626),
-                                              ),
-                                              child: Stack(
-                                                children: [
-                                                  Card(
-                                                    clipBehavior: Clip
-                                                        .antiAliasWithSaveLayer,
-                                                    color: Color(0xFF1A1A1A),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -0.06, -0.12),
-                                                    child: Image.asset(
-                                                      'assets/images/Group_707.png',
-                                                      width: 35,
-                                                      height: 35,
-                                                      fit: BoxFit.contain,
+                                            Padding(
+                                              padding: EdgeInsets.all(5),
+                                              child: Container(
+                                                width: 80,
+                                                height: 80,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF262626),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Stack(
+                                                  children: [
+                                                    Card(
+                                                      clipBehavior: Clip
+                                                          .antiAliasWithSaveLayer,
                                                     ),
-                                                  ),
-                                                ],
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -0.06, -0.12),
+                                                      child: Image.asset(
+                                                        'assets/images/Group_707.png',
+                                                        width: 35,
+                                                        height: 35,
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                             Padding(
@@ -383,38 +698,43 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                         5, 5, 5, 0),
                                     child: Card(
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFF262626),
+                                      color: Color(0xFF272E36),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             3, 0, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Container(
-                                              width: 80,
-                                              height: 80,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF262626),
-                                              ),
-                                              child: Stack(
-                                                children: [
-                                                  Card(
-                                                    clipBehavior: Clip
-                                                        .antiAliasWithSaveLayer,
-                                                    color: Color(0xFF1A1A1A),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -0.06, -0.12),
-                                                    child: Image.asset(
-                                                      'assets/images/Group_706.png',
-                                                      width: 35,
-                                                      height: 35,
-                                                      fit: BoxFit.contain,
+                                            Padding(
+                                              padding: EdgeInsets.all(5),
+                                              child: Container(
+                                                width: 80,
+                                                height: 80,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF262626),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Stack(
+                                                  children: [
+                                                    Card(
+                                                      clipBehavior: Clip
+                                                          .antiAliasWithSaveLayer,
+                                                      color: Color(0xFF1A1A1A),
                                                     ),
-                                                  ),
-                                                ],
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -0.06, -0.12),
+                                                      child: Image.asset(
+                                                        'assets/images/Group_706.png',
+                                                        width: 35,
+                                                        height: 35,
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                             Padding(
@@ -480,38 +800,43 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                         5, 5, 5, 0),
                                     child: Card(
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFF262626),
+                                      color: Color(0xFF272E36),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             3, 0, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Container(
-                                              width: 80,
-                                              height: 80,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF262626),
-                                              ),
-                                              child: Stack(
-                                                children: [
-                                                  Card(
-                                                    clipBehavior: Clip
-                                                        .antiAliasWithSaveLayer,
-                                                    color: Color(0xFF1A1A1A),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -0.06, -0.12),
-                                                    child: Image.asset(
-                                                      'assets/images/Group_707.png',
-                                                      width: 35,
-                                                      height: 35,
-                                                      fit: BoxFit.contain,
+                                            Padding(
+                                              padding: EdgeInsets.all(5),
+                                              child: Container(
+                                                width: 80,
+                                                height: 80,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF262626),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Stack(
+                                                  children: [
+                                                    Card(
+                                                      clipBehavior: Clip
+                                                          .antiAliasWithSaveLayer,
+                                                      color: Color(0xFF1A1A1A),
                                                     ),
-                                                  ),
-                                                ],
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -0.06, -0.12),
+                                                      child: Image.asset(
+                                                        'assets/images/Group_707.png',
+                                                        width: 35,
+                                                        height: 35,
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                             Padding(
@@ -577,38 +902,42 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                         5, 5, 5, 0),
                                     child: Card(
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFF262626),
+                                      color: Color(0xFF272E36),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             3, 0, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Container(
-                                              width: 80,
-                                              height: 80,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF262626),
-                                              ),
-                                              child: Stack(
-                                                children: [
-                                                  Card(
-                                                    clipBehavior: Clip
-                                                        .antiAliasWithSaveLayer,
-                                                    color: Color(0xFF1A1A1A),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -0.06, -0.12),
-                                                    child: Image.asset(
-                                                      'assets/images/Group_706.png',
-                                                      width: 35,
-                                                      height: 35,
-                                                      fit: BoxFit.contain,
+                                            Padding(
+                                              padding: EdgeInsets.all(5),
+                                              child: Container(
+                                                width: 80,
+                                                height: 80,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF262626),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Stack(
+                                                  children: [
+                                                    Card(
+                                                      clipBehavior: Clip
+                                                          .antiAliasWithSaveLayer,
                                                     ),
-                                                  ),
-                                                ],
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -0.06, -0.12),
+                                                      child: Image.asset(
+                                                        'assets/images/Group_706.png',
+                                                        width: 35,
+                                                        height: 35,
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                             Padding(
@@ -674,38 +1003,43 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                         5, 5, 5, 0),
                                     child: Card(
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFF262626),
+                                      color: Color(0xFF272E36),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             3, 0, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Container(
-                                              width: 80,
-                                              height: 80,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF262626),
-                                              ),
-                                              child: Stack(
-                                                children: [
-                                                  Card(
-                                                    clipBehavior: Clip
-                                                        .antiAliasWithSaveLayer,
-                                                    color: Color(0xFF1A1A1A),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            -0.06, -0.12),
-                                                    child: Image.asset(
-                                                      'assets/images/Group_707.png',
-                                                      width: 35,
-                                                      height: 35,
-                                                      fit: BoxFit.contain,
+                                            Padding(
+                                              padding: EdgeInsets.all(5),
+                                              child: Container(
+                                                width: 80,
+                                                height: 80,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF262626),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Stack(
+                                                  children: [
+                                                    Card(
+                                                      clipBehavior: Clip
+                                                          .antiAliasWithSaveLayer,
+                                                      color: Color(0xFF1A1A1A),
                                                     ),
-                                                  ),
-                                                ],
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              -0.06, -0.12),
+                                                      child: Image.asset(
+                                                        'assets/images/Group_707.png',
+                                                        width: 35,
+                                                        height: 35,
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                             Padding(
@@ -773,6 +1107,57 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                         ),
                       ),
                     ),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 50),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF00B89F),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 12, 0, 0),
+                                  child: Image.asset(
+                                    'assets/images/bubble.png',
+                                    width: 40,
+                                    height: 40,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            'Chat',
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFFE5E5E5),
+                                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],
