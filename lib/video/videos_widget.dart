@@ -1,3 +1,6 @@
+import 'package:n_tel_care_family_app/video/video_player.dart';
+import 'package:video_player/video_player.dart';
+
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -18,7 +21,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFF272E36),
+      backgroundColor: Color(0xFF1F252B),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Stack(
@@ -844,31 +847,48 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                 MainAxisAlignment
                                                                     .spaceAround,
                                                             children: [
-                                                              Container(
-                                                                width: 90,
-                                                                height: 90,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Color(
-                                                                      0xFF535353),
-                                                                ),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Image.asset(
-                                                                      'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
-                                                                      width: 35,
-                                                                      height:
-                                                                          25,
-                                                                      fit: BoxFit
-                                                                          .fill,
+                                                              InkWell(
+                                                                onTap:
+                                                                    () async {
+                                                                  await Navigator
+                                                                      .push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              VideoPlayerScreen(),
                                                                     ),
-                                                                  ],
+                                                                  );
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 90,
+                                                                  height: 90,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color(
+                                                                        0xFF535353),
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Image
+                                                                          .asset(
+                                                                        'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
+                                                                        width:
+                                                                            35,
+                                                                        height:
+                                                                            25,
+                                                                        fit: BoxFit
+                                                                            .fill,
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
                                                               Container(

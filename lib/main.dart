@@ -135,7 +135,7 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.watch_outlined,
+                  Icons.people_rounded,
                   color:
                       currentIndex == 1 ? Color(0xFF00B89F) : Color(0xFF535353),
                   size: 24,

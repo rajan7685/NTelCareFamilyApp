@@ -1241,7 +1241,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           MainAxisSize.max,
                                                       children: [
                                                         Text(
-                                                          '70 BPM',
+                                                          '90 %',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyText1
@@ -1295,8 +1295,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
                                                                 0, 1, 0, 0),
-                                                    child: Image.asset(
-                                                      'assets/images/Layer_2_active.png',
+                                                    child: SvgPicture.asset(
+                                                      'assets/images/Layer_2.svg',
                                                       height: 90,
                                                       fit: BoxFit.fill,
                                                     ),
@@ -1590,8 +1590,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
                                                                 0, 1, 0, 0),
-                                                    child: Image.asset(
-                                                      'assets/images/7068954_furniture_door_interior_house_front_icon.png',
+                                                    child: SvgPicture.asset(
+                                                      'assets/images/7068954_furniture_door_interior_house_front_icon1.svg',
                                                       height: 90,
                                                       fit: BoxFit.fill,
                                                     ),
@@ -1738,8 +1738,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0, 1, 0, 0),
-                                                      child: Image.asset(
-                                                        'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon.png',
+                                                      child: SvgPicture.asset(
+                                                        'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon1.svg',
                                                         height: 90,
                                                         fit: BoxFit.fill,
                                                       ),
@@ -1764,7 +1764,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 90),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
