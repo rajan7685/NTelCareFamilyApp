@@ -348,7 +348,7 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    10, 10, 0, 0),
+                                    15, 10, 0, 0),
                                 child: Container(
                                   width: 80,
                                   height: 80,
@@ -359,7 +359,7 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                                   child: Stack(
                                     children: [
                                       SvgPicture.asset(
-                                        'assets/images/Layer_2.svg',
+                                        'assets/images/Layer 2.svg',
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover,
@@ -441,7 +441,7 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                           ),
                           Theme(
                             data: ThemeData(
-                              unselectedWidgetColor: Color(0xFF00B89F),
+                              unselectedWidgetColor: Color(0xFF707070),
                             ),
                             child: CheckboxListTile(
                               value: checkboxListTileValue ??= true,
@@ -454,81 +454,71 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                                     .override(
                                       fontFamily: 'Poppins',
                                       color: Color(0xFFE5E5E5),
-                                      fontSize: 15,
+                                      fontSize: 13,
                                       fontWeight: FontWeight.w300,
                                     ),
                               ),
                               tileColor: Color(0xFF1F252B),
-                              activeColor: Color(0xFF00B89F),
+                              activeColor: Color(0xD323ECB9),
                               dense: false,
                               controlAffinity: ListTileControlAffinity.leading,
+                            ),
+                          ),
+                          FFButtonWidget(
+                            onPressed: () {
+                              print('Button pressed ...');
+                            },
+                            text: 'Save',
+                            options: FFButtonOptions(
+                              width: 350,
+                              height: 50,
+                              color: Color(0xFF00B89F),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1,
+                              ),
+                              borderRadius: 12,
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                            child: FFButtonWidget(
+                              onPressed: () {
+                                print('Button pressed ...');
+                              },
+                              text: 'Delete User',
+                              options: FFButtonOptions(
+                                width: 350,
+                                height: 50,
+                                color: FlutterFlowTheme.of(context).alternate,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFFDF0808),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFDF0808),
+                                  width: 1,
+                                ),
+                                borderRadius: 12,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ],
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 20),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                    child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                      },
-                      text: 'Save',
-                      options: FFButtonOptions(
-                        width: 350,
-                        height: 40,
-                        color: Color(0xFF00B89F),
-                        textStyle:
-                            FlutterFlowTheme.of(context).subtitle2.override(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: 12,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                    child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                      },
-                      text: 'Delete User',
-                      options: FFButtonOptions(
-                        width: 350,
-                        height: 40,
-                        color: FlutterFlowTheme.of(context).alternate,
-                        textStyle:
-                            FlutterFlowTheme.of(context).subtitle2.override(
-                                  fontFamily: 'Poppins',
-                                  color: Color(0xFFDF0808),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                        borderSide: BorderSide(
-                          color: Color(0xFFDF0808),
-                          width: 1,
-                        ),
-                        borderRadius: 12,
-                      ),
-                    ),
                   ),
                 ],
               ),

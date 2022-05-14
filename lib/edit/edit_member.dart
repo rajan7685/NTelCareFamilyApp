@@ -299,7 +299,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               child: Stack(
                                 children: [
                                   SvgPicture.asset(
-                                    'assets/images/Layer_2.svg',
+                                    'assets/images/Layer 2.svg',
                                     width: 100,
                                     height: 100,
                                     fit: BoxFit.cover,
@@ -584,7 +584,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                         child: FFButtonWidget(
                           onPressed: () {
                             print('Button pressed ...');

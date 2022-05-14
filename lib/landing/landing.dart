@@ -39,8 +39,15 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Align(
-                            alignment: AlignmentDirectional(0, 0),
+                          InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CriticalWidget(),
+                                ),
+                              );
+                            },
                             child: Icon(
                               Icons.notifications_none,
                               color: FlutterFlowTheme.of(context).tertiaryColor,
@@ -51,7 +58,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                       child: Container(
                         height: 100,
                         decoration: BoxDecoration(
@@ -410,8 +417,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
                                                                 0, 1, 0, 0),
-                                                    child: SvgPicture.asset(
-                                                      'assets/images/15-health.svg',
+                                                    child: Image.asset(
+                                                      'assets/images/15-health.png',
                                                       height: 90,
                                                       fit: BoxFit.fill,
                                                     ),
@@ -559,7 +566,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               .fromSTEB(
                                                                   0, 1, 0, 0),
                                                       child: SvgPicture.asset(
-                                                        'assets/images/65-battery.svg',
+                                                        'assets/images/65-battery (1).svg',
                                                         height: 90,
                                                         fit: BoxFit.fill,
                                                       ),
@@ -705,8 +712,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
                                                                 0, 1, 0, 0),
-                                                    child: SvgPicture.asset(
-                                                      'assets/images/8679613_footprint_line_icon.svg',
+                                                    child: Image.asset(
+                                                      'assets/images/8679613_footprint_line_icon_active.png',
                                                       height: 90,
                                                       fit: BoxFit.fill,
                                                     ),
@@ -853,8 +860,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0, 1, 0, 0),
-                                                      child: SvgPicture.asset(
-                                                        'assets/images/01 (1).svg',
+                                                      child: Image.asset(
+                                                        'assets/images/01.png',
                                                         height: 90,
                                                         fit: BoxFit.fill,
                                                       ),
@@ -1148,8 +1155,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0, 1, 0, 0),
-                                                      child: SvgPicture.asset(
-                                                        'assets/images/65-battery.svg',
+                                                      child: Image.asset(
+                                                        'assets/images/Group 697.png',
                                                         height: 90,
                                                         fit: BoxFit.fill,
                                                       ),
@@ -1295,8 +1302,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
                                                                 0, 1, 0, 0),
-                                                    child: SvgPicture.asset(
-                                                      'assets/images/Layer_2.svg',
+                                                    child: Image.asset(
+                                                      'assets/images/Layer_2_active.png',
                                                       height: 90,
                                                       fit: BoxFit.fill,
                                                     ),
@@ -1443,8 +1450,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0, 1, 0, 0),
-                                                      child: SvgPicture.asset(
-                                                        'assets/images/65-battery.svg',
+                                                      child: Image.asset(
+                                                        'assets/images/8675105_ic_fluent_pill_regular_icon.png',
                                                         height: 90,
                                                         fit: BoxFit.fill,
                                                       ),
@@ -1590,8 +1597,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
                                                                 0, 1, 0, 0),
-                                                    child: SvgPicture.asset(
-                                                      'assets/images/7068954_furniture_door_interior_house_front_icon1.svg',
+                                                    child: Image.asset(
+                                                      'assets/images/7068954_furniture_door_interior_house_front_icon.png',
                                                       height: 90,
                                                       fit: BoxFit.fill,
                                                     ),
@@ -1738,8 +1745,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0, 1, 0, 0),
-                                                      child: SvgPicture.asset(
-                                                        'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon1.svg',
+                                                      child: Image.asset(
+                                                        'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon.png',
                                                         height: 90,
                                                         fit: BoxFit.fill,
                                                       ),
@@ -1755,74 +1762,6 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                   ),
                                 ),
                               ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 90, 0, 10),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
-                            child: InkWell(
-                              onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ChatWidget(),
-                                  ),
-                                );
-                              },
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    width: 60,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF00B89F),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/bubble.png',
-                                          width: 40,
-                                          height: 40,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Text(
-                                    'Let\'s call Chat',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          color: Color(0xFFE5E5E5),
-                                        ),
-                                  ),
-                                ],
-                              ),
                             ),
                           ),
                         ],

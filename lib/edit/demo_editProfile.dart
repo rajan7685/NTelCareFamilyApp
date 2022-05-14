@@ -406,8 +406,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           children: [
                             Expanded(
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    10, 0, 0, 10),
                                 child: Text(
                                   'Permissions',
                                   style: FlutterFlowTheme.of(context)
@@ -562,7 +562,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                         text: 'Save',
                         options: FFButtonOptions(
                           width: 350,
-                          height: 40,
+                          height: 50,
                           color: Color(0xFF00B89F),
                           textStyle:
                               FlutterFlowTheme.of(context).subtitle2.override(
@@ -579,7 +579,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                         child: FFButtonWidget(
                           onPressed: () {
                             print('Button pressed ...');
@@ -587,7 +587,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           text: 'Delete User',
                           options: FFButtonOptions(
                             width: 350,
-                            height: 40,
+                            height: 50,
                             color: FlutterFlowTheme.of(context).alternate,
                             textStyle:
                                 FlutterFlowTheme.of(context).subtitle2.override(
