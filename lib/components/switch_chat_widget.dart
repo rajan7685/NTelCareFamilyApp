@@ -11,13 +11,12 @@ class SwitchChatWidget extends StatefulWidget {
 }
 
 class _SwitchChatWidgetState extends State<SwitchChatWidget> {
-  bool switchListTileValue;
-
   @override
   Widget build(BuildContext context) {
     return SwitchListTile(
-      value: switchListTileValue ??= false,
-      onChanged: (newValue) => setState(() => switchListTileValue = newValue),
+      value: FFAppState().Chattoggle2,
+      onChanged: (bool value) =>
+          setState(() => FFAppState().Chattoggle2 = value),
       title: Text(
         'Enable Chat',
         style: FlutterFlowTheme.of(context).title3.override(

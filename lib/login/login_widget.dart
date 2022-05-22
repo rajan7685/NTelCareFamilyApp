@@ -1,8 +1,13 @@
+import 'package:n_tel_care_family_app/forgotPasword/forget_password.dart';
+import 'package:n_tel_care_family_app/model/loginmodel.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../main.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key key}) : super(key: key);
@@ -57,9 +62,9 @@ class _LoginWidgetState extends State<LoginWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 150),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 75),
                   child: Image.asset(
-                    'assets/images/Group_598.png',
+                    'assets/images/Group 598.png',
                     width: 300,
                     height: 200,
                     fit: BoxFit.fill,
@@ -192,8 +197,69 @@ class _LoginWidgetState extends State<LoginWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                       child: FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  NavBarPage(initialPage: 'Landing'),
+                            ),
+                          );
+                          // final data = await LoginCall.call(
+                          //   username: textController1.text,
+                          //   password: textController2.text,
+                          // );
+                          // print(data?.jsonBody[0].runtimeType);
+
+                          // if ((getJsonField(
+                          //       (data?.jsonBody ?? ''),
+                          //       r'''$[:].Error''',
+                          //     )) ==
+                          //     ('Nill')) {
+                          //   LoginModel loginModel =
+                          //       LoginModel.fromJsonData(data.jsonBody[0]);
+                          //   FFAppState().IsUserLogin = loginModel.IsUserLogin;
+                          //   FFAppState().IsLiveView = loginModel.IsLiveView;
+                          //   FFAppState().Error = loginModel.Error;
+                          //   FFAppState().Email = loginModel.Email;
+                          //   FFAppState().Token = loginModel.Token;
+                          //   FFAppState().UserId = loginModel.UserId;
+                          //   FFAppState().AccountId = loginModel.AccountId;
+                          //   FFAppState().RoleId = loginModel.RoleId;
+                          //   FFAppState().First_Name = loginModel.FirstName;
+                          //   FFAppState().Last_Name = loginModel.LastName;
+                          //   FFAppState().Profile_Picture =
+                          //       loginModel.ProfilePicture;
+
+                          //   print(loginModel.FirstName);
+                          //   await Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           NavBarPage(initialPage: 'Landing'),
+                          //     ),
+                          //   );
+                          // } else {
+                          //   await showDialog(
+                          //     context: context,
+                          //     builder: (alertDialogContext) {
+                          //       return AlertDialog(
+                          //         title: Text('Error'),
+                          //         content:
+                          //             Text("Incorrect Username or Password"),
+                          //         actions: [
+                          //           TextButton(
+                          //             onPressed: () =>
+                          //                 Navigator.pop(alertDialogContext),
+                          //             child: Text('Ok'),
+                          //           ),
+                          //         ],
+                          //       );
+                          //     },
+                          //   );
+                          // }
+
+                          // setState(() {});
                         },
                         text: 'Login',
                         options: FFButtonOptions(
@@ -213,12 +279,22 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                       ),
                     ),
-                    Text(
-                      'Forgot Password?',
-                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                            fontFamily: 'Poppins',
-                            color: Color(0xFFAFAFAF),
+                    InkWell(
+                      onTap: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => forget_password(),
                           ),
+                        );
+                      },
+                      child: Text(
+                        'Forgot Password?',
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFFAFAFAF),
+                            ),
+                      ),
                     ),
                   ],
                 ),

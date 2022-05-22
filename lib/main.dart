@@ -1,7 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:n_tel_care_family_app/landing/landing.dart';
+import 'package:n_tel_care_family_app/members/members.dart';
+import 'package:n_tel_care_family_app/profile/profile.dart';
 import 'package:n_tel_care_family_app/spalsh/spalsh_widget.dart';
+import 'package:n_tel_care_family_app/video/videos_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
@@ -53,7 +57,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
-      home: NavBarPage(),
+      home: SpalshWidget(),
     );
   }
 }
@@ -80,10 +84,10 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'Landing': LandingWidget(),
-      'Devices': DevicesWidget(),
-      'Video': VideoWidget(),
-      'Profile': ProfileWidget(),
+      'Landing': ModifiedLandingPageWidget(),
+      'Members': MembersWidget(),
+      'Video': VideoClipsWidget(),
+      'Profile': ProfilePageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -131,13 +135,13 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.watch_outlined,
+                  Icons.people_rounded,
                   color:
                       currentIndex == 1 ? Color(0xFF00B89F) : Color(0xFF535353),
                   size: 24,
                 ),
                 Text(
-                  'Devices',
+                  'Members',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
@@ -160,7 +164,7 @@ class _NavBarPageState extends State<NavBarPage> {
                   size: 24,
                 ),
                 Text(
-                  'Video',
+                  'Videos',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2

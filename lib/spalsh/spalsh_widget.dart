@@ -1,6 +1,7 @@
+import 'package:n_tel_care_family_app/login/login_widget.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../login/login_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,9 +66,9 @@ class _SpalshWidgetState extends State<SpalshWidget> {
                         ),
                         child: Padding(
                           padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 155, 10, 0),
+                              EdgeInsetsDirectional.fromSTEB(10, 15, 10, 0),
                           child: Image.asset(
-                            'assets/images/Group_598.png',
+                            'assets/images/Group 598.png',
                             width: 300,
                             height: 200,
                             fit: BoxFit.fill,
