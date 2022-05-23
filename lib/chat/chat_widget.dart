@@ -1,6 +1,8 @@
+import 'package:n_tel_care_family_app/landing/landing.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../main.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,7 +20,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: Color(0xFF1F252B),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -31,12 +33,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                     width: double.infinity,
                     height: 300,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xFF00B89F), Color(0xFF005C50)],
-                        stops: [0, 1],
-                        begin: AlignmentDirectional(0.77, -1),
-                        end: AlignmentDirectional(-0.77, 1),
-                      ),
+                      color: Color(0xFF1F252B),
                     ),
                   ),
                   Expanded(
@@ -54,7 +51,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(7, 45, 10, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(7, 10, 10, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,7 +64,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      NavBarPage(initialPage: 'Landing'),
+                                      ModifiedLandingPageWidget(),
                                 ),
                               );
                             },
@@ -114,7 +111,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                         width: double.infinity,
                         height: 100,
                         decoration: BoxDecoration(
-                          color: Color(0xFF292929),
+                          color: Color(0xFF272E36),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Column(
@@ -127,6 +124,21 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 5, 0),
+                                    child: Container(
+                                      width: 45,
+                                      height: 45,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Image.network(
+                                        'https://picsum.photos/seed/726/600',
+                                      ),
+                                    ),
+                                  ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 10, 0),
@@ -158,20 +170,31 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 0, 0, 0),
+                                        10, 0, 5, 0),
                                     child: Container(
+                                      width: 45,
+                                      height: 45,
+                                      clipBehavior: Clip.antiAlias,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFEEEEEE),
-                                        borderRadius: BorderRadius.circular(10),
+                                        shape: BoxShape.circle,
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 7, 12, 7),
-                                        child: Text(
-                                          'hi',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
+                                      child: Image.network(
+                                        'https://picsum.photos/seed/520/600',
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFEEEEEE),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          12, 7, 12, 7),
+                                      child: Text(
+                                        'hi',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
                                       ),
                                     ),
                                   ),
@@ -192,7 +215,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Color(0xFFEEEEEE),
+                      color: Color(0xFF1A1A1A),
                     ),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 5),

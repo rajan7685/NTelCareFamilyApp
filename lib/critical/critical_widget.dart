@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:n_tel_care_family_app/chat/chat_widget.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -71,7 +72,7 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                       child: Text(
-                        'Critical Events',
+                        'Critical Events \nNotifications',
                         style: FlutterFlowTheme.of(context).bodyText1.override(
                               fontFamily: 'Poppins',
                               color: FlutterFlowTheme.of(context).tertiaryColor,
@@ -446,10 +447,11 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 12, 0),
-                                        child: Icon(
-                                          Icons.settings_outlined,
-                                          color: Colors.black,
-                                          size: 24,
+                                        child: SvgPicture.asset(
+                                          'assets/images/9055020_bx_sort_icon.svg',
+                                          width: 20,
+                                          height: 20,
+                                          fit: BoxFit.contain,
                                         ),
                                       ),
                                       Padding(

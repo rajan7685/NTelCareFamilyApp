@@ -1,8 +1,10 @@
+import 'package:n_tel_care_family_app/members/members.dart';
+
 import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../profile/profile_widget.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,7 +60,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ProfileWidget(),
+                                  builder: (context) => MembersWidget(),
                                 ),
                               );
                             },

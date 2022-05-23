@@ -1,4 +1,3 @@
-import 'package:n_tel_care_family_app/critical/critcal.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/edit/edit_executive.dart';
 import 'package:n_tel_care_family_app/edit/edit_member.dart';

@@ -1,6 +1,4 @@
 import 'package:n_tel_care_family_app/landing/landing.dart';
-import 'package:n_tel_care_family_app/landing/landing_widget.dart';
-
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';

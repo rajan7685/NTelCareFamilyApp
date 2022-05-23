@@ -10,10 +10,7 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'landing/landing_widget.dart';
 import 'devices/devices_widget.dart';
-import 'video/video_widget.dart';
-import 'profile/profile_widget.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 
 void main() async {
@@ -85,8 +82,8 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'Landing': ModifiedLandingPageWidget(),
-      'Members': MembersWidget(),
       'Video': VideoClipsWidget(),
+      'Members': MembersWidget(),
       'Profile': ProfilePageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
@@ -135,13 +132,13 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.people_rounded,
+                  Icons.ondemand_video,
                   color:
                       currentIndex == 1 ? Color(0xFF00B89F) : Color(0xFF535353),
                   size: 24,
                 ),
                 Text(
-                  'Members',
+                  'Videos',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
@@ -158,13 +155,13 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.ondemand_video,
+                  Icons.people_rounded,
                   color:
                       currentIndex == 2 ? Color(0xFF00B89F) : Color(0xFF535353),
                   size: 24,
                 ),
                 Text(
-                  'Videos',
+                  'Members',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2

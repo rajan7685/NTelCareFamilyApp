@@ -1,3 +1,4 @@
+import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/video/video_player.dart';
 import 'package:video_player/video_player.dart';
 
@@ -49,10 +50,20 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                     ),
                           ),
                         ),
-                        Icon(
-                          Icons.notifications_none,
-                          color: Color(0xFFE5E5E5),
-                          size: 30,
+                        InkWell(
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CriticalWidget(),
+                              ),
+                            );
+                          },
+                          child: Icon(
+                            Icons.notifications_none,
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            size: 35,
+                          ),
                         ),
                       ],
                     ),
@@ -64,6 +75,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                     ),
                     child: ListView(
                       padding: EdgeInsets.zero,
+                      shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       children: [
                         Padding(
@@ -83,7 +95,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                     shape: BoxShape.circle,
                                   ),
                                   child: Image.network(
-                                    'https://picsum.photos/seed/782/600',
+                                    'https://picsum.photos/seed/171/600',
                                   ),
                                 ),
                                 Padding(
@@ -91,21 +103,29 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                       10, 0, 0, 0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 20, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
                                             Text(
                                               'Julie Paul',
+                                              textAlign: TextAlign.center,
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyText1
                                                   .override(
                                                     fontFamily: 'Montserrat',
                                                     color: Color(0xFF00B89F),
+                                                    fontSize: 14,
                                                     fontWeight: FontWeight.w300,
                                                   ),
                                             ),
@@ -180,7 +200,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                     shape: BoxShape.circle,
                                   ),
                                   child: Image.network(
-                                    'https://picsum.photos/seed/782/600',
+                                    'https://picsum.photos/seed/171/600',
                                   ),
                                 ),
                                 Padding(
@@ -188,21 +208,134 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                       10, 0, 0, 0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 20, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
                                             Text(
                                               'Julie Paul',
+                                              textAlign: TextAlign.center,
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyText1
                                                   .override(
                                                     fontFamily: 'Montserrat',
                                                     color: Color(0xFF00B89F),
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 2, 0, 0),
+                                            child: Text(
+                                              'Age 60, Female',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color(0xFFE5E5E5),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w200,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 6, 0, 0),
+                                            child: Text(
+                                              'More Info',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color(0xFFE5E5E5),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w200,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xFF1F252B),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  width: 70,
+                                  height: 70,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Image.network(
+                                    'https://picsum.photos/seed/171/600',
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 0, 0, 0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 20, 0, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Julie Paul',
+                                              textAlign: TextAlign.center,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color(0xFF00B89F),
+                                                    fontSize: 14,
                                                     fontWeight: FontWeight.w300,
                                                   ),
                                             ),

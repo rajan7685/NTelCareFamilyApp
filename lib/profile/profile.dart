@@ -372,7 +372,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       leading: Icon(
                                         Icons.logout,
                                         color: Color(0xFF00B89F),
-                                        size: 20,
+                                        size: 25,
                                       ),
                                       title: Text(
                                         'Logout',
