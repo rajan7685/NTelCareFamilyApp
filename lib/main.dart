@@ -4,6 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:n_tel_care_family_app/profile/profile.dart';
+import 'package:n_tel_care_family_app/profile/profile_page.dart';
+import 'package:n_tel_care_family_app/spalsh/modified_splash.dart';
+
 import 'package:n_tel_care_family_app/spalsh/spalsh_widget.dart';
 import 'package:n_tel_care_family_app/video/videos_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
@@ -54,7 +57,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
-      home: SpalshWidget(),
+      home: ModifiedSplashWidget(),
     );
   }
 }
@@ -99,8 +102,8 @@ class _NavBarPageState extends State<NavBarPage> {
         selectedBackgroundColor: Color(0x00000000),
         borderRadius: 8,
         itemBorderRadius: 8,
-        margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+        margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
         width: double.infinity,
         elevation: 0,
         items: [
@@ -115,7 +118,7 @@ class _NavBarPageState extends State<NavBarPage> {
                   size: 24,
                 ),
                 Text(
-                  'Home',
+                  'Dashboard',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0

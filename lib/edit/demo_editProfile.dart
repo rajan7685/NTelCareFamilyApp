@@ -1,4 +1,5 @@
 import 'package:n_tel_care_family_app/profile/profile.dart';
+import 'package:n_tel_care_family_app/profile/profile_page.dart';
 
 import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';

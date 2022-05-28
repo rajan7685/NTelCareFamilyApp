@@ -1,4 +1,4 @@
-import 'package:n_tel_care_family_app/chat/chat_widget.dart';
+/**import 'package:n_tel_care_family_app/chat/chat_widget.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/custom_code/widgets/custom_message.dart';
 import 'package:n_tel_care_family_app/edit/demo_editProfile.dart';
@@ -33,12 +33,15 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: [
-              Column(
+
+          child:SingleChildScrollView(
+           
+Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
+
+                
                 children: [
                   Container(
                     width: 100,
@@ -461,6 +464,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             ],
                                           ),
                                         ),
+                                      
                                         Align(
                                           alignment:
                                               AlignmentDirectional(1.31, -0.83),
@@ -524,4 +528,4 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
       ),
     );
   }
-}
+}*/
