@@ -31,7 +31,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(7, 45, 10, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(7, 35, 10, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,7 +126,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -156,7 +156,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                         children: [
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,

@@ -1,5 +1,6 @@
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/heart_rate/stats.dart';
+import 'package:n_tel_care_family_app/sleep/sleep.dart';
 
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -36,7 +37,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(7, 25, 10, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(7, 30, 10, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -788,8 +789,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                CriticalWidget(),
+                                            builder: (context) => SleepWidget(),
                                           ),
                                         );
                                       },

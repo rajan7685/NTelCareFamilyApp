@@ -61,7 +61,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(7, 45, 10, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(7, 63, 10, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

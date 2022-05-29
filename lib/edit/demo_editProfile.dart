@@ -54,7 +54,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(7, 45, 10, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(7, 63, 10, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,7 +151,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 10),
+                        padding: EdgeInsetsDirectional.fromSTEB(15, 10, 0, 10),
                         child: Text(
                           'Edit Profile',
                           textAlign: TextAlign.start,
@@ -170,7 +170,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 45, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                         child: Container(
                           width: 350,
                           decoration: BoxDecoration(

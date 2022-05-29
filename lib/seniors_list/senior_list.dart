@@ -31,7 +31,7 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(7, 40, 10, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(7, 30, 10, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

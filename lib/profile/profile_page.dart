@@ -73,7 +73,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 35, 10, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(7, 45, 10, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.end,

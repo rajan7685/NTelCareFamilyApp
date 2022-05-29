@@ -1907,9 +1907,9 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
                                                                             5,
-                                                                            0,
                                                                             5,
-                                                                            0),
+                                                                            5,
+                                                                            5),
                                                                         child:
                                                                             Row(
                                                                           mainAxisSize:
@@ -2345,9 +2345,9 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                       padding: EdgeInsetsDirectional
                                                                           .fromSTEB(
                                                                               5,
-                                                                              0,
                                                                               5,
-                                                                              0),
+                                                                              5,
+                                                                              5),
                                                                       child:
                                                                           Row(
                                                                         mainAxisSize:
