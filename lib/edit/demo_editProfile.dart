@@ -318,8 +318,6 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                 child: DropdownButtonFormField(
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.blue, width: 2),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     border: OutlineInputBorder(

@@ -447,7 +447,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                               text: 'Live View',
                                             ),
                                             Tab(
-                                              text: 'Video Clips',
+                                              text: 'Motion Clips',
                                             ),
                                           ],
                                         ),
@@ -861,97 +861,6 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                             ),
                                                           ),
                                                         ),
-                                                        // Padding(
-                                                        //   padding:
-                                                        //       EdgeInsetsDirectional
-                                                        //           .fromSTEB(0, 90,
-                                                        //               0, 10),
-                                                        //   child: Row(
-                                                        //     mainAxisSize:
-                                                        //         MainAxisSize.max,
-                                                        //     mainAxisAlignment:
-                                                        //         MainAxisAlignment
-                                                        //             .end,
-                                                        //     crossAxisAlignment:
-                                                        //         CrossAxisAlignment
-                                                        //             .end,
-                                                        //     children: [
-                                                        //       Padding(
-                                                        //         padding:
-                                                        //             EdgeInsetsDirectional
-                                                        //                 .fromSTEB(
-                                                        //                     0,
-                                                        //                     0,
-                                                        //                     15,
-                                                        //                     0),
-                                                        //         child: InkWell(
-                                                        //           onTap:
-                                                        //               () async {
-                                                        //             await Navigator
-                                                        //                 .push(
-                                                        //               context,
-                                                        //               MaterialPageRoute(
-                                                        //                 builder:
-                                                        //                     (context) =>
-                                                        //                         ChatWidget(),
-                                                        //               ),
-                                                        //             );
-                                                        //           },
-                                                        //           child: Column(
-                                                        //             mainAxisSize:
-                                                        //                 MainAxisSize
-                                                        //                     .max,
-                                                        //             children: [
-                                                        //               Container(
-                                                        //                 width: 60,
-                                                        //                 height:
-                                                        //                     60,
-                                                        //                 decoration:
-                                                        //                     BoxDecoration(
-                                                        //                   color: Color(
-                                                        //                       0xFF00B89F),
-                                                        //                   shape: BoxShape
-                                                        //                       .circle,
-                                                        //                 ),
-                                                        //                 child:
-                                                        //                     Column(
-                                                        //                   mainAxisSize:
-                                                        //                       MainAxisSize.max,
-                                                        //                   mainAxisAlignment:
-                                                        //                       MainAxisAlignment.center,
-                                                        //                   children: [
-                                                        //                     Image
-                                                        //                         .asset(
-                                                        //                       'assets/images/bubble.png',
-                                                        //                       width:
-                                                        //                           40,
-                                                        //                       height:
-                                                        //                           40,
-                                                        //                       fit:
-                                                        //                           BoxFit.fill,
-                                                        //                     ),
-                                                        //                   ],
-                                                        //                 ),
-                                                        //               ),
-                                                        //               Text(
-                                                        //                 'Let\'s call Chat',
-                                                        //                 style: FlutterFlowTheme.of(
-                                                        //                         context)
-                                                        //                     .bodyText1
-                                                        //                     .override(
-                                                        //                       fontFamily:
-                                                        //                           'Montserrat',
-                                                        //                       color:
-                                                        //                           Color(0xFFE5E5E5),
-                                                        //                     ),
-                                                        //               ),
-                                                        //             ],
-                                                        //           ),
-                                                        //         ),
-                                                        //       ),
-                                                        //     ],
-                                                        //   ),
-                                                        // ),
                                                       ],
                                                     ),
                                                   ),
@@ -1042,8 +951,38 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                               .max,
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
-                                                                              .center,
+                                                                              .spaceBetween,
                                                                       children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
+                                                                            children: [
+                                                                              Text(
+                                                                                '03:24',
+                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                      fontFamily: 'Poppins',
+                                                                                      color: Color(0xFFE5E5E5),
+                                                                                      fontSize: 10,
+                                                                                      fontWeight: FontWeight.w100,
+                                                                                    ),
+                                                                              ),
+                                                                              Icon(
+                                                                                Icons.cloud_download_rounded,
+                                                                                color: Color(0xFF00B89F),
+                                                                                size: 18,
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
                                                                         Image
                                                                             .asset(
                                                                           'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
@@ -1053,6 +992,31 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                               25,
                                                                           fit: BoxFit
                                                                               .fill,
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: [
+                                                                              Text(
+                                                                                'Living Room',
+                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                      fontFamily: 'Poppins',
+                                                                                      color: Color(0xFFE5E5E5),
+                                                                                      fontSize: 9,
+                                                                                      fontWeight: FontWeight.w200,
+                                                                                    ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -1072,8 +1036,38 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             .max,
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
-                                                                            .center,
+                                                                            .spaceBetween,
                                                                     children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Text(
+                                                                              '03:24',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 10,
+                                                                                    fontWeight: FontWeight.w100,
+                                                                                  ),
+                                                                            ),
+                                                                            Icon(
+                                                                              Icons.cloud_download_rounded,
+                                                                              color: Color(0xFF00B89F),
+                                                                              size: 18,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
                                                                       Image
                                                                           .asset(
                                                                         'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
@@ -1083,6 +1077,31 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             25,
                                                                         fit: BoxFit
                                                                             .fill,
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              'Living Room',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 9,
+                                                                                    fontWeight: FontWeight.w200,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -1101,8 +1120,38 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             .max,
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
-                                                                            .center,
+                                                                            .spaceBetween,
                                                                     children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Text(
+                                                                              '03:24',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 10,
+                                                                                    fontWeight: FontWeight.w100,
+                                                                                  ),
+                                                                            ),
+                                                                            Icon(
+                                                                              Icons.cloud_download_rounded,
+                                                                              color: Color(0xFF00B89F),
+                                                                              size: 18,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
                                                                       Image
                                                                           .asset(
                                                                         'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
@@ -1112,6 +1161,31 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             25,
                                                                         fit: BoxFit
                                                                             .fill,
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              'Living Room',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 9,
+                                                                                    fontWeight: FontWeight.w200,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -1130,8 +1204,38 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             .max,
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
-                                                                            .center,
+                                                                            .spaceBetween,
                                                                     children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Text(
+                                                                              '03:24',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 10,
+                                                                                    fontWeight: FontWeight.w100,
+                                                                                  ),
+                                                                            ),
+                                                                            Icon(
+                                                                              Icons.cloud_download_rounded,
+                                                                              color: Color(0xFF00B89F),
+                                                                              size: 18,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
                                                                       Image
                                                                           .asset(
                                                                         'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
@@ -1141,6 +1245,31 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             25,
                                                                         fit: BoxFit
                                                                             .fill,
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              'Living Room',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 9,
+                                                                                    fontWeight: FontWeight.w200,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -1170,8 +1299,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1179,6 +1341,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1197,8 +1385,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1206,6 +1427,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1224,8 +1471,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1233,6 +1513,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1251,8 +1557,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1260,6 +1599,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1317,8 +1682,38 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             .max,
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
-                                                                            .center,
+                                                                            .spaceBetween,
                                                                     children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Text(
+                                                                              '03:24',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 10,
+                                                                                    fontWeight: FontWeight.w100,
+                                                                                  ),
+                                                                            ),
+                                                                            Icon(
+                                                                              Icons.cloud_download_rounded,
+                                                                              color: Color(0xFF00B89F),
+                                                                              size: 18,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
                                                                       Image
                                                                           .asset(
                                                                         'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
@@ -1328,6 +1723,31 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             25,
                                                                         fit: BoxFit
                                                                             .fill,
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              'Living Room',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 9,
+                                                                                    fontWeight: FontWeight.w200,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -1346,8 +1766,38 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             .max,
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
-                                                                            .center,
+                                                                            .spaceBetween,
                                                                     children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Text(
+                                                                              '03:24',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 10,
+                                                                                    fontWeight: FontWeight.w100,
+                                                                                  ),
+                                                                            ),
+                                                                            Icon(
+                                                                              Icons.cloud_download_rounded,
+                                                                              color: Color(0xFF00B89F),
+                                                                              size: 18,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
                                                                       Image
                                                                           .asset(
                                                                         'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
@@ -1357,6 +1807,31 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             25,
                                                                         fit: BoxFit
                                                                             .fill,
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              'Living Room',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 9,
+                                                                                    fontWeight: FontWeight.w200,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -1375,8 +1850,38 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             .max,
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
-                                                                            .center,
+                                                                            .spaceBetween,
                                                                     children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Text(
+                                                                              '03:24',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 10,
+                                                                                    fontWeight: FontWeight.w100,
+                                                                                  ),
+                                                                            ),
+                                                                            Icon(
+                                                                              Icons.cloud_download_rounded,
+                                                                              color: Color(0xFF00B89F),
+                                                                              size: 18,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
                                                                       Image
                                                                           .asset(
                                                                         'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
@@ -1386,6 +1891,31 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             25,
                                                                         fit: BoxFit
                                                                             .fill,
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              'Living Room',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 9,
+                                                                                    fontWeight: FontWeight.w200,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -1404,8 +1934,38 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             .max,
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
-                                                                            .center,
+                                                                            .spaceBetween,
                                                                     children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Text(
+                                                                              '03:24',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 10,
+                                                                                    fontWeight: FontWeight.w100,
+                                                                                  ),
+                                                                            ),
+                                                                            Icon(
+                                                                              Icons.cloud_download_rounded,
+                                                                              color: Color(0xFF00B89F),
+                                                                              size: 18,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
                                                                       Image
                                                                           .asset(
                                                                         'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
@@ -1415,6 +1975,31 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                             25,
                                                                         fit: BoxFit
                                                                             .fill,
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            10),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              'Living Room',
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: 'Poppins',
+                                                                                    color: Color(0xFFE5E5E5),
+                                                                                    fontSize: 9,
+                                                                                    fontWeight: FontWeight.w200,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -1444,8 +2029,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1453,6 +2071,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1471,8 +2115,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1480,6 +2157,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1498,8 +2201,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1507,6 +2243,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1525,8 +2287,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1534,6 +2329,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1562,8 +2383,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1571,6 +2425,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1589,8 +2469,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1598,6 +2511,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1616,8 +2555,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1625,6 +2597,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -1643,8 +2641,41 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           .max,
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceBetween,
                                                                   children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            '03:24',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w100,
+                                                                                ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.cloud_download_rounded,
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            size:
+                                                                                18,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Image.asset(
                                                                       'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
                                                                       width: 35,
@@ -1652,6 +2683,32 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                           25,
                                                                       fit: BoxFit
                                                                           .fill,
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              0,
+                                                                              10),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Living Room',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Poppins',
+                                                                                  color: Color(0xFFE5E5E5),
+                                                                                  fontSize: 9,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
