@@ -29,29 +29,8 @@ class _ChatWidgetState extends State<ChatWidget> {
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
-                    width: double.infinity,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF1F252B),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF292929),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(7, 10, 10, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(7, 45, 10, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,104 +84,415 @@ class _ChatWidgetState extends State<ChatWidget> {
                     ),
                   ),
                   Expanded(
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-                      child: Container(
-                        width: double.infinity,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF272E36),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 5, 0),
-                                    child: Container(
-                                      width: 45,
-                                      height: 45,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/726/600',
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 10, 0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFEEEEEE),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 7, 12, 7),
-                                        child: Text(
-                                          'Hi All',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 0, 5, 0),
-                                    child: Container(
-                                      width: 45,
-                                      height: 45,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/520/600',
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
+                    child: Container(
+                      width: double.infinity,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF273628),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 5, 0),
+                                  child: Container(
+                                    width: 45,
+                                    height: 45,
+                                    clipBehavior: Clip.antiAlias,
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFEEEEEE),
-                                      borderRadius: BorderRadius.circular(10),
+                                      shape: BoxShape.circle,
                                     ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12, 7, 12, 7),
-                                      child: Text(
-                                        'hi',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
+                                    child: Image.network(
+                                      'https://picsum.photos/seed/726/600',
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 10, 0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFEEEEEE),
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(0),
+                                                bottomRight:
+                                                    Radius.circular(10),
+                                                topLeft: Radius.circular(10),
+                                                topRight: Radius.circular(10),
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(12, 7, 12, 7),
+                                              child: Text(
+                                                'Hi All',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          '03:59 pm',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFFE5E5E5),
+                                                fontSize: 6,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(8, 20, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF00B89F),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(10),
+                                              bottomRight: Radius.circular(0),
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10),
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    12, 7, 12, 7),
+                                            child: Text(
+                                              'hi steve',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          '04:00 pm',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFFE5E5E5),
+                                                fontSize: 6,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5, 0, 0, 0),
+                                  child: Container(
+                                    width: 45,
+                                    height: 45,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      'https://picsum.photos/seed/678/600',
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 5, 0),
+                                  child: Container(
+                                    width: 45,
+                                    height: 45,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      'https://picsum.photos/seed/726/600',
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 10, 0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFFFCC00),
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(0),
+                                                bottomRight:
+                                                    Radius.circular(10),
+                                                topLeft: Radius.circular(10),
+                                                topRight: Radius.circular(10),
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(12, 7, 12, 7),
+                                              child: Text(
+                                                'Hi All',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: Colors.white,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          '03:59 pm',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFFE5E5E5),
+                                                fontSize: 6,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(8, 20, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF0063B8),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(10),
+                                              bottomRight: Radius.circular(0),
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10),
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    12, 7, 12, 7),
+                                            child: Text(
+                                              'hi steve',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          '04:00 pm',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFFE5E5E5),
+                                                fontSize: 6,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5, 0, 0, 0),
+                                  child: Container(
+                                    width: 45,
+                                    height: 45,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      'https://picsum.photos/seed/678/600',
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 5, 0),
+                                  child: Container(
+                                    width: 45,
+                                    height: 45,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      'https://picsum.photos/seed/726/600',
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 10, 0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFF209A1F),
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(0),
+                                                bottomRight:
+                                                    Radius.circular(10),
+                                                topLeft: Radius.circular(10),
+                                                topRight: Radius.circular(10),
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(12, 7, 12, 7),
+                                              child: Text(
+                                                'Hi All',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: Colors.white,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          '03:59 pm',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFFE5E5E5),
+                                                fontSize: 6,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -233,19 +523,19 @@ class _ChatWidgetState extends State<ChatWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Welcome',
+                                'Type Here',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText1
                                     .override(
                                       fontFamily: 'Montserrat',
-                                      color: Color(0xFF606E87),
+                                      color: Color(0xFFE5E5E5),
                                       fontSize: 16,
                                     ),
                               ),
                               Image.asset(
                                 'assets/images/7830587_send_email_icon.png',
-                                width: 30,
-                                height: 30,
+                                width: 25,
+                                height: 25,
                                 fit: BoxFit.fill,
                               ),
                             ],
