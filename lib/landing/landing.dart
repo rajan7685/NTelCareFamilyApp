@@ -50,10 +50,64 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                 ),
                               );
                             },
-                            child: Icon(
-                              Icons.notifications_none,
-                              color: FlutterFlowTheme.of(context).tertiaryColor,
-                              size: 35,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Color(0xFF1F252B),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF1F252B),
+                                    ),
+                                    child: Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Icon(
+                                        Icons.notifications_none,
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiaryColor,
+                                        size: 35,
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment:
+                                        AlignmentDirectional(0.05, -0.43),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          17, 0, 0, 0),
+                                      child: Container(
+                                        width: 15,
+                                        height: 15,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFF006B5D),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              '5',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Colors.white,
+                                                    fontSize: 8,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
