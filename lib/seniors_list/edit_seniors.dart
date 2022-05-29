@@ -401,6 +401,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                           child: DropdownButtonFormField(
                                             decoration: InputDecoration(
                                               enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.blue,
+                                                    width: 2),
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                               ),
@@ -746,6 +749,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                           child: DropdownButtonFormField(
                                             decoration: InputDecoration(
                                               enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.blue,
+                                                    width: 2),
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                               ),
@@ -829,6 +835,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                           child: DropdownButtonFormField(
                                             decoration: InputDecoration(
                                               enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.blue,
+                                                    width: 2),
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                               ),
@@ -912,6 +921,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                           child: DropdownButtonFormField(
                                             decoration: InputDecoration(
                                               enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.blue,
+                                                    width: 2),
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                               ),
@@ -1001,6 +1013,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                               decoration: InputDecoration(
                                                 enabledBorder:
                                                     OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.blue,
+                                                      width: 2),
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
