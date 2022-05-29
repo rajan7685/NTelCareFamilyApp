@@ -87,7 +87,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             controller: textController1,
                             obscureText: false,
                             decoration: InputDecoration(
-                              labelText: 'UserName',
+                              labelText: 'Mobile Number',
                               labelStyle: FlutterFlowTheme.of(context)
                                   .bodyText1
                                   .override(
@@ -95,7 +95,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.w300,
                                   ),
-                              hintText: 'Enter Your Username',
+                              hintText: 'Enter Mobile Number',
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
