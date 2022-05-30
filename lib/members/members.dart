@@ -1589,13 +1589,13 @@ class _MembersWidgetState extends State<MembersWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 30),
+                padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 90, 0, 10),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 10),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
