@@ -32,7 +32,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,7 +43,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                             'Video Clips',
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'Montserrat',
                                       color: Color(0xFFAFAFAF),
                                       fontSize: 40,
                                       fontWeight: FontWeight.w200,
@@ -84,7 +84,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                   alignment: AlignmentDirectional(0.05, -0.43),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        17, 0, 0, 0),
+                                        17, 0, 13, 0),
                                     child: Container(
                                       width: 15,
                                       height: 15,

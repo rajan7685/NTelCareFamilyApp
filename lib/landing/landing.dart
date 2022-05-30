@@ -37,7 +37,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(7, 30, 10, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(7, 31, 10, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
