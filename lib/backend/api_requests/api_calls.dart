@@ -6,13 +6,13 @@ export 'api_manager.dart' show ApiCallResponse;
 
 class LoginCall {
   static Future<ApiCallResponse> call({
-    String username = '',
+    String phoneNumber = '',
     String password = '',
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'Login',
       apiUrl:
-          'http://demo.ntelcare.com/MobiPortal/Signin.aspx?UserName=${username}&Password=${password}&OSType=I',
+          'https://ntelcare.com/MobiPortal/Signin.aspx?UserName=${phoneNumber}&Password=${password}&OSType=I',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -99,7 +99,7 @@ class ForgotPasswordCall {
     return ApiManager.instance.makeApiCall(
       callName: 'ForgotPassword',
       apiUrl:
-          'http://demo.ntelcare.com/MobiPortal/ForgotPassword.aspx?Email=${email}',
+          'http://ntelcare.com/MobiPortal/ForgotPassword.aspx?Email=${email}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},

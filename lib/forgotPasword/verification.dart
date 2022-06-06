@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:n_tel_care_family_app/flutter_flow/flutter_flow_widgets.dart';
+import 'package:n_tel_care_family_app/forgotPasword/forget_password.dart';
 
 import 'newPassword.dart';
 
@@ -26,99 +28,155 @@ class _Verification extends State<verification> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Stack(
-          children: [
-            Image.asset(
-              'assets/images/MicrosoftTeams-image.png',
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.fill,
-            ),
-            Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0x3443504E), Color(0x4C00B89F)],
-                  stops: [0, 1],
-                  begin: AlignmentDirectional(0, -1),
-                  end: AlignmentDirectional(0, 1),
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Stack(
+            children: [
+              Image.asset(
+                'assets/images/MicrosoftTeams-image.png',
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fill,
+              ),
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0x3443504E), Color(0x4C00B89F)],
+                    stops: [0, 1],
+                    begin: AlignmentDirectional(0, -1),
+                    end: AlignmentDirectional(0, 1),
+                  ),
                 ),
               ),
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
-                  child: Icon(
-                    Icons.chevron_left_sharp,
-                    color: Color(0xFFE5E5E5),
-                    size: 30,
-                  ),
-                ),
-                Text(
-                  "Verification",
-                  style: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                ),
-                Text(
-                  "Please Check your Message for a six-digit security code and enter below",
-                  style: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                        fontSize: 10,
-                      ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    OtpInput(_one, true),
-                    OtpInput(_two, false),
-                    OtpInput(_three, false),
-                    OtpInput(_four, false),
-                    OtpInput(_five, false),
-                    OtpInput(_six, false),
-                  ],
-                ),
-                Container(
-                  width: 50,
-                  height: 50,
-                ),
-                FFButtonWidget(
-                  onPressed: () async {
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => newPassword(),
-                      ),
-                    );
-                  },
-                  text: 'Submit',
-                  options: FFButtonOptions(
-                    width: double.infinity,
-                    height: 50,
-                    color: Color(0xFF00B89F),
-                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(7, 45, 0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => forget_password(),
+                                ),
+                              );
+                            },
+                            child: Icon(
+                              Icons.chevron_left_sharp,
+                              color: FlutterFlowTheme.of(context).tertiaryColor,
+                              size: 45,
+                            ),
+                          ),
                         ),
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
+                      ],
                     ),
-                    borderRadius: 12,
                   ),
-                ),
-              ],
-            )
-          ],
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 5, 0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Verification',
+                          textAlign: TextAlign.center,
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'Montserrat',
+                                    color: Color(0xFFE5E5E5),
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 10, 0, 20),
+                    child: Text(
+                      'Please Check you Mobile Phone for a Six-Digit Security Code and Enter Below',
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Montserrat',
+                            color: Color(0xFFE5E5E5),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w300,
+                          ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      OtpInput(_one, true),
+                      OtpInput(_two, false),
+                      OtpInput(_three, false),
+                      OtpInput(_four, false),
+                      OtpInput(_five, false),
+                      OtpInput(_six, false),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 20),
+                    child: Text(
+                      "Didn't receive a code? Resend code",
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Montserrat',
+                            color: Color(0xFFE5E5E5),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                          ),
+                    ),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 20),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => newPassword(),
+                          ),
+                        );
+                      },
+                      text: 'Verify',
+                      options: FFButtonOptions(
+                        width: double.infinity,
+                        height: 50,
+                        color: Color(0xFF00B89F),
+                        textStyle: FlutterFlowTheme.of(context)
+                            .subtitle2
+                            .override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFFF3F4F4),
+                                fontSize: 23,
+                                fontWeight: FontWeight.bold),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
+                        borderRadius: 12,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
