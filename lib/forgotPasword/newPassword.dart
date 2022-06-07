@@ -1,4 +1,5 @@
 import 'package:n_tel_care_family_app/forgotPasword/forget_password.dart';
+import 'package:n_tel_care_family_app/forgotPasword/verification.dart';
 
 import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -61,6 +62,33 @@ class _newPasswordState extends State<newPassword> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(7, 0, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(0, 0),
+                        child: InkWell(
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => verification(),
+                              ),
+                            );
+                          },
+                          child: Icon(
+                            Icons.chevron_left_sharp,
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            size: 45,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 65),
                   child: Image.asset(
