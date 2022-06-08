@@ -949,6 +949,10 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
     final ApiCallResponse SList =
         await SeniorsList.call(token: FFAppState().Token);
     print(FFAppState().Token);
-    return SList.jsonBody['seniors'];
+    if (SList.statusCode == 200) {
+      return SList.jsonBody['seniors'];
+    } else {
+      throw Exception("Seniors not Found");
+    }
   }
 }
