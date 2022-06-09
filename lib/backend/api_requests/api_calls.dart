@@ -124,6 +124,38 @@ class UserList {
   }
 }
 
+class MemberList {
+  static Future<dynamic> call({
+    String token = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'MemberList',
+      apiUrl:
+          'http://demo.ntelcare.com/MobiPortal/MemberList.aspx?Token=${token}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+    );
+  }
+}
+
+class SeniorsList {
+  static Future<dynamic> call({
+    String token = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'SeniorList',
+      apiUrl:
+          'http://demo.ntelcare.com/MobiPortal/SeniorList.aspx?Token=${token}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+    );
+  }
+}
+
 class CameraList {
   static Future<dynamic> call({
     String token = '',
