@@ -6,7 +6,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:http/http.dart' as http;
 import '../main.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -28,6 +28,12 @@ class _LoginWidgetState extends State<LoginWidget> {
     textController1 = TextEditingController();
     textController2 = TextEditingController();
     passwordVisibility = false;
+  }
+
+  Future<ApiCallResponse>(String mobile, String Password) async {
+    final String url = "http://18.208.148.208:4000/login/member";
+    final res = await http
+        .post(Uri.parse(url), body: {"mobile": mobile, "password": Password});
   }
 
   @override
@@ -205,18 +211,25 @@ class _LoginWidgetState extends State<LoginWidget> {
                           //   NavBarPage(initialPage: 'Landing'),
                           //  ),
                           // );
-                          final data = await LoginCall.call(
-                            phoneNumber: textController1.text,
-                            password: textController2.text,
-                          );
-                          print(data?.jsonBody[0].runtimeType);
 
-                          if ((getJsonField(
-                                (data?.jsonBody ?? ''),
-                                r'''$[:].Error''',
-                              )) ==
-                              ('Nill')) {
-                            LoginModel loginModel =
+                          final String url =
+                              "http://18.208.148.208:4000/login/member";
+                          final res = await http.post(Uri.parse(url), body: {
+                            "mobile": textController1.text,
+                            "password": textController2.text
+                          });
+
+                          // print(data?.jsonBody[0].runtimeType);
+
+                          //if ((getJsonField(
+                          //  (data?.jsonBody ?? ''),
+                          //  r'''$[:].Error''',
+                          //)) ==
+                          // ('Nill'))
+                          print("this is the status code");
+                          print(res.statusCode);
+                          if (res.statusCode == 200) {
+                            /* LoginModel loginModel =
                                 LoginModel.fromJsonData(data.jsonBody[0]);
                             FFAppState().IsUserLogin = loginModel.IsUserLogin;
                             FFAppState().IsLiveView = loginModel.IsLiveView;
@@ -231,7 +244,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             FFAppState().Profile_Picture =
                                 loginModel.ProfilePicture;
 
-                            print(loginModel.FirstName);
+                            print(loginModel.FirstName);*/
                             await Navigator.push(
                               context,
                               MaterialPageRoute(

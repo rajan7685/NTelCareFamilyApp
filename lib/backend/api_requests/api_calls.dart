@@ -6,16 +6,16 @@ export 'api_manager.dart' show ApiCallResponse;
 
 class LoginCall {
   static Future<ApiCallResponse> call({
-    String phoneNumber = '',
-    String password = '',
+    String mobile = "",
+    String password = "",
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'Login',
-      apiUrl:
-          'https://ntelcare.com/MobiPortal/Signin.aspx?UserName=${phoneNumber}&Password=${password}&OSType=I',
-      callType: ApiCallType.GET,
+      apiUrl: 'http://18.208.148.208:4000/login/member',
+      callType: ApiCallType.POST,
       headers: {},
       params: {},
+      body: mobile,
       returnBody: true,
     );
   }
