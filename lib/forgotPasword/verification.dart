@@ -145,14 +145,7 @@ class _Verification extends State<verification> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 20),
                     child: FFButtonWidget(
-                      onPressed: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => newPassword(),
-                          ),
-                        );
-                      },
+                      onPressed: () async {},
                       text: 'Verify',
                       options: FFButtonOptions(
                         width: double.infinity,

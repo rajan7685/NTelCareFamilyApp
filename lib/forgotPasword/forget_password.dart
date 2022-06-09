@@ -8,7 +8,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:http/http.dart' as http;
 import '../main.dart';
 
 class forget_password extends StatefulWidget {
@@ -256,16 +256,14 @@ class _forget_passwordState extends State<forget_password> {
                                 // },
 
                                 {
-                              final data = await ForgotPasswordCall.call(
-                                email: textController1.text,
-                              );
-                              print(data?.jsonBody[0].runtimeType);
+                              final String url =
+                                  "http://18.208.148.208:4000/forget/member";
+                              final res =
+                                  await http.post(Uri.parse(url), body: {
+                                "email": textController1.text,
+                              });
 
-                              if ((getJsonField(
-                                    (data?.jsonBody ?? ''),
-                                    r'''$['Array'][0]['Error']''',
-                                  )) ==
-                                  ('Nill')) {
+                              if (res.statusCode == 200) {
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -278,8 +276,7 @@ class _forget_passwordState extends State<forget_password> {
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
                                       title: Text('Error'),
-                                      content: Text(
-                                          "Incorrect Username or Password"),
+                                      content: Text("Invaild Name"),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
