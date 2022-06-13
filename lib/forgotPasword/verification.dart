@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:n_tel_care_family_app/app_state.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:n_tel_care_family_app/flutter_flow/flutter_flow_widgets.dart';
 import 'package:n_tel_care_family_app/forgotPasword/forget_password.dart';
-
+import 'package:http/http.dart' as http;
 import 'newPassword.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class verification extends StatefulWidget {
   const verification({Key key}) : super(key: key);
@@ -145,7 +149,57 @@ class _Verification extends State<verification> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 20),
                     child: FFButtonWidget(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        String otpA = _one.text +
+                            _two.text +
+                            _three.text +
+                            _four.text +
+                            _five.text +
+                            _six.text;
+                        final String url =
+                            "http://18.208.148.208:4000/verifyotp/member";
+                        final res = await http.post(Uri.parse(url),
+                            body: {"email": FFAppState().Email, "otp": otpA});
+                        final result = jsonDecode(res.body);
+                        if (res.statusCode == 200) {
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   SnackBar(content: Text(result["message"])),
+                          // );
+                          Fluttertoast.showToast(
+                              msg: result["message"],
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 5,
+                              backgroundColor: Colors.grey,
+                              textColor: Colors.black,
+                              fontSize: 14.0);
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => newPassword(),
+                            ),
+                          );
+                        } else {
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('Error'),
+                                content: Text(result["message"]),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+
+                        setState(() {});
+                      },
                       text: 'Verify',
                       options: FFButtonOptions(
                         width: double.infinity,

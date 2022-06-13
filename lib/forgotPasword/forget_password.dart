@@ -1,7 +1,9 @@
 //import 'package:n_tel_care_family_app/model/loginmodel.dart';
+import 'dart:convert';
+
 import 'package:n_tel_care_family_app/forgotPasword/verification.dart';
 import 'package:n_tel_care_family_app/login/login_widget.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -174,6 +176,7 @@ class _forget_passwordState extends State<forget_password> {
                             ),
                           ),
                         ),
+
                         // Padding(
                         //   padding: EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                         //   child: Container(
@@ -262,8 +265,21 @@ class _forget_passwordState extends State<forget_password> {
                                   await http.post(Uri.parse(url), body: {
                                 "email": textController1.text,
                               });
-
+                              final result = jsonDecode(res.body);
                               if (res.statusCode == 200) {
+                                FFAppState().Email = textController1.text;
+
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                // SnackBar(content: Text(result["message"])),
+                                // );
+                                Fluttertoast.showToast(
+                                    msg: result["message"],
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 5,
+                                    backgroundColor: Colors.grey,
+                                    textColor: Colors.black,
+                                    fontSize: 14.0);
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -276,7 +292,7 @@ class _forget_passwordState extends State<forget_password> {
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
                                       title: Text('Error'),
-                                      content: Text("Invaild Name"),
+                                      content: Text(result["message"]),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
