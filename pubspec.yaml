@@ -40,6 +40,7 @@ dependencies:
   timeago: 3.1.0
   url_launcher: 6.0.15
   http: ^0.13.4
+  fluttertoast: ^8.0.9 
   flutter_svg: 0.22.0
   better_player: 0.0.82
   

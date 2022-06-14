@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import '../main.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key key}) : super(key: key);
@@ -30,12 +31,6 @@ class _LoginWidgetState extends State<LoginWidget> {
     textController1 = TextEditingController();
     textController2 = TextEditingController();
     passwordVisibility = false;
-  }
-
-  Future<ApiCallResponse>(String mobile, String Password) async {
-    final String url = "http://18.208.148.208:4000/login/member";
-    final res = await http
-        .post(Uri.parse(url), body: {"mobile": mobile, "password": Password});
   }
 
   @override
@@ -220,7 +215,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             "mobile": textController1.text,
                             "password": textController2.text
                           });
-
+                          final result = jsonDecode(res.body);
                           // print(data?.jsonBody[0].runtimeType);
 
                           //if ((getJsonField(
@@ -228,6 +223,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           //  r'''$[:].Error''',
                           //)) ==
                           // ('Nill'))
+
                           print("this is the status code");
                           print(res.statusCode);
                           if (res.statusCode == 200) {
@@ -252,7 +248,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 loginModel.ProfilePicture;
 
                             print(loginModel.FirstName);*/
-
+                            Fluttertoast.showToast(
+                                msg: result["message"],
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 5,
+                                backgroundColor: Colors.grey,
+                                textColor: Colors.black,
+                                fontSize: 14.0);
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -266,8 +269,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               builder: (alertDialogContext) {
                                 return AlertDialog(
                                   title: Text('Error'),
-                                  content:
-                                      Text("Incorrect Username or Password"),
+                                  content: Text(result["message"]),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>

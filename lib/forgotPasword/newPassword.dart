@@ -1,13 +1,16 @@
+import 'dart:convert';
+
 import 'package:n_tel_care_family_app/forgotPasword/forget_password.dart';
 import 'package:n_tel_care_family_app/forgotPasword/verification.dart';
-
+import 'package:n_tel_care_family_app/login/login_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:http/http.dart' as http;
 import '../main.dart';
 
 class newPassword extends StatefulWidget {
@@ -123,7 +126,7 @@ class _newPasswordState extends State<newPassword> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: TextFormField(
-                            controller: textController2,
+                            controller: textController1,
                             obscureText: !passwordVisibility,
                             decoration: InputDecoration(
                               labelText: 'New Password',
@@ -236,63 +239,111 @@ class _newPasswordState extends State<newPassword> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                       child: FFButtonWidget(
-                        // onPressed: () async {
-                        //   final data = await LoginCall.call(
-                        //     username: textController1.text,
-                        //     password: textController2.text,
-                        //   );
-                        //   print(data?.jsonBody[0].runtimeType);
+                        onPressed: () async {
+                          if (textController1.value == "") {}
+                          final String url =
+                              "http://18.208.148.208:4000/reset/member";
+                          final res = await http.post(Uri.parse(url), body: {
+                            "email": FFAppState().Email,
+                            "password": textController1.text,
+                            "confirm_password": textController2.text
+                          });
+                          final result = jsonDecode(res.body);
 
-                        //   if ((getJsonField(
-                        //         (data?.jsonBody ?? ''),
-                        //         r'''$[:].Error''',
-                        //       )) ==
-                        //       ('Nill')) {
-                        //     LoginModel loginModel =
-                        //         LoginModel.fromJsonData(data.jsonBody[0]);
-                        //     FFAppState().IsUserLogin = loginModel.IsUserLogin;
-                        //     FFAppState().IsLiveView = loginModel.IsLiveView;
-                        //     FFAppState().Error = loginModel.Error;
-                        //     FFAppState().Email = loginModel.Email;
-                        //     FFAppState().Token = loginModel.Token;
-                        //     FFAppState().UserId = loginModel.UserId;
-                        //     FFAppState().AccountId = loginModel.AccountId;
-                        //     FFAppState().RoleId = loginModel.RoleId;
-                        //     FFAppState().First_Name = loginModel.FirstName;
-                        //     FFAppState().Last_Name = loginModel.LastName;
-                        //     FFAppState().Profile_Picture =
-                        //         loginModel.ProfilePicture;
+                          if (res.statusCode == 200) {
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   SnackBar(content: Text(result["message"])),
+                            // );
+                            Fluttertoast.showToast(
+                                msg: result["message"],
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 5,
+                                backgroundColor: Colors.grey,
+                                textColor: Colors.black,
+                                fontSize: 14.0);
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginWidget(),
+                              ),
+                            );
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Error'),
+                                  content: Text(result['message']),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
 
-                        //     print(loginModel.FirstName);
-                        //     await Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             NavBarPage(initialPage: 'Landing'),
-                        //       ),
-                        //     );
-                        //   } else {
-                        //     await showDialog(
-                        //       context: context,
-                        //       builder: (alertDialogContext) {
-                        //         return AlertDialog(
-                        //           title: Text('Error'),
-                        //           content:
-                        //               Text("Incorrect Username or Password"),
-                        //           actions: [
-                        //             TextButton(
-                        //               onPressed: () =>
-                        //                   Navigator.pop(alertDialogContext),
-                        //               child: Text('Ok'),
-                        //             ),
-                        //           ],
-                        //         );
-                        //       },
-                        //     );
-                        //   }
+                          setState(() {});
+                          //   final data = await LoginCall.call(
+                          //     username: textController1.text,
+                          //     password: textController2.text,
+                          //   );
+                          //   print(data?.jsonBody[0].runtimeType);
 
-                        //   setState(() {});
-                        // },
+                          //   if ((getJsonField(
+                          //         (data?.jsonBody ?? ''),
+                          //         r'''$[:].Error''',
+                          //       )) ==
+                          //       ('Nill')) {
+                          //     LoginModel loginModel =
+                          //         LoginModel.fromJsonData(data.jsonBody[0]);
+                          //     FFAppState().IsUserLogin = loginModel.IsUserLogin;
+                          //     FFAppState().IsLiveView = loginModel.IsLiveView;
+                          //     FFAppState().Error = loginModel.Error;
+                          //     FFAppState().Email = loginModel.Email;
+                          //     FFAppState().Token = loginModel.Token;
+                          //     FFAppState().UserId = loginModel.UserId;
+                          //     FFAppState().AccountId = loginModel.AccountId;
+                          //     FFAppState().RoleId = loginModel.RoleId;
+                          //     FFAppState().First_Name = loginModel.FirstName;
+                          //     FFAppState().Last_Name = loginModel.LastName;
+                          //     FFAppState().Profile_Picture =
+                          //         loginModel.ProfilePicture;
+
+                          //     print(loginModel.FirstName);
+                          //     await Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (context) =>
+                          //             NavBarPage(initialPage: 'Landing'),
+                          //       ),
+                          //     );
+                          //   } else {
+                          //     await showDialog(
+                          //       context: context,
+                          //       builder: (alertDialogContext) {
+                          //         return AlertDialog(
+                          //           title: Text('Error'),
+                          //           content:
+                          //               Text("Incorrect Username or Password"),
+                          //           actions: [
+                          //             TextButton(
+                          //               onPressed: () =>
+                          //                   Navigator.pop(alertDialogContext),
+                          //               child: Text('Ok'),
+                          //             ),
+                          //           ],
+                          //         );
+                          //       },
+                          //     );
+                          //   }
+
+                          //   setState(() {});
+                        },
                         text: 'Confirm',
                         options: FFButtonOptions(
                           width: double.infinity,

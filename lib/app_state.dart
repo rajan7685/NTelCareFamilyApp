@@ -22,7 +22,12 @@ class FFAppState {
   String Steps = 'Data Not found';
 
   String hear;
-
+  String AccessToken = '';
+  String RefreshToken = '';
+  String LoginMessage = '';
+  String ForgotMessage = '';
+  String VerificationMessage = '';
+  String ResetMessage = '';
   String Heart = 'Missing';
   String Email = '';
   String First_Name = '';
