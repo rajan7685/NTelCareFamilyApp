@@ -125,15 +125,14 @@ class UserList {
 }
 
 class MemberList {
-  static Future<dynamic> call({
-    String token = '',
-  }) {
+  static Future<dynamic> call() {
     return ApiManager.instance.makeApiCall(
       callName: 'MemberList',
-      apiUrl:
-          'http://demo.ntelcare.com/MobiPortal/MemberList.aspx?Token=${token}',
+      apiUrl: 'http://demo.ntelcare.com/MobiPortal/MemberList.aspx?',
       callType: ApiCallType.GET,
-      headers: {},
+      headers: {
+        'Authorization': 'Bearer ${FFAppState().Token}',
+      },
       params: {},
       returnBody: true,
     );
@@ -141,15 +140,14 @@ class MemberList {
 }
 
 class SeniorsList {
-  static Future<dynamic> call({
-    String token = '',
-  }) {
+  static Future<dynamic> call() {
     return ApiManager.instance.makeApiCall(
       callName: 'SeniorList',
-      apiUrl:
-          'http://demo.ntelcare.com/MobiPortal/SeniorList.aspx?Token=${token}',
+      apiUrl: 'http://18.208.148.208:4000/get/seniors/member',
       callType: ApiCallType.GET,
-      headers: {},
+      headers: {
+        'Authorization': 'Bearer ${FFAppState().Token}',
+      },
       params: {},
       returnBody: true,
     );
