@@ -1678,8 +1678,7 @@ class _MembersWidgetState extends State<MembersWidget> {
   }
 
   fetchList() async {
-    final ApiCallResponse MList =
-        await MemberList.call(token: FFAppState().Token);
+    final ApiCallResponse MList = await MemberList.call();
     print(FFAppState().Token);
     return MList.jsonBody["members"];
   }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:n_tel_care_family_app/forgotPasword/forget_password.dart';
 import 'package:n_tel_care_family_app/model/loginmodel.dart';
 import '../backend/api_requests/api_calls.dart';
@@ -229,6 +231,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                           print("this is the status code");
                           print(res.statusCode);
                           if (res.statusCode == 200) {
+                            final data = jsonDecode(res.body);
+                            // print(data["access_token"]);
+                            FFAppState().Token = data["access_token"];
+                            FFAppState().AccountId = data["master_obj_id"];
+                            print(FFAppState().Token);
                             /* LoginModel loginModel =
                                 LoginModel.fromJsonData(data.jsonBody[0]);
                             FFAppState().IsUserLogin = loginModel.IsUserLogin;
@@ -245,6 +252,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 loginModel.ProfilePicture;
 
                             print(loginModel.FirstName);*/
+
                             await Navigator.push(
                               context,
                               MaterialPageRoute(

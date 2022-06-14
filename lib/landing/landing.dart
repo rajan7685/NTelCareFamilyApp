@@ -2149,8 +2149,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
   }
 
   Future fetchSList() async {
-    final ApiCallResponse SList =
-        await SeniorsList.call(token: FFAppState().Token);
+    final ApiCallResponse SList = await SeniorsList.call();
     print(FFAppState().Token);
     return SList.jsonBody['seniors'];
   }

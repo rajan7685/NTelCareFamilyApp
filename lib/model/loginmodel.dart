@@ -30,7 +30,7 @@ class LoginModel {
   factory LoginModel.fromJsonData(Map<String, dynamic> json) => LoginModel(
         IsUserLogin: json['IsUserLogin'],
         Error: json['Error'],
-        Token: json['Token'],
+        Token: json['access_token'],
         FirstName: json['First Name'],
         LastName: json['Last Name'],
         ProfilePicture: json['Profile Picture'],

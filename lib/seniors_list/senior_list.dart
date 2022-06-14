@@ -3,7 +3,7 @@ import 'package:n_tel_care_family_app/backend/api_requests/api_manager.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/profile/profile_page.dart';
 import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
-
+import 'package:http/http.dart' as http;
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -946,12 +946,19 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
   }
 
   Future fetchSList() async {
-    final ApiCallResponse SList =
-        await SeniorsList.call(token: FFAppState().Token);
+    final sody = {"m_acc_id": FFAppState().AccountId};
+    final url = Uri.http("18.208.148.208:4000", "/get/seniors/member", sody);
+    final SList = await http.get(url, headers: {
+      'Authorization': 'Bearer ${FFAppState().Token}',
+    });
     print(FFAppState().Token);
+    print(FFAppState().AccountId);
+    print(SList.statusCode);
     if (SList.statusCode == 200) {
-      return SList.jsonBody['seniors'];
+      print(SList.statusCode);
     } else {
+      print(SList.statusCode);
+      print(Exception());
       throw Exception("Seniors not Found");
     }
   }
