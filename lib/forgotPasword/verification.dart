@@ -159,7 +159,7 @@ class _Verification extends State<verification> {
                         final String url =
                             "http://18.208.148.208:4000/verifyotp/member";
                         final res = await http.post(Uri.parse(url),
-                            body: {"email": FFAppState().Email, "otp": otpA});
+                            body: {"mobile": FFAppState().Mobile, "otp": otpA});
                         final result = jsonDecode(res.body);
                         if (res.statusCode == 200) {
                           // ScaffoldMessenger.of(context).showSnackBar(

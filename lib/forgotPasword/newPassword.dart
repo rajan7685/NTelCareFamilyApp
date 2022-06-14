@@ -240,109 +240,115 @@ class _newPasswordState extends State<newPassword> {
                       padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          if (textController1.value == "") {}
-                          final String url =
-                              "http://18.208.148.208:4000/reset/member";
-                          final res = await http.post(Uri.parse(url), body: {
-                            "email": FFAppState().Email,
-                            "password": textController1.text,
-                            "confirm_password": textController2.text
-                          });
-                          final result = jsonDecode(res.body);
-
-                          if (res.statusCode == 200) {
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   SnackBar(content: Text(result["message"])),
-                            // );
-                            Fluttertoast.showToast(
-                                msg: result["message"],
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 5,
-                                backgroundColor: Colors.grey,
-                                textColor: Colors.black,
-                                fontSize: 14.0);
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LoginWidget(),
-                              ),
+                          if (textController1.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Complete the details")),
                             );
                           } else {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Error'),
-                                  content: Text(result['message']),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
+                            final String url =
+                                "http://18.208.148.208:4000/reset/member";
+                            final res = await http.post(Uri.parse(url), body: {
+                              "mobile": FFAppState().Mobile,
+                              "password": textController1.text,
+                              "confirm_password": textController2.text
+                            });
+                            final result = jsonDecode(res.body);
+
+                            if (res.statusCode == 200) {
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //   SnackBar(content: Text(result["message"])),
+                              // );
+                              Fluttertoast.showToast(
+                                  msg: result["message"],
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.grey,
+                                  textColor: Colors.black,
+                                  fontSize: 14.0);
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginWidget(),
+                                ),
+                              );
+                            } else {
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text('Error'),
+                                    content: Text(result['message']),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+
+                            setState(() {});
+                            //   final data = await LoginCall.call(
+                            //     username: textController1.text,
+                            //     password: textController2.text,
+                            //   );
+                            //   print(data?.jsonBody[0].runtimeType);
+
+                            //   if ((getJsonField(
+                            //         (data?.jsonBody ?? ''),
+                            //         r'''$[:].Error''',
+                            //       )) ==
+                            //       ('Nill')) {
+                            //     LoginModel loginModel =
+                            //         LoginModel.fromJsonData(data.jsonBody[0]);
+                            //     FFAppState().IsUserLogin = loginModel.IsUserLogin;
+                            //     FFAppState().IsLiveView = loginModel.IsLiveView;
+                            //     FFAppState().Error = loginModel.Error;
+                            //     FFAppState().Email = loginModel.Email;
+                            //     FFAppState().Token = loginModel.Token;
+                            //     FFAppState().UserId = loginModel.UserId;
+                            //     FFAppState().AccountId = loginModel.AccountId;
+                            //     FFAppState().RoleId = loginModel.RoleId;
+                            //     FFAppState().First_Name = loginModel.FirstName;
+                            //     FFAppState().Last_Name = loginModel.LastName;
+                            //     FFAppState().Profile_Picture =
+                            //         loginModel.ProfilePicture;
+
+                            //     print(loginModel.FirstName);
+                            //     await Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             NavBarPage(initialPage: 'Landing'),
+                            //       ),
+                            //     );
+                            //   } else {
+                            //     await showDialog(
+                            //       context: context,
+                            //       builder: (alertDialogContext) {
+                            //         return AlertDialog(
+                            //           title: Text('Error'),
+                            //           content:
+                            //               Text("Incorrect Username or Password"),
+                            //           actions: [
+                            //             TextButton(
+                            //               onPressed: () =>
+                            //                   Navigator.pop(alertDialogContext),
+                            //               child: Text('Ok'),
+                            //             ),
+                            //           ],
+                            //         );
+                            //       },
+                            //     );
+                            //   }
+
+                            //   setState(() {});
                           }
-
-                          setState(() {});
-                          //   final data = await LoginCall.call(
-                          //     username: textController1.text,
-                          //     password: textController2.text,
-                          //   );
-                          //   print(data?.jsonBody[0].runtimeType);
-
-                          //   if ((getJsonField(
-                          //         (data?.jsonBody ?? ''),
-                          //         r'''$[:].Error''',
-                          //       )) ==
-                          //       ('Nill')) {
-                          //     LoginModel loginModel =
-                          //         LoginModel.fromJsonData(data.jsonBody[0]);
-                          //     FFAppState().IsUserLogin = loginModel.IsUserLogin;
-                          //     FFAppState().IsLiveView = loginModel.IsLiveView;
-                          //     FFAppState().Error = loginModel.Error;
-                          //     FFAppState().Email = loginModel.Email;
-                          //     FFAppState().Token = loginModel.Token;
-                          //     FFAppState().UserId = loginModel.UserId;
-                          //     FFAppState().AccountId = loginModel.AccountId;
-                          //     FFAppState().RoleId = loginModel.RoleId;
-                          //     FFAppState().First_Name = loginModel.FirstName;
-                          //     FFAppState().Last_Name = loginModel.LastName;
-                          //     FFAppState().Profile_Picture =
-                          //         loginModel.ProfilePicture;
-
-                          //     print(loginModel.FirstName);
-                          //     await Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //         builder: (context) =>
-                          //             NavBarPage(initialPage: 'Landing'),
-                          //       ),
-                          //     );
-                          //   } else {
-                          //     await showDialog(
-                          //       context: context,
-                          //       builder: (alertDialogContext) {
-                          //         return AlertDialog(
-                          //           title: Text('Error'),
-                          //           content:
-                          //               Text("Incorrect Username or Password"),
-                          //           actions: [
-                          //             TextButton(
-                          //               onPressed: () =>
-                          //                   Navigator.pop(alertDialogContext),
-                          //               child: Text('Ok'),
-                          //             ),
-                          //           ],
-                          //         );
-                          //       },
-                          //     );
-                          //   }
-
-                          //   setState(() {});
                         },
                         text: 'Confirm',
                         options: FFButtonOptions(

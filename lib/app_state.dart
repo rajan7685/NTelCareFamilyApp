@@ -29,7 +29,7 @@ class FFAppState {
   String VerificationMessage = '';
   String ResetMessage = '';
   String Heart = 'Missing';
-  String Email = '';
+  String Mobile = '';
   String First_Name = '';
   String Last_Name = '';
   String Profile_Picture = '';

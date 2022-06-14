@@ -263,11 +263,11 @@ class _forget_passwordState extends State<forget_password> {
                                   "http://18.208.148.208:4000/forget/member";
                               final res =
                                   await http.post(Uri.parse(url), body: {
-                                "email": textController1.text,
+                                "mobile": textController1.text,
                               });
                               final result = jsonDecode(res.body);
                               if (res.statusCode == 200) {
-                                FFAppState().Email = textController1.text;
+                                FFAppState().Mobile = textController1.text;
 
                                 // ScaffoldMessenger.of(context).showSnackBar(
                                 // SnackBar(content: Text(result["message"])),
