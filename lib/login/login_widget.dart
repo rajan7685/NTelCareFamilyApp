@@ -126,6 +126,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       color: Color(0xFF292929),
                                       fontSize: 16,
                                     ),
+                            keyboardType: TextInputType.number,
                           ),
                         ),
                       ),
