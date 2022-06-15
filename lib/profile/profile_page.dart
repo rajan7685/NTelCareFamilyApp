@@ -580,13 +580,13 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
             ],
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(20, 50, 0, 0),
+            padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 110, 0, 10),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 200, 100, 100),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,

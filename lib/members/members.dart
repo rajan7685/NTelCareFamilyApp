@@ -772,9 +772,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                       child: ListView(
                                                           padding:
                                                               EdgeInsets.zero,
-                                                          shrinkWrap: true,
                                                           scrollDirection:
-                                                              Axis.horizontal,
+                                                              Axis.vertical,
                                                           children: [
                                                             Padding(
                                                               padding:
@@ -1275,9 +1274,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                     AlignmentDirectional(0, 0),
                                                 child: ListView(
                                                     padding: EdgeInsets.zero,
-                                                    shrinkWrap: true,
                                                     scrollDirection:
-                                                        Axis.horizontal,
+                                                        Axis.vertical,
                                                     children: [
                                                       Padding(
                                                         padding:
