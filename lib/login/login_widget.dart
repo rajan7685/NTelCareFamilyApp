@@ -43,7 +43,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         child: Stack(
           children: [
             Image.asset(
-              'assets/images/MicrosoftTeams-image.png',
+              'assets/images/login.png',
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.fill,

@@ -38,7 +38,7 @@ class _Verification extends State<verification> {
           child: Stack(
             children: [
               Image.asset(
-                'assets/images/MicrosoftTeams-image.png',
+                'assets/images/login.png',
                 width: double.infinity,
                 height: double.infinity,
                 fit: BoxFit.fill,

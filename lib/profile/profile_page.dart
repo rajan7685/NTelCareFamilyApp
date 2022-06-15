@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/custom_code/widgets/custom_message.dart';
 import 'package:n_tel_care_family_app/edit/demo_editProfile.dart';
 import 'package:n_tel_care_family_app/login/login_widget.dart';
 import 'package:n_tel_care_family_app/seniors_list/senior_list.dart';
-
+import 'package:http/http.dart' as http;
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -25,6 +27,13 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchSList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -44,7 +53,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                   image: DecorationImage(
                     fit: BoxFit.fitWidth,
                     image: Image.asset(
-                      'assets/images/image.jpg',
+                      'assets/images/Group 1550.png',
                     ).image,
                   ),
                 ),
@@ -693,5 +702,24 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
         ]),
       ),
     );
+  }
+
+  Future fetchSList() async {
+    final url = Uri.http("18.208.148.208:4000", "/get/profile/member");
+    final SList = await http.get(url, headers: {
+      'Authorization': 'Bearer ${FFAppState().Token}',
+    });
+
+    print(FFAppState().Token);
+    print(FFAppState().AccountId);
+    print(SList.statusCode);
+    if (SList.statusCode == 200) {
+      print("This is the status code");
+      print(SList.statusCode);
+    } else {
+      print(SList.statusCode);
+      print(Exception());
+      throw Exception("Seniors not Found");
+    }
   }
 }

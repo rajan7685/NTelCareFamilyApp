@@ -45,7 +45,7 @@ class _forget_passwordState extends State<forget_password> {
             child: Stack(
               children: [
                 Image.asset(
-                  'assets/images/MicrosoftTeams-image.png',
+                  'assets/images/login.png',
                   width: double.infinity,
                   height: double.infinity,
                   fit: BoxFit.fill,
