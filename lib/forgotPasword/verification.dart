@@ -239,8 +239,9 @@ class OtpInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 50,
-      height: 60,
+      height: 50,
       decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextField(
@@ -249,7 +250,7 @@ class OtpInput extends StatelessWidget {
         keyboardType: TextInputType.number,
         controller: controller,
         maxLength: 1,
-        cursorColor: Theme.of(context).primaryColor,
+        cursorColor: Color(0xFF00B89F),
         decoration: const InputDecoration(
             border: OutlineInputBorder(),
             counterText: '',

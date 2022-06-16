@@ -67,35 +67,7 @@ class _forget_passwordState extends State<forget_password> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(7, 0, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: InkWell(
-                              onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginWidget(),
-                                  ),
-                                );
-                              },
-                              child: Icon(
-                                Icons.chevron_left_sharp,
-                                color:
-                                    FlutterFlowTheme.of(context).tertiaryColor,
-                                size: 45,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 160, 0, 20),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 100, 0, 20),
                       child: Image.asset(
                         'assets/images/Group 598.png',
                         width: 300,
@@ -171,7 +143,7 @@ class _forget_passwordState extends State<forget_password> {
                                       color: Color(0xFF292929),
                                       fontSize: 16,
                                     ),
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.number,
                               ),
                             ),
                           ),
@@ -344,6 +316,39 @@ class _forget_passwordState extends State<forget_password> {
                     ),
                   ],
                 ),
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(7, 0, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LoginWidget(),
+                                    ),
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.chevron_left_sharp,
+                                  color: FlutterFlowTheme.of(context)
+                                      .tertiaryColor,
+                                  size: 45,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ])
               ],
             ),
           ),

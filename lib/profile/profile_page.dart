@@ -1,6 +1,10 @@
 import 'dart:convert';
 
+<<<<<<< HEAD
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
+=======
+import 'package:n_tel_care_family_app/components/switch_chat_widget.dart';
+>>>>>>> 3ba5e6c667ad5a97917ffaf7432689eed8ce8b6f
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/custom_code/widgets/custom_message.dart';
 import 'package:n_tel_care_family_app/edit/demo_editProfile.dart';
@@ -17,8 +21,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePageWidget extends StatefulWidget {
-  const ProfilePageWidget({Key key}) : super(key: key);
+  const ProfilePageWidget({
+    Key key,
+    this.chattoggle,
+  }) : super(key: key);
 
+  final bool chattoggle;
   @override
   _ProfilePageWidgetState createState() => _ProfilePageWidgetState();
 }
@@ -339,49 +347,59 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: SvgPicture.asset(
-                                    'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
-                                    width: 21,
-                                    height: 21,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
+                          InkWell(
+                            onTap: () async {
+                              setState(() => FFAppState().Chattoggle2 = false);
+                            },
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        17, 0, 0, 0),
-                                    child: SwitchListTile(
-                                      value: switchListTileValue ??= true,
-                                      onChanged: (newValue) => setState(
-                                          () => switchListTileValue = newValue),
-                                      title: Text(
-                                        'Enable Chat',
-                                        style: FlutterFlowTheme.of(context)
-                                            .title3
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFFAFAFAF),
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                      ),
-                                      tileColor: Color(0xFFF5F5F5),
-                                      activeColor: Color(0xFFECECEC),
-                                      activeTrackColor: Color(0xFF00B89F),
-                                      dense: false,
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
+                                        10, 0, 0, 0),
+                                    child: SvgPicture.asset(
+                                      'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
+                                      width: 21,
+                                      height: 21,
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          17, 0, 0, 0),
+                                      child: SwitchListTile(
+                                        value: FFAppState().Chattoggle2,
+                                        onChanged: (bool value) => setState(
+                                            () => FFAppState().Chattoggle2 =
+                                                value),
+                                        //             value: switchListTileValue ??= true,
+                                        //             onChanged: (newValue) => setState(
+                                        //                 () => switchListTileValue = newValue),
+                                        title: Text(
+                                          'Enable Chat',
+                                          style: FlutterFlowTheme.of(context)
+                                              .title3
+                                              .override(
+                                                fontFamily: 'Montserrat',
+                                                color: Color(0xFFAFAFAF),
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                        ),
+                                        tileColor: Color(0xFFF5F5F5),
+                                        activeColor: Color(0xFFECECEC),
+                                        activeTrackColor: Color(0xFF00B89F),
+                                        dense: false,
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           Padding(
@@ -633,98 +651,100 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChatWidget(),
-                              ),
-                            );
-                          },
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Container(
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  shape: BoxShape.circle,
+                      if (FFAppState().Chattoggle2 ?? true)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                          child: InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatWidget(),
                                 ),
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      width: 60,
-                                      height: 60,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF00B89F),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            'assets/images/bubble.png',
-                                            width: 40,
-                                            height: 40,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(1.31, -0.83),
-                                      child: Container(
-                                        width: 20,
-                                        height: 20,
+                              );
+                            },
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFEEEEEE),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        width: 60,
+                                        height: 60,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFFEEEEEE),
+                                          color: Color(0xFF00B89F),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              '5',
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFF00B89F),
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                            Image.asset(
+                                              'assets/images/bubble.png',
+                                              width: 40,
+                                              height: 40,
+                                              fit: BoxFit.fill,
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(1.31, -0.83),
+                                        child: Container(
+                                          width: 20,
+                                          height: 20,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFEEEEEE),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                '5',
+                                                textAlign: TextAlign.center,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'Montserrat',
+                                                      color: Color(0xFF00B89F),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                'Family Chat',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFFE5E5E5),
-                                      fontWeight: FontWeight.w100,
-                                    ),
-                              ),
-                            ],
+                                Text(
+                                  'Family Chat',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFFE5E5E5),
+                                        fontWeight: FontWeight.w100,
+                                      ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ),
