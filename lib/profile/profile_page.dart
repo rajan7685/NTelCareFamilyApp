@@ -17,8 +17,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePageWidget extends StatefulWidget {
-  const ProfilePageWidget({Key key}) : super(key: key);
-
+  const ProfilePageWidget({Key key, this.ChatToggle}) : super(key: key);
+  final bool ChatToggle;
   @override
   _ProfilePageWidgetState createState() => _ProfilePageWidgetState();
 }
@@ -91,7 +91,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Image.network(
-                                        snapshot.data["members"]["profile"]),
+                                        snapshot.data["member"]["profile"]),
                                   ),
                                 ),
                               ),
@@ -359,9 +359,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         17, 0, 0, 0),
                                     child: SwitchListTile(
-                                      value: switchListTileValue ??= true,
-                                      onChanged: (newValue) => setState(
-                                          () => switchListTileValue = newValue),
+                                      value: FFAppState().Chattoggle2,
+                                      onChanged: (bool value) => setState(() =>
+                                          FFAppState().Chattoggle2 = value),
                                       title: Text(
                                         'Enable Chat',
                                         style: FlutterFlowTheme.of(context)
@@ -633,98 +633,100 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChatWidget(),
-                              ),
-                            );
-                          },
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Container(
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  shape: BoxShape.circle,
+                      if (FFAppState().Chattoggle2 ?? true)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                          child: InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatWidget(),
                                 ),
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      width: 60,
-                                      height: 60,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF00B89F),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            'assets/images/bubble.png',
-                                            width: 40,
-                                            height: 40,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(1.31, -0.83),
-                                      child: Container(
-                                        width: 20,
-                                        height: 20,
+                              );
+                            },
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFEEEEEE),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        width: 60,
+                                        height: 60,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFFEEEEEE),
+                                          color: Color(0xFF00B89F),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              '5',
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFF00B89F),
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                            Image.asset(
+                                              'assets/images/bubble.png',
+                                              width: 40,
+                                              height: 40,
+                                              fit: BoxFit.fill,
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(1.31, -0.83),
+                                        child: Container(
+                                          width: 20,
+                                          height: 20,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFEEEEEE),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                '5',
+                                                textAlign: TextAlign.center,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'Montserrat',
+                                                      color: Color(0xFF00B89F),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                'Family Chat',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFFE5E5E5),
-                                      fontWeight: FontWeight.w100,
-                                    ),
-                              ),
-                            ],
+                                Text(
+                                  'Family Chat',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFFE5E5E5),
+                                        fontWeight: FontWeight.w100,
+                                      ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ),

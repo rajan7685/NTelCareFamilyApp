@@ -15,7 +15,9 @@ class SleepWidget extends StatefulWidget {
 
 class _SleepWidgetState extends State<SleepWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  var color1 = Color(0xFF00B89F);
+  var color2 = Color(0xFF1A1A1A);
+  var color3 = Color(0xFF1A1A1A);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,9 +98,17 @@ class _SleepWidgetState extends State<SleepWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
+                              child: InkWell(
+                            onTap: () async {
+                              setState(() {
+                                color1 = Color(0xFF00B89F);
+                                color2 = Color(0xFF1A1A1A);
+                                color3 = Color(0xFF1A1A1A);
+                              });
+                            },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Color(0xFF00B89F),
+                                color: color1,
                                 borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(10),
                                   bottomRight: Radius.circular(0),
@@ -128,11 +138,19 @@ class _SleepWidgetState extends State<SleepWidget> {
                                 ),
                               ),
                             ),
-                          ),
+                          )),
                           Expanded(
+                              child: InkWell(
+                            onTap: () async {
+                              setState(() {
+                                color2 = Color(0xFF00B89F);
+                                color1 = Color(0xFF1A1A1A);
+                                color3 = Color(0xFF1A1A1A);
+                              });
+                            },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Color(0xFF1A1A1A),
+                                color: color2,
                                 borderRadius: BorderRadius.circular(0),
                               ),
                               child: Padding(
@@ -157,41 +175,50 @@ class _SleepWidgetState extends State<SleepWidget> {
                                 ),
                               ),
                             ),
-                          ),
+                          )),
                           Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFF1A1A1A),
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(0),
-                                  bottomRight: Radius.circular(10),
-                                  topLeft: Radius.circular(0),
-                                  topRight: Radius.circular(10),
+                            child: InkWell(
+                              onTap: () async {
+                                setState(() {
+                                  color3 = Color(0xFF00B89F);
+                                  color2 = Color(0xFF1A1A1A);
+                                  color1 = Color(0xFF1A1A1A);
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: color3,
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(0),
+                                    bottomRight: Radius.circular(10),
+                                    topLeft: Radius.circular(0),
+                                    topRight: Radius.circular(10),
+                                  ),
                                 ),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Monthly',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF6D6767),
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w200,
-                                          ),
-                                    ),
-                                  ],
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 5, 0, 5),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Monthly',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              color: Color(0xFF6D6767),
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w200,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),
