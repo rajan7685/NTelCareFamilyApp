@@ -582,15 +582,12 @@ class _ChatWidgetState extends State<ChatWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                'Type Here',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFFE5E5E5),
-                                      fontSize: 16,
-                                    ),
+                              TextField(
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Type Here",
+                                    hintStyle:
+                                        TextStyle(color: Color(0xFFE5E5E5))),
                               ),
                               Image.asset(
                                 'assets/images/7830587_send_email_icon.png',
