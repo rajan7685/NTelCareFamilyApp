@@ -15,7 +15,6 @@ class LoginCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {},
-      body: mobile,
       returnBody: true,
     );
   }
@@ -149,6 +148,20 @@ class SeniorsList {
         'Authorization': 'Bearer ${FFAppState().Token}',
       },
       params: {"m_acc_id": "6299517488b3bba4d3df12ce"},
+      returnBody: true,
+    );
+  }
+}
+
+class GetProfile {
+  static Future<dynamic> call() {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getProfile',
+      apiUrl: 'http://18.208.148.208:4000/get/profile/member',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${FFAppState().Token}',
+      },
       returnBody: true,
     );
   }
