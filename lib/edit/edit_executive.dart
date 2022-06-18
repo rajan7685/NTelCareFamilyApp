@@ -61,12 +61,13 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                           alignment: AlignmentDirectional(0, 0),
                           child: InkWell(
                             onTap: () async {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MembersWidget(),
-                                ),
-                              );
+                              Navigator.pop(context);
+                              //  await Navigator.push(
+                              // context,
+                              // MaterialPageRoute(
+                              //    builder: (context) => MembersWidget(),
+                              //   ),
+                              // );
                             },
                             child: Icon(
                               Icons.chevron_left_sharp,
@@ -376,6 +377,21 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: DropdownButtonFormField(
+                                value: dropDownValue,
+                                items: [
+                                  "Son",
+                                  "Daughter",
+                                  "Grand Son",
+                                  "Grand Daugter"
+                                ]
+                                    .map((label) => DropdownMenuItem(
+                                          child: Text(label),
+                                          value: label,
+                                        ))
+                                    .toList(),
+                                onChanged: (value) {
+                                  setState(() => dropDownValue = value);
+                                },
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -390,8 +406,6 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                                   filled: true,
                                   fillColor: Colors.white,
                                 ),
-                                onChanged: (val) =>
-                                    setState(() => dropDownValue = val),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText1
                                     .override(

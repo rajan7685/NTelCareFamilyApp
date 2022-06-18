@@ -70,12 +70,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                           alignment: AlignmentDirectional(0, 0),
                           child: InkWell(
                             onTap: () async {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SeniorsWidget(),
-                                ),
-                              );
+                              Navigator.pop(context);
                             },
                             child: Icon(
                               Icons.chevron_left_sharp,

@@ -89,6 +89,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'Members': MembersWidget(),
       'Profile': ProfilePageWidget(),
     };
+
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
       body: tabs[_currentPage],

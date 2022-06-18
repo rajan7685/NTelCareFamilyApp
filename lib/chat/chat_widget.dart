@@ -40,13 +40,14 @@ class _ChatWidgetState extends State<ChatWidget> {
                           alignment: AlignmentDirectional(0, 0),
                           child: InkWell(
                             onTap: () async {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ModifiedLandingPageWidget(),
-                                ),
-                              );
+                              Navigator.pop(context);
+                              //   await Navigator.push(
+                              //  context,
+                              //  MaterialPageRoute(
+                              //   builder: (context) =>
+                              //      ModifiedLandingPageWidget(),
+                              //  ),
+                              // );
                             },
                             child: Icon(
                               Icons.chevron_left_sharp,

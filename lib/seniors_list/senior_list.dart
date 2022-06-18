@@ -52,11 +52,7 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                           child: InkWell(
                             onTap: () async {
-                              await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProfilePageWidget(),
-                                  ));
+                              Navigator.pop(context);
                             },
                             child: Icon(
                               Icons.arrow_back_ios_sharp,

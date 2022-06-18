@@ -41,13 +41,14 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                           alignment: AlignmentDirectional(0, 0),
                           child: InkWell(
                             onTap: () async {
-                              await Navigator.push(
+                              /*await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       NavBarPage(initialPage: 'Landing'),
                                 ),
-                              );
+                              );*/
+                              Navigator.pop(context);
                             },
                             child: Icon(
                               Icons.chevron_left_sharp,

@@ -48,6 +48,27 @@ class FFAppState {
     _Chattoggle2 = _value;
     prefs.setBool('ff_Chattoggle2', _value);
   }
+
+  bool _Chattoggle3 = false;
+  bool get Chattoggle3 => _Chattoggle3;
+  set Chattoggle3(bool _value) {
+    _Chattoggle3 = _value;
+    prefs.setBool('ff_Chattoggle3', _value);
+  }
+
+  bool _Chattoggle4 = false;
+  bool get Chattoggle4 => _Chattoggle4;
+  set Chattoggle4(bool _value) {
+    _Chattoggle4 = _value;
+    prefs.setBool('ff_Chattoggle4', _value);
+  }
+
+  bool _Chattoggle5 = false;
+  bool get Chattoggle5 => _Chattoggle5;
+  set Chattoggle5(bool _value) {
+    _Chattoggle5 = _value;
+    prefs.setBool('ff_Chattoggle4', _value);
+  }
 }
 
 LatLng _latLngFromString(String val) {
