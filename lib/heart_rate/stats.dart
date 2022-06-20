@@ -18,6 +18,7 @@ class _StatsWidgetState extends State<StatsWidget> {
   var color1 = Color(0xFF00B89F);
   var color2 = Color(0xFF1A1A1A);
   var color3 = Color(0xFF1A1A1A);
+  DateTime dateTime;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,13 +50,12 @@ class _StatsWidgetState extends State<StatsWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(10, 63, 0, 0),
                       child: InkWell(
                         onTap: () async {
-                          Navigator.pop(context);
-                          //await Navigator.push(
-                          // context,
-                          //MaterialPageRoute(
-                          // builder: (context) =>
-                          // ModifiedLandingPageWidget(),
-                          // ));
+                          await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ModifiedLandingPageWidget(),
+                              ));
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -219,6 +219,131 @@ class _StatsWidgetState extends State<StatsWidget> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              showDatePicker(
+                                      context: context,
+                                      initialDate: dateTime == null
+                                          ? DateTime.now()
+                                          : dateTime,
+                                      firstDate: DateTime(2001),
+                                      lastDate: DateTime.now())
+                                  .then((date) {
+                                setState(() {
+                                  dateTime = date;
+                                });
+                              });
+                            },
+                            icon: Icon(
+                              Icons.chevron_left,
+                              color: Color(0xFFAFAFAF),
+                              size: 32,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              dateTime == null
+                                  ? DateTime.now().toString()
+                                  : dateTime.toString(),
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFFAFAFAF),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              showDatePicker(
+                                      context: context,
+                                      initialDate: dateTime == null
+                                          ? DateTime.now()
+                                          : dateTime,
+                                      firstDate: DateTime(2001),
+                                      lastDate: DateTime.now())
+                                  .then((date) {
+                                setState(() {
+                                  dateTime = date;
+                                });
+                              });
+                            },
+                            icon: Icon(
+                              Icons.chevron_right,
+                              color: Color(0xFFAFAFAF),
+                              size: 32,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Padding(
+                    //   padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
+                    //   child: Row(
+                    //     mainAxisSize: MainAxisSize.max,
+                    //     children: [
+                    //       InkWell(onTap: () async {
+                    //         await showDatePicker(
+                    //                 context: context,
+                    //                 initialDate: dateTime==null? DateTime.now():dateTime,
+                    //                 firstDate: DateTime(2001),
+                    //                 lastDate: DateTime.now())
+                    //             .then((date) {
+                    //           setState(() {
+                    //             dateTime = date;
+                    //           });
+                    //         });
+                    //         Icon(
+                    //           Icons.chevron_left
+                    //           ,
+                    //           color: Color(0xFFAFAFAF),
+                    //           size: 32,
+                    //         );
+                    //       }),
+                    //       Expanded(
+                    //         child: Text(
+                    //           dateTime == null
+                    //               ? DateTime.now().toString()
+                    //               : dateTime.toString(),
+                    //           textAlign: TextAlign.center,
+                    //           style: FlutterFlowTheme.of(context)
+                    //               .bodyText1
+                    //               .override(
+                    //                 fontFamily: 'Poppins',
+                    //                 color: Color(0xFFAFAFAF),
+                    //                 fontSize: 20,
+                    //                 fontWeight: FontWeight.w300,
+                    //               ),
+                    //         ),
+                    //       ),
+                    //       InkWell(onTap: () async {
+                    //         await showDatePicker(
+                    //                 context: context,
+                    //               initialDate: dateTime==null? DateTime.now():dateTime,
+                    //                 firstDate: DateTime(2001),
+                    //                 lastDate: DateTime.now())
+                    //             .then((date) {
+                    //           setState(() {
+                    //             dateTime = date;
+                    //           });
+                    //         });
+                    //         Icon(
+                    //           Icons.chevron_right,
+                    //           color: Color(0xFFAFAFAF),
+                    //           size: 32,
+                    //         );
+                    //       }),
+                    //     ],
+                    //   ),
+                    // ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
                       child: Image.asset(
