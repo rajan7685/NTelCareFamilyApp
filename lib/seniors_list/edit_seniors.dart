@@ -1,12 +1,16 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/seniors_list/senior_list.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../backend/api_requests/api_calls.dart';
-
+import 'package:path/path.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +35,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String dropDownValue3;
   String dropDownValue4;
   String dropDownValue5;
+  bool display = false;
+  bool displayY = true;
+  bool displayN = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -43,6 +50,28 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     textController5 = TextEditingController(text: '60 lbs');
     textController6 = TextEditingController(text: '967583222');
     textController7 = TextEditingController(text: 'kennys@gmail.com');
+  }
+
+  File image;
+  Future<File> savePermanently(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final name1 = basename(imagePath);
+    final image2 = File('${directory.path}/$name1');
+    return File(imagePath).copy(image2.path);
+  }
+
+  Future pickimage(ImageSource source1) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source1);
+      if (image == Null) {
+        return Null;
+      }
+      // final imagePath = File(image.path);
+      final imagePathPermanently = await savePermanently(image.path);
+      setState(() => this.image = imagePathPermanently);
+    } on PlatformException catch (e) {
+      print("Permission Denied");
+    }
   }
 
   @override
@@ -994,12 +1023,22 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                 ),
                                 child: Stack(
                                   children: [
-                                    SvgPicture.asset(
-                                      'assets/images/man.svg',
-                                      width: 100,
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    if (image == null)
+                                      SvgPicture.asset(
+                                        'assets/images/man.svg',
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      )
+                                    else
+                                      //Image.asset(Image.file(image!),width: 100,height: 100,fit: BoxFit.cover)
+                                      ClipOval(
+                                          child: Image.file(
+                                        image,
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.cover,
+                                      )),
                                     Align(
                                       alignment:
                                           AlignmentDirectional(1.34, 0.97),
@@ -1017,21 +1056,33 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Expanded(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  SvgPicture.asset(
-                                                    'assets/images/camera.svg',
-                                                    height: 20,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ],
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  setState(() {
+                                                    if (display == displayN) {
+                                                      display = displayY;
+                                                    } else {
+                                                      display = displayN;
+                                                    }
+                                                  });
+                                                },
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                      'assets/images/camera.svg',
+                                                      height: 20,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
+                                            )
                                           ],
                                         ),
                                       ),
@@ -1043,132 +1094,147 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFFECFFFC),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(0),
-                              bottomRight: Radius.circular(0),
-                              topLeft: Radius.circular(5),
-                              topRight: Radius.circular(5),
+                      if (display ?? true)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xFFECFFFC),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(0),
+                                bottomRight: Radius.circular(0),
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5),
+                              ),
                             ),
-                          ),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      45, 0, 0, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 100,
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF00B89F),
-                                          shape: BoxShape.circle,
-                                        ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          45, 0, 0, 0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          pickimage(ImageSource.camera);
+                                        },
                                         child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
-                                            SvgPicture.asset(
-                                              'assets/images/camera.svg',
-                                              height: 50,
-                                              fit: BoxFit.cover,
+                                            Container(
+                                              width: 100,
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFF00B89F),
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    'assets/images/camera.svg',
+                                                    height: 50,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 2, 0, 0),
+                                                  child: Text(
+                                                    'Camera',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color:
+                                                              Color(0xFF1F252B),
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Row(
+                                      )),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 45, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        pickimage(ImageSource.gallery);
+                                      },
+                                      child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 2, 0, 0),
-                                            child: Text(
-                                              'Camera',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFF1F252B),
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                          Container(
+                                            width: 100,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFF00B89F),
+                                              shape: BoxShape.circle,
                                             ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SvgPicture.asset(
+                                                  'assets/images/_icons.svg',
+                                                  height: 50,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 2, 0, 0),
+                                                child: Text(
+                                                  'Gallery',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color:
+                                                            Color(0xFF1F252B),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 45, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Container(
-                                        width: 100,
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF00B89F),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SvgPicture.asset(
-                                              'assets/images/_icons.svg',
-                                              height: 50,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 2, 0, 0),
-                                            child: Text(
-                                              'Gallery',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFF1F252B),
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 38, 0, 0),
                         child: FFButtonWidget(

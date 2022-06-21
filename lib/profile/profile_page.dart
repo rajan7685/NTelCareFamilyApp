@@ -49,10 +49,11 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
             children: [
               Container(
                 width: 100,
+                height: 400,
                 decoration: BoxDecoration(
                   color: Color(0xFF1F252B),
                   image: DecorationImage(
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.fill,
                     image: Image.asset(
                       'assets/images/Group 1550.png',
                     ).image,
@@ -81,19 +82,22 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                               Align(
                                 alignment: AlignmentDirectional(-0.03, -0.55),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 45, 0, 0),
-                                  child: Container(
-                                    width: 175,
-                                    height: 175,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                        snapshot.data["member"]["profile"]),
-                                  ),
-                                ),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 55, 0, 0),
+                                    child: Container(
+                                      width: 175,
+                                      height: 175,
+                                      clipBehavior: Clip.hardEdge,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: Image.network(snapshot
+                                                  .data["member"]["profile"])
+                                              .image,
+                                        ),
+                                      ),
+                                    )),
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -195,7 +199,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 15, 0, 0),
                                   child: Text(
-                                    'Victor jolly',
+                                    snapshot.data["member"]["fname"] +
+                                        " " +
+                                        snapshot.data["member"]["lname"],
                                     textAlign: TextAlign.start,
                                     style: FlutterFlowTheme.of(context)
                                         .title1
@@ -220,7 +226,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 5, 0, 0),
                                   child: Text(
-                                    'Age 66, Femaie',
+                                    'Age 66, Female',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -248,7 +254,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 5, 0, 0),
                                   child: Text(
-                                    'Alterkeny@gmail.com',
+                                    snapshot.data["member"]["email"],
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -276,7 +282,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 Align(
                                   alignment: AlignmentDirectional(0.08, 0.71),
                                   child: Text(
-                                    '+1 789456123',
+                                    snapshot.data["member"]["phone"],
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -305,7 +311,11 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 Align(
                                   alignment: AlignmentDirectional(0.08, 0.71),
                                   child: Text(
-                                    '1337 Elk Avenue, Lansing, Michigan, Zip code - 48933',
+                                    //(snapshot.data["member"]["address"]!=null && snapshot.data["member"]["zipcode"]!=null)
+                                    // snapshot.data["member"]["address"] +
+                                    //   snapshot.data["member"]["zipcode"]
+                                    //  else
+                                    "Data is not coming",
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(

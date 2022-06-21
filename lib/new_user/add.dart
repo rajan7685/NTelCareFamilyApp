@@ -1,11 +1,14 @@
+import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'package:image_picker/image_picker.dart';
 import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-
+import 'package:path/path.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,6 +39,34 @@ class _AddWidgetState extends State<Add> {
     textController1 = TextEditingController(text: 'Kenny');
     textController2 = TextEditingController(text: 'Alter');
     textController3 = TextEditingController(text: '967583222');
+  }
+
+  bool display = false;
+  bool displayY = true;
+  bool displayN = false;
+  File image;
+  Future<File> savePermanently(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final name1 = basename(imagePath);
+    final image2 = File('${directory.path}/$name1');
+    return File(imagePath).copy(image2.path);
+  }
+
+  Future pickimage(ImageSource source1) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source1);
+      if (image == Null) {
+        return Null;
+      }
+      // final imagePath = File(image.path);
+      final imagePathPermanently = await savePermanently(image.path);
+      setState(() => this.image = imagePathPermanently);
+      setState(() {
+        display = false;
+      });
+    } on PlatformException catch (e) {
+      print("Permission Denied");
+    }
   }
 
   @override
@@ -371,7 +402,186 @@ class _AddWidgetState extends State<Add> {
                           ),
                         ),
                       ),
-                      Row(
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 10, 0, 0),
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF323A43),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Stack(
+                                  children: [
+                                    if (image == null)
+                                      SvgPicture.asset(
+                                        'assets/images/man.svg',
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      )
+                                    else
+                                      //Image.asset(Image.file(image!),width: 100,height: 100,fit: BoxFit.cover)
+                                      ClipOval(
+                                          child: Image.file(
+                                        image,
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.cover,
+                                      )),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(1.34, 0.97),
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFF00B89F),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  setState(() {
+                                                    if (display == displayN) {
+                                                      display = displayY;
+                                                    } else {
+                                                      display = displayN;
+                                                    }
+                                                  });
+                                                },
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                      'assets/images/camera.svg',
+                                                      height: 20,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (display ?? true)
+                        Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFECFFFC),
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(0),
+                                    bottomRight: Radius.circular(0),
+                                    topLeft: Radius.circular(5),
+                                    topRight: Radius.circular(5),
+                                  ),
+                                ),
+                                child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 20, 0, 20),
+                                    child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(45, 0, 0, 0),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  pickimage(ImageSource.camera);
+                                                },
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width: 100,
+                                                      height: 100,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xFF00B89F),
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          SvgPicture.asset(
+                                                            'assets/images/camera.svg',
+                                                            height: 50,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      2, 0, 0),
+                                                          child: Text(
+                                                            'Camera',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Color(
+                                                                      0xFF1F252B),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ))
+                                        ])))),
+                      /* Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -434,7 +644,7 @@ class _AddWidgetState extends State<Add> {
                             ),
                           ),
                         ],
-                      ),
+                      ),*/
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
