@@ -50,7 +50,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(10, 63, 0, 0),
                       child: InkWell(
                         onTap: () async {
-                          await Navigator.push(
+                          await Navigator.pop(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>

@@ -14,10 +14,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditMemberWidget extends StatefulWidget {
-  const EditMemberWidget({Key key}) : super(key: key);
+  dynamic data;
+  EditMemberWidget({Key key, @required this.data}) : super(key: key);
 
   @override
-  _EditMemberWidgetState createState() => _EditMemberWidgetState();
+  _EditMemberWidgetState createState() => _EditMemberWidgetState(data);
 }
 
 class _EditMemberWidgetState extends State<EditMemberWidget> {
@@ -27,14 +28,16 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   TextEditingController textController3;
   bool switchListTileValue;
   bool checkboxListTileValue;
+  dynamic data;
+  _EditMemberWidgetState(this.data);
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController(text: 'Kenny');
-    textController2 = TextEditingController(text: 'Alter');
-    textController3 = TextEditingController(text: '967583222');
+    textController1 = TextEditingController(text: data["fname"]);
+    textController2 = TextEditingController(text: data["lname"]);
+    textController3 = TextEditingController(text: data["phone"]);
   }
 
   var color1 = Color(0xFF00B89F);

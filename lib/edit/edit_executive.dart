@@ -14,10 +14,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditExecutiveWidget extends StatefulWidget {
-  const EditExecutiveWidget({Key key}) : super(key: key);
+  dynamic info;
+  EditExecutiveWidget({Key key, @required this.info}) : super(key: key);
 
   @override
-  _EditExecutiveWidgetState createState() => _EditExecutiveWidgetState();
+  _EditExecutiveWidgetState createState() => _EditExecutiveWidgetState(info);
 }
 
 class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
@@ -28,16 +29,18 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
   TextEditingController textController4;
   bool switchListTileValue;
   bool checkboxListTileValue;
+  dynamic info;
+  _EditExecutiveWidgetState(this.info);
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController(text: 'Kenny');
-    textController2 = TextEditingController(text: 'Alter');
-    textController3 = TextEditingController(text: '967583222');
-    textController4 = TextEditingController(text: 'prateek@remail.solutions');
+    textController1 = TextEditingController(text: info["fname"]);
+    textController2 = TextEditingController(text: info["lname"]);
+    textController3 = TextEditingController(text: info["phone"]);
+    textController4 = TextEditingController(text: info["email"]);
   }
 
   bool display = false;
@@ -219,7 +222,7 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'First Name',
-                                    hintText: '[Some hint text...]',
+                                    hintText: 'Enter Your First Name',
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0x00000000),
@@ -268,7 +271,7 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'Last Name',
-                                    hintText: '[Some hint text...]',
+                                    hintText: 'Enter Your Last Name',
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0x00000000),
@@ -317,7 +320,7 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'Phone Number',
-                                    hintText: '[Some hint text...]',
+                                    hintText: 'Enter Your Phone Number',
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0x00000000),
@@ -367,7 +370,7 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'Email',
-                                    hintText: '[Some hint text...]',
+                                    hintText: 'Enter Your Email Id',
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0x00000000),
@@ -414,7 +417,8 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                                   "Son",
                                   "Daughter",
                                   "Grand Son",
-                                  "Grand Daugter"
+                                  "Grand Daugter",
+                                  info["relation"]
                                 ]
                                     .map((label) => DropdownMenuItem(
                                           child: Text(label),
