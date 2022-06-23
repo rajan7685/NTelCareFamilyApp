@@ -130,18 +130,38 @@ class _Verification extends State<verification> {
                       OtpInput(_six, false),
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 20),
-                    child: Text(
-                      "Didn't receive a code? Resend code",
-                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                            fontFamily: 'Montserrat',
-                            color: Color(0xFFE5E5E5),
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 20),
+                          child: Text(
+                            "Didn't receive a code?",
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Montserrat',
+                                      color: Color(0xFFE5E5E5),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                           ),
-                    ),
-                  ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(0, 10, 20, 20),
+                          child: Text(
+                            "Resend code",
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Montserrat',
+                                      color: Color(0xFFE5E5E5),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                          ),
+                        ),
+                      ]),
                   Container(
                     width: 50,
                     height: 50,
