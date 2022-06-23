@@ -127,7 +127,7 @@ class MemberList {
   static Future<dynamic> call() {
     return ApiManager.instance.makeApiCall(
       callName: 'MemberList',
-      apiUrl: 'http://demo.ntelcare.com/MobiPortal/MemberList.aspx?',
+      apiUrl: 'http://18.208.148.208:4000/get/members/member',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${FFAppState().Token}',

@@ -1,3 +1,5 @@
+// ignore_for_file: missing_return
+
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/edit/edit_executive.dart';
@@ -20,13 +22,14 @@ class MembersWidget extends StatefulWidget {
 
 class _MembersWidgetState extends State<MembersWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  Future<dynamic> MList;
+  Future<dynamic> MList, SList;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     MList = fetchList();
+    SList = fetchSList();
   }
 
   @override
@@ -174,328 +177,163 @@ class _MembersWidgetState extends State<MembersWidget> {
                     decoration: BoxDecoration(
                       color: Color(0xFF1F252B),
                     ),
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFF1F252B),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                  width: 70,
-                                  height: 70,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Image.network(
-                                    'https://picsum.photos/seed/171/600',
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 20, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Julie Paul',
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFF00B89F),
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w300,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
+                    child: FutureBuilder<dynamic>(
+                        future: SList,
+                        builder: (context, snapshot) {
+                          final inf = snapshot.data;
+                          if (!snapshot.hasData) {
+                            return Text(
+                              "Loading...",
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFFE5E5E5),
+                                      fontSize: 20),
+                            );
+                          } else {
+                            return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10, 0, 10, 0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF1F252B),
                                       ),
-                                      Row(
+                                      child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
+                                          Container(
+                                            width: 70,
+                                            height: 70,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Image.network(
+                                              inf[index]["profile"],
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0, 2, 0, 0),
-                                            child: Text(
-                                              'Age 60, Female',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFFE5E5E5),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w200,
+                                                    10, 0, 0, 0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 20, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        inf[index]["fname"] +
+                                                            " " +
+                                                            inf[index]["lname"],
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Color(
+                                                                      0xFF00B89F),
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w300,
+                                                                ),
+                                                      ),
+                                                    ],
                                                   ),
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 2, 0, 0),
+                                                      child: Text(
+                                                        inf[index]["gender"],
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Color(
+                                                                      0xFFE5E5E5),
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w200,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 6, 0, 0),
+                                                      child: Text(
+                                                        'More Info',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Color(
+                                                                      0xFFE5E5E5),
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w200,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
                                       ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 6, 0, 0),
-                                            child: Text(
-                                              'More Info',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFFE5E5E5),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w200,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFF1F252B),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                  width: 70,
-                                  height: 70,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Image.network(
-                                    'https://picsum.photos/seed/171/600',
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 20, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Julie Paul',
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFF00B89F),
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w300,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 2, 0, 0),
-                                            child: Text(
-                                              'Age 60, Female',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFFE5E5E5),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w200,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 6, 0, 0),
-                                            child: Text(
-                                              'More Info',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFFE5E5E5),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w200,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFF1F252B),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                  width: 70,
-                                  height: 70,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Image.network(
-                                    'https://picsum.photos/seed/171/600',
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 20, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Julie Paul',
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFF00B89F),
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w300,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 2, 0, 0),
-                                            child: Text(
-                                              'Age 60, Female',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFFE5E5E5),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w200,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 6, 0, 0),
-                                            child: Text(
-                                              'More Info',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFFE5E5E5),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w200,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                                    ),
+                                  );
+                                });
+                          }
+                        }),
                   ),
                   Expanded(
                     child: Padding(
@@ -527,1059 +365,398 @@ class _MembersWidgetState extends State<MembersWidget> {
                                   child: DefaultTabController(
                                     length: 2,
                                     initialIndex: 1,
-                                    // child: FutureBuilder<dynamic>(
-                                    //     future: MList,
-                                    //     builder: (context, snapshot) {
-                                    //       if (!snapshot.hasData) {
-                                    //         return Text(
-                                    //           "Loading",
-                                    //           style:
-                                    //               FlutterFlowTheme.of(context)
-                                    //                   .bodyText1
-                                    //                   .override(
-                                    //                       fontFamily: 'Poppins',
-                                    //                       color:
-                                    //                           Color(0xFFE5E5E5),
-                                    //                       fontSize: 20),
-                                    //         );
-                                    //       } else {
-                                    //         return
-
-                                    child: Column(
-                                      children: [
-                                        TabBar(
-                                          labelColor: Color(0xFF00B89F),
-                                          unselectedLabelColor:
-                                              Color(0xFFAFAFAF),
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                          indicatorColor: Color(0xFF00B89F),
-                                          indicatorWeight: 2,
-                                          tabs: [
-                                            Tab(
-                                              text: 'Executive',
-                                            ),
-                                            Tab(
-                                              text: 'Members',
-                                            ),
-                                          ],
-                                        ),
-                                        Expanded(
-                                          child: TabBarView(
-                                            children: [
-                                              Stack(
-                                                children: [
-                                                  // Align(
-                                                  //   alignment:
-                                                  //       AlignmentDirectional(
-                                                  //           0, 0),
-                                                  //   child: ListView
-                                                  //       .builder(
-                                                  //     padding:
-                                                  //         EdgeInsets
-                                                  //             .zero,
-                                                  //     scrollDirection:
-                                                  //         Axis.vertical,
-                                                  //     itemCount:
-                                                  //         snapshot.data
-                                                  //             .length,
-                                                  //     itemBuilder:
-                                                  //         // ignore: missing_return
-                                                  //         (BuildContext
-                                                  //                 context,
-                                                  //             int index) {
-                                                  //       if (snapshot.data[
-                                                  //                   index]
-                                                  //               [
-                                                  //               "Executive"] ==
-                                                  //           true)
-                                                  //           {
-                                                  //         return
-                                                  //  Padding(
-                                                  //   padding: EdgeInsetsDirectional
-                                                  //       .fromSTEB(
-                                                  //           5,
-                                                  //           10,
-                                                  //           5,
-                                                  //           0),
-                                                  //   child:
-                                                  //       InkWell(
-                                                  //     onTap:
-                                                  //         () async {
-                                                  //       await Navigator
-                                                  //           .push(
-                                                  //         context,
-                                                  //         MaterialPageRoute(
-                                                  //           builder: (context) =>
-                                                  //               EditExecutiveWidget(),
-                                                  //         ),
-                                                  //       );
-                                                  //     },
-                                                  //     child:
-                                                  //         Card(
-                                                  //       clipBehavior:
-                                                  //           Clip.antiAliasWithSaveLayer,
-                                                  //       color: Color(
-                                                  //           0xFF272E36),
-                                                  //       child:
-                                                  //           Padding(
-                                                  //         padding: EdgeInsetsDirectional.fromSTEB(
-                                                  //             3,
-                                                  //             0,
-                                                  //             0,
-                                                  //             0),
-                                                  //         child:
-                                                  //             Row(
-                                                  //           mainAxisSize:
-                                                  //               MainAxisSize.max,
-                                                  //           children: [
-                                                  //             Container(
-                                                  //               width: 80,
-                                                  //               height: 80,
-                                                  //               decoration: BoxDecoration(
-                                                  //                 color: Color(0xFF272E36),
-                                                  //               ),
-                                                  //               child: Stack(
-                                                  //                 children: [
-                                                  //                   Container(
-                                                  //                     width: 100,
-                                                  //                     height: 100,
-                                                  //                     clipBehavior: Clip.antiAlias,
-                                                  //                     decoration: BoxDecoration(
-                                                  //                       shape: BoxShape.circle,
-                                                  //                     ),
-                                                  //                     child: Image.network(
-                                                  //                       snapshot.data[index]["profile"],
-                                                  //                       fit: BoxFit.cover,
-                                                  //                     ),
-                                                  //                   ),
-                                                  //                   Align(
-                                                  //                     alignment: AlignmentDirectional(1.2, 0.83),
-                                                  //                     child: Container(
-                                                  //                       width: 30,
-                                                  //                       height: 30,
-                                                  //                       decoration: BoxDecoration(
-                                                  //                         color: Color(0xFF00B89F),
-                                                  //                         shape: BoxShape.circle,
-                                                  //                       ),
-                                                  //                       alignment: AlignmentDirectional(0, 0),
-                                                  //                       child: Column(
-                                                  //                         mainAxisSize: MainAxisSize.max,
-                                                  //                         mainAxisAlignment: MainAxisAlignment.center,
-                                                  //                         children: [
-                                                  //                           Expanded(
-                                                  //                             child: Column(
-                                                  //                               mainAxisSize: MainAxisSize.min,
-                                                  //                               mainAxisAlignment: MainAxisAlignment.center,
-                                                  //                               crossAxisAlignment: CrossAxisAlignment.center,
-                                                  //                               children: [
-                                                  //                                 SvgPicture.asset(
-                                                  //                                   'assets/images/achievment.svg',
-                                                  //                                   height: 20,
-                                                  //                                   fit: BoxFit.cover,
-                                                  //                                 ),
-                                                  //                               ],
-                                                  //                             ),
-                                                  //                           ),
-                                                  //                         ],
-                                                  //                       ),
-                                                  //                     ),
-                                                  //                   ),
-                                                  //                 ],
-                                                  //               ),
-                                                  //             ),
-                                                  //             Expanded(
-                                                  //               child: Row(
-                                                  //                 mainAxisSize: MainAxisSize.max,
-                                                  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  //                 crossAxisAlignment: CrossAxisAlignment.center,
-                                                  //                 children: [
-                                                  //                   Padding(
-                                                  //                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                                  //                     child: Column(
-                                                  //                       mainAxisSize: MainAxisSize.max,
-                                                  //                       crossAxisAlignment: CrossAxisAlignment.start,
-                                                  //                       children: [
-                                                  //                         Row(
-                                                  //                           mainAxisSize: MainAxisSize.max,
-                                                  //                           children: [
-                                                  //                             Text(
-                                                  //                               snapshot.data[index]["fname"] + " " + snapshot.data[index]["lname"],
-                                                  //                               style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                  //                                     fontFamily: 'Montserrat',
-                                                  //                                     color: Color(0xFF00B89F),
-                                                  //                                     fontWeight: FontWeight.bold,
-                                                  //                                   ),
-                                                  //                             ),
-                                                  //                           ],
-                                                  //                         ),
-                                                  //                         Row(
-                                                  //                           mainAxisSize: MainAxisSize.max,
-                                                  //                           children: [
-                                                  //                             Text(
-                                                  //                               snapshot.data[index]["email"],
-                                                  //                               style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                  //                                     fontFamily: 'Montserrat',
-                                                  //                                     color: Color(0xFFAFAFAF),
-                                                  //                                     fontSize: 12,
-                                                  //                                     fontWeight: FontWeight.w200,
-                                                  //                                   ),
-                                                  //                             ),
-                                                  //                           ],
-                                                  //                         ),
-                                                  //                         Row(
-                                                  //                           mainAxisSize: MainAxisSize.max,
-                                                  //                           children: [
-                                                  //                             Text(
-                                                  //                               snapshot.data[index]["phone"],
-                                                  //                               style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                  //                                     fontFamily: 'Montserrat',
-                                                  //                                     color: Color(0xFFAFAFAF),
-                                                  //                                     fontSize: 12,
-                                                  //                                     fontWeight: FontWeight.w200,
-                                                  //                                   ),
-                                                  //                             ),
-                                                  //                           ],
-                                                  //                         ),
-                                                  //                       ],
-                                                  //                     ),
-                                                  //                   ),
-                                                  //                   Icon(
-                                                  //                     Icons.chevron_right,
-                                                  //                     color: Color(0xFF00B89F),
-                                                  //                     size: 30,
-                                                  //                   ),
-                                                  //                 ],
-                                                  //               ),
-                                                  //             ),
-                                                  //           ],
-                                                  //         ),
-                                                  //       ),
-                                                  //     ),
-                                                  //   ),
-                                                  // );
-                                                  // }
-                                                  Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0, 0),
-                                                      child: ListView(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
+                                    child: FutureBuilder<dynamic>(
+                                        future: MList,
+                                        builder: (context, snapshot) {
+                                          if (!snapshot.hasData) {
+                                            return Text(
+                                              "Loading",
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                          fontFamily: 'Poppins',
+                                                          color:
+                                                              Color(0xFFE5E5E5),
+                                                          fontSize: 20),
+                                            );
+                                          } else {
+                                            return Column(
+                                              children: [
+                                                TabBar(
+                                                  labelColor: Color(0xFF00B89F),
+                                                  unselectedLabelColor:
+                                                      Color(0xFFAFAFAF),
+                                                  labelStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyText1
+                                                          .override(
+                                                            fontFamily:
+                                                                'Montserrat',
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                  indicatorColor:
+                                                      Color(0xFF00B89F),
+                                                  indicatorWeight: 2,
+                                                  tabs: [
+                                                    Tab(
+                                                      text: 'Executive',
+                                                    ),
+                                                    Tab(
+                                                      text: 'Members',
+                                                    ),
+                                                  ],
+                                                ),
+                                                Expanded(
+                                                  child: TabBarView(
+                                                    children: [
+                                                      Stack(
+                                                        children: [
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0, 0),
+                                                            child: ListView
+                                                                .builder(
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    scrollDirection:
+                                                                        Axis
+                                                                            .vertical,
+                                                                    itemCount:
+                                                                        snapshot
+                                                                            .data
+                                                                            .length,
+                                                                    itemBuilder:
+                                                                        (BuildContext
+                                                                                context,
+                                                                            int index) {
+                                                                      final ex =
+                                                                          snapshot.data[index]
+                                                                              [
+                                                                              "executive"];
+                                                                      if (ex ==
+                                                                          true) {
+                                                                        return Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5,
+                                                                              10,
+                                                                              5,
+                                                                              0),
+                                                                          child:
+                                                                              InkWell(
+                                                                            onTap:
+                                                                                () async {
+                                                                              await Navigator.push(
+                                                                                context,
+                                                                                MaterialPageRoute(
+                                                                                  builder: (context) => EditExecutiveWidget(info: snapshot.data[index]),
+                                                                                ),
+                                                                              );
+                                                                            },
+                                                                            child:
+                                                                                Card(
+                                                                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                                              color: Color(0xFF272E36),
+                                                                              child: Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
+                                                                                child: Row(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  children: [
+                                                                                    Container(
+                                                                                      width: 80,
+                                                                                      height: 80,
+                                                                                      decoration: BoxDecoration(
+                                                                                        color: Color(0xFF272E36),
+                                                                                      ),
+                                                                                      child: Stack(
+                                                                                        children: [
+                                                                                          Container(
+                                                                                            width: 100,
+                                                                                            height: 100,
+                                                                                            clipBehavior: Clip.antiAlias,
+                                                                                            decoration: BoxDecoration(
+                                                                                              shape: BoxShape.circle,
+                                                                                            ),
+                                                                                            child: Image.network(
+                                                                                              snapshot.data[index]["profile"],
+                                                                                              fit: BoxFit.cover,
+                                                                                            ),
+                                                                                          ),
+                                                                                          Align(
+                                                                                            alignment: AlignmentDirectional(1.2, 0.83),
+                                                                                            child: Container(
+                                                                                              width: 30,
+                                                                                              height: 30,
+                                                                                              decoration: BoxDecoration(
+                                                                                                color: Color(0xFF00B89F),
+                                                                                                shape: BoxShape.circle,
+                                                                                              ),
+                                                                                              alignment: AlignmentDirectional(0, 0),
+                                                                                              child: Column(
+                                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                children: [
+                                                                                                  Expanded(
+                                                                                                    child: Column(
+                                                                                                      mainAxisSize: MainAxisSize.min,
+                                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                      children: [
+                                                                                                        SvgPicture.asset(
+                                                                                                          'assets/images/achievment.svg',
+                                                                                                          height: 20,
+                                                                                                          fit: BoxFit.cover,
+                                                                                                        ),
+                                                                                                      ],
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ),
+                                                                                    Expanded(
+                                                                                      child: Row(
+                                                                                        mainAxisSize: MainAxisSize.max,
+                                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                        children: [
+                                                                                          Padding(
+                                                                                            padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                                                                            child: Column(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                              children: [
+                                                                                                Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      snapshot.data[index]["fname"] + " " + snapshot.data[index]["lname"],
+                                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                            fontFamily: 'Montserrat',
+                                                                                                            color: Color(0xFF00B89F),
+                                                                                                            fontWeight: FontWeight.bold,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                                Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      snapshot.data[index]["email"],
+                                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                            fontFamily: 'Montserrat',
+                                                                                                            color: Color(0xFFAFAFAF),
+                                                                                                            fontSize: 12,
+                                                                                                            fontWeight: FontWeight.w200,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                                Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      snapshot.data[index]["phone"],
+                                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                            fontFamily: 'Montserrat',
+                                                                                                            color: Color(0xFFAFAFAF),
+                                                                                                            fontSize: 12,
+                                                                                                            fontWeight: FontWeight.w200,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
+                                                                                          Icon(
+                                                                                            Icons.chevron_right,
+                                                                                            color: Color(0xFF00B89F),
+                                                                                            size: 30,
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      }
+                                                                    }),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      Align(
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0, 0),
+                                                        child: ListView.builder(
+                                                            padding:
+                                                                EdgeInsets.zero,
+                                                            scrollDirection:
+                                                                Axis.vertical,
+                                                            itemCount: snapshot
+                                                                .data.length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    int index) {
+                                                              final ex = snapshot
+                                                                          .data[
+                                                                      index]
+                                                                  ["executive"];
+                                                              {
+                                                                return Padding(
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           5,
                                                                           10,
                                                                           5,
                                                                           0),
-                                                              child: InkWell(
-                                                                onTap:
-                                                                    () async {
-                                                                  await Navigator
-                                                                      .push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              EditExecutiveWidget(),
-                                                                    ),
-                                                                  );
-                                                                },
-                                                                child: Card(
-                                                                  clipBehavior:
-                                                                      Clip.antiAliasWithSaveLayer,
-                                                                  color: Color(
-                                                                      0xFF272E36),
                                                                   child:
-                                                                      Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
+                                                                      InkWell(
+                                                                    onTap:
+                                                                        () async {
+                                                                      await Navigator
+                                                                          .push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              EditMemberWidget(data: snapshot.data[index]),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                    child: Card(
+                                                                      clipBehavior:
+                                                                          Clip.antiAliasWithSaveLayer,
+                                                                      color: Color(
+                                                                          0xFF272E36),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             3,
                                                                             0,
                                                                             0,
                                                                             0),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Container(
-                                                                          width:
-                                                                              80,
-                                                                          height:
-                                                                              80,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color(0xFF272E36),
-                                                                          ),
-                                                                          child:
-                                                                              Stack(
-                                                                            children: [
-                                                                              Container(
-                                                                                width: 100,
-                                                                                height: 100,
-                                                                                clipBehavior: Clip.antiAlias,
-                                                                                decoration: BoxDecoration(
-                                                                                  shape: BoxShape.circle,
-                                                                                ),
-                                                                                child: Image.network(
-                                                                                  'https://picsum.photos/seed/44/600',
-                                                                                  fit: BoxFit.cover,
-                                                                                ),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          children: [
+                                                                            Container(
+                                                                              width: 80,
+                                                                              height: 80,
+                                                                              decoration: BoxDecoration(
+                                                                                color: Color(0xFF272E36),
                                                                               ),
-                                                                              Align(
-                                                                                alignment: AlignmentDirectional(1.2, 0.83),
-                                                                                child: Container(
-                                                                                  width: 30,
-                                                                                  height: 30,
-                                                                                  decoration: BoxDecoration(
-                                                                                    color: Color(0xFF00B89F),
-                                                                                    shape: BoxShape.circle,
+                                                                              child: Stack(
+                                                                                children: [
+                                                                                  Container(
+                                                                                    width: 100,
+                                                                                    height: 100,
+                                                                                    clipBehavior: Clip.antiAlias,
+                                                                                    decoration: BoxDecoration(
+                                                                                      shape: BoxShape.circle,
+                                                                                    ),
+                                                                                    child: Image.network(
+                                                                                      snapshot.data[index]["profile"],
+                                                                                      fit: BoxFit.cover,
+                                                                                    ),
                                                                                   ),
-                                                                                  alignment: AlignmentDirectional(0, 0),
-                                                                                  child: Column(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                                                    children: [
-                                                                                      Expanded(
-                                                                                        child: Column(
-                                                                                          mainAxisSize: MainAxisSize.min,
-                                                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                                                                    child: Column(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                      children: [
+                                                                                        Row(
+                                                                                          mainAxisSize: MainAxisSize.max,
                                                                                           children: [
-                                                                                            SvgPicture.asset(
-                                                                                              'assets/images/achievment.svg',
-                                                                                              height: 20,
-                                                                                              fit: BoxFit.cover,
+                                                                                            Text(
+                                                                                              snapshot.data[index]["fname"] + " " + snapshot.data[index]["lname"],
+                                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                    fontFamily: 'Montserrat',
+                                                                                                    color: Color(0xFF00B89F),
+                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                  ),
                                                                                             ),
                                                                                           ],
                                                                                         ),
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                        Expanded(
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceBetween,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.center,
-                                                                            children: [
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                  children: [
-                                                                                    Row(
-                                                                                      mainAxisSize: MainAxisSize.max,
-                                                                                      children: [
-                                                                                        Text(
-                                                                                          'Ronny',
-                                                                                          style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                fontFamily: 'Montserrat',
-                                                                                                color: Color(0xFF00B89F),
-                                                                                                fontWeight: FontWeight.bold,
-                                                                                              ),
+                                                                                        Row(
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          children: [
+                                                                                            Text(
+                                                                                              snapshot.data[index]["email"],
+                                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                    fontFamily: 'Montserrat',
+                                                                                                    color: Color(0xFFAFAFAF),
+                                                                                                    fontSize: 12,
+                                                                                                    fontWeight: FontWeight.w200,
+                                                                                                  ),
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                        Row(
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          children: [
+                                                                                            Text(
+                                                                                              snapshot.data[index]["phone"],
+                                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                    fontFamily: 'Montserrat',
+                                                                                                    color: Color(0xFFAFAFAF),
+                                                                                                    fontSize: 12,
+                                                                                                    fontWeight: FontWeight.w200,
+                                                                                                  ),
+                                                                                            ),
+                                                                                          ],
                                                                                         ),
                                                                                       ],
                                                                                     ),
-                                                                                    Row(
-                                                                                      mainAxisSize: MainAxisSize.max,
-                                                                                      children: [
-                                                                                        Text(
-                                                                                          'ronn@gmail.com',
-                                                                                          style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                fontFamily: 'Montserrat',
-                                                                                                color: Color(0xFFAFAFAF),
-                                                                                                fontSize: 12,
-                                                                                                fontWeight: FontWeight.w200,
-                                                                                              ),
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                    Row(
-                                                                                      mainAxisSize: MainAxisSize.max,
-                                                                                      children: [
-                                                                                        Text(
-                                                                                          '+1 654 98 73214',
-                                                                                          style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                fontFamily: 'Montserrat',
-                                                                                                color: Color(0xFFAFAFAF),
-                                                                                                fontSize: 12,
-                                                                                                fontWeight: FontWeight.w200,
-                                                                                              ),
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                              Icon(
-                                                                                Icons.chevron_right,
-                                                                                color: Color(0xFF00B89F),
-                                                                                size: 30,
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ])),
-                                                  // Padding(
-                                                  //   padding:
-                                                  //       EdgeInsetsDirectional
-                                                  //           .fromSTEB(
-                                                  //               5,
-                                                  //               10,
-                                                  //               5,
-                                                  //               0),
-                                                  //   child: InkWell(
-                                                  //     onTap:
-                                                  //         () async {
-                                                  //       await Navigator
-                                                  //           .push(
-                                                  //         context,
-                                                  //         MaterialPageRoute(
-                                                  //           builder:
-                                                  //               (context) =>
-                                                  //                   EditExecutiveWidget(),
-                                                  //         ),
-                                                  //       );
-                                                  //     },
-                                                  //     child: Card(
-                                                  //       clipBehavior:
-                                                  //           Clip.antiAliasWithSaveLayer,
-                                                  //       color: Color(
-                                                  //           0xFF272E36),
-                                                  //       child:
-                                                  //           Padding(
-                                                  //         padding: EdgeInsetsDirectional
-                                                  //             .fromSTEB(
-                                                  //                 3,
-                                                  //                 0,
-                                                  //                 0,
-                                                  //                 0),
-                                                  //         child:
-                                                  //             Row(
-                                                  //           mainAxisSize:
-                                                  //               MainAxisSize.max,
-                                                  //           children: [
-                                                  //             Container(
-                                                  //               width:
-                                                  //                   80,
-                                                  //               height:
-                                                  //                   80,
-                                                  //               decoration:
-                                                  //                   BoxDecoration(
-                                                  //                 color: Color(0xFF272E36),
-                                                  //               ),
-                                                  //               child:
-                                                  //                   Stack(
-                                                  //                 children: [
-                                                  //                   Container(
-                                                  //                     width: 100,
-                                                  //                     height: 100,
-                                                  //                     clipBehavior: Clip.antiAlias,
-                                                  //                     decoration: BoxDecoration(
-                                                  //                       shape: BoxShape.circle,
-                                                  //                     ),
-                                                  //                     child: Image.network(
-                                                  //                       'https://picsum.photos/seed/44/600',
-                                                  //                       fit: BoxFit.cover,
-                                                  //                     ),
-                                                  //                   ),
-                                                  //                   Align(
-                                                  //                     alignment: AlignmentDirectional(1.2, 0.83),
-                                                  //                     child: Container(
-                                                  //                       width: 30,
-                                                  //                       height: 30,
-                                                  //                       decoration: BoxDecoration(
-                                                  //                         color: Color(0xFF00B89F),
-                                                  //                         shape: BoxShape.circle,
-                                                  //                       ),
-                                                  //                       alignment: AlignmentDirectional(0, 0),
-                                                  //                       child: Column(
-                                                  //                         mainAxisSize: MainAxisSize.max,
-                                                  //                         mainAxisAlignment: MainAxisAlignment.center,
-                                                  //                         children: [
-                                                  //                           Expanded(
-                                                  //                             child: Column(
-                                                  //                               mainAxisSize: MainAxisSize.min,
-                                                  //                               mainAxisAlignment: MainAxisAlignment.center,
-                                                  //                               crossAxisAlignment: CrossAxisAlignment.center,
-                                                  //                               children: [
-                                                  //                                 SvgPicture.asset(
-                                                  //                                   'assets/images/achievment.svg',
-                                                  //                                   height: 20,
-                                                  //                                   fit: BoxFit.cover,
-                                                  //                                 ),
-                                                  //                               ],
-                                                  //                             ),
-                                                  //                           ),
-                                                  //                         ],
-                                                  //                       ),
-                                                  //                     ),
-                                                  //                   ),
-                                                  //                 ],
-                                                  //               ),
-                                                  //             ),
-                                                  //             Expanded(
-                                                  //               child:
-                                                  //                   Row(
-                                                  //                 mainAxisSize: MainAxisSize.max,
-                                                  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  //                 crossAxisAlignment: CrossAxisAlignment.center,
-                                                  //                 children: [
-                                                  //                   Padding(
-                                                  //                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                                  //                     child: Column(
-                                                  //                       mainAxisSize: MainAxisSize.max,
-                                                  //                       crossAxisAlignment: CrossAxisAlignment.start,
-                                                  //                       children: [
-                                                  //                         Row(
-                                                  //                           mainAxisSize: MainAxisSize.max,
-                                                  //                           children: [
-                                                  //                             Text(
-                                                  //                               'Ronny',
-                                                  //                               style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                  //                                     fontFamily: 'Montserrat',
-                                                  //                                     color: Color(0xFF00B89F),
-                                                  //                                     fontWeight: FontWeight.bold,
-                                                  //                                   ),
-                                                  //                             ),
-                                                  //                           ],
-                                                  //                         ),
-                                                  //                         Row(
-                                                  //                           mainAxisSize: MainAxisSize.max,
-                                                  //                           children: [
-                                                  //                             Text(
-                                                  //                               'ronn@gmail.com',
-                                                  //                               style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                  //                                     fontFamily: 'Montserrat',
-                                                  //                                     color: Color(0xFFAFAFAF),
-                                                  //                                     fontSize: 12,
-                                                  //                                     fontWeight: FontWeight.w200,
-                                                  //                                   ),
-                                                  //                             ),
-                                                  //                           ],
-                                                  //                         ),
-                                                  //                         Row(
-                                                  //                           mainAxisSize: MainAxisSize.max,
-                                                  //                           children: [
-                                                  //                             Text(
-                                                  //                               '+1 654 98 73214',
-                                                  //                               style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                  //                                     fontFamily: 'Montserrat',
-                                                  //                                     color: Color(0xFFAFAFAF),
-                                                  //                                     fontSize: 12,
-                                                  //                                     fontWeight: FontWeight.w200,
-                                                  //                                   ),
-                                                  //                             ),
-                                                  //                           ],
-                                                  //                         ),
-                                                  //                       ],
-                                                  //                     ),
-                                                  //                   ),
-                                                  //                   Icon(
-                                                  //                     Icons.chevron_right,
-                                                  //                     color: Color(0xFF00B89F),
-                                                  //                     size: 30,
-                                                  //                   ),
-                                                  //                 ],
-                                                  //               ),
-                                                  //             ),
-                                                  //           ],
-                                                  //         ),
-                                                  //       ),
-                                                  //     ),
-                                                  //   ),
-                                                  // ),
-                                                ],
-                                              ),
-                                              // Align(
-                                              //   alignment:
-                                              //       AlignmentDirectional(
-                                              //           0, 0),
-                                              //   child: ListView.builder(
-                                              //       scrollDirection:
-                                              //           Axis.vertical,
-                                              //       itemBuilder:
-                                              //           // ignore: missing_return
-                                              //           (BuildContext
-                                              //                   context,
-                                              //               int index) {
-                                              //         if (snapshot.data[
-                                              //                     index]
-                                              //                 [
-                                              //                 "executive"] ==
-                                              //             false) {
-                                              //           return
-                                              //           Padding(
-                                              //             padding: EdgeInsetsDirectional
-                                              //                 .fromSTEB(
-                                              //                     5,
-                                              //                     10,
-                                              //                     5,
-                                              //                     0),
-                                              //             child:
-                                              //                 InkWell(
-                                              //               onTap:
-                                              //                   () async {
-                                              //                 await Navigator
-                                              //                     .push(
-                                              //                   context,
-                                              //                   MaterialPageRoute(
-                                              //                     builder: (context) =>
-                                              //                         EditMemberWidget(),
-                                              //                   ),
-                                              //                 );
-                                              //               },
-                                              //               child: Card(
-                                              //                 clipBehavior:
-                                              //                     Clip.antiAliasWithSaveLayer,
-                                              //                 color: Color(
-                                              //                     0xFF272E36),
-                                              //                 child:
-                                              //                     Padding(
-                                              //                   padding: EdgeInsetsDirectional.fromSTEB(
-                                              //                       3,
-                                              //                       0,
-                                              //                       0,
-                                              //                       0),
-                                              //                   child:
-                                              //                       Row(
-                                              //                     mainAxisSize:
-                                              //                         MainAxisSize.max,
-                                              //                     children: [
-                                              //                       Container(
-                                              //                         width: 80,
-                                              //                         height: 80,
-                                              //                         decoration: BoxDecoration(
-                                              //                           color: Color(0xFF272E36),
-                                              //                         ),
-                                              //                         child: Stack(
-                                              //                           children: [
-                                              //                             Container(
-                                              //                               width: 100,
-                                              //                               height: 100,
-                                              //                               clipBehavior: Clip.antiAlias,
-                                              //                               decoration: BoxDecoration(
-                                              //                                 shape: BoxShape.circle,
-                                              //                               ),
-                                              //                               child: Image.network(
-                                              //                                 snapshot.data[index]["profile"],
-                                              //                                 fit: BoxFit.cover,
-                                              //                               ),
-                                              //                             ),
-                                              //                           ],
-                                              //                         ),
-                                              //                       ),
-                                              //                       Expanded(
-                                              //                         child: Row(
-                                              //                           mainAxisSize: MainAxisSize.max,
-                                              //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              //                           crossAxisAlignment: CrossAxisAlignment.center,
-                                              //                           children: [
-                                              //                             Padding(
-                                              //                               padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                              //                               child: Column(
-                                              //                                 mainAxisSize: MainAxisSize.max,
-                                              //                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                              //                                 children: [
-                                              //                                   Row(
-                                              //                                     mainAxisSize: MainAxisSize.max,
-                                              //                                     children: [
-                                              //                                       Text(
-                                              //                                         snapshot.data[index]["fname"] + " " + snapshot.data[index]["lname"],
-                                              //                                         style: FlutterFlowTheme.of(context).bodyText1.override(
-                                              //                                               fontFamily: 'Montserrat',
-                                              //                                               color: Color(0xFF00B89F),
-                                              //                                               fontWeight: FontWeight.bold,
-                                              //                                             ),
-                                              //                                       ),
-                                              //                                     ],
-                                              //                                   ),
-                                              //                                   Row(
-                                              //                                     mainAxisSize: MainAxisSize.max,
-                                              //                                     children: [
-                                              //                                       Text(
-                                              //                                         snapshot.data[index]["email"],
-                                              //                                         style: FlutterFlowTheme.of(context).bodyText1.override(
-                                              //                                               fontFamily: 'Montserrat',
-                                              //                                               color: Color(0xFFAFAFAF),
-                                              //                                               fontSize: 12,
-                                              //                                               fontWeight: FontWeight.w200,
-                                              //                                             ),
-                                              //                                       ),
-                                              //                                     ],
-                                              //                                   ),
-                                              //                                   Row(
-                                              //                                     mainAxisSize: MainAxisSize.max,
-                                              //                                     children: [
-                                              //                                       Text(
-                                              //                                         snapshot.data[index]["phone"],
-                                              //                                         style: FlutterFlowTheme.of(context).bodyText1.override(
-                                              //                                               fontFamily: 'Montserrat',
-                                              //                                               color: Color(0xFFAFAFAF),
-                                              //                                               fontSize: 12,
-                                              //                                               fontWeight: FontWeight.w200,
-                                              //                                             ),
-                                              //                                       ),
-                                              //                                     ],
-                                              //                                   ),
-                                              //                                 ],
-                                              //                               ),
-                                              //                             ),
-                                              //                             Icon(
-                                              //                               Icons.chevron_right,
-                                              //                               color: Color(0xFF00B89F),
-                                              //                               size: 30,
-                                              //                             ),
-                                              //                           ],
-                                              //                         ),
-                                              //                       ),
-                                              //                     ],
-                                              //                   ),
-                                              //                 ),
-                                              //               ),
-                                              //             ),
-                                              //           );
-                                              //         }
-                                              Align(
-                                                alignment:
-                                                    AlignmentDirectional(0, 0),
-                                                child: ListView(
-                                                    padding: EdgeInsets.zero,
-                                                    scrollDirection:
-                                                        Axis.vertical,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(5, 10,
-                                                                    5, 0),
-                                                        child: InkWell(
-                                                          onTap: () async {
-                                                            await Navigator
-                                                                .push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        EditMemberWidget(),
-                                                              ),
-                                                            );
-                                                          },
-                                                          child: Card(
-                                                            clipBehavior: Clip
-                                                                .antiAliasWithSaveLayer,
-                                                            color: Color(
-                                                                0xFF272E36),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          3,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Container(
-                                                                    width: 80,
-                                                                    height: 80,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Color(
-                                                                          0xFF272E36),
-                                                                    ),
-                                                                    child:
-                                                                        Stack(
-                                                                      children: [
-                                                                        Container(
-                                                                          width:
-                                                                              100,
-                                                                          height:
-                                                                              100,
-                                                                          clipBehavior:
-                                                                              Clip.antiAlias,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            shape:
-                                                                                BoxShape.circle,
-                                                                          ),
-                                                                          child:
-                                                                              Image.network(
-                                                                            'https://picsum.photos/seed/44/600',
-                                                                            fit:
-                                                                                BoxFit.cover,
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              10,
-                                                                              0,
-                                                                              0,
-                                                                              0),
-                                                                          child:
-                                                                              Column(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    'Ronny',
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                          fontFamily: 'Montserrat',
-                                                                                          color: Color(0xFF00B89F),
-                                                                                          fontWeight: FontWeight.bold,
-                                                                                        ),
+                                                                                  ),
+                                                                                  Icon(
+                                                                                    Icons.chevron_right,
+                                                                                    color: Color(0xFF00B89F),
+                                                                                    size: 30,
                                                                                   ),
                                                                                 ],
                                                                               ),
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    'ronn@gmail.com',
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                          fontFamily: 'Montserrat',
-                                                                                          color: Color(0xFFAFAFAF),
-                                                                                          fontSize: 12,
-                                                                                          fontWeight: FontWeight.w200,
-                                                                                        ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    '+1 654 98 73214',
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                          fontFamily: 'Montserrat',
-                                                                                          color: Color(0xFFAFAFAF),
-                                                                                          fontSize: 12,
-                                                                                          fontWeight: FontWeight.w200,
-                                                                                        ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ],
-                                                                          ),
+                                                                            ),
+                                                                          ],
                                                                         ),
-                                                                        Icon(
-                                                                          Icons
-                                                                              .chevron_right,
-                                                                          color:
-                                                                              Color(0xFF00B89F),
-                                                                          size:
-                                                                              30,
-                                                                        ),
-                                                                      ],
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    ]
-                                                    // Padding(
-                                                    //   padding:
-                                                    //       EdgeInsetsDirectional
-                                                    //           .fromSTEB(
-                                                    //               5,
-                                                    //               10,
-                                                    //               5,
-                                                    //               0),
-                                                    //   child: InkWell(
-                                                    //     onTap: () async {
-                                                    //       await Navigator
-                                                    //           .push(
-                                                    //         context,
-                                                    //         MaterialPageRoute(
-                                                    //           builder:
-                                                    //               (context) =>
-                                                    //                   EditMemberWidget(),
-                                                    //         ),
-                                                    //       );
-                                                    //     },
-                                                    //     child: Card(
-                                                    //       clipBehavior: Clip
-                                                    //           .antiAliasWithSaveLayer,
-                                                    //       color: Color(
-                                                    //           0xFF272E36),
-                                                    //       child: Padding(
-                                                    //         padding: EdgeInsetsDirectional
-                                                    //             .fromSTEB(
-                                                    //                 3,
-                                                    //                 0,
-                                                    //                 0,
-                                                    //                 0),
-                                                    //         child: Row(
-                                                    //           mainAxisSize:
-                                                    //               MainAxisSize
-                                                    //                   .max,
-                                                    //           children: [
-                                                    //             Container(
-                                                    //               width:
-                                                    //                   80,
-                                                    //               height:
-                                                    //                   80,
-                                                    //               decoration:
-                                                    //                   BoxDecoration(
-                                                    //                 color:
-                                                    //                     Color(0xFF272E36),
-                                                    //               ),
-                                                    //               child:
-                                                    //                   Stack(
-                                                    //                 children: [
-                                                    //                   Container(
-                                                    //                     width: 100,
-                                                    //                     height: 100,
-                                                    //                     clipBehavior: Clip.antiAlias,
-                                                    //                     decoration: BoxDecoration(
-                                                    //                       shape: BoxShape.circle,
-                                                    //                     ),
-                                                    //                     child: Image.network(
-                                                    //                       'https://picsum.photos/seed/44/600',
-                                                    //                       fit: BoxFit.cover,
-                                                    //                     ),
-                                                    //                   ),
-                                                    //                 ],
-                                                    //               ),
-                                                    //             ),
-                                                    //             Expanded(
-                                                    //               child:
-                                                    //                   Row(
-                                                    //                 mainAxisSize:
-                                                    //                     MainAxisSize.max,
-                                                    //                 mainAxisAlignment:
-                                                    //                     MainAxisAlignment.spaceBetween,
-                                                    //                 crossAxisAlignment:
-                                                    //                     CrossAxisAlignment.center,
-                                                    //                 children: [
-                                                    //                   Padding(
-                                                    //                     padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                                    //                     child: Column(
-                                                    //                       mainAxisSize: MainAxisSize.max,
-                                                    //                       crossAxisAlignment: CrossAxisAlignment.start,
-                                                    //                       children: [
-                                                    //                         Row(
-                                                    //                           mainAxisSize: MainAxisSize.max,
-                                                    //                           children: [
-                                                    //                             Text(
-                                                    //                               'Ronny',
-                                                    //                               style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                    //                                     fontFamily: 'Montserrat',
-                                                    //                                     color: Color(0xFF00B89F),
-                                                    //                                     fontWeight: FontWeight.bold,
-                                                    //                                   ),
-                                                    //                             ),
-                                                    //                           ],
-                                                    //                         ),
-                                                    //                         Row(
-                                                    //                           mainAxisSize: MainAxisSize.max,
-                                                    //                           children: [
-                                                    //                             Text(
-                                                    //                               'ronn@gmail.com',
-                                                    //                               style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                    //                                     fontFamily: 'Montserrat',
-                                                    //                                     color: Color(0xFFAFAFAF),
-                                                    //                                     fontSize: 12,
-                                                    //                                     fontWeight: FontWeight.w200,
-                                                    //                                   ),
-                                                    //                             ),
-                                                    //                           ],
-                                                    //                         ),
-                                                    //                         Row(
-                                                    //                           mainAxisSize: MainAxisSize.max,
-                                                    //                           children: [
-                                                    //                             Text(
-                                                    //                               '+1 654 98 73214',
-                                                    //                               style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                    //                                     fontFamily: 'Montserrat',
-                                                    //                                     color: Color(0xFFAFAFAF),
-                                                    //                                     fontSize: 12,
-                                                    //                                     fontWeight: FontWeight.w200,
-                                                    //                                   ),
-                                                    //                             ),
-                                                    //                           ],
-                                                    //                         ),
-                                                    //                       ],
-                                                    //                     ),
-                                                    //                   ),
-                                                    //                   Icon(
-                                                    //                     Icons.chevron_right,
-                                                    //                     color: Color(0xFF00B89F),
-                                                    //                     size: 30,
-                                                    //                   ),
-                                                    //                 ],
-                                                    //               ),
-                                                    //             ),
-                                                    //           ],
-                                                    //         ),
-                                                    //       ),
-                                                    //     ),
-                                                    //   ),
-                                                    // ),
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    //   }
-                                    // }),
+                                                                );
+                                                              }
+                                                            }),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          }
+                                        }),
                                   ),
                                 ),
                               ),
@@ -1717,6 +894,15 @@ class _MembersWidgetState extends State<MembersWidget> {
   fetchList() async {
     final ApiCallResponse MList = await MemberList.call();
     print(FFAppState().Token);
+    print(MList.statusCode);
+    print(MList.jsonBody["members"]);
     return MList.jsonBody["members"];
+  }
+
+  Future fetchSList() async {
+    final ApiCallResponse SList = await SeniorsList.call();
+    print(SList.statusCode);
+    print(SList.jsonBody["seniors"]);
+    return SList.jsonBody["seniors"];
   }
 }
