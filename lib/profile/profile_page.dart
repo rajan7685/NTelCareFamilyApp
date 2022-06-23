@@ -311,11 +311,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 Align(
                                   alignment: AlignmentDirectional(0.08, 0.71),
                                   child: Text(
-                                    //(snapshot.data["member"]["address"]!=null && snapshot.data["member"]["zipcode"]!=null)
-                                    // snapshot.data["member"]["address"] +
-                                    //   snapshot.data["member"]["zipcode"]
-                                    //  else
-                                    "Data is not coming",
+                                    snapshot.data["member"]["address"] +
+                                        snapshot.data["member"]["zipcode"],
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
