@@ -244,7 +244,7 @@ class _newPasswordState extends State<newPassword> {
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 5,
-                                    backgroundColor: Colors.grey,
+                                    backgroundColor: Colors.green,
                                     textColor: Colors.black,
                                     fontSize: 14.0);
                                 await Navigator.push(
