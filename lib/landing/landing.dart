@@ -23,6 +23,7 @@ class ModifiedLandingPageWidget extends StatefulWidget {
 class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
+  dynamic dash;
 
   @override
   void initState() {
@@ -133,6 +134,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                           future: SList,
                           builder: (context, snapshot) {
                             final inf = snapshot.data;
+
                             if (!snapshot.hasData) {
                               return Text(
                                 "Loading...",
@@ -151,6 +153,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                   itemCount: snapshot.data.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
+                                    final id = inf[index]["id"];
+                                    FFAppState().id = id;
                                     return Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 10, 0),
@@ -163,11 +167,12 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                           children: [
                                             InkWell(
                                               onTap: () async {
-                                                await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            EditSeniorsWidget()));
+                                                FutureBuilder<dynamic>(
+                                                  future: fetchDashData(id),
+                                                  builder: (context, snapshot) {
+                                                    final info = snapshot.data;
+                                                  },
+                                                );
                                               },
                                               child: Container(
                                                 width: 70,
@@ -257,33 +262,45 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                       ),
                                                     ],
                                                   ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0, 6, 0, 0),
-                                                        child: Text(
-                                                          'More Info',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: Color(
-                                                                    0xFFE5E5E5),
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w200,
-                                                              ),
+                                                  InkWell(
+                                                    onTap: () async {
+                                                      await Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  EditSeniorsWidget(
+                                                                      data: snapshot
+                                                                              .data[
+                                                                          index])));
+                                                    },
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      6, 0, 0),
+                                                          child: Text(
+                                                            'More Info',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Colors
+                                                                      .blue,
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w200,
+                                                                ),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -668,7 +685,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           MainAxisSize.max,
                                                       children: [
                                                         Text(
-                                                          '90%',
+                                                          "hi",
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyText1
@@ -1929,8 +1946,17 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
 
   Future fetchSList() async {
     final ApiCallResponse SList = await SeniorsList.call();
-    print(SList.statusCode);
+
     print(SList.jsonBody["seniors"]);
     return SList.jsonBody["seniors"];
+  }
+
+  Future fetchDashData(dynamic id) async {
+    print(id);
+    final ApiCallResponse Ddata = await DashBoardStat.call(id: id);
+    print(Ddata.statusCode);
+
+    dash = Ddata.jsonBody["dashboard"]["watch_status"];
+    print(dash);
   }
 }
