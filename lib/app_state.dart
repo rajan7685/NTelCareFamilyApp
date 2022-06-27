@@ -20,7 +20,7 @@ class FFAppState {
   SharedPreferences prefs;
 
   String Steps = 'Data Not found';
-
+  String id = "";
   String hear;
   String AccessToken = '';
   String RefreshToken = '';

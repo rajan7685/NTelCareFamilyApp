@@ -210,7 +210,9 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      EditSeniorsWidget(),
+                                                      EditSeniorsWidget(
+                                                          data: snapshot
+                                                              .data[index]),
                                                 ));
                                           },
                                           child: Card(

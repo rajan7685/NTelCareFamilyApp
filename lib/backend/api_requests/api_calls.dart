@@ -182,3 +182,20 @@ class CameraList {
     );
   }
 }
+
+class DashBoardStat {
+  static Future<dynamic> call({
+    String id = "",
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'DashBoardStat',
+      apiUrl: 'http://18.208.148.208:4000/dashboard/${id}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${FFAppState().Token}',
+      },
+      params: {},
+      returnBody: true,
+    );
+  }
+}

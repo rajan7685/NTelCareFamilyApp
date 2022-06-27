@@ -16,10 +16,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditSeniorsWidget extends StatefulWidget {
-  const EditSeniorsWidget({Key key}) : super(key: key);
+  dynamic data;
+  EditSeniorsWidget({Key key, @required this.data}) : super(key: key);
 
   @override
-  _EditSeniorsWidgetState createState() => _EditSeniorsWidgetState();
+  _EditSeniorsWidgetState createState() => _EditSeniorsWidgetState(data);
 }
 
 class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
@@ -39,17 +40,19 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   bool displayY = true;
   bool displayN = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  dynamic data;
+  _EditSeniorsWidgetState(this.data);
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController(text: 'Kenny');
-    textController2 = TextEditingController(text: 'Alter');
-    textController3 = TextEditingController(text: 'Female');
+    textController1 = TextEditingController(text: data["fname"]);
+    textController2 = TextEditingController(text: data["lname"]);
+    textController3 = TextEditingController(text: data["gender"]);
     textController4 = TextEditingController(text: '5.5ft');
     textController5 = TextEditingController(text: '60 lbs');
-    textController6 = TextEditingController(text: '967583222');
-    textController7 = TextEditingController(text: 'kennys@gmail.com');
+    textController6 = TextEditingController(text: data["id"]);
+    textController7 = TextEditingController(text: data["email"]);
   }
 
   File image;

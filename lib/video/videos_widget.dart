@@ -343,420 +343,420 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                             padding: EdgeInsets.zero,
                                             scrollDirection: Axis.vertical,
                                             children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(5, 5, 5, 0),
-                                                child: Card(
-                                                  clipBehavior: Clip
-                                                      .antiAliasWithSaveLayer,
-                                                  color: Color(0xFF272E36),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                3, 0, 0, 0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsets.all(5),
-                                                          child: Container(
-                                                            width: 80,
-                                                            height: 80,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xFF262626),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
-                                                            ),
-                                                            child: Stack(
-                                                              children: [
-                                                                Card(
-                                                                  clipBehavior:
-                                                                      Clip.antiAliasWithSaveLayer,
-                                                                  color: Color(
-                                                                      0xFF1A1A1A),
-                                                                ),
-                                                                Align(
-                                                                  alignment:
-                                                                      AlignmentDirectional(
-                                                                          -0.06,
-                                                                          -0.12),
-                                                                  child: Image
-                                                                      .asset(
-                                                                    'assets/images/809512_camera_multimedia_security_security_camera_surveillance_icon.png',
-                                                                    width: 35,
-                                                                    height: 35,
-                                                                    fit: BoxFit
-                                                                        .contain,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          'Camera 1',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFF00B89F),
-                                                                                fontWeight: FontWeight.bold,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          'Living room',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFFAFAFAF),
-                                                                                fontSize: 12,
-                                                                                fontWeight: FontWeight.w200,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Icon(
-                                                                Icons
-                                                                    .chevron_right,
-                                                                color: Color(
-                                                                    0xFF00B89F),
-                                                                size: 30,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(5, 5, 5, 0),
-                                                child: Card(
-                                                  clipBehavior: Clip
-                                                      .antiAliasWithSaveLayer,
-                                                  color: Color(0xFF272E36),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                3, 0, 0, 0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsets.all(5),
-                                                          child: Container(
-                                                            width: 80,
-                                                            height: 80,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xFF262626),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
-                                                            ),
-                                                            child: Stack(
-                                                              children: [
-                                                                Card(
-                                                                  clipBehavior:
-                                                                      Clip.antiAliasWithSaveLayer,
-                                                                  color: Color(
-                                                                      0xFF1A1A1A),
-                                                                ),
-                                                                Align(
-                                                                  alignment:
-                                                                      AlignmentDirectional(
-                                                                          -0.06,
-                                                                          -0.12),
-                                                                  child: Image
-                                                                      .asset(
-                                                                    'assets/images/809512_camera_multimedia_security_security_camera_surveillance_icon.png',
-                                                                    width: 35,
-                                                                    height: 35,
-                                                                    fit: BoxFit
-                                                                        .contain,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          'Camera 1',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFF00B89F),
-                                                                                fontWeight: FontWeight.bold,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          'Living room',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFFAFAFAF),
-                                                                                fontSize: 12,
-                                                                                fontWeight: FontWeight.w200,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Icon(
-                                                                Icons
-                                                                    .chevron_right,
-                                                                color: Color(
-                                                                    0xFF00B89F),
-                                                                size: 30,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(5, 5, 5, 0),
-                                                child: Card(
-                                                  clipBehavior: Clip
-                                                      .antiAliasWithSaveLayer,
-                                                  color: Color(0xFF272E36),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                3, 0, 0, 0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsets.all(5),
-                                                          child: Container(
-                                                            width: 80,
-                                                            height: 80,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xFF262626),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5),
-                                                            ),
-                                                            child: Stack(
-                                                              children: [
-                                                                Card(
-                                                                  clipBehavior:
-                                                                      Clip.antiAliasWithSaveLayer,
-                                                                  color: Color(
-                                                                      0xFF1A1A1A),
-                                                                ),
-                                                                Align(
-                                                                  alignment:
-                                                                      AlignmentDirectional(
-                                                                          -0.06,
-                                                                          -0.12),
-                                                                  child: Image
-                                                                      .asset(
-                                                                    'assets/images/809512_camera_multimedia_security_security_camera_surveillance_icon.png',
-                                                                    width: 35,
-                                                                    height: 35,
-                                                                    fit: BoxFit
-                                                                        .contain,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          'Camera 1',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFF00B89F),
-                                                                                fontWeight: FontWeight.bold,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          'Living room',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFFAFAFAF),
-                                                                                fontSize: 12,
-                                                                                fontWeight: FontWeight.w200,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Icon(
-                                                                Icons
-                                                                    .chevron_right,
-                                                                color: Color(
-                                                                    0xFF00B89F),
-                                                                size: 30,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
+                                              // Padding(
+                                              //   padding: EdgeInsetsDirectional
+                                              //       .fromSTEB(5, 5, 5, 0),
+                                              //   child: Card(
+                                              //     clipBehavior: Clip
+                                              //         .antiAliasWithSaveLayer,
+                                              //     color: Color(0xFF272E36),
+                                              //     child: Padding(
+                                              //       padding:
+                                              //           EdgeInsetsDirectional
+                                              //               .fromSTEB(
+                                              //                   3, 0, 0, 0),
+                                              //       child: Row(
+                                              //         mainAxisSize:
+                                              //             MainAxisSize.max,
+                                              //         children: [
+                                              //           Padding(
+                                              //             padding:
+                                              //                 EdgeInsets.all(5),
+                                              //             child: Container(
+                                              //               width: 80,
+                                              //               height: 80,
+                                              //               decoration:
+                                              //                   BoxDecoration(
+                                              //                 color: Color(
+                                              //                     0xFF262626),
+                                              //                 borderRadius:
+                                              //                     BorderRadius
+                                              //                         .circular(
+                                              //                             5),
+                                              //               ),
+                                              //               child: Stack(
+                                              //                 children: [
+                                              //                   Card(
+                                              //                     clipBehavior:
+                                              //                         Clip.antiAliasWithSaveLayer,
+                                              //                     color: Color(
+                                              //                         0xFF1A1A1A),
+                                              //                   ),
+                                              //                   Align(
+                                              //                     alignment:
+                                              //                         AlignmentDirectional(
+                                              //                             -0.06,
+                                              //                             -0.12),
+                                              //                     child: Image
+                                              //                         .asset(
+                                              //                       'assets/images/809512_camera_multimedia_security_security_camera_surveillance_icon.png',
+                                              //                       width: 35,
+                                              //                       height: 35,
+                                              //                       fit: BoxFit
+                                              //                           .contain,
+                                              //                     ),
+                                              //                   ),
+                                              //                 ],
+                                              //               ),
+                                              //             ),
+                                              //           ),
+                                              //           Expanded(
+                                              //             child: Row(
+                                              //               mainAxisSize:
+                                              //                   MainAxisSize
+                                              //                       .max,
+                                              //               mainAxisAlignment:
+                                              //                   MainAxisAlignment
+                                              //                       .spaceBetween,
+                                              //               crossAxisAlignment:
+                                              //                   CrossAxisAlignment
+                                              //                       .center,
+                                              //               children: [
+                                              //                 Padding(
+                                              //                   padding:
+                                              //                       EdgeInsetsDirectional
+                                              //                           .fromSTEB(
+                                              //                               10,
+                                              //                               0,
+                                              //                               0,
+                                              //                               0),
+                                              //                   child: Column(
+                                              //                     mainAxisSize:
+                                              //                         MainAxisSize
+                                              //                             .max,
+                                              //                     crossAxisAlignment:
+                                              //                         CrossAxisAlignment
+                                              //                             .start,
+                                              //                     children: [
+                                              //                       Row(
+                                              //                         mainAxisSize:
+                                              //                             MainAxisSize
+                                              //                                 .max,
+                                              //                         children: [
+                                              //                           Text(
+                                              //                             'Camera 1',
+                                              //                             style: FlutterFlowTheme.of(context)
+                                              //                                 .bodyText1
+                                              //                                 .override(
+                                              //                                   fontFamily: 'Montserrat',
+                                              //                                   color: Color(0xFF00B89F),
+                                              //                                   fontWeight: FontWeight.bold,
+                                              //                                 ),
+                                              //                           ),
+                                              //                         ],
+                                              //                       ),
+                                              //                       Row(
+                                              //                         mainAxisSize:
+                                              //                             MainAxisSize
+                                              //                                 .max,
+                                              //                         children: [
+                                              //                           Text(
+                                              //                             'Living room',
+                                              //                             style: FlutterFlowTheme.of(context)
+                                              //                                 .bodyText1
+                                              //                                 .override(
+                                              //                                   fontFamily: 'Montserrat',
+                                              //                                   color: Color(0xFFAFAFAF),
+                                              //                                   fontSize: 12,
+                                              //                                   fontWeight: FontWeight.w200,
+                                              //                                 ),
+                                              //                           ),
+                                              //                         ],
+                                              //                       ),
+                                              //                     ],
+                                              //                   ),
+                                              //                 ),
+                                              //                 Icon(
+                                              //                   Icons
+                                              //                       .chevron_right,
+                                              //                   color: Color(
+                                              //                       0xFF00B89F),
+                                              //                   size: 30,
+                                              //                 ),
+                                              //               ],
+                                              //             ),
+                                              //           ),
+                                              //         ],
+                                              //       ),
+                                              //     ),
+                                              //   ),
+                                              // ),
+                                              // Padding(
+                                              //   padding: EdgeInsetsDirectional
+                                              //       .fromSTEB(5, 5, 5, 0),
+                                              //   child: Card(
+                                              //     clipBehavior: Clip
+                                              //         .antiAliasWithSaveLayer,
+                                              //     color: Color(0xFF272E36),
+                                              //     child: Padding(
+                                              //       padding:
+                                              //           EdgeInsetsDirectional
+                                              //               .fromSTEB(
+                                              //                   3, 0, 0, 0),
+                                              //       child: Row(
+                                              //         mainAxisSize:
+                                              //             MainAxisSize.max,
+                                              //         children: [
+                                              //           Padding(
+                                              //             padding:
+                                              //                 EdgeInsets.all(5),
+                                              //             child: Container(
+                                              //               width: 80,
+                                              //               height: 80,
+                                              //               decoration:
+                                              //                   BoxDecoration(
+                                              //                 color: Color(
+                                              //                     0xFF262626),
+                                              //                 borderRadius:
+                                              //                     BorderRadius
+                                              //                         .circular(
+                                              //                             5),
+                                              //               ),
+                                              //               child: Stack(
+                                              //                 children: [
+                                              //                   Card(
+                                              //                     clipBehavior:
+                                              //                         Clip.antiAliasWithSaveLayer,
+                                              //                     color: Color(
+                                              //                         0xFF1A1A1A),
+                                              //                   ),
+                                              //                   Align(
+                                              //                     alignment:
+                                              //                         AlignmentDirectional(
+                                              //                             -0.06,
+                                              //                             -0.12),
+                                              //                     child: Image
+                                              //                         .asset(
+                                              //                       'assets/images/809512_camera_multimedia_security_security_camera_surveillance_icon.png',
+                                              //                       width: 35,
+                                              //                       height: 35,
+                                              //                       fit: BoxFit
+                                              //                           .contain,
+                                              //                     ),
+                                              //                   ),
+                                              //                 ],
+                                              //               ),
+                                              //             ),
+                                              //           ),
+                                              //           Expanded(
+                                              //             child: Row(
+                                              //               mainAxisSize:
+                                              //                   MainAxisSize
+                                              //                       .max,
+                                              //               mainAxisAlignment:
+                                              //                   MainAxisAlignment
+                                              //                       .spaceBetween,
+                                              //               crossAxisAlignment:
+                                              //                   CrossAxisAlignment
+                                              //                       .center,
+                                              //               children: [
+                                              //                 Padding(
+                                              //                   padding:
+                                              //                       EdgeInsetsDirectional
+                                              //                           .fromSTEB(
+                                              //                               10,
+                                              //                               0,
+                                              //                               0,
+                                              //                               0),
+                                              //                   child: Column(
+                                              //                     mainAxisSize:
+                                              //                         MainAxisSize
+                                              //                             .max,
+                                              //                     crossAxisAlignment:
+                                              //                         CrossAxisAlignment
+                                              //                             .start,
+                                              //                     children: [
+                                              //                       Row(
+                                              //                         mainAxisSize:
+                                              //                             MainAxisSize
+                                              //                                 .max,
+                                              //                         children: [
+                                              //                           Text(
+                                              //                             'Camera 1',
+                                              //                             style: FlutterFlowTheme.of(context)
+                                              //                                 .bodyText1
+                                              //                                 .override(
+                                              //                                   fontFamily: 'Montserrat',
+                                              //                                   color: Color(0xFF00B89F),
+                                              //                                   fontWeight: FontWeight.bold,
+                                              //                                 ),
+                                              //                           ),
+                                              //                         ],
+                                              //                       ),
+                                              //                       Row(
+                                              //                         mainAxisSize:
+                                              //                             MainAxisSize
+                                              //                                 .max,
+                                              //                         children: [
+                                              //                           Text(
+                                              //                             'Living room',
+                                              //                             style: FlutterFlowTheme.of(context)
+                                              //                                 .bodyText1
+                                              //                                 .override(
+                                              //                                   fontFamily: 'Montserrat',
+                                              //                                   color: Color(0xFFAFAFAF),
+                                              //                                   fontSize: 12,
+                                              //                                   fontWeight: FontWeight.w200,
+                                              //                                 ),
+                                              //                           ),
+                                              //                         ],
+                                              //                       ),
+                                              //                     ],
+                                              //                   ),
+                                              //                 ),
+                                              //                 Icon(
+                                              //                   Icons
+                                              //                       .chevron_right,
+                                              //                   color: Color(
+                                              //                       0xFF00B89F),
+                                              //                   size: 30,
+                                              //                 ),
+                                              //               ],
+                                              //             ),
+                                              //           ),
+                                              //         ],
+                                              //       ),
+                                              //     ),
+                                              //   ),
+                                              // ),
+                                              // Padding(
+                                              //   padding: EdgeInsetsDirectional
+                                              //       .fromSTEB(5, 5, 5, 0),
+                                              //   child: Card(
+                                              //     clipBehavior: Clip
+                                              //         .antiAliasWithSaveLayer,
+                                              //     color: Color(0xFF272E36),
+                                              //     child: Padding(
+                                              //       padding:
+                                              //           EdgeInsetsDirectional
+                                              //               .fromSTEB(
+                                              //                   3, 0, 0, 0),
+                                              //       child: Row(
+                                              //         mainAxisSize:
+                                              //             MainAxisSize.max,
+                                              //         children: [
+                                              //           Padding(
+                                              //             padding:
+                                              //                 EdgeInsets.all(5),
+                                              //             child: Container(
+                                              //               width: 80,
+                                              //               height: 80,
+                                              //               decoration:
+                                              //                   BoxDecoration(
+                                              //                 color: Color(
+                                              //                     0xFF262626),
+                                              //                 borderRadius:
+                                              //                     BorderRadius
+                                              //                         .circular(
+                                              //                             5),
+                                              //               ),
+                                              //               child: Stack(
+                                              //                 children: [
+                                              //                   Card(
+                                              //                     clipBehavior:
+                                              //                         Clip.antiAliasWithSaveLayer,
+                                              //                     color: Color(
+                                              //                         0xFF1A1A1A),
+                                              //                   ),
+                                              //                   Align(
+                                              //                     alignment:
+                                              //                         AlignmentDirectional(
+                                              //                             -0.06,
+                                              //                             -0.12),
+                                              //                     child: Image
+                                              //                         .asset(
+                                              //                       'assets/images/809512_camera_multimedia_security_security_camera_surveillance_icon.png',
+                                              //                       width: 35,
+                                              //                       height: 35,
+                                              //                       fit: BoxFit
+                                              //                           .contain,
+                                              //                     ),
+                                              //                   ),
+                                              //                 ],
+                                              //               ),
+                                              //             ),
+                                              //           ),
+                                              //           Expanded(
+                                              //             child: Row(
+                                              //               mainAxisSize:
+                                              //                   MainAxisSize
+                                              //                       .max,
+                                              //               mainAxisAlignment:
+                                              //                   MainAxisAlignment
+                                              //                       .spaceBetween,
+                                              //               crossAxisAlignment:
+                                              //                   CrossAxisAlignment
+                                              //                       .center,
+                                              //               children: [
+                                              //                 Padding(
+                                              //                   padding:
+                                              //                       EdgeInsetsDirectional
+                                              //                           .fromSTEB(
+                                              //                               10,
+                                              //                               0,
+                                              //                               0,
+                                              //                               0),
+                                              //                   child: Column(
+                                              //                     mainAxisSize:
+                                              //                         MainAxisSize
+                                              //                             .max,
+                                              //                     crossAxisAlignment:
+                                              //                         CrossAxisAlignment
+                                              //                             .start,
+                                              //                     children: [
+                                              //                       Row(
+                                              //                         mainAxisSize:
+                                              //                             MainAxisSize
+                                              //                                 .max,
+                                              //                         children: [
+                                              //                           Text(
+                                              //                             'Camera 1',
+                                              //                             style: FlutterFlowTheme.of(context)
+                                              //                                 .bodyText1
+                                              //                                 .override(
+                                              //                                   fontFamily: 'Montserrat',
+                                              //                                   color: Color(0xFF00B89F),
+                                              //                                   fontWeight: FontWeight.bold,
+                                              //                                 ),
+                                              //                           ),
+                                              //                         ],
+                                              //                       ),
+                                              //                       Row(
+                                              //                         mainAxisSize:
+                                              //                             MainAxisSize
+                                              //                                 .max,
+                                              //                         children: [
+                                              //                           Text(
+                                              //                             'Living room',
+                                              //                             style: FlutterFlowTheme.of(context)
+                                              //                                 .bodyText1
+                                              //                                 .override(
+                                              //                                   fontFamily: 'Montserrat',
+                                              //                                   color: Color(0xFFAFAFAF),
+                                              //                                   fontSize: 12,
+                                              //                                   fontWeight: FontWeight.w200,
+                                              //                                 ),
+                                              //                           ),
+                                              //                         ],
+                                              //                       ),
+                                              //                     ],
+                                              //                   ),
+                                              //                 ),
+                                              //                 Icon(
+                                              //                   Icons
+                                              //                       .chevron_right,
+                                              //                   color: Color(
+                                              //                       0xFF00B89F),
+                                              //                   size: 30,
+                                              //                 ),
+                                              //               ],
+                                              //             ),
+                                              //           ),
+                                              //         ],
+                                              //       ),
+                                              //     ),
+                                              //   ),
+                                              // ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(5, 5, 5, 0),
