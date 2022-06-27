@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
@@ -9,9 +11,11 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:path/path.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Add extends StatefulWidget {
   const Add({Key key}) : super(key: key);
@@ -44,6 +48,9 @@ class _AddWidgetState extends State<Add> {
   bool display = false;
   bool displayY = true;
   bool displayN = false;
+  bool displayLive = false;
+  bool displayChat = false;
+  bool displayView = false;
   File image;
   Future<File> savePermanently(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
@@ -494,93 +501,145 @@ class _AddWidgetState extends State<Add> {
                       ),
                       if (display ?? true)
                         Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFECFFFC),
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(0),
-                                    bottomRight: Radius.circular(0),
-                                    topLeft: Radius.circular(5),
-                                    topRight: Radius.circular(5),
-                                  ),
-                                ),
-                                child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 20, 0, 20),
-                                    child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(45, 0, 0, 0),
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  pickimage(ImageSource.camera);
-                                                },
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      width: 100,
-                                                      height: 100,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFF00B89F),
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          SvgPicture.asset(
-                                                            'assets/images/camera.svg',
-                                                            height: 50,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      2, 0, 0),
-                                                          child: Text(
-                                                            'Camera',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  color: Color(
-                                                                      0xFF1F252B),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                          ),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xFFECFFFC),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(0),
+                                bottomRight: Radius.circular(0),
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5),
+                              ),
+                            ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          45, 0, 0, 0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          pickimage(ImageSource.camera);
+                                        },
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: 100,
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFF00B89F),
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    'assets/images/camera.svg',
+                                                    height: 50,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 2, 0, 0),
+                                                  child: Text(
+                                                    'Camera',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color:
+                                                              Color(0xFF1F252B),
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
-                                                      ],
-                                                    ),
-                                                  ],
+                                                  ),
                                                 ),
-                                              ))
-                                        ])))),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 45, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        pickimage(ImageSource.gallery);
+                                      },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Container(
+                                            width: 100,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFF00B89F),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SvgPicture.asset(
+                                                  'assets/images/_icons.svg',
+                                                  height: 50,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 2, 0, 0),
+                                                child: Text(
+                                                  'Gallery',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color:
+                                                            Color(0xFF1F252B),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       /* Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -758,8 +817,10 @@ class _AddWidgetState extends State<Add> {
                                             setState(() {
                                               if (color == color1) {
                                                 color = color2;
+                                                displayLive = false;
                                               } else {
                                                 color = color1;
+                                                displayLive = true;
                                               }
                                             });
                                           },
@@ -808,8 +869,10 @@ class _AddWidgetState extends State<Add> {
                                           setState(() {
                                             if (colorA == color1) {
                                               colorA = color2;
+                                              displayView = false;
                                             } else {
                                               colorA = color1;
+                                              displayView = true;
                                             }
                                           });
                                         },
@@ -862,8 +925,10 @@ class _AddWidgetState extends State<Add> {
                                         setState(() {
                                           if (colorB == color1) {
                                             colorB = color2;
+                                            displayChat = false;
                                           } else {
                                             colorB = color1;
+                                            displayChat = true;
                                           }
                                         });
                                       },
@@ -903,130 +968,125 @@ class _AddWidgetState extends State<Add> {
                             ),
                           ],
                         ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xFFECFFFC),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(0),
-                            bottomRight: Radius.circular(0),
-                            topLeft: Radius.circular(5),
-                            topRight: Radius.circular(5),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(45, 0, 0, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF00B89F),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          SvgPicture.asset(
-                                            'assets/images/camera.svg',
-                                            height: 50,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 2, 0, 0),
-                                          child: Text(
-                                            'Camera',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: Color(0xFF1F252B),
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 45, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF00B89F),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            'assets/images/_icons.svg',
-                                            height: 50,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 2, 0, 0),
-                                          child: Text(
-                                            'Gallery',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: Color(0xFF1F252B),
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
+                          onPressed: () async {
+                            // await Navigator.push(
+                            //  context,
+                            // MaterialPageRoute(
+                            //  builder: (context) =>
+                            //   NavBarPage(initialPage: 'Landing'),
+                            //  ),
+                            // );
+                            if (textController1.text == "" ||
+                                textController2.text == "" ||
+                                textController3.text == "" ||
+                                dropDownValue == null ||
+                                image == null) {
+                              Fluttertoast.showToast(
+                                  msg: "All fields are necessary to fill",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.black,
+                                  fontSize: 14.0);
+                            } else {
+                              final String url =
+                                  "http://18.208.148.208:4000/add/member";
+                              /* final res =
+                                  await http.post(Uri.parse(url), body: {
+                                "fname": textController1.text,
+                                "lname": textController2.text,
+                                "email": "priya@gmail.com",
+                                "mobile": textController3.text,
+                                "relation": dropDownValue,
+                                "executive": "display",
+                                "m_acc_id": FFAppState().AccountId,
+                                "password": "123456",
+                                "confirm_password": "123456",
+                                "address": "123456",
+                                "zipcode": "123456",
+                                "live_video": "displayLive",
+                                "chats": "displayChat",
+                                "view_video": "displayView",
+                              });*/
+                              /*   var stream =
+                                  new http.ByteStream(image.openRead());
+                              stream.cast();
+                              var length = await image.length();*/
+
+                              var res1 = new http.MultipartRequest(
+                                  'POST', Uri.parse(url));
+                              res1.headers.addAll({
+                                'Authorization': 'Bearer ${FFAppState().Token}'
+                              });
+                              res1.fields['fname'] = textController1.text;
+                              res1.fields['lname'] = textController2.text;
+                              res1.fields['email'] = "priya@gmail.com";
+                              res1.fields['mobile'] = textController3.text;
+                              res1.fields['relation'] = dropDownValue;
+                              res1.fields['executive'] = "display";
+                              res1.fields['m_acc_id'] = FFAppState().AccountId;
+                              res1.fields['password'] = "123456";
+                              res1.fields['confirm_password'] = "123456";
+                              res1.fields['address'] = "123456";
+                              res1.fields['zipcode'] = "123456";
+                              res1.fields['live_video'] = "123456";
+                              res1.fields['chats'] = "123456";
+                              res1.fields['view_video'] = "123456";
+                              //// var multiport = new http.MultipartFile(
+                              // 'profile', stream, length);
+                              res1.files.add(http.MultipartFile.fromString(
+                                  'profile', image.path));
+                              var response = await res1.send();
+                              // final result = jsonDecode(res.body);
+                              // print(data?.jsonBody[0].runtimeType);
+
+                              //if ((getJsonField(
+                              //  (data?.jsonBody ?? ''),
+                              //  r'''$[:].Error''',
+                              //)) ==
+                              // ('Nill'))
+
+                              print("this is the status code");
+                              print(response.statusCode);
+                              final respStr =
+                                  await response.stream.bytesToString();
+                              // final result = jsonDecode(res.body);
+                              if (response.statusCode == 200) {
+                                print("uploaded");
+
+                                Fluttertoast.showToast(
+                                    msg: "uploaded",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 5,
+                                    backgroundColor: Colors.green,
+                                    textColor: Colors.black,
+                                    fontSize: 14.0);
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Error'),
+                                      content:
+                                          Text(jsonDecode(respStr)["message"]),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            }
+                            // setState(() {});
                           },
                           text: 'Save',
                           options: FFButtonOptions(
@@ -1049,10 +1109,10 @@ class _AddWidgetState extends State<Add> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 30),
                         child: FFButtonWidget(
                           onPressed: () {
-                            print('Button pressed ...');
+                            print("on pressesd");
                           },
                           text: 'Delete User',
                           options: FFButtonOptions(
