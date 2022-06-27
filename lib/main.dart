@@ -6,7 +6,7 @@ import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:n_tel_care_family_app/profile/profile.dart';
 import 'package:n_tel_care_family_app/profile/profile_page.dart';
 import 'package:n_tel_care_family_app/spalsh/modified_splash.dart';
-
+import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/spalsh/spalsh_widget.dart';
 import 'package:n_tel_care_family_app/video/videos_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
@@ -18,7 +18,9 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   // Initialize FFAppState.
   FFAppState();
 
