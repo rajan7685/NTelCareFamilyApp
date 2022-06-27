@@ -1,6 +1,7 @@
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/heart_rate/stats.dart';
+import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
 import 'package:n_tel_care_family_app/sleep/sleep.dart';
 
 import '../chat/chat_widget.dart';
@@ -160,16 +161,25 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Container(
-                                              width: 70,
-                                              height: 70,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: Image.network(
-                                                inf[index]["profile"],
-                                                fit: BoxFit.cover,
+                                            InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            EditSeniorsWidget()));
+                                              },
+                                              child: Container(
+                                                width: 70,
+                                                height: 70,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.network(
+                                                  inf[index]["profile"],
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                             Padding(
@@ -306,7 +316,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                     ),
                                     child: InkWell(
                                       onTap: () async {
-                                        await Navigator.push(
+                                        await Navigator.pop(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => StatsWidget(),

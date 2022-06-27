@@ -705,8 +705,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                           child: Stack(
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0, 2.5, 0, 0),
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Color(0xFFEEEEEE),
@@ -738,30 +738,27 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   ),
                                 ),
                               ),
-                              Align(
-                                alignment: AlignmentDirectional(0, -0.62),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  child: Align(
-                                    alignment:
-                                        AlignmentDirectional(-0.91, -0.64),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 0, 0),
-                                      child: Text(
-                                        'Country',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFF9A9A9A),
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                      ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4, 5, 0, 0),
+                                    child: Text(
+                                      'Country',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFF9A9A9A),
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w300,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -780,8 +777,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                           child: Stack(
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0, 2.5, 0, 0),
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Color(0xFFEEEEEE),
@@ -813,30 +810,27 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   ),
                                 ),
                               ),
-                              Align(
-                                alignment: AlignmentDirectional(0, -0.62),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  child: Align(
-                                    alignment:
-                                        AlignmentDirectional(-0.91, -0.64),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 0, 0),
-                                      child: Text(
-                                        'State',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFF9A9A9A),
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                      ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4, 5, 0, 0),
+                                    child: Text(
+                                      'State',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFF9A9A9A),
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w300,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -855,8 +849,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                           child: Stack(
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0, 2.5, 0, 0),
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Color(0xFFEEEEEE),
@@ -888,30 +882,27 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   ),
                                 ),
                               ),
-                              Align(
-                                alignment: AlignmentDirectional(0, -0.62),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(15),
                                   ),
-                                  child: Align(
-                                    alignment:
-                                        AlignmentDirectional(-0.91, -0.64),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 8, 0, 0),
-                                      child: Text(
-                                        'City',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFF9A9A9A),
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w300,
-                                            ),
-                                      ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4, 5, 0, 0),
+                                    child: Text(
+                                      'City',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFF9A9A9A),
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w300,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -935,7 +926,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 2.5, 0, 0),
+                                      0, 0, 0, 0),
                                   child: Container(
                                     width: 200,
                                     decoration: BoxDecoration(
@@ -970,31 +961,28 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     ),
                                   ),
                                 ),
-                                Align(
-                                  alignment: AlignmentDirectional(0, -0.62),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5, 2, 0, 0),
                                   child: Container(
                                     width: 250,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
                                     ),
-                                    child: Align(
-                                      alignment:
-                                          AlignmentDirectional(-0.91, -0.64),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 8, 0, 0),
-                                        child: Text(
-                                          'Zip Code',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFF9A9A9A),
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w300,
-                                              ),
-                                        ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          4, 5, 0, 0),
+                                      child: Text(
+                                        'Zip Code',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              color: Color(0xFF9A9A9A),
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w300,
+                                            ),
                                       ),
                                     ),
                                   ),
