@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/heart_rate/stats.dart';
@@ -7,7 +8,7 @@ import 'package:n_tel_care_family_app/sleep/sleep.dart';
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,10 +25,11 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
   dynamic dash;
-
+  var color1 = 0xFF1F252B;
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     SList = fetchSList();
   }
@@ -160,13 +162,17 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                           10, 0, 10, 0),
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          color: Color(0xFF1F252B),
-                                        ),
+                                            color: Color(
+                                                color1) // Colors.transparent
+
+                                            //Color(0xFF1F252B).withOpacity(1),
+                                            ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             InkWell(
                                               onTap: () async {
+                                                setState(() {});
                                                 FutureBuilder<dynamic>(
                                                   future: fetchDashData(id),
                                                   builder: (context, snapshot) {
@@ -391,7 +397,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           MainAxisSize.max,
                                                       children: [
                                                         Text(
-                                                          '70 BPM',
+                                                          "",
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyText1
