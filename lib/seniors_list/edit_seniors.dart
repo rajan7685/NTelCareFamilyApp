@@ -7,6 +7,7 @@ import 'package:n_tel_care_family_app/seniors_list/senior_list.dart';
 import 'package:image_picker/image_picker.dart';
 import '../backend/api_requests/api_calls.dart';
 import 'package:path/path.dart';
+import 'package:csc_picker/csc_picker.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -32,6 +33,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   TextEditingController textController5;
   TextEditingController textController6;
   TextEditingController textController7;
+  TextEditingController textController8;
+  TextEditingController textController9;
   String dropDownValue2;
   String dropDownValue3;
   String dropDownValue4;
@@ -39,6 +42,10 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   bool display = false;
   bool displayY = true;
   bool displayN = false;
+  String countryValue = "";
+  String stateValue = "";
+  String cityValue = "";
+  String address = "";
   final scaffoldKey = GlobalKey<ScaffoldState>();
   dynamic data;
   _EditSeniorsWidgetState(this.data);
@@ -699,23 +706,101 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Stack(
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: DropdownButtonFormField(
+                          padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
+                          child: CSCPicker(
+                            ///Enable disable state dropdown [OPTIONAL PARAMETER]
+                            showStates: false,
+
+                            /// Enable disable city drop down [OPTIONAL PARAMETER]
+                            showCities: true,
+
+                            ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
+                            flagState: CountryFlag.DISABLE,
+                            layout: Layout.vertical,
+
+                            ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
+                            dropdownDecoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15)),
+                                color: Color(0xFFEEEEEE),
+                                border: Border.all(
+                                    color: Color(0xFFEEEEEE), width: 15)),
+
+                            ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
+                            disabledDropdownDecoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(11)),
+                                color: Color(0xFFEEEEEE),
+                                border: Border.all(
+                                    color: Color(0xFFEEEEEE), width: 11)),
+
+                            ///placeholders for dropdown search field
+
+                            stateSearchPlaceholder: "State",
+                            citySearchPlaceholder: "City",
+                            countrySearchPlaceholder: "Country",
+
+                            ///labels for dropdown
+
+                            stateDropdownLabel: "State",
+                            cityDropdownLabel: "City",
+                            countryDropdownLabel: "Country",
+
+                            ///Default Country
+                            //defaultCountry: DefaultCountry.India,
+
+                            ///Disable country dropdown (Note: use it with default country)
+                            //disableCountry: true,
+
+                            ///selected item style [OPTIONAL PARAMETER]
+                            selectedItemStyle: TextStyle(
+                              color: Color(0xFF606E87),
+                              fontSize: 20,
+                            ),
+
+                            ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                            dropdownHeadingStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+
+                            ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                            dropdownItemStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                            ),
+
+                            ///Dialog box radius [OPTIONAL PARAMETER]
+                            dropdownDialogRadius: 10.0,
+
+                            ///Search bar radius [OPTIONAL PARAMETER]
+                            searchBarRadius: 10.0,
+
+                            ///triggers once country selected in dropdown
+                            onCountryChanged: (value) {
+                              setState(() {
+                                ///store value in country variable
+                                countryValue = value;
+                              });
+                            },
+
+                            ///triggers once state selected in dropdown
+                            onStateChanged: (value) {
+                              setState(() {
+                                ///store value in state variable
+                                stateValue = value;
+                              });
+                            },
+
+                            ///triggers once city selected in dropdown
+                            onCityChanged: (value) {
+                              setState(() {
+                                ///store value in city variable
+                                cityValue = value;
+                              });
+                            },
+                          )
+                          /*    DropdownButtonFormField(
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
@@ -738,10 +823,10 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                           color: Colors.black,
                                         ),
                                     hint: Text('USA'),
-                                  ),
-                                ),
-                              ),
-                              Padding(
+                                  ),*/
+
+                          ),
+                      /* Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
                                 child: Container(
@@ -765,235 +850,130 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     ),
                                   ),
                                 ),
+                              ),*/
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
+                            child: Container(
+                              width: 160,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFEEEEEE),
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Stack(
-                            children: [
-                              Padding(
+                              child: Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: DropdownButtonFormField(
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 2),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                    ),
-                                    onChanged: (val) =>
-                                        setState(() => dropDownValue1 = val),
-                                    style: FlutterFlowTheme.of(context)
+                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                child: TextFormField(
+                                  controller: textController8,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Address',
+                                    labelStyle: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
                                           fontFamily: 'Montserrat',
-                                          color: Colors.black,
+                                          color: Color(0xFF9A9A9A),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300,
                                         ),
-                                    hint: Text('California'),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        4, 5, 0, 0),
-                                    child: Text(
-                                      'State',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w300,
-                                          ),
+                                    hintText: '[Some hint text...]',
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
                                     ),
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
+                                        fontSize: 16,
+                                      ),
+                                  keyboardType: TextInputType.streetAddress,
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Stack(
-                            children: [
-                              Padding(
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                            child: Container(
+                              width: 160,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFEEEEEE),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: DropdownButtonFormField(
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 2),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                    ),
-                                    onChanged: (val) =>
-                                        setState(() => dropDownValue1 = val),
-                                    style: FlutterFlowTheme.of(context)
+                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                child: TextFormField(
+                                  controller: textController9,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Zip Code',
+                                    labelStyle: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
                                           fontFamily: 'Montserrat',
-                                          color: Colors.black,
+                                          color: Color(0xFF9A9A9A),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300,
                                         ),
-                                    hint: Text('LA'),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        4, 5, 0, 0),
-                                    child: Text(
-                                      'City',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: AlignmentDirectional(-1, 0),
-                        child: Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                          child: Container(
-                            width: 200,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Stack(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 0),
-                                  child: Container(
-                                    width: 200,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFEEEEEE),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: DropdownButtonFormField(
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        filled: true,
-                                        fillColor: Colors.white,
+                                    hintText: '[Some hint text...]',
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
                                       ),
-                                      onChanged: (val) =>
-                                          setState(() => dropDownValue1 = val),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Colors.black,
-                                          ),
-                                      hint: Text('California'),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 2, 0, 0),
-                                  child: Container(
-                                    width: 250,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4, 5, 0, 0),
-                                      child: Text(
-                                        'Zip Code',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFF9A9A9A),
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w300,
-                                            ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
                                       ),
                                     ),
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
+                                        fontSize: 16,
+                                      ),
+                                  keyboardType: TextInputType.number,
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
