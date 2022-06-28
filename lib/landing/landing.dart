@@ -137,6 +137,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                           builder: (context, snapshot) {
                             final inf = snapshot.data;
                             print(inf);
+                            // setState(() {
+                            //   selectedId = inf[0]["id"];
+                            // });
                             if (!snapshot.hasData) {
                               return Text(
                                 "Loading...",
@@ -148,6 +151,12 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                         fontSize: 20),
                               );
                             } else {
+                              Future.delayed(Duration(seconds: 3), () {
+                                setState(() {
+                                  selectedId = inf[0]["id"];
+                                });
+                              });
+
                               return ListView.builder(
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
@@ -245,7 +254,12 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                 .fromSTEB(
                                                                     0, 2, 0, 0),
                                                         child: Text(
-                                                          inf[index]["gender"],
+                                                          "Age " +
+                                                              inf[index]
+                                                                  ["age"] +
+                                                              ", " +
+                                                              inf[index]
+                                                                  ["gender"],
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyText1

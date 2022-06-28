@@ -102,6 +102,37 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         ),
                                       )),
                                 ),
+                                if (snapshot.data["member"]["executive"] = true)
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            100, 180, 0, 0),
+                                        child: Container(
+                                          width: 50,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF00B89F),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgPicture.asset(
+                                                'assets/images/achievment.svg',
+                                                width: 25,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       7, 45, 10, 0),

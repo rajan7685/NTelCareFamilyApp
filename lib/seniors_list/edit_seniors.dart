@@ -729,7 +729,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                         ),
                       ),
                       Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                           child: CSCPicker(
                             ///Enable disable state dropdown [OPTIONAL PARAMETER]
                             showStates: false,
