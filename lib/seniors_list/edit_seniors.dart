@@ -46,6 +46,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String stateValue = "";
   String cityValue = "";
   String address = "";
+  DateTime dateTime;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   dynamic data;
   _EditSeniorsWidgetState(this.data);
@@ -386,7 +387,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'Montserrat',
                                         color: Color(0xFF606E87),
                                         fontSize: 16,
                                       ),
@@ -394,74 +395,96 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                               ),
                             ),
                           ),
-                          Stack(
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                child: Container(
-                                  width: 160,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: DropdownButtonFormField(
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 2),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                    ),
-                                    onChanged: (val) =>
-                                        setState(() => dropDownValue1 = val),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          color: Colors.black,
-                                        ),
-                                    hint: Text('06-08-1960'),
-                                  ),
-                                ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                            child: Container(
+                              width: 160,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFEEEEEE),
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 12, 0, 0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(0),
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(0),
-                                    ),
-                                  ),
-                                  child: Padding(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 8, 0, 0),
-                                    child: Text(
-                                      'DOB',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w300,
-                                          ),
+                                        10, 10, 0, 3),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'DOB',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                      fontFamily: 'Montserrat',
+                                                      color: Color(0xFF9A9A9A),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w300),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(10, 0, 0, 0),
+                                              child: Text(dateTime.toString(),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color:
+                                                            Color(0xFF606E87),
+                                                        fontSize: 16,
+                                                      )),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        30, 0, 0, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        showDatePicker(
+                                                context: context,
+                                                initialDate: dateTime == null
+                                                    ? DateTime.now()
+                                                    : dateTime,
+                                                firstDate: DateTime(2001),
+                                                lastDate: DateTime.now())
+                                            .then((date) {
+                                          setState(() {
+                                            dateTime = date;
+                                          });
+                                        });
+                                      },
+                                      child: Icon(
+                                        Icons.arrow_drop_down_outlined,
+                                        color: Color(0xFF9A9A9A),
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
