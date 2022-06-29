@@ -16,15 +16,15 @@ class StatsWidget extends StatefulWidget {
 
 class _StatsWidgetState extends State<StatsWidget> {
   static final List<HeartStat> heartStat = [
-    HeartStat("10:00", 50, Colors.red),
-    HeartStat("11:00", 60, Colors.red),
-    HeartStat("12:00", 50, Colors.red),
-    HeartStat("13:00", 70, Colors.red),
-    HeartStat("14:00", 80, Colors.red),
-    HeartStat("15:00", 40, Colors.red),
-    HeartStat("16:00", 50, Colors.red),
-    HeartStat("17:00", 80, Colors.red),
-    HeartStat("18:00", 70, Colors.red),
+    HeartStat("10:00", 50, Color(0xFF00B89F)),
+    HeartStat("11:00", 60, Color(0xFF00B89F)),
+    HeartStat("12:00", 50, Color(0xFF00B89F)),
+    HeartStat("13:00", 70, Color(0xFF00B89F)),
+    HeartStat("14:00", 80, Color(0xFF00B89F)),
+    HeartStat("15:00", 40, Color(0xFF00B89F)),
+    HeartStat("16:00", 50, Color(0xFF00B89F)),
+    HeartStat("17:00", 80, Color(0xFF00B89F)),
+    HeartStat("18:00", 70, Color(0xFF00B89F)),
   ];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();

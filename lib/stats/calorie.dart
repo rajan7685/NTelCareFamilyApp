@@ -1,19 +1,20 @@
 import 'package:n_tel_care_family_app/landing/landing.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
-class SleepWidget extends StatefulWidget {
-  const SleepWidget({Key key}) : super(key: key);
+class CalorieWidget extends StatefulWidget {
+  const CalorieWidget({Key key}) : super(key: key);
 
   @override
-  _SleepWidgetState createState() => _SleepWidgetState();
+  _CalorieWidgetState createState() => _CalorieWidgetState();
 }
 
-class _SleepWidgetState extends State<SleepWidget> {
+class _CalorieWidgetState extends State<CalorieWidget> {
   static final List<BloodStat> stepStat = [
     BloodStat("10:00", 50, Color(0xFF00B89F)),
     BloodStat("11:00", 60, Color(0xFF00B89F)),
@@ -36,7 +37,7 @@ class _SleepWidgetState extends State<SleepWidget> {
     List<charts.Series<BloodStat, String>> step = [
       charts.Series(
           data: stepStat,
-          id: "Sleep",
+          id: "Calorie",
           domainFn: (BloodStat pops, _) => pops.Time,
           measureFn: (BloodStat pops, _) => pops.Stat,
           colorFn: (BloodStat pops, _) =>
@@ -58,7 +59,7 @@ class _SleepWidgetState extends State<SleepWidget> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SvgPicture.asset(
-                      'assets/images/Layer_2.svg',
+                      'assets/images/calorie.svg',
                       width: 220,
                       height: 220,
                       fit: BoxFit.fitWidth,
@@ -97,7 +98,7 @@ class _SleepWidgetState extends State<SleepWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                           child: Text(
-                            'Sleep',
+                            'Calorie',
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Montserrat',

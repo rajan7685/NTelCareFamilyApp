@@ -7,24 +7,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-class StatsWidget extends StatefulWidget {
-  const StatsWidget({Key key}) : super(key: key);
+class StepWidget extends StatefulWidget {
+  const StepWidget({Key key}) : super(key: key);
 
   @override
-  _StatsWidgetState createState() => _StatsWidgetState();
+  _StepWidgetState createState() => _StepWidgetState();
 }
 
-class _StatsWidgetState extends State<StatsWidget> {
+class _StepWidgetState extends State<StepWidget> {
   static final List<StepStat> stepStat = [
-    StepStat("10:00", 50, Colors.red),
-    StepStat("11:00", 60, Colors.red),
-    StepStat("12:00", 50, Colors.red),
-    StepStat("13:00", 70, Colors.red),
-    StepStat("14:00", 80, Colors.red),
-    StepStat("15:00", 40, Colors.red),
-    StepStat("16:00", 50, Colors.red),
-    StepStat("17:00", 80, Colors.red),
-    StepStat("18:00", 70, Colors.red),
+    StepStat("10:00", 50, Color(0xFF00B89F)),
+    StepStat("11:00", 60, Color(0xFF00B89F)),
+    StepStat("12:00", 50, Color(0xFF00B89F)),
+    StepStat("13:00", 70, Color(0xFF00B89F)),
+    StepStat("14:00", 80, Color(0xFF00B89F)),
+    StepStat("15:00", 40, Color(0xFF00B89F)),
+    StepStat("16:00", 50, Color(0xFF00B89F)),
+    StepStat("17:00", 80, Color(0xFF00B89F)),
+    StepStat("18:00", 70, Color(0xFF00B89F)),
   ];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -37,7 +37,7 @@ class _StatsWidgetState extends State<StatsWidget> {
     List<charts.Series<StepStat, String>> step = [
       charts.Series(
           data: stepStat,
-          id: "Heart Rate",
+          id: "Step",
           domainFn: (StepStat pops, _) => pops.Time,
           measureFn: (StepStat pops, _) => pops.Stat,
           colorFn: (StepStat pops, _) =>
@@ -58,8 +58,8 @@ class _StatsWidgetState extends State<StatsWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Image.asset(
-                      'assets/images/8679613_footprint_line_icon_.png',
+                    SvgPicture.asset(
+                      'assets/images/steps.svg',
                       width: 220,
                       height: 220,
                       fit: BoxFit.fitWidth,
@@ -271,8 +271,9 @@ class _StatsWidgetState extends State<StatsWidget> {
                           Expanded(
                             child: Text(
                               dateTime == null
-                                  ? DateTime.now().toString()
-                                  : dateTime.toString(),
+                                  ? DateFormat('dd-MM-yyyy')
+                                      .format(DateTime.now())
+                                  : DateFormat('dd-MM-yyyy').format(dateTime),
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .bodyText1
