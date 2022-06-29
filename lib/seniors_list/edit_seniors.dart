@@ -47,6 +47,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String cityValue = "";
   String address = "";
   DateTime dateTime;
+  DateTime selectedDate = DateTime.now();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   dynamic data;
   _EditSeniorsWidgetState(this.data);
@@ -411,7 +412,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 10, 0, 3),
+                                        2, 10, 0, 3),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -440,7 +441,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(10, 0, 0, 0),
-                                              child: Text(dateTime.toString(),
+                                              child: Text(
+                                                  DateFormat('dd-MM-yyyy')
+                                                      .format(selectedDate),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
@@ -459,10 +462,10 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        30, 0, 0, 0),
+                                        10, 0, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        showDatePicker(
+                                        /*  showDatePicker(
                                                 context: context,
                                                 initialDate: dateTime == null
                                                     ? DateTime.now()
@@ -473,11 +476,22 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                           setState(() {
                                             dateTime = date;
                                           });
-                                        });
+                                        });*/
+                                        final DateTime picked =
+                                            await showDatePicker(
+                                                context: context,
+                                                initialDate: selectedDate,
+                                                firstDate: DateTime(2015, 8),
+                                                lastDate: DateTime(2101));
+                                        if (picked != null &&
+                                            picked != selectedDate)
+                                          setState(() {
+                                            selectedDate = picked;
+                                          });
                                       },
                                       child: Icon(
                                         Icons.arrow_drop_down_outlined,
-                                        color: Color(0xFF9A9A9A),
+                                        color: Colors.black,
                                         size: 20,
                                       ),
                                     ),
