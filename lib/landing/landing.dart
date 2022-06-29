@@ -1,9 +1,9 @@
 import 'package:flutter/rendering.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
-import 'package:n_tel_care_family_app/heart_rate/stats.dart';
+import 'package:n_tel_care_family_app/stats/sleep.dart';
+import 'package:n_tel_care_family_app/stats/heart.dart';
 import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
-import 'package:n_tel_care_family_app/sleep/sleep.dart';
 
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
