@@ -248,8 +248,9 @@ class _StatsWidgetState extends State<StatsWidget> {
                           Expanded(
                             child: Text(
                               dateTime == null
-                                  ? DateTime.now().toString()
-                                  : dateTime.toString(),
+                                  ? DateFormat('dd-MM-yyyy')
+                                      .format(DateTime.now())
+                                  : DateFormat('dd-MM-yyyy').format(dateTime),
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .bodyText1
