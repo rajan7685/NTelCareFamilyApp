@@ -28,6 +28,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   TextEditingController textController3;
   bool switchListTileValue;
   bool checkboxListTileValue;
+  ApiCallResponse apiCallOutput;
   dynamic data;
   _EditMemberWidgetState(this.data);
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -886,7 +887,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: FFButtonWidget(
                           onPressed: () {
-                            print('Button pressed ...');
+                            print(FFAppState().MemberId);
                           },
                           text: 'Save',
                           options: FFButtonOptions(
@@ -911,8 +912,36 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                         child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
+                          onPressed: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Are you sure?'),
+                                  content: Text('Delete the user'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () async {
+                                        apiCallOutput =
+                                            await DeleteUserCall.call();
+                                        print("this is the status code");
+                                        print(apiCallOutput.statusCode);
+                                        if (apiCallOutput.statusCode == 200) {
+                                          Navigator.pop(context);6
+                                          print("Member is deleted");
+                                        }
+                                      },
+                                      child: Text('Yes'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Cancel'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           },
                           text: 'Delete User',
                           options: FFButtonOptions(
