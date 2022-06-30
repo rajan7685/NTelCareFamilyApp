@@ -496,8 +496,8 @@ class _EditWidgetState extends State<EditWidget> {
                                             onPressed: () async {
                                               apiCallOutput =
                                                   await DeleteUserCall.call(
-                                                token: FFAppState().Token,
-                                              );
+                                                      //  token: FFAppState().Token,
+                                                      );
                                               if (apiCallOutput.succeeded) {
                                                 await Navigator.push(
                                                   context,

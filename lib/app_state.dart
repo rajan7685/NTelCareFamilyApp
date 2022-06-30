@@ -41,6 +41,7 @@ class FFAppState {
   String RoleId = '';
   String IsLiveView = '';
   bool Chattoggle = false;
+  String MemberId = '';
 
   bool _Chattoggle2 = false;
   bool get Chattoggle2 => _Chattoggle2;

@@ -43,6 +43,7 @@ dependencies:
   path_provider: ^2.0.11
   http: ^0.13.4
   csc_picker: ^0.2.6
+  charts_flutter: ^0.12.0
   fluttertoast: ^8.0.9 
   flutter_svg: 0.22.0
   better_player: 0.0.82

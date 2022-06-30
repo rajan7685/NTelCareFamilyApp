@@ -21,16 +21,13 @@ class LoginCall {
 }
 
 class DeleteUserCall {
-  static Future<ApiCallResponse> call({
-    String token = '',
-  }) {
+  static Future<ApiCallResponse> call() {
     return ApiManager.instance.makeApiCall(
       callName: 'DeleteUser',
-      apiUrl:
-          'http://demo.ntelcare.com/MobiPortal/UserDelete.aspx?Token=${token}',
-      callType: ApiCallType.GET,
-      headers: {},
-      params: {},
+      apiUrl: 'http://18.208.148.208:4000/delete/member/',
+      callType: ApiCallType.DELETE,
+      headers: {'Authorization': 'Bearer ${FFAppState().Token}'},
+      params: {"member_id": FFAppState().MemberId},
       returnBody: true,
     );
   }

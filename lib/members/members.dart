@@ -451,6 +451,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                               InkWell(
                                                                             onTap:
                                                                                 () async {
+                                                                              FFAppState().MemberId = snapshot.data[index]["id"];
                                                                               await Navigator.push(
                                                                                 context,
                                                                                 MaterialPageRoute(
@@ -628,6 +629,11 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                       InkWell(
                                                                     onTap:
                                                                         () async {
+                                                                      FFAppState()
+                                                                          .MemberId = snapshot
+                                                                              .data[index]
+                                                                          [
+                                                                          "id"];
                                                                       await Navigator
                                                                           .push(
                                                                         context,
@@ -896,6 +902,7 @@ class _MembersWidgetState extends State<MembersWidget> {
     print(FFAppState().Token);
     print(MList.statusCode);
     print(MList.jsonBody["members"]);
+
     return MList.jsonBody["members"];
   }
 
