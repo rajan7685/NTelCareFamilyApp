@@ -1,9 +1,17 @@
 import 'package:flutter/rendering.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
-import 'package:n_tel_care_family_app/heart_rate/stats.dart';
+import 'package:n_tel_care_family_app/stats/battery.dart';
+import 'package:n_tel_care_family_app/stats/blood_pressure.dart';
+import 'package:n_tel_care_family_app/stats/calorie.dart';
+import 'package:n_tel_care_family_app/stats/door.dart';
+import 'package:n_tel_care_family_app/stats/oxygen.dart';
+import 'package:n_tel_care_family_app/stats/pill.dart';
+import 'package:n_tel_care_family_app/stats/shower.dart';
+import 'package:n_tel_care_family_app/stats/sleep.dart';
+import 'package:n_tel_care_family_app/stats/heart.dart';
 import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
-import 'package:n_tel_care_family_app/sleep/sleep.dart';
+import 'package:n_tel_care_family_app/stats/step.dart';
 
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -25,6 +33,14 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
   var selectedId = null;
+  int isSelected = 0;
+  var selList = Colors.red;
+
+  _isSelected(int index) {
+    setState(() {
+      isSelected = index;
+    });
+  }
 
   @override
   void initState() {
@@ -171,6 +187,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                           10, 0, 10, 0),
                                       child: Container(
                                         decoration: BoxDecoration(
+
                                             // Colors.transparent
 
                                             //Color(0xFF1F252B).withOpacity(1),
@@ -179,10 +196,11 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             InkWell(
-                                              onTap: () async {
+                                              onTap: () {
                                                 setState(() {
                                                   selectedId = id;
                                                 });
+                                                _isSelected(index);
                                               },
                                               child: Container(
                                                 width: 70,
@@ -190,6 +208,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                 clipBehavior: Clip.antiAlias,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
+                                                  color: isSelected == true
+                                                      ? Colors.red
+                                                      : Colors.black,
                                                 ),
                                                 child: Image.network(
                                                   inf[index]["profile"],
@@ -233,8 +254,14 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Montserrat',
-                                                                color: Color(
-                                                                    0xFF00B89F),
+                                                                color: isSelected !=
+                                                                            null &&
+                                                                        isSelected ==
+                                                                            index
+                                                                    ? Color(
+                                                                        0xFF00B89F)
+                                                                    : Color(
+                                                                        0xFF535353),
                                                                 fontSize: 14,
                                                                 fontWeight:
                                                                     FontWeight
@@ -266,8 +293,14 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Montserrat',
-                                                                color: Color(
-                                                                    0xFFE5E5E5),
+                                                                color: isSelected !=
+                                                                            null &&
+                                                                        isSelected ==
+                                                                            index
+                                                                    ? Color(
+                                                                        0xFFE5E5E5)
+                                                                    : Color(
+                                                                        0xFF535353),
                                                                 fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight
@@ -305,8 +338,13 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'Montserrat',
-                                                                  color: Colors
-                                                                      .blue,
+                                                                  color: isSelected != null &&
+                                                                          isSelected ==
+                                                                              index
+                                                                      ? Colors
+                                                                          .blue
+                                                                      : Color(
+                                                                          0xFF535353),
                                                                   fontSize: 12,
                                                                   fontWeight:
                                                                       FontWeight
@@ -328,6 +366,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                             }
                           }),
                     ),
+                    if (selectedId == null) const CircularProgressIndicator(),
                     if (selectedId != null)
                       FutureBuilder(
                           future: fetchDashData(selectedId),
@@ -516,7 +555,15 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                     BorderRadius.circular(10),
                                               ),
                                               child: InkWell(
-                                                onTap: () async {},
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          OxygenWidget(),
+                                                    ),
+                                                  );
+                                                },
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -838,7 +885,15 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                     BorderRadius.circular(10),
                                               ),
                                               child: InkWell(
-                                                onTap: () async {},
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          StepWidget(),
+                                                    ),
+                                                  );
+                                                },
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -1005,7 +1060,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        CriticalWidget(),
+                                                        CalorieWidget(),
                                                   ),
                                                 );
                                               },
@@ -1160,7 +1215,15 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                     BorderRadius.circular(10),
                                               ),
                                               child: InkWell(
-                                                onTap: () async {},
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          BloodWidget(),
+                                                    ),
+                                                  );
+                                                },
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -1349,7 +1412,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        CriticalWidget(),
+                                                        BatteryWidget(),
                                                   ),
                                                 );
                                               },
@@ -1505,7 +1568,15 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                     BorderRadius.circular(10),
                                               ),
                                               child: InkWell(
-                                                onTap: () async {},
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          PillWidget(),
+                                                    ),
+                                                  );
+                                                },
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -1672,7 +1743,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        CriticalWidget(),
+                                                        DoorWidget(),
                                                   ),
                                                 );
                                               },
@@ -1826,7 +1897,15 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                     BorderRadius.circular(10),
                                               ),
                                               child: InkWell(
-                                                onTap: () async {},
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ShowerWidget(),
+                                                    ),
+                                                  );
+                                                },
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,

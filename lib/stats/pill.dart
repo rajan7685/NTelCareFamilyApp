@@ -7,24 +7,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-class StatsWidget extends StatefulWidget {
-  const StatsWidget({Key key}) : super(key: key);
+class PillWidget extends StatefulWidget {
+  const PillWidget({Key key}) : super(key: key);
 
   @override
-  _StatsWidgetState createState() => _StatsWidgetState();
+  _PillWidgetState createState() => _PillWidgetState();
 }
 
-class _StatsWidgetState extends State<StatsWidget> {
-  static final List<HeartStat> heartStat = [
-    HeartStat("10:00", 50, Colors.red),
-    HeartStat("11:00", 60, Colors.red),
-    HeartStat("12:00", 50, Colors.red),
-    HeartStat("13:00", 70, Colors.red),
-    HeartStat("14:00", 80, Colors.red),
-    HeartStat("15:00", 40, Colors.red),
-    HeartStat("16:00", 50, Colors.red),
-    HeartStat("17:00", 80, Colors.red),
-    HeartStat("18:00", 70, Colors.red),
+class _PillWidgetState extends State<PillWidget> {
+  static final List<BloodStat> stepStat = [
+    BloodStat("10:00", 5, Color(0xFF00B89F)),
+    BloodStat("11:00", 6, Color(0xFF00B89F)),
+    BloodStat("12:00", 5, Color(0xFF00B89F)),
+    BloodStat("13:00", 7, Color(0xFF00B89F)),
+    BloodStat("14:00", 8, Color(0xFF00B89F)),
+    BloodStat("15:00", 4, Color(0xFF00B89F)),
+    BloodStat("16:00", 5, Color(0xFF00B89F)),
+    BloodStat("17:00", 8, Color(0xFF00B89F)),
+    BloodStat("18:00", 7, Color(0xFF00B89F)),
   ];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -34,13 +34,13 @@ class _StatsWidgetState extends State<StatsWidget> {
   DateTime dateTime;
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<HeartStat, String>> heart = [
+    List<charts.Series<BloodStat, String>> step = [
       charts.Series(
-          data: heartStat,
-          id: "Heart Rate",
-          domainFn: (HeartStat pops, _) => pops.Time,
-          measureFn: (HeartStat pops, _) => pops.Stat,
-          colorFn: (HeartStat pops, _) =>
+          data: stepStat,
+          id: "Battery",
+          domainFn: (BloodStat pops, _) => pops.Time,
+          measureFn: (BloodStat pops, _) => pops.Stat,
+          colorFn: (BloodStat pops, _) =>
               charts.ColorUtil.fromDartColor(pops.line))
     ];
 
@@ -58,8 +58,8 @@ class _StatsWidgetState extends State<StatsWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SvgPicture.asset(
-                      'assets/images/15-health.svg',
+                    Image.asset(
+                      'assets/images/8675105_ic_fluent_pill_regular_icon.png',
                       width: 220,
                       height: 220,
                       fit: BoxFit.fitWidth,
@@ -98,7 +98,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                           child: Text(
-                            'Heart Rate',
+                            'Pill Box',
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Montserrat',
@@ -317,201 +317,12 @@ class _StatsWidgetState extends State<StatsWidget> {
                           decoration: BoxDecoration(
                               color: Color(0xFF272E36),
                               borderRadius: BorderRadius.circular(10)),
-                          child: charts.BarChart(heart),
-                        )
-                        // Image.asset(
-                        //   'assets/images/heartRate.png',
-                        //   width: 400,
-                        //   height: 400,
-                        //   fit: BoxFit.fill,
-                        // ),
-                        ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 150,
-                            decoration: BoxDecoration(
-                              color: Color(0xFF00B89F),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 2.5, 0, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Heart rate Range',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFFE5E5E5),
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w200,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 0, 2.5),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    10, 0, 0, 1),
-                                            child: Text(
-                                              '60 - 138',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFFE5E5E5),
-                                                    fontSize: 17,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            5, 0, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              'times/min',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFFE5E5E5),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w200,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                          child: charts.BarChart(
+                            step,
+                            animate: true,
+                            vertical: false,
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                            child: Container(
-                              width: 150,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF272E36),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 2.5, 0, 0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Resting rate Range',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFFE5E5E5),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w200,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 2.5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 0, 0, 1),
-                                              child: Text(
-                                                '60 ',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyText1
-                                                    .override(
-                                                      fontFamily: 'Montserrat',
-                                                      color: Color(0xFFE5E5E5),
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5, 0, 0, 0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'times/min',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyText1
-                                                    .override(
-                                                      fontFamily: 'Montserrat',
-                                                      color: Color(0xFFE5E5E5),
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        )),
                   ],
                 ),
               ],
@@ -523,10 +334,10 @@ class _StatsWidgetState extends State<StatsWidget> {
   }
 }
 
-class HeartStat {
+class BloodStat {
   final String Time;
   final int Stat;
   final Color line;
 
-  HeartStat(this.Time, this.Stat, this.line);
+  BloodStat(this.Time, this.Stat, this.line);
 }
