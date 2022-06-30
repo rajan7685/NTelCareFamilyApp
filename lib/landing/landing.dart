@@ -33,6 +33,14 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
   var selectedId = null;
+  int isSelected = 0;
+  var selList = Colors.red;
+
+  _isSelected(int index) {
+    setState(() {
+      isSelected = index;
+    });
+  }
 
   @override
   void initState() {
@@ -179,6 +187,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                           10, 0, 10, 0),
                                       child: Container(
                                         decoration: BoxDecoration(
+
                                             // Colors.transparent
 
                                             //Color(0xFF1F252B).withOpacity(1),
@@ -187,10 +196,11 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             InkWell(
-                                              onTap: () async {
+                                              onTap: () {
                                                 setState(() {
                                                   selectedId = id;
                                                 });
+                                                _isSelected(index);
                                               },
                                               child: Container(
                                                 width: 70,
@@ -198,6 +208,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                 clipBehavior: Clip.antiAlias,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
+                                                  color: isSelected == true
+                                                      ? Colors.red
+                                                      : Colors.black,
                                                 ),
                                                 child: Image.network(
                                                   inf[index]["profile"],
@@ -241,8 +254,14 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Montserrat',
-                                                                color: Color(
-                                                                    0xFF00B89F),
+                                                                color: isSelected !=
+                                                                            null &&
+                                                                        isSelected ==
+                                                                            index
+                                                                    ? Color(
+                                                                        0xFF00B89F)
+                                                                    : Color(
+                                                                        0xFF535353),
                                                                 fontSize: 14,
                                                                 fontWeight:
                                                                     FontWeight
@@ -274,8 +293,14 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Montserrat',
-                                                                color: Color(
-                                                                    0xFFE5E5E5),
+                                                                color: isSelected !=
+                                                                            null &&
+                                                                        isSelected ==
+                                                                            index
+                                                                    ? Color(
+                                                                        0xFFE5E5E5)
+                                                                    : Color(
+                                                                        0xFF535353),
                                                                 fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight
@@ -313,8 +338,13 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'Montserrat',
-                                                                  color: Colors
-                                                                      .blue,
+                                                                  color: isSelected != null &&
+                                                                          isSelected ==
+                                                                              index
+                                                                      ? Colors
+                                                                          .blue
+                                                                      : Color(
+                                                                          0xFF535353),
                                                                   fontSize: 12,
                                                                   fontWeight:
                                                                       FontWeight
