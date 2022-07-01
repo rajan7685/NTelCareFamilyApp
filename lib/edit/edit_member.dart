@@ -927,15 +927,19 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         print("this is the status code");
                                         print(apiCallOutput.statusCode);
                                         if (apiCallOutput.statusCode == 200) {
-                                          Navigator.pop(context);6
+                                          Navigator.pop(context);
                                           print("Member is deleted");
                                         }
                                       },
                                       child: Text('Yes'),
                                     ),
                                     TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
+                                      onPressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MembersWidget(),
+                                        ),
+                                      ),
                                       child: Text('Cancel'),
                                     ),
                                   ],

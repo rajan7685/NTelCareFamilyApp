@@ -264,6 +264,34 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     NavBarPage(initialPage: 'Landing'),
                               ),
                             );
+                          } else if (textController1.text == "" &&
+                              textController2.text == "") {
+                            Fluttertoast.showToast(
+                                msg: "Enter the mobile number & password",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 5,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.black,
+                                fontSize: 14.0);
+                          } else if (textController1.text == "") {
+                            Fluttertoast.showToast(
+                                msg: "Enter the mobile number",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 5,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.black,
+                                fontSize: 14.0);
+                          } else if (textController2.text == "") {
+                            Fluttertoast.showToast(
+                                msg: "Enter the password",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 5,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.black,
+                                fontSize: 14.0);
                           } else {
                             await showDialog(
                               context: context,

@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:convert';
 
 class Add extends StatefulWidget {
   const Add({Key key}) : super(key: key);
@@ -25,7 +26,7 @@ class Add extends StatefulWidget {
 }
 
 class _AddWidgetState extends State<Add> {
-  String dropDownValue;
+  String dropDownValue = "Son";
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
@@ -993,9 +994,15 @@ class _AddWidgetState extends State<Add> {
                                   textColor: Colors.black,
                                   fontSize: 14.0);
                             } else {
+                              print(FFAppState().AccountId);
+                              List<int> imageBytes = image.readAsBytesSync();
+
+                              String base64Image = base64Encode(imageBytes);
+                              //BASE64.encode(imageBytes);
+
                               final String url =
                                   "http://18.208.148.208:4000/add/member";
-                              /* final res =
+                              final res =
                                   await http.post(Uri.parse(url), body: {
                                 "fname": textController1.text,
                                 "lname": textController2.text,
@@ -1004,20 +1011,19 @@ class _AddWidgetState extends State<Add> {
                                 "relation": dropDownValue,
                                 "executive": "display",
                                 "m_acc_id": FFAppState().AccountId,
-                                "password": "123456",
-                                "confirm_password": "123456",
                                 "address": "123456",
                                 "zipcode": "123456",
                                 "live_video": "displayLive",
                                 "chats": "displayChat",
                                 "view_video": "displayView",
-                              });*/
+                                "profile": base64Image
+                              });
                               /*   var stream =
                                   new http.ByteStream(image.openRead());
                               stream.cast();
                               var length = await image.length();*/
 
-                              var res1 = new http.MultipartRequest(
+                              /*  var res1 = new http.MultipartRequest(
                                   'POST', Uri.parse(url));
                               res1.headers.addAll({
                                 'Authorization': 'Bearer ${FFAppState().Token}'
@@ -1054,8 +1060,8 @@ class _AddWidgetState extends State<Add> {
                               print(response.statusCode);
                               final respStr =
                                   await response.stream.bytesToString();
-                              // final result = jsonDecode(res.body);
-                              if (response.statusCode == 200) {
+                              // final result = jsonDecode(res.body);*/
+                              if (res.statusCode == 200) {
                                 print("uploaded");
 
                                 Fluttertoast.showToast(
@@ -1073,7 +1079,7 @@ class _AddWidgetState extends State<Add> {
                                     return AlertDialog(
                                       title: Text('Error'),
                                       content:
-                                          Text(jsonDecode(respStr)["message"]),
+                                          Text(jsonDecode(res.body)["message"]),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
