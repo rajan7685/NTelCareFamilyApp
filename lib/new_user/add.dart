@@ -996,27 +996,30 @@ class _AddWidgetState extends State<Add> {
                             } else {
                               print(FFAppState().AccountId);
                               List<int> imageBytes = image.readAsBytesSync();
-
                               String base64Image = base64Encode(imageBytes);
                               //BASE64.encode(imageBytes);
 
                               final String url =
                                   "http://18.208.148.208:4000/add/member";
                               final res =
-                                  await http.post(Uri.parse(url), body: {
+                                  await http.post(Uri.parse(url), headers: {
+                                "Authorization": "Bearer ${FFAppState().Token}"
+                              }, body: {
                                 "fname": textController1.text,
                                 "lname": textController2.text,
-                                "email": "priya@gmail.com",
+                                "email": "hong@gmail.com",
                                 "mobile": textController3.text,
                                 "relation": dropDownValue,
-                                "executive": "display",
+                                "executive": display.toString(),
                                 "m_acc_id": FFAppState().AccountId,
+                                "age": "80",
+                                "gender": "Female",
                                 "address": "123456",
                                 "zipcode": "123456",
-                                "live_video": "displayLive",
-                                "chats": "displayChat",
-                                "view_video": "displayView",
-                                "profile": base64Image
+                                "profile": base64Image.toString(),
+                                "live_video": displayLive.toString(),
+                                "chats": displayChat.toString(),
+                                "view_video": displayView.toString(),
                               });
                               /*   var stream =
                                   new http.ByteStream(image.openRead());
@@ -1061,6 +1064,7 @@ class _AddWidgetState extends State<Add> {
                               final respStr =
                                   await response.stream.bytesToString();
                               // final result = jsonDecode(res.body);*/
+                              print(res.statusCode);
                               if (res.statusCode == 200) {
                                 print("uploaded");
 
@@ -1078,8 +1082,7 @@ class _AddWidgetState extends State<Add> {
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
                                       title: Text('Error'),
-                                      content:
-                                          Text(jsonDecode(res.body)["message"]),
+                                      content: Text("Error"),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
