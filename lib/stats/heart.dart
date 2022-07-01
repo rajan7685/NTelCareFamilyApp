@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -14,17 +16,19 @@ class StatsWidget extends StatefulWidget {
   _StatsWidgetState createState() => _StatsWidgetState();
 }
 
+var heartrate = null;
+
 class _StatsWidgetState extends State<StatsWidget> {
-  static final List<HeartStat> heartStat = [
-    HeartStat("10:00", 50, Color(0xFF00B89F)),
-    HeartStat("11:00", 60, Color(0xFF00B89F)),
-    HeartStat("12:00", 50, Color(0xFF00B89F)),
-    HeartStat("13:00", 70, Color(0xFF00B89F)),
-    HeartStat("14:00", 80, Color(0xFF00B89F)),
-    HeartStat("15:00", 40, Color(0xFF00B89F)),
-    HeartStat("16:00", 50, Color(0xFF00B89F)),
-    HeartStat("17:00", 80, Color(0xFF00B89F)),
-    HeartStat("18:00", 70, Color(0xFF00B89F)),
+  static List<HeartStat> heartrate = [
+    new HeartStat(10, 0, Colors.red),
+    new HeartStat(11, 60, Colors.red),
+    new HeartStat(12, 50, Colors.red),
+    new HeartStat(13, 70, Colors.red),
+    new HeartStat(14, 80, Colors.red),
+    new HeartStat(15, 40, Colors.red),
+    new HeartStat(16, 50, Colors.red),
+    new HeartStat(17, 80, Colors.red),
+    new HeartStat(18, 80, Colors.red),
   ];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -34,9 +38,9 @@ class _StatsWidgetState extends State<StatsWidget> {
   DateTime dateTime;
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<HeartStat, String>> heart = [
+    List<charts.Series<HeartStat, int>> heart = [
       charts.Series(
-          data: heartStat,
+          data: heartrate,
           id: "Heart Rate",
           domainFn: (HeartStat pops, _) => pops.Time,
           measureFn: (HeartStat pops, _) => pops.Stat,
@@ -317,7 +321,29 @@ class _StatsWidgetState extends State<StatsWidget> {
                           decoration: BoxDecoration(
                               color: Color(0xFF272E36),
                               borderRadius: BorderRadius.circular(10)),
-                          child: charts.BarChart(heart),
+                          child: charts.LineChart(
+                            heart,
+                            domainAxis: new charts.NumericAxisSpec(
+                                tickProviderSpec:
+                                    charts.BasicNumericTickProviderSpec(
+                                        zeroBound: false),
+                                renderSpec: new charts.SmallTickRendererSpec(
+                                  labelStyle: new charts.TextStyleSpec(
+                                      fontSize: 8, // size in Pts.
+                                      color: charts.MaterialPalette.white),
+                                )),
+                            primaryMeasureAxis: new charts.NumericAxisSpec(
+                                renderSpec: new charts.GridlineRendererSpec(
+                              labelStyle: new charts.TextStyleSpec(
+                                  fontSize: 8, // size in Pts.
+                                  color: charts.MaterialPalette.white),
+                            )),
+
+                            // domainAxis: charts.OrdinalAxisSpec(
+                            //     renderSpec: charts.SmallTickRendererSpec(
+                            //         labelStyle: new charts.TextStyleSpec(
+                            //             color: charts.MaterialPalette.white))),
+                          ),
                         )
                         // Image.asset(
                         //   'assets/images/heartRate.png',
@@ -524,7 +550,7 @@ class _StatsWidgetState extends State<StatsWidget> {
 }
 
 class HeartStat {
-  final String Time;
+  final int Time;
   final int Stat;
   final Color line;
 
