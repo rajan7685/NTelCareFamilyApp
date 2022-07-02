@@ -27,6 +27,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   bool switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
+  dynamic inf;
   @override
   void initState() {
     // TODO: implement initState
@@ -63,7 +64,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                   child: FutureBuilder<dynamic>(
                     future: SList,
                     builder: (context, snapshot) {
-                      final inf = snapshot.data;
+                      inf = snapshot.data;
                       //  print(snapshot.data['message']);
                       if (!snapshot.hasData) {
                         return Text(
@@ -475,7 +476,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => EditCopy2Widget(),
+                                      builder: (context) =>
+                                          EditCopy2Widget(info: inf),
                                     ),
                                   );
                                 },
