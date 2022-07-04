@@ -32,7 +32,7 @@ class ModifiedLandingPageWidget extends StatefulWidget {
 class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
-  var selectedId = null;
+  var selectedId = "6299544d88b3bba4d3df12d4";
   int isSelected = 0;
   var selList = Colors.red;
 

@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
@@ -7,6 +9,7 @@ import 'package:n_tel_care_family_app/profile/profile_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import '../backend/api_requests/api_calls.dart';
+import 'package:http/http.dart' as http;
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -16,10 +19,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditCopy2Widget extends StatefulWidget {
-  const EditCopy2Widget({Key key}) : super(key: key);
+  dynamic info;
+  EditCopy2Widget({Key key, @required this.info}) : super(key: key);
 
   @override
-  _EditCopy2WidgetState createState() => _EditCopy2WidgetState();
+  _EditCopy2WidgetState createState() => _EditCopy2WidgetState(info);
 }
 
 class _EditCopy2WidgetState extends State<EditCopy2Widget> {
@@ -31,14 +35,17 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
   bool switchListTileValue;
   bool checkboxListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  dynamic info;
+  _EditCopy2WidgetState(this.info);
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController(text: 'Kenny');
-    textController2 = TextEditingController(text: 'Alter');
-    textController3 = TextEditingController(text: '967583222');
-    textController4 = TextEditingController(text: 'kennyAlter@gmail.com');
+    print(info["member"]["fname"]);
+    textController1 = TextEditingController(text: info["member"]["fname"]);
+    textController2 = TextEditingController(text: info["member"]["lname"]);
+    textController3 = TextEditingController(text: info["member"]["phone"]);
+    textController4 = TextEditingController(text: info["member"]["email"]);
   }
 
   var color1 = Color(0xFF00B89F);
@@ -50,6 +57,9 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
   bool display = false;
   bool displayY = true;
   bool displayN = false;
+  bool displayLive = false;
+  bool displayChat = false;
+  bool displayView = false;
   File image;
   Future<File> savePermanently(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
@@ -225,7 +235,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'First Name',
-                                hintText: '[Some hint text...]',
+                                hintText: 'Enter First Name',
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
@@ -273,7 +283,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Last Name',
-                                hintText: '[Some hint text...]',
+                                hintText: 'Enter Last Name',
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
@@ -321,7 +331,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Phone Number',
-                                hintText: '[Some hint text...]',
+                                hintText: 'Enter Phone Number',
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
@@ -370,6 +380,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Email',
+                                hintText: "Enter E-mail Address",
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
@@ -476,8 +487,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                 child: Stack(
                                   children: [
                                     if (image == null)
-                                      SvgPicture.asset(
-                                        'assets/images/man.svg',
+                                      Image.network(
+                                        info["member"]["profile"],
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover,
@@ -795,8 +806,10 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                           setState(() {
                                             if (color == color1) {
                                               color = color2;
+                                              displayLive = false;
                                             } else {
                                               color = color1;
+                                              displayLive = true;
                                             }
                                           });
                                         },
@@ -849,8 +862,10 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                           setState(() {
                                             if (colorA == color1) {
                                               colorA = color2;
+                                              displayView = false;
                                             } else {
                                               colorA = color1;
+                                              displayView = false;
                                             }
                                           });
                                         },
@@ -903,8 +918,10 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                         setState(() {
                                           if (colorB == color1) {
                                             colorB = color2;
+                                            displayChat = false;
                                           } else {
                                             colorB = color1;
+                                            displayChat = true;
                                           }
                                         });
                                       },
@@ -945,8 +962,77 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ],
                         ),
                       FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          // if (textController1.text == "" ||
+                          //     textController2.text == "" ||
+                          //     textController3.text == "" ||
+                          //     textController4.text == "" ||
+                          //     dropDownValue == null ||
+                          //     image == null) {
+                          //   Fluttertoast.showToast(
+                          //       msg: "All fields are necessary to fill",
+                          //       toastLength: Toast.LENGTH_SHORT,
+                          //       gravity: ToastGravity.CENTER,
+                          //       timeInSecForIosWeb: 5,
+                          //       backgroundColor: Colors.red,
+                          //       textColor: Colors.black,
+                          //       fontSize: 14.0);
+                          // } else
+                          {
+                            List<int> imagebytes = image.readAsBytesSync();
+                            String base64Image = base64Encode(imagebytes);
+                            print(base64Image);
+
+                            final String url =
+                                "http://18.208.148.208:4000/edit/profile/member";
+                            final res =
+                                await http.post(Uri.parse(url), headers: {
+                              'Authorization': 'Bearer ${FFAppState().Token}',
+                            }, body: {
+                              "fname": textController1.text,
+                              "lname": textController2.text,
+                              "email": textController3.text,
+                              "mobile": textController4.text,
+                              "relation": "son",
+                              "address": "kolhapur",
+                              "zipcode": "243122",
+                              "live_video": "true",
+                              "chat": "true",
+                              "view_video": "true",
+                              "executive": "true",
+                              "profile": base64Image.trim().toString(),
+                            });
+                            print(res.statusCode);
+                            if (res.statusCode == 200) {
+                              print("uploaded");
+
+                              Fluttertoast.showToast(
+                                  msg: "uploaded",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.green,
+                                  textColor: Colors.black,
+                                  fontSize: 14.0);
+                            } else {
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text('Error'),
+                                    content: Text("Error"),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                          }
                         },
                         text: 'Save',
                         options: FFButtonOptions(

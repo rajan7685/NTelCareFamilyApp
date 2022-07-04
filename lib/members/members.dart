@@ -5,6 +5,7 @@ import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/edit/edit_executive.dart';
 import 'package:n_tel_care_family_app/edit/edit_member.dart';
 import 'package:n_tel_care_family_app/new_user/add.dart';
+import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
 
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -23,6 +24,13 @@ class MembersWidget extends StatefulWidget {
 class _MembersWidgetState extends State<MembersWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> MList, SList;
+  int isSelected = 0;
+
+  _isSelected(int index) {
+    setState(() {
+      isSelected = index;
+    });
+  }
 
   @override
   void initState() {
@@ -208,16 +216,27 @@ class _MembersWidgetState extends State<MembersWidget> {
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          Container(
-                                            width: 70,
-                                            height: 70,
-                                            clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Image.network(
-                                              inf[index]["profile"],
-                                              fit: BoxFit.cover,
+                                          InkWell(
+                                            onTap: () {
+                                              // setState(() {
+                                              //   selectedId = id;
+                                              // });
+                                              _isSelected(index);
+                                            },
+                                            child: Container(
+                                              width: 70,
+                                              height: 70,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: isSelected == true
+                                                    ? Colors.red
+                                                    : Colors.black,
+                                              ),
+                                              child: Image.network(
+                                                inf[index]["profile"],
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                           Padding(
@@ -255,8 +274,14 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'Montserrat',
-                                                                  color: Color(
-                                                                      0xFF00B89F),
+                                                                  color: isSelected !=
+                                                                              null &&
+                                                                          isSelected ==
+                                                                              index
+                                                                      ? Color(
+                                                                          0xFF00B89F)
+                                                                      : Color(
+                                                                          0xFF535353),
                                                                   fontSize: 14,
                                                                   fontWeight:
                                                                       FontWeight
@@ -276,7 +301,11 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                               .fromSTEB(
                                                                   0, 2, 0, 0),
                                                       child: Text(
-                                                        inf[index]["gender"],
+                                                        "Age " +
+                                                            inf[index]["age"] +
+                                                            ", " +
+                                                            inf[index]
+                                                                ["gender"],
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -284,8 +313,14 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'Montserrat',
-                                                                  color: Color(
-                                                                      0xFFE5E5E5),
+                                                                  color: isSelected !=
+                                                                              null &&
+                                                                          isSelected ==
+                                                                              index
+                                                                      ? Color(
+                                                                          0xFFE5E5E5)
+                                                                      : Color(
+                                                                          0xFF535353),
                                                                   fontSize: 12,
                                                                   fontWeight:
                                                                       FontWeight
@@ -295,34 +330,51 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                     ),
                                                   ],
                                                 ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0, 6, 0, 0),
-                                                      child: Text(
-                                                        'More Info',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  color: Color(
-                                                                      0xFFE5E5E5),
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w200,
-                                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    await Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                EditSeniorsWidget(
+                                                                    data: snapshot
+                                                                            .data[
+                                                                        index])));
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 6, 0, 0),
+                                                        child: Text(
+                                                          'More Info',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Montserrat',
+                                                                color: isSelected !=
+                                                                            null &&
+                                                                        isSelected ==
+                                                                            index
+                                                                    ? Colors
+                                                                        .blue
+                                                                    : Color(
+                                                                        0xFF535353),
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w200,
+                                                              ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ],
                                             ),
