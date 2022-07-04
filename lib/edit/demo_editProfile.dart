@@ -36,12 +36,15 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
   bool checkboxListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   dynamic info;
+  var profile = null;
   _EditCopy2WidgetState(this.info);
 
   @override
   void initState() {
     super.initState();
     print(info["member"]["fname"]);
+    profile = info["member"]["profile"];
+    print(profile);
     textController1 = TextEditingController(text: info["member"]["fname"]);
     textController2 = TextEditingController(text: info["member"]["lname"]);
     textController3 = TextEditingController(text: info["member"]["phone"]);
@@ -487,12 +490,13 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                 child: Stack(
                                   children: [
                                     if (image == null)
-                                      Image.network(
-                                        info["member"]["profile"],
+                                      ClipOval(
+                                          child: Image.network(
+                                        profile,
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover,
-                                      )
+                                      ))
                                     else
                                       //Image.asset(Image.file(image!),width: 100,height: 100,fit: BoxFit.cover)
                                       ClipOval(
@@ -963,47 +967,55 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                         ),
                       FFButtonWidget(
                         onPressed: () async {
-                          // if (textController1.text == "" ||
-                          //     textController2.text == "" ||
-                          //     textController3.text == "" ||
-                          //     textController4.text == "" ||
-                          //     dropDownValue == null ||
-                          //     image == null) {
-                          //   Fluttertoast.showToast(
-                          //       msg: "All fields are necessary to fill",
-                          //       toastLength: Toast.LENGTH_SHORT,
-                          //       gravity: ToastGravity.CENTER,
-                          //       timeInSecForIosWeb: 5,
-                          //       backgroundColor: Colors.red,
-                          //       textColor: Colors.black,
-                          //       fontSize: 14.0);
-                          // } else
-                          {
-                            List<int> imagebytes = image.readAsBytesSync();
-                            String base64Image = base64Encode(imagebytes);
-                            print(base64Image);
+                          if (textController1.text == "" ||
+                              textController2.text == "" ||
+                              textController3.text == "" ||
+                              textController4.text == "" ||
+                              dropDownValue == null) {
+                            Fluttertoast.showToast(
+                                msg: "All fields are necessary to fill",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 5,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.black,
+                                fontSize: 14.0);
+                          } else {
+                            // List<int> imagebytes = image.readAsBytesSync();
+                            // String base64Image = base64Encode(imagebytes);
+                            // print(base64Image);
 
                             final String url =
                                 "http://18.208.148.208:4000/edit/profile/member";
-                            final res =
-                                await http.post(Uri.parse(url), headers: {
-                              'Authorization': 'Bearer ${FFAppState().Token}',
-                            }, body: {
-                              "fname": textController1.text,
-                              "lname": textController2.text,
-                              "email": textController3.text,
-                              "mobile": textController4.text,
-                              "relation": "son",
-                              "address": "kolhapur",
-                              "zipcode": "243122",
-                              "live_video": "true",
-                              "chat": "true",
-                              "view_video": "true",
-                              "executive": "true",
-                              "profile": base64Image.trim().toString(),
-                            });
-                            print(res.statusCode);
-                            if (res.statusCode == 200) {
+                            var res = new http.MultipartRequest(
+                                'POST', Uri.parse(url));
+
+                            res.headers['Authorization'] =
+                                "Bearer ${FFAppState().Token}";
+
+                            res.fields["fname"] = textController1.text;
+                            res.fields["lname"] = textController2.text;
+                            res.fields["mobile"] = textController3.text;
+                            res.fields["email"] = textController4.text;
+                            res.fields["relation"] = dropDownValue;
+                            res.fields["address"] = "kolhapur";
+                            res.fields["zipcode"] = "243122";
+                            res.fields["live_video"] = "true";
+                            res.fields["chat"] = "true";
+                            res.fields["view_video"] = "true";
+                            res.fields["executive"] = "true";
+                            profile == null
+                                ? res.files.add(
+                                    await http.MultipartFile.fromPath(
+                                        "profile", image.path))
+                                : res.files.add(http.MultipartFile.fromString(
+                                    "profile", profile));
+
+                            var response = await res.send();
+
+                            print(response.statusCode);
+                            final resp = await response.stream.bytesToString();
+                            if (response.statusCode == 200) {
                               print("uploaded");
 
                               Fluttertoast.showToast(

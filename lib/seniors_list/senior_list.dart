@@ -185,15 +185,7 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                               final inf = snapshot.data;
 
                               if (!snapshot.hasData) {
-                                return Text(
-                                  "Loading",
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFFE5E5E5),
-                                          fontSize: 20),
-                                );
+                                return CircularProgressIndicator();
                               } else {
                                 return ListView.builder(
                                     padding: EdgeInsets.zero,
