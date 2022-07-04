@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:path_provider/path_provider.dart';
@@ -816,12 +817,13 @@ class _AddWidgetState extends State<Add> {
                                         child: InkWell(
                                           onTap: () async {
                                             setState(() {
-                                              if (color == color1) {
+                                              if (color == color1 &&
+                                                  displayLive == displayY) {
                                                 color = color2;
-                                                displayLive = false;
+                                                displayLive = displayN;
                                               } else {
                                                 color = color1;
-                                                displayLive = true;
+                                                displayLive = displayY;
                                               }
                                             });
                                           },
@@ -868,12 +870,13 @@ class _AddWidgetState extends State<Add> {
                                       child: InkWell(
                                         onTap: () async {
                                           setState(() {
-                                            if (colorA == color1) {
+                                            if (colorA == color1 &&
+                                                displayView == displayY) {
                                               colorA = color2;
-                                              displayView = false;
+                                              displayView = displayN;
                                             } else {
                                               colorA = color1;
-                                              displayView = true;
+                                              displayView = displayY;
                                             }
                                           });
                                         },
@@ -924,12 +927,13 @@ class _AddWidgetState extends State<Add> {
                                     child: InkWell(
                                       onTap: () async {
                                         setState(() {
-                                          if (colorB == color1) {
+                                          if (colorB == color1 &&
+                                              displayChat == displayY) {
                                             colorB = color2;
-                                            displayChat = false;
+                                            displayChat = displayN;
                                           } else {
                                             colorB = color1;
-                                            displayChat = true;
+                                            displayChat = displayY;
                                           }
                                         });
                                       },
@@ -995,13 +999,16 @@ class _AddWidgetState extends State<Add> {
                                   fontSize: 14.0);
                             } else {
                               print(FFAppState().AccountId);
-                              List<int> imageBytes = image.readAsBytesSync();
-                              String base64Image = base64Encode(imageBytes);
+                              print(displayLive.toString());
+                              print(displayChat.toString());
+                              print(displayView.toString());
+                              // List<int> imageBytes = image.readAsBytesSync();
+                              // String base64Image = base64Encode(imageBytes);
                               //BASE64.encode(imageBytes);
 
                               final String url =
                                   "http://18.208.148.208:4000/add/member";
-                              final res =
+                              /* final res =
                                   await http.post(Uri.parse(url), headers: {
                                 "Authorization": "Bearer ${FFAppState().Token}"
                               }, body: {
@@ -1016,39 +1023,49 @@ class _AddWidgetState extends State<Add> {
                                 "gender": "Female",
                                 "address": "123456",
                                 "zipcode": "123456",
-                                "profile": base64Image.toString(),
-                                "live_video": displayLive.toString(),
+                                "profile": image,
+                                "live_video": true.toString(),
                                 "chats": displayChat.toString(),
                                 "view_video": displayView.toString(),
-                              });
-                              /*   var stream =
-                                  new http.ByteStream(image.openRead());
-                              stream.cast();
-                              var length = await image.length();*/
+                              });*/
+                              print(image.path);
+                              //  var stream =
+                              //     new http.ByteStream(image.openRead());
+                              // stream.cast();
 
-                              /*  var res1 = new http.MultipartRequest(
+                              // var length = await image.length();
+
+                              var res1 = new http.MultipartRequest(
                                   'POST', Uri.parse(url));
-                              res1.headers.addAll({
-                                'Authorization': 'Bearer ${FFAppState().Token}'
-                              });
+
+                              res1.headers['Authorization'] =
+                                  "Bearer ${FFAppState().Token}";
                               res1.fields['fname'] = textController1.text;
                               res1.fields['lname'] = textController2.text;
-                              res1.fields['email'] = "priya@gmail.com";
+                              res1.fields['email'] = "gate@gmail.com";
                               res1.fields['mobile'] = textController3.text;
                               res1.fields['relation'] = dropDownValue;
-                              res1.fields['executive'] = "display";
+                              res1.fields['executive'] =
+                                  FFAppState().Chattoggle5.toString();
                               res1.fields['m_acc_id'] = FFAppState().AccountId;
-                              res1.fields['password'] = "123456";
-                              res1.fields['confirm_password'] = "123456";
+                              res1.fields['age'] = "123456";
+                              res1.fields['gender'] = "123456";
                               res1.fields['address'] = "123456";
                               res1.fields['zipcode'] = "123456";
-                              res1.fields['live_video'] = "123456";
-                              res1.fields['chats'] = "123456";
-                              res1.fields['view_video'] = "123456";
-                              //// var multiport = new http.MultipartFile(
-                              // 'profile', stream, length);
-                              res1.files.add(http.MultipartFile.fromString(
-                                  'profile', image.path));
+                              res1.files.add(await http.MultipartFile.fromPath(
+                                  "profile", image.path));
+                              res1.fields['live_video'] =
+                                  displayLive.toString();
+                              res1.fields['chats'] = displayChat.toString();
+                              res1.fields['view_video'] =
+                                  displayView.toString();
+
+                              // ignore: unnecessary_statements
+                              //List<int> imageBytes = image.readAsBytesSync();
+                              // res1.files.add(http.MultipartFile.fromBytes(
+                              // 'profile', imageBytes));
+                              //res1.files.add.(http.MultipartFile.fromPath('profile', image.path));
+
                               var response = await res1.send();
                               // final result = jsonDecode(res.body);
                               // print(data?.jsonBody[0].runtimeType);
@@ -1064,8 +1081,8 @@ class _AddWidgetState extends State<Add> {
                               final respStr =
                                   await response.stream.bytesToString();
                               // final result = jsonDecode(res.body);*/
-                              print(res.statusCode);
-                              if (res.statusCode == 200) {
+                              print(response.statusCode);
+                              if (response.statusCode == 200) {
                                 print("uploaded");
 
                                 Fluttertoast.showToast(
