@@ -298,6 +298,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               builder: (alertDialogContext) {
                                 return AlertDialog(
                                   title: Text('Error'),
+                                  backgroundColor: Colors.red,
                                   content: Text(result["message"]),
                                   actions: [
                                     TextButton(
@@ -318,11 +319,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                           width: double.infinity,
                           height: 50,
                           color: Color(0xFF00B89F),
-                          textStyle:
-                              FlutterFlowTheme.of(context).subtitle2.override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                  ),
+                          textStyle: FlutterFlowTheme.of(context)
+                              .subtitle2
+                              .override(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                           borderSide: BorderSide(
                             color: Colors.transparent,
                             width: 1,

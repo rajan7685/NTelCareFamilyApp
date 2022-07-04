@@ -58,10 +58,12 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     textController1 = TextEditingController(text: data["fname"]);
     textController2 = TextEditingController(text: data["lname"]);
     textController3 = TextEditingController(text: data["gender"]);
-    textController4 = TextEditingController(text: '5.5ft');
-    textController5 = TextEditingController(text: '60 lbs');
-    textController6 = TextEditingController(text: data["id"]);
+    textController4 = TextEditingController(text: data['height']);
+    textController5 = TextEditingController(text: data['weight'] + " lbs");
+    textController6 = TextEditingController(text: data["phone"]);
     textController7 = TextEditingController(text: data["email"]);
+    textController8 = TextEditingController(text: data['address']);
+    textController9 = TextEditingController(text: data["zipcode"]);
   }
 
   File image;

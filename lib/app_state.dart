@@ -19,7 +19,6 @@ class FFAppState {
 
   SharedPreferences prefs;
 
-  String Steps = 'Data Not found';
   String id = "";
   String hear;
   String AccessToken = '';
@@ -28,7 +27,7 @@ class FFAppState {
   String ForgotMessage = '';
   String VerificationMessage = '';
   String ResetMessage = '';
-  String Heart = 'Missing';
+
   String Mobile = '';
   String First_Name = '';
   String Last_Name = '';
@@ -42,6 +41,18 @@ class FFAppState {
   String IsLiveView = '';
   bool Chattoggle = false;
   String MemberId = '';
+
+  String heart_rate = '';
+  String blood_oxygen = '';
+  String Sleep = "";
+  String Steps = ' ';
+  String Calories = '';
+  String blood_sys = '';
+  String blood_dia = '';
+  String battery_level = '';
+  String Pill_box = '';
+  String door = '';
+  String shower = '';
 
   bool _Chattoggle2 = false;
   bool get Chattoggle2 => _Chattoggle2;

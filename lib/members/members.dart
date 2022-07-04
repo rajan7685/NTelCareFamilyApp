@@ -421,17 +421,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                         future: MList,
                                         builder: (context, snapshot) {
                                           if (!snapshot.hasData) {
-                                            return Text(
-                                              "Loading",
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText1
-                                                      .override(
-                                                          fontFamily: 'Poppins',
-                                                          color:
-                                                              Color(0xFFE5E5E5),
-                                                          fontSize: 20),
-                                            );
+                                            return CircularProgressIndicator();
                                           } else {
                                             return Column(
                                               children: [
