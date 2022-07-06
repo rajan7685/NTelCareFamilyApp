@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -35,7 +36,7 @@ class _StatsWidgetState extends State<StatsWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // HeartStatus = fetchStat();
+    HeartStatus = fetchStat();
   }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -553,6 +554,12 @@ class _StatsWidgetState extends State<StatsWidget> {
         ),
       ),
     );
+  }
+
+  Future fetchStat() async {
+    final ApiCallResponse HRate = await GetHrate.call();
+    print(HRate.statusCode);
+    print(HRate.jsonBody["health_status"]);
   }
 }
 
