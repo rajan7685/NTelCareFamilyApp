@@ -608,7 +608,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                                   mainAxisSize: MainAxisSize.max,
                                                                                                   children: [
                                                                                                     Text(
-                                                                                                      snapshot.data[index]["phone"],
+                                                                                                      snapshot.data[index]["mobile"],
                                                                                                       style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                                             fontFamily: 'Montserrat',
                                                                                                             color: Color(0xFFAFAFAF),
@@ -768,7 +768,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           children: [
                                                                                             Text(
-                                                                                              snapshot.data[index]["phone"],
+                                                                                              snapshot.data[index]["mobile"],
                                                                                               style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                                     fontFamily: 'Montserrat',
                                                                                                     color: Color(0xFFAFAFAF),
