@@ -1005,6 +1005,10 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                             res.fields["chat"] = "true";
                             res.fields["view_video"] = "true";
                             res.fields["executive"] = "true";
+                            res.fields["country"] = "India";
+                            res.fields["state"] = "Himachal";
+                            res.fields["city"] = "Mandi";
+
                             /*  profile == null
                                 ? res.files.add(
                                     await http.MultipartFile.fromPath(
@@ -1040,7 +1044,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                               print("uploaded");
 
                               Fluttertoast.showToast(
-                                  msg: "uploaded",
+                                  msg: "Updated Successfully",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.CENTER,
                                   timeInSecForIosWeb: 5,

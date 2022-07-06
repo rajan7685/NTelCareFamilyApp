@@ -1289,9 +1289,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
 
                               res.fields["fname"] = textController1.text;
                               res.fields["lname"] = textController2.text;
-                              res.fields["mobile"] = textController3.text;
-                              res.fields["email"] = textController6.text;
-                              res.fields["gender"] = textController7.text;
+                              res.fields["mobile"] = textController6.text;
+                              res.fields["email"] = textController7.text;
+                              res.fields["gender"] = textController3.text;
                               res.fields["height"] = textController4.text;
                               res.fields["weight"] = textController5.text;
                               res.fields["address"] = textController8.text;
@@ -1300,6 +1300,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                               res.fields["age"] = "89";
                               res.fields["dob"] =
                                   DateFormat('dd-MM-yyyy').format(selectedDate);
+                              res.fields["country"] = countryValue;
+                              res.fields["state"] = stateValue;
+                              res.fields["city"] = cityValue;
 
                               /*profile == null
                                   ? res.files.add(
