@@ -1340,7 +1340,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                 print("uploaded");
 
                                 Fluttertoast.showToast(
-                                    msg: "uploaded",
+                                    msg: "Updated Successfully!",
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 5,
