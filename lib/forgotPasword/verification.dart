@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:n_tel_care_family_app/app_state.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
@@ -26,6 +26,39 @@ class _Verification extends State<verification> {
   final TextEditingController _four = TextEditingController();
   final TextEditingController _five = TextEditingController();
   final TextEditingController _six = TextEditingController();
+  Timer _timer;
+  int _start = 10;
+  bool showtimer = true;
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+            showtimer = false;
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,85 +163,93 @@ class _Verification extends State<verification> {
                       OtpInput(_six, false),
                     ],
                   ),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 0, 20),
-                      child: Text(
-                        "Didn't receive a code?",
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Montserrat',
-                              color: Color(0xFFE5E5E5),
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400,
-                            ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 20, 20),
-                      child: InkWell(
-                        onTap: () async {
-                          final String url =
-                              "http://18.208.148.208:4000/forget/member";
-                          final res = await http.post(Uri.parse(url), body: {
-                            "mobile": FFAppState().Mobile,
-                          });
-                          final result = jsonDecode(res.body);
-                          if (res.statusCode == 200) {
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            // SnackBar(content: Text(result["message"])),
-                            // );
-                            Fluttertoast.showToast(
-                                msg: result["message"],
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 5,
-                                backgroundColor: Colors.green,
-                                textColor: Colors.black,
-                                fontSize: 14.0);
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => verification(),
-                              ),
-                            );
-                          } else {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Error'),
-                                  content: Text(result["message"]),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-
-                          setState(() {});
-                        },
+                  if (showtimer == false)
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 10, 0, 20),
                         child: Text(
-                          "Resend code",
+                          "Didn't receive a code?",
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Montserrat',
                                     color: Color(0xFFE5E5E5),
                                     fontSize: 13,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w400,
                                   ),
                         ),
                       ),
-                    )
-                  ]),
-                  Container(
-                    width: 50,
-                    height: 50,
-                  ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 20, 20),
+                        child: InkWell(
+                          onTap: () async {
+                            final String url =
+                                "http://18.208.148.208:4000/forget/member";
+                            final res = await http.post(Uri.parse(url), body: {
+                              "mobile": FFAppState().Mobile,
+                            });
+                            final result = jsonDecode(res.body);
+                            if (res.statusCode == 200) {
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              // SnackBar(content: Text(result["message"])),
+                              // );
+                              Fluttertoast.showToast(
+                                  msg: result["message"],
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.green,
+                                  textColor: Colors.black,
+                                  fontSize: 14.0);
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => verification(),
+                                ),
+                              );
+                            } else {
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text('Error'),
+                                    content: Text(result["message"]),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+
+                            setState(() {});
+                          },
+                          child: Text(
+                            "Resend code",
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Montserrat',
+                                      color: Color(0xFFE5E5E5),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                          ),
+                        ),
+                      )
+                    ]),
+                  if (showtimer == true)
+                    Text(
+                      "OTP is vaild for : $_start",
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Montserrat',
+                            color: Color(0xFFE5E5E5),
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 20),
                     child: FFButtonWidget(
