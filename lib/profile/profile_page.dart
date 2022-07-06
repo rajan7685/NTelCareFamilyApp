@@ -262,7 +262,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 5, 0, 0),
                                     child: Text(
-                                      'Age 66, Female',
+                                      snapshot.data["member"]["age"] +
+                                          "," +
+                                          snapshot.data["member"]["sex"],
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -319,7 +321,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   Align(
                                     alignment: AlignmentDirectional(0.08, 0.71),
                                     child: Text(
-                                      snapshot.data["member"]["phone"],
+                                      snapshot.data["member"]["mobile"],
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
