@@ -262,9 +262,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 5, 0, 0),
                                     child: Text(
-                                      snapshot.data["member"]["age"] +
-                                          "," +
-                                          snapshot.data["member"]["sex"],
+                                      'Age 66, Female',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -804,6 +802,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   Future fetchSList() async {
     final ApiCallResponse SList = await GetProfile.call();
     print(SList.statusCode);
+    print(SList.jsonBody);
     return SList.jsonBody;
   }
 }
