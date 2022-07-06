@@ -477,7 +477,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                         (BuildContext
                                                                                 context,
                                                                             int index) {
-                                                                      final ex =
+                                                                      bool ex =
                                                                           snapshot.data[index]
                                                                               [
                                                                               "executive"];

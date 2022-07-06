@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
@@ -47,7 +48,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
     print(profile);
     textController1 = TextEditingController(text: info["member"]["fname"]);
     textController2 = TextEditingController(text: info["member"]["lname"]);
-    textController3 = TextEditingController(text: info["member"]["phone"]);
+    textController3 = TextEditingController(text: info["member"]["mobile"]);
     textController4 = TextEditingController(text: info["member"]["email"]);
   }
 
@@ -1004,13 +1005,37 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                             res.fields["chat"] = "true";
                             res.fields["view_video"] = "true";
                             res.fields["executive"] = "true";
-                            profile == null
+                            res.fields["country"] = "India";
+                            res.fields["state"] = "Himachal";
+                            res.fields["city"] = "Mandi";
+
+                            /*  profile == null
                                 ? res.files.add(
                                     await http.MultipartFile.fromPath(
                                         "profile", image.path))
                                 : res.files.add(http.MultipartFile.fromString(
                                     "profile", profile));
+*/
 
+                            final http.Response responseData =
+                                await http.get(Uri.parse(profile));
+                            Uint8List uint8list = responseData.bodyBytes;
+                            var buffer = uint8list.buffer;
+                            ByteData byteData = ByteData.view(buffer);
+                            var tempDir = await getTemporaryDirectory();
+                            File file = await File('${tempDir.path}/img')
+                                .writeAsBytes(buffer.asUint8List(
+                                    byteData.offsetInBytes,
+                                    byteData.lengthInBytes));
+                            print(file.path);
+                            // File imageFile = File(profile.toString());
+                            image == null
+                                ? res.files.add(
+                                    await http.MultipartFile.fromPath(
+                                        "profile", file.path))
+                                : res.files.add(
+                                    await http.MultipartFile.fromPath(
+                                        "profile", image.path));
                             var response = await res.send();
 
                             print(response.statusCode);
@@ -1019,7 +1044,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                               print("uploaded");
 
                               Fluttertoast.showToast(
-                                  msg: "uploaded",
+                                  msg: "Updated Successfully",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.CENTER,
                                   timeInSecForIosWeb: 5,

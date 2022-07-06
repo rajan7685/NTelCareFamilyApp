@@ -1,5 +1,6 @@
 import 'dart:io';
-
+import 'dart:typed_data';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
@@ -13,8 +14,9 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'dart:math';
 
 class EditSeniorsWidget extends StatefulWidget {
   dynamic data;
@@ -50,6 +52,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   DateTime selectedDate = DateTime.now();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   dynamic data;
+  var profile = null;
   _EditSeniorsWidgetState(this.data);
 
   @override
@@ -60,10 +63,12 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     textController3 = TextEditingController(text: data["gender"]);
     textController4 = TextEditingController(text: data['height']);
     textController5 = TextEditingController(text: data['weight'] + " lbs");
-    textController6 = TextEditingController(text: data["phone"]);
+    textController6 = TextEditingController(text: data["mobile"]);
     textController7 = TextEditingController(text: data["email"]);
     textController8 = TextEditingController(text: data['address']);
     textController9 = TextEditingController(text: data["zipcode"]);
+    profile = data["profile"];
+    FFAppState().SeniorId = data["id"];
   }
 
   File image;
@@ -1035,12 +1040,13 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                 child: Stack(
                                   children: [
                                     if (image == null)
-                                      SvgPicture.asset(
-                                        'assets/images/man.svg',
+                                      ClipOval(
+                                          child: Image.network(
+                                        profile,
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover,
-                                      )
+                                      ))
                                     else
                                       //Image.asset(Image.file(image!),width: 100,height: 100,fit: BoxFit.cover)
                                       ClipOval(
@@ -1249,8 +1255,117 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 38, 0, 0),
                         child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
+                          onPressed: () async {
+                            if (textController1.text == "" ||
+                                textController2.text == "" ||
+                                textController3.text == "" ||
+                                textController4.text == "" ||
+                                textController5.text == "" ||
+                                textController6.text == "" ||
+                                textController7.text == "" ||
+                                textController8.text == "" ||
+                                textController9.text == "") {
+                              Fluttertoast.showToast(
+                                  msg: "All fields are necessary to fill",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.black,
+                                  fontSize: 14.0);
+                            } else {
+                              // List<int> imagebytes = image.readAsBytesSync();
+                              // String base64Image = base64Encode(imagebytes);
+                              // print(base64Image);
+
+                              final String url =
+                                  "http://18.208.148.208:4000/edit/senior/${FFAppState().SeniorId}";
+                              var res = new http.MultipartRequest(
+                                  'POST', Uri.parse(url));
+
+                              res.headers['Authorization'] =
+                                  "Bearer ${FFAppState().Token}";
+                              res.fields["senior_id"] = FFAppState().SeniorId;
+
+                              res.fields["fname"] = textController1.text;
+                              res.fields["lname"] = textController2.text;
+                              res.fields["mobile"] = textController6.text;
+                              res.fields["email"] = textController7.text;
+                              res.fields["gender"] = textController3.text;
+                              res.fields["height"] = textController4.text;
+                              res.fields["weight"] = textController5.text;
+                              res.fields["address"] = textController8.text;
+                              res.fields["zipcode"] = textController9.text;
+                              res.fields["blood_group"] = "o+";
+                              res.fields["age"] = "89";
+                              res.fields["dob"] =
+                                  DateFormat('dd-MM-yyyy').format(selectedDate);
+                              res.fields["country"] = countryValue;
+                              res.fields["state"] = stateValue;
+                              res.fields["city"] = cityValue;
+
+                              /*profile == null
+                                  ? res.files.add(
+                                      await http.MultipartFile.fromPath(
+                                          "profile", image.path))
+                                  : res.files.add(http.MultipartFile.fromString(
+                                      "profile", profile));*/
+
+                              final http.Response responseData =
+                                  await http.get(Uri.parse(profile));
+                              Uint8List uint8list = responseData.bodyBytes;
+                              var buffer = uint8list.buffer;
+                              ByteData byteData = ByteData.view(buffer);
+                              var tempDir = await getTemporaryDirectory();
+                              File file = await File('${tempDir.path}/img')
+                                  .writeAsBytes(buffer.asUint8List(
+                                      byteData.offsetInBytes,
+                                      byteData.lengthInBytes));
+                              print(file.path);
+                              // File imageFile = File(profile.toString());
+                              image == null
+                                  ? res.files.add(
+                                      await http.MultipartFile.fromPath(
+                                          "profile", file.path))
+                                  : res.files.add(
+                                      await http.MultipartFile.fromPath(
+                                          "profile", image.path));
+
+                              var response = await res.send();
+
+                              print(response.statusCode);
+                              final resp =
+                                  await response.stream.bytesToString();
+                              if (response.statusCode == 200) {
+                                print("uploaded");
+
+                                Fluttertoast.showToast(
+                                    msg: "Updated Successfully!",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 5,
+                                    backgroundColor: Colors.green,
+                                    textColor: Colors.black,
+                                    fontSize: 14.0);
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Error'),
+                                      content: Text("Error"),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            }
                           },
                           text: 'Update',
                           options: FFButtonOptions(
@@ -1307,5 +1422,23 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
         ),
       ),
     );
+  }
+
+  Future<File> urlToFile(String imageUrl) async {
+// generate random number.
+    var rng = new Random();
+// get temporary directory of device.
+    Directory tempDir = await getTemporaryDirectory();
+
+    String tempPath = tempDir.path;
+// create a new file in temporary path with random file name.
+    File file = new File('$tempPath' + (rng.nextInt(100)).toString() + '.png');
+// call http.get method and pass imageUrl into it to get response.
+    http.Response response = await http.get(Uri.parse(imageUrl));
+// write bodyBytes received in response to file.
+    await file.writeAsBytes(response.bodyBytes);
+// now return the file which is created with random name in
+// temporary directory and image bytes from response is written to // that file.
+    return file;
   }
 }

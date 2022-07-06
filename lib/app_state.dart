@@ -41,7 +41,7 @@ class FFAppState {
   String IsLiveView = '';
   bool Chattoggle = false;
   String MemberId = '';
-
+  String SeniorId = '';
   String heart_rate = '';
   String blood_oxygen = '';
   String Sleep = "";
