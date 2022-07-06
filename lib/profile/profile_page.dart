@@ -319,7 +319,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   Align(
                                     alignment: AlignmentDirectional(0.08, 0.71),
                                     child: Text(
-                                      snapshot.data["member"]["phone"],
+                                      snapshot.data["member"]["mobile"],
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -802,6 +802,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   Future fetchSList() async {
     final ApiCallResponse SList = await GetProfile.call();
     print(SList.statusCode);
+    print(SList.jsonBody);
     return SList.jsonBody;
   }
 }

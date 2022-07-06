@@ -19,6 +19,7 @@ class StatsWidget extends StatefulWidget {
 var heartrate = null;
 
 class _StatsWidgetState extends State<StatsWidget> {
+  Future<dynamic> HeartStatus;
   static List<HeartStat> heartrate = [
     new HeartStat(10, 0, Colors.red),
     new HeartStat(11, 60, Colors.red),
@@ -30,6 +31,12 @@ class _StatsWidgetState extends State<StatsWidget> {
     new HeartStat(17, 80, Colors.red),
     new HeartStat(18, 80, Colors.red),
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // HeartStatus = fetchStat();
+  }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var color1 = Color(0xFF00B89F);
