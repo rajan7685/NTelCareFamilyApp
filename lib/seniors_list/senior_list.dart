@@ -66,7 +66,7 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Padding(
+                              /*Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
                                 child: Icon(
@@ -74,7 +74,7 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                   color: Color(0xFF00B89F),
                                   size: 30,
                                 ),
-                              ),
+                              ),*/
                               InkWell(
                                 onTap: () async {
                                   await Navigator.push(
