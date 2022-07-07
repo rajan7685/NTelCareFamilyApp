@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -19,6 +20,7 @@ class StatsWidget extends StatefulWidget {
 var heartrate = null;
 
 class _StatsWidgetState extends State<StatsWidget> {
+  Future<dynamic> HeartStatus;
   static List<HeartStat> heartrate = [
     new HeartStat(10, 0, Colors.red),
     new HeartStat(11, 60, Colors.red),
@@ -30,6 +32,12 @@ class _StatsWidgetState extends State<StatsWidget> {
     new HeartStat(17, 80, Colors.red),
     new HeartStat(18, 80, Colors.red),
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    HeartStatus = fetchStat();
+  }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var color1 = Color(0xFF00B89F);
@@ -546,6 +554,12 @@ class _StatsWidgetState extends State<StatsWidget> {
         ),
       ),
     );
+  }
+
+  Future fetchStat() async {
+    final ApiCallResponse HRate = await GetHrate.call();
+    print(HRate.statusCode);
+    print(HRate.jsonBody["health_status"]);
   }
 }
 
