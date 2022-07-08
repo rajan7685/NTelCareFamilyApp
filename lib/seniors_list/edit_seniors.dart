@@ -48,6 +48,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String stateValue = "";
   String cityValue = "";
   String address = "";
+  String Dateselected = "";
+  String dateJson;
   DateTime dateTime;
   DateTime selectedDate = DateTime.now();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -70,6 +72,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     textController9 = TextEditingController(text: data["zipcode"]);
     profile = data["profile"];
     FFAppState().SeniorId = data["id"];
+
+    Dateselected = data["dob"];
   }
 
   File image;
@@ -313,7 +317,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w300,
                                       ),
-                                  hintText: '[Some hint text...]',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -375,7 +378,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.w300,
                                           ),
-                                      hintText: '[Some hint text...]',
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
@@ -412,7 +414,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                               child: Container(
-                                width: 160,
+                                width: 200,
                                 height: 60,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFEEEEEE),
@@ -455,9 +457,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(10, 0, 0, 0),
-                                                child: Text(
-                                                    DateFormat('dd-MM-yyyy')
-                                                        .format(selectedDate),
+                                                child: Text(Dateselected,
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyText1
@@ -491,6 +491,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             dateTime = date;
                                           });
                                         });*/
+
                                           final DateTime picked =
                                               await showDatePicker(
                                                   context: context,
@@ -502,6 +503,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             setState(() {
                                               selectedDate = picked;
                                             });
+                                          Dateselected = DateFormat.yM()
+                                              .format(selectedDate);
                                         },
                                         child: Icon(
                                           Icons.arrow_drop_down_outlined,
@@ -545,7 +548,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.w300,
                                           ),
-                                      hintText: '[Some hint text...]',
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
@@ -604,7 +606,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.w300,
                                           ),
-                                      hintText: '[Some hint text...]',
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
@@ -664,7 +665,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w300,
                                       ),
-                                  hintText: '[Some hint text...]',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -722,7 +722,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w300,
                                       ),
-                                  hintText: '[Some hint text...]',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -987,7 +986,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.w300,
                                           ),
-                                      hintText: '[Some hint text...]',
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
@@ -1273,7 +1271,10 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   textController6.text == "" ||
                                   textController7.text == "" ||
                                   textController8.text == "" ||
-                                  textController9.text == "") {
+                                  textController9.text == "" ||
+                                  countryValue == "" ||
+                                  stateValue == "||" ||
+                                  cityValue == "") {
                                 Fluttertoast.showToast(
                                     msg: "All fields are necessary to fill",
                                     toastLength: Toast.LENGTH_SHORT,
@@ -1307,8 +1308,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                 res.fields["zipcode"] = textController9.text;
                                 res.fields["blood_group"] = "o+";
                                 res.fields["age"] = "89";
-                                res.fields["dob"] = DateFormat('dd-MM-yyyy')
-                                    .format(selectedDate);
+                                res.fields["dob"] = Dateselected;
                                 res.fields["country"] = countryValue;
                                 res.fields["state"] = stateValue;
                                 res.fields["city"] = cityValue;
