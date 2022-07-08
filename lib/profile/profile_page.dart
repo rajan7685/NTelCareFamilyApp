@@ -672,6 +672,23 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                 //     ],
                 //   ),
                 // ),
+                Container(
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1F252B),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                    child: Text(
+                      "Help",
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Montserrat',
+                            color: Color(0xFFAFAFAF),
+                            fontWeight: FontWeight.w300,
+                          ),
+                    ),
+                  ),
+                ),
 
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),

@@ -1,6 +1,7 @@
 import '../../flutter_flow/flutter_flow_util.dart';
 
 import 'api_manager.dart';
+import 'package:http/http.dart' as http;
 
 export 'api_manager.dart' show ApiCallResponse;
 
@@ -198,19 +199,26 @@ class DashBoardStat {
 }
 
 class GetHrate {
-  static Future<dynamic> call({
-    String id = "",
-  }) {
-    return ApiManager.instance.makeApiCall(
-      callName: 'GetHrate',
-      apiUrl:
-          'http://18.208.148.208:4000/graph/health_status/?senior_id=6299544d88b3bba4d3df12d4',
-      callType: ApiCallType.GET,
-      headers: {
-        'Authorization': 'Bearer ${FFAppState().Token}',
-      },
-      params: {},
-      returnBody: true,
-    );
+  Future<http.Response> get(String endpoint) async {
+    var url = Uri.parse(endpoint);
+    var response = await http.get(url, headers: {
+      'Authorization': 'Bearer ${FFAppState().Token}',
+    });
+    return response;
   }
+  // static Future<dynamic> call({
+  //   String id = "",
+  // }) {
+  //   return ApiManager.instance.makeApiCall(
+  //     callName: 'GetHrate',
+  //     apiUrl:
+  //         'http://18.208.148.208:4000/graph/health_status/?senior_id=6299544d88b3bba4d3df12d4',
+  //     callType: ApiCallType.GET,
+  //     headers: {
+  //       'Authorization': 'Bearer ${FFAppState().Token}',
+  //     },
+  //     params: {},
+  //     returnBody: true,
+  //   );
+  // }
 }
