@@ -37,780 +37,787 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Color(0xFF1F252B),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: SingleChildScrollView(
-          child: Stack(children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  width: 100,
-                  height: 400,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1F252B),
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: Image.asset(
-                        'assets/images/Group 1550.png',
-                      ).image,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: Color(0xFF1F252B),
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: SingleChildScrollView(
+            child: Stack(children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    width: 100,
+                    height: 400,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF1F252B),
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: Image.asset(
+                          'assets/images/Group 1550.png',
+                        ).image,
+                      ),
                     ),
-                  ),
-                  child: FutureBuilder<dynamic>(
-                    future: SList,
-                    builder: (context, snapshot) {
-                      inf = snapshot.data;
-                      //  print(snapshot.data['message']);
-                      if (!snapshot.hasData) {
-                        return Text(
-                          "Loading",
-                          style: FlutterFlowTheme.of(context)
-                              .bodyText1
-                              .override(
-                                  fontFamily: 'Poppins',
-                                  color: Color(0xFFE5E5E5),
-                                  fontSize: 20),
-                        );
-                      } else {
-                        return Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Stack(
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(-0.03, -0.55),
-                                  child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 55, 0, 0),
-                                      child: Container(
-                                        width: 175,
-                                        height: 175,
-                                        clipBehavior: Clip.hardEdge,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: Image.network(snapshot
-                                                    .data["member"]["profile"])
-                                                .image,
-                                          ),
-                                        ),
-                                      )),
-                                ),
-                                if (snapshot.data["member"]["executive"] = true)
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
+                    child: FutureBuilder<dynamic>(
+                      future: SList,
+                      builder: (context, snapshot) {
+                        inf = snapshot.data;
+                        //  print(snapshot.data['message']);
+                        if (!snapshot.hasData) {
+                          return Text(
+                            "Loading",
+                            style: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFFE5E5E5),
+                                    fontSize: 20),
+                          );
+                        } else {
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Stack(
+                                children: [
+                                  Align(
+                                    alignment:
+                                        AlignmentDirectional(-0.03, -0.55),
+                                    child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            100, 180, 0, 0),
+                                            0, 55, 0, 0),
                                         child: Container(
-                                          width: 50,
-                                          height: 50,
+                                          width: 175,
+                                          height: 175,
+                                          clipBehavior: Clip.hardEdge,
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF00B89F),
                                             shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                              fit: BoxFit.fill,
+                                              image: Image.network(
+                                                      snapshot.data["member"]
+                                                          ["profile"])
+                                                  .image,
+                                            ),
                                           ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/images/achievment.svg',
-                                                width: 25,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ],
+                                        )),
+                                  ),
+                                  if (snapshot.data["member"]["executive"] =
+                                      true)
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  100, 180, 0, 0),
+                                          child: Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFF00B89F),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SvgPicture.asset(
+                                                  'assets/images/achievment.svg',
+                                                  width: 25,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      7, 45, 10, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Color(0x00707373),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            await Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CriticalWidget(),
-                                              ),
-                                            );
-                                          },
-                                          child: Stack(
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  color: Color(0x0000FFFF),
-                                                ),
-                                                child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0, 0),
-                                                  child: Icon(
-                                                    Icons.notifications_none,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .tertiaryColor,
-                                                    size: 35,
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.05, -0.43),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(17, 0, 0, 0),
-                                                  child: Container(
-                                                    width: 15,
-                                                    height: 15,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xFF006B5D),
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          '5',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 8,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0.3, 0.25),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 15, 0, 0),
-                                    child: Text(
-                                      snapshot.data["member"]["fname"] +
-                                          " " +
-                                          snapshot.data["member"]["lname"],
-                                      textAlign: TextAlign.start,
-                                      style: FlutterFlowTheme.of(context)
-                                          .title1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiaryColor,
-                                            fontSize: 25,
-                                          ),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(0.08, 0.71),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 5, 0, 0),
-                                    child: Text(
-                                      'Age 66, Female',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFFAFAFAF),
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.mail_outline,
-                                  color: FlutterFlowTheme.of(context)
-                                      .tertiaryColor,
-                                  size: 15,
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(0.08, 0.71),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 5, 0, 0),
-                                    child: Text(
-                                      snapshot.data["member"]["email"],
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiaryColor,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.phone_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .tertiaryColor,
-                                    size: 15,
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.08, 0.71),
-                                    child: Text(
-                                      snapshot.data["member"]["mobile"],
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiaryColor,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 5, 0, 10),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.location_on_outlined,
-                                    color: FlutterFlowTheme.of(context)
-                                        .tertiaryColor,
-                                    size: 15,
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.08, 0.71),
-                                    child: Text(
-                                      snapshot.data["member"]["address"] +
-                                          snapshot.data["member"]["zipcode"],
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .tertiaryColor,
-                                            fontSize: 12,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      }
-                    },
-                  ),
-                ),
-
-                Container(
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1F252B),
-                  ),
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 0, 0, 0),
-                                    child: SvgPicture.asset(
-                                      'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
-                                      width: 21,
-                                      height: 21,
-                                      fit: BoxFit.fill,
+                                        7, 45, 10, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0x00707373),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CriticalWidget(),
+                                                ),
+                                              );
+                                            },
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0x0000FFFF),
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0, 0),
+                                                    child: Icon(
+                                                      Icons.notifications_none,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .tertiaryColor,
+                                                      size: 35,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.05, -0.43),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                17, 0, 0, 0),
+                                                    child: Container(
+                                                      width: 15,
+                                                      height: 15,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xFF006B5D),
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            '5',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 8,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Expanded(
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(0.3, 0.25),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          17, 0, 0, 0),
-                                      child: SwitchListTile(
-                                        value: FFAppState().Chattoggle2,
-                                        onChanged: (bool value) => setState(
-                                            () => FFAppState().Chattoggle2 =
-                                                value),
-                                        title: Text(
-                                          'Enable Chat',
-                                          style: FlutterFlowTheme.of(context)
-                                              .title3
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFFAFAFAF),
-                                                fontWeight: FontWeight.w300,
-                                              ),
-                                        ),
-                                        tileColor: Color(0xFFF5F5F5),
-                                        activeColor: Color(0xFFECECEC),
-                                        activeTrackColor: Color(0xFF00B89F),
-                                        dense: false,
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
+                                          0, 15, 0, 0),
+                                      child: Text(
+                                        snapshot.data["member"]["fname"] +
+                                            " " +
+                                            snapshot.data["member"]["lname"],
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .title1
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
+                                              fontSize: 25,
+                                            ),
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
-                              child: InkWell(
-                                onTap: () async {
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SeniorsWidget(),
-                                    ),
-                                  );
-                                },
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.location_history,
-                                    color: Color(0xFF00B89F),
-                                    size: 25,
-                                  ),
-                                  title: Text(
-                                    'Seniors',
-                                    style: FlutterFlowTheme.of(context)
-                                        .title3
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          color: Color(0xFFAFAFAF),
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                  ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Color(0xFF00B89F),
-                                    size: 25,
-                                  ),
-                                  tileColor: Color(0xFFF5F5F5),
-                                  dense: false,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
-                              child: InkWell(
-                                onTap: () async {
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          EditCopy2Widget(info: inf),
-                                    ),
-                                  );
-                                },
-                                child: ListTile(
-                                  leading: FaIcon(
-                                    FontAwesomeIcons.edit,
-                                    color: Color(0xFF00B89F),
-                                    size: 20,
-                                  ),
-                                  title: Text(
-                                    'Edit Profile',
-                                    style: FlutterFlowTheme.of(context)
-                                        .title3
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          color: Color(0xFFAFAFAF),
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                  ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Color(0xFF00B89F),
-                                    size: 25,
-                                  ),
-                                  tileColor: Color(0xFFF5F5F5),
-                                  dense: false,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
-                              child: InkWell(
-                                onTap: () async {
-                                  print("presses");
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return CustomMessage(
-                                        title: ("Are you sure?"),
-                                        content:
-                                            ("Are you sure you want to logout?"),
-                                        onpressed: () async {
-                                          await Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  LoginWidget(),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(0.08, 0.71),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 5, 0, 0),
+                                      child: Text(
+                                        'Age 66, Female',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFFAFAFAF),
                                             ),
-                                            (r) => false,
-                                          );
-                                        },
-                                      );
-                                    },
-                                  );
-                                },
-                                child: ListTile(
-                                  /*leading: Icon(
-                                  Icons.logout,
-                                  color: Color(0xFF00B89F),
-                                  size: 25,
-                                ),*/
-                                  leading: SvgPicture.asset(
-                                    'assets/images/logout.svg',
-                                    width: 21,
-                                    height: 21,
-                                    fit: BoxFit.fill,
+                                      ),
+                                    ),
                                   ),
-                                  title: Text(
-                                    'Logout',
-                                    style: FlutterFlowTheme.of(context)
-                                        .title3
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          color: Color(0xFFAFAFAF),
-                                          fontWeight: FontWeight.w300,
-                                        ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.mail_outline,
+                                    color: FlutterFlowTheme.of(context)
+                                        .tertiaryColor,
+                                    size: 15,
                                   ),
-                                  trailing: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Color(0xFF00B89F),
-                                    size: 25,
+                                  Align(
+                                    alignment: AlignmentDirectional(0.08, 0.71),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 5, 0, 0),
+                                      child: Text(
+                                        snapshot.data["member"]["email"],
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
+                                            ),
+                                      ),
+                                    ),
                                   ),
-                                  tileColor: Color(0xFFF5F5F5),
-                                  dense: false,
+                                ],
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.phone_outlined,
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      size: 15,
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.08, 0.71),
+                                      child: Text(
+                                        snapshot.data["member"]["mobile"],
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Padding(
-                //   padding: EdgeInsetsDirectional.fromSTEB(10, 0, 40, 85),
-                //   child: Row(
-                //     mainAxisSize: MainAxisSize.max,
-                //     mainAxisAlignment: MainAxisAlignment.start,
-                //     children: [
-                //       Padding(
-                //         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 35, 0),
-                //         child: InkWell(
-                //           onTap: () async {
-                //             await Navigator.push(
-                //               context,
-                //               MaterialPageRoute(
-                //                 builder: (context) => ChatWidget(),
-                //               ),
-                //             );
-                //           },
-                //           child: Column(
-                //             mainAxisSize: MainAxisSize.max,
-                //             children: [
-                //               Container(
-                //                 width: 60,
-                //                 height: 60,
-                //                 decoration: BoxDecoration(
-                //                   color: Color(0xFF1F252B),
-                //                   shape: BoxShape.circle,
-                //                 ),
-                //                 child: Stack(
-                //                   children: [
-                //                     Container(
-                //                       width: 60,
-                //                       height: 60,
-                //                       decoration: BoxDecoration(
-                //                         color: Color(0xFF00B89F),
-                //                         shape: BoxShape.circle,
-                //                       ),
-                //                       child: Column(
-                //                         mainAxisSize: MainAxisSize.max,
-                //                         mainAxisAlignment:
-                //                             MainAxisAlignment.center,
-                //                         children: [
-                //                           Image.asset(
-                //                             'assets/images/bubble.png',
-                //                             width: 40,
-                //                             height: 40,
-                //                             fit: BoxFit.fill,
-                //                           ),
-                //                         ],
-                //                       ),
-                //                     ),
-                //                     Align(
-                //                       alignment:
-                //                           AlignmentDirectional(1.31, -0.83),
-                //                       child: Container(
-                //                         width: 20,
-                //                         height: 20,
-                //                         decoration: BoxDecoration(
-                //                           color: Color(0xFFEEEEEE),
-                //                           shape: BoxShape.circle,
-                //                         ),
-                //                         child: Row(
-                //                           mainAxisSize: MainAxisSize.min,
-                //                           mainAxisAlignment:
-                //                               MainAxisAlignment.center,
-                //                           children: [
-                //                             Text(
-                //                               '5',
-                //                               textAlign: TextAlign.center,
-                //                               style: FlutterFlowTheme.of(context)
-                //                                   .bodyText1
-                //                                   .override(
-                //                                     fontFamily: 'Montserrat',
-                //                                     color: Color(0xFF00B89F),
-                //                                     fontWeight: FontWeight.bold,
-                //                                   ),
-                //                             ),
-                //                           ],
-                //                         ),
-                //                       ),
-                //                     ),
-                //                   ],
-                //                 ),
-                //               ),
-                //               Text(
-                //                 'Family Chat',
-                //                 style: FlutterFlowTheme.of(context)
-                //                     .bodyText1
-                //                     .override(
-                //                       fontFamily: 'Montserrat',
-                //                       color: Color(0xFFE5E5E5),
-                //                       fontWeight: FontWeight.w100,
-                //                     ),
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                Container(
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1F252B),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                    child: Text(
-                      "Help",
-                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                            fontFamily: 'Montserrat',
-                            color: Color(0xFFAFAFAF),
-                            fontWeight: FontWeight.w300,
-                          ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 5, 0, 10),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.location_on_outlined,
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      size: 15,
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.08, 0.71),
+                                      child: Text(
+                                        snapshot.data["member"]["address"] +
+                                            snapshot.data["member"]["zipcode"],
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
+                                              fontSize: 12,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                      },
                     ),
                   ),
-                ),
 
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 100, 100),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (FFAppState().Chattoggle2 ?? true)
+                  Container(
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF1F252B),
+                    ),
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
+                                      child: SvgPicture.asset(
+                                        'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
+                                        width: 21,
+                                        height: 21,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            17, 0, 0, 0),
+                                        child: SwitchListTile(
+                                          value: FFAppState().Chattoggle2,
+                                          onChanged: (bool value) => setState(
+                                              () => FFAppState().Chattoggle2 =
+                                                  value),
+                                          title: Text(
+                                            'Enable Chat',
+                                            style: FlutterFlowTheme.of(context)
+                                                .title3
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFFAFAFAF),
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                          ),
+                                          tileColor: Color(0xFFF5F5F5),
+                                          activeColor: Color(0xFFECECEC),
+                                          activeTrackColor: Color(0xFF00B89F),
+                                          dense: false,
+                                          controlAffinity:
+                                              ListTileControlAffinity.trailing,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    0, 10, 15, 0),
+                                    0, 10, 10, 0),
                                 child: InkWell(
                                   onTap: () async {
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => ChatWidget(),
+                                        builder: (context) => SeniorsWidget(),
                                       ),
                                     );
                                   },
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Container(
-                                        width: 60,
-                                        height: 60,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFFEEEEEE),
-                                          shape: BoxShape.circle,
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.location_history,
+                                      color: Color(0xFF00B89F),
+                                      size: 25,
+                                    ),
+                                    title: Text(
+                                      'Seniors',
+                                      style: FlutterFlowTheme.of(context)
+                                          .title3
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFFAFAFAF),
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF00B89F),
+                                      size: 25,
+                                    ),
+                                    tileColor: Color(0xFFF5F5F5),
+                                    dense: false,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0, 10, 10, 0),
+                                child: InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditCopy2Widget(info: inf),
+                                      ),
+                                    );
+                                  },
+                                  child: ListTile(
+                                    leading: FaIcon(
+                                      FontAwesomeIcons.edit,
+                                      color: Color(0xFF00B89F),
+                                      size: 20,
+                                    ),
+                                    title: Text(
+                                      'Edit Profile',
+                                      style: FlutterFlowTheme.of(context)
+                                          .title3
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFFAFAFAF),
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF00B89F),
+                                      size: 25,
+                                    ),
+                                    tileColor: Color(0xFFF5F5F5),
+                                    dense: false,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0, 10, 10, 0),
+                                child: InkWell(
+                                  onTap: () async {
+                                    print("presses");
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return CustomMessage(
+                                          title: ("Are you sure?"),
+                                          content:
+                                              ("Are you sure you want to logout?"),
+                                          onpressed: () async {
+                                            await Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginWidget(),
+                                              ),
+                                              (r) => false,
+                                            );
+                                          },
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: ListTile(
+                                    /*leading: Icon(
+                                  Icons.logout,
+                                  color: Color(0xFF00B89F),
+                                  size: 25,
+                                ),*/
+                                    leading: SvgPicture.asset(
+                                      'assets/images/logout.svg',
+                                      width: 21,
+                                      height: 21,
+                                      fit: BoxFit.fill,
+                                    ),
+                                    title: Text(
+                                      'Logout',
+                                      style: FlutterFlowTheme.of(context)
+                                          .title3
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFFAFAFAF),
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF00B89F),
+                                      size: 25,
+                                    ),
+                                    tileColor: Color(0xFFF5F5F5),
+                                    dense: false,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Padding(
+                  //   padding: EdgeInsetsDirectional.fromSTEB(10, 0, 40, 85),
+                  //   child: Row(
+                  //     mainAxisSize: MainAxisSize.max,
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: [
+                  //       Padding(
+                  //         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 35, 0),
+                  //         child: InkWell(
+                  //           onTap: () async {
+                  //             await Navigator.push(
+                  //               context,
+                  //               MaterialPageRoute(
+                  //                 builder: (context) => ChatWidget(),
+                  //               ),
+                  //             );
+                  //           },
+                  //           child: Column(
+                  //             mainAxisSize: MainAxisSize.max,
+                  //             children: [
+                  //               Container(
+                  //                 width: 60,
+                  //                 height: 60,
+                  //                 decoration: BoxDecoration(
+                  //                   color: Color(0xFF1F252B),
+                  //                   shape: BoxShape.circle,
+                  //                 ),
+                  //                 child: Stack(
+                  //                   children: [
+                  //                     Container(
+                  //                       width: 60,
+                  //                       height: 60,
+                  //                       decoration: BoxDecoration(
+                  //                         color: Color(0xFF00B89F),
+                  //                         shape: BoxShape.circle,
+                  //                       ),
+                  //                       child: Column(
+                  //                         mainAxisSize: MainAxisSize.max,
+                  //                         mainAxisAlignment:
+                  //                             MainAxisAlignment.center,
+                  //                         children: [
+                  //                           Image.asset(
+                  //                             'assets/images/bubble.png',
+                  //                             width: 40,
+                  //                             height: 40,
+                  //                             fit: BoxFit.fill,
+                  //                           ),
+                  //                         ],
+                  //                       ),
+                  //                     ),
+                  //                     Align(
+                  //                       alignment:
+                  //                           AlignmentDirectional(1.31, -0.83),
+                  //                       child: Container(
+                  //                         width: 20,
+                  //                         height: 20,
+                  //                         decoration: BoxDecoration(
+                  //                           color: Color(0xFFEEEEEE),
+                  //                           shape: BoxShape.circle,
+                  //                         ),
+                  //                         child: Row(
+                  //                           mainAxisSize: MainAxisSize.min,
+                  //                           mainAxisAlignment:
+                  //                               MainAxisAlignment.center,
+                  //                           children: [
+                  //                             Text(
+                  //                               '5',
+                  //                               textAlign: TextAlign.center,
+                  //                               style: FlutterFlowTheme.of(context)
+                  //                                   .bodyText1
+                  //                                   .override(
+                  //                                     fontFamily: 'Montserrat',
+                  //                                     color: Color(0xFF00B89F),
+                  //                                     fontWeight: FontWeight.bold,
+                  //                                   ),
+                  //                             ),
+                  //                           ],
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //               Text(
+                  //                 'Family Chat',
+                  //                 style: FlutterFlowTheme.of(context)
+                  //                     .bodyText1
+                  //                     .override(
+                  //                       fontFamily: 'Montserrat',
+                  //                       color: Color(0xFFE5E5E5),
+                  //                       fontWeight: FontWeight.w100,
+                  //                     ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(0, 0, 100, 100),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (FFAppState().Chattoggle2 ?? true)
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 10, 15, 0),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ChatWidget(),
                                         ),
-                                        child: Stack(
-                                          children: [
-                                            Container(
-                                              width: 60,
-                                              height: 60,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF00B89F),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Image.asset(
-                                                    'assets/images/bubble.png',
-                                                    width: 40,
-                                                    height: 40,
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  1.31, -0.83),
-                                              child: Container(
-                                                width: 20,
-                                                height: 20,
+                                      );
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Container(
+                                          width: 60,
+                                          height: 60,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFEEEEEE),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Container(
+                                                width: 60,
+                                                height: 60,
                                                 decoration: BoxDecoration(
-                                                  color: Color(0xFFEEEEEE),
+                                                  color: Color(0xFF00B89F),
                                                   shape: BoxShape.circle,
                                                 ),
-                                                child: Row(
+                                                child: Column(
                                                   mainAxisSize:
-                                                      MainAxisSize.min,
+                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    Text(
-                                                      '5',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            color: Color(
-                                                                0xFF00B89F),
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
+                                                    Image.asset(
+                                                      'assets/images/bubble.png',
+                                                      width: 40,
+                                                      height: 40,
+                                                      fit: BoxFit.fill,
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    1.31, -0.83),
+                                                child: Container(
+                                                  width: 20,
+                                                  height: 20,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFFEEEEEE),
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        '5',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Color(
+                                                                      0xFF00B89F),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        'Family Chat',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFFE5E5E5),
-                                              fontWeight: FontWeight.w100,
-                                            ),
-                                      ),
-                                    ],
+                                        Text(
+                                          'Family Chat',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Montserrat',
+                                                color: Color(0xFFE5E5E5),
+                                                fontWeight: FontWeight.w100,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ]),
+                ],
+              ),
+            ]),
+          ),
         ),
       ),
     );
