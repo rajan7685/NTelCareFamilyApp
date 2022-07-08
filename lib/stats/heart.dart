@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
@@ -18,25 +19,35 @@ class StatsWidget extends StatefulWidget {
 }
 
 var heartrate = null;
+dynamic Hrate;
 
 class _StatsWidgetState extends State<StatsWidget> {
   Future<dynamic> HeartStatus;
-  static List<HeartStat> heartrate = [
-    new HeartStat(10, 0, Colors.red),
-    new HeartStat(11, 60, Colors.red),
-    new HeartStat(12, 50, Colors.red),
-    new HeartStat(13, 70, Colors.red),
-    new HeartStat(14, 80, Colors.red),
-    new HeartStat(15, 40, Colors.red),
-    new HeartStat(16, 50, Colors.red),
-    new HeartStat(17, 80, Colors.red),
-    new HeartStat(18, 80, Colors.red),
-  ];
+  List<HeartStat> hRate = [];
+  GetHrate getHrate = GetHrate();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    HeartStatus = fetchStat();
+    getHeartRate();
+    // int versionCode = BuildConfig.VERSION_CODE;
+    // HeartStatus = fetchStat();
+  }
+
+  void getHeartRate() async {
+    var response = await getHrate.get(
+        'http://18.208.148.208:4000/graph/health_status/?senior_id=6299544d88b3bba4d3df12d4');
+    print(response.statusCode);
+    print(response.body.runtimeType);
+    print(response.body);
+    final rate = jsonDecode((response.body));
+    print(rate["health_status"]["heart_rate"].runtimeType);
+
+    List<HeartStat> temp =
+        heartStatFromJson(rate["health_status"]["heart_rate"]);
+    setState(() {
+      hRate = temp;
+    });
+    print(hRate);
   }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -48,12 +59,12 @@ class _StatsWidgetState extends State<StatsWidget> {
   Widget build(BuildContext context) {
     List<charts.Series<HeartStat, int>> heart = [
       charts.Series(
-          data: heartrate,
+          data: hRate,
           id: "Heart Rate",
-          domainFn: (HeartStat pops, _) => pops.Time,
-          measureFn: (HeartStat pops, _) => pops.Stat,
+          domainFn: (HeartStat pops, _) => pops.time,
+          measureFn: (HeartStat pops, _) => pops.value,
           colorFn: (HeartStat pops, _) =>
-              charts.ColorUtil.fromDartColor(pops.line))
+              charts.ColorUtil.fromDartColor(Colors.red))
     ];
 
     return Scaffold(
@@ -555,18 +566,36 @@ class _StatsWidgetState extends State<StatsWidget> {
       ),
     );
   }
-
-  Future fetchStat() async {
-    final ApiCallResponse HRate = await GetHrate.call();
-    print(HRate.statusCode);
-    print(HRate.jsonBody["health_status"]);
-  }
 }
 
-class HeartStat {
-  final int Time;
-  final int Stat;
-  final Color line;
+List<HeartStat> heartStatFromJson(List<dynamic> rate) {
+  List<HeartStat> heart = [];
+  rate.forEach((element) {
+    heart.add(HeartStat.fromJson(element));
+  });
+  return heart;
+}
+// List<HeartStat>.from(json.decode(str).map((x) => HeartStat.fromJson(x)));
 
-  HeartStat(this.Time, this.Stat, this.line);
+String heartStatToJson(List<HeartStat> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class HeartStat {
+  HeartStat({
+    this.time,
+    this.value,
+  });
+
+  int time;
+  int value;
+
+  factory HeartStat.fromJson(Map<String, dynamic> json) => HeartStat(
+        time: int.parse(json["time"]),
+        value: json["value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "time": time,
+        "value": value,
+      };
 }
