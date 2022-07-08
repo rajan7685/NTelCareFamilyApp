@@ -237,7 +237,6 @@ class _AddWidgetState extends State<Add> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'First Name',
-                                  hintText: '[Some hint text...]',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -285,7 +284,6 @@ class _AddWidgetState extends State<Add> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Last Name',
-                                  hintText: '[Some hint text...]',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -346,7 +344,6 @@ class _AddWidgetState extends State<Add> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.w300,
                                           ),
-                                      hintText: '[Some hint text...]',
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
@@ -593,7 +590,8 @@ class _AddWidgetState extends State<Add> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                           child: CSCPicker(
                             ///Enable disable state dropdown [OPTIONAL PARAMETER]
                             showStates: true,
@@ -714,7 +712,6 @@ class _AddWidgetState extends State<Add> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.w300,
                                           ),
-                                      hintText: '[Some hint text...]',
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
@@ -773,7 +770,6 @@ class _AddWidgetState extends State<Add> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.w300,
                                           ),
-                                      hintText: '[Some hint text...]',
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),

@@ -318,7 +318,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Phone Number',
-                                  hintText: '[Some hint text...]',
+                                
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),

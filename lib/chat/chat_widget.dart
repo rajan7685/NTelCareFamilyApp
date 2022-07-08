@@ -41,8 +41,13 @@ class _ChatWidgetState extends State<ChatWidget> {
                           Align(
                             alignment: AlignmentDirectional(0, 0),
                             child: InkWell(
-                              onTap: () async {
-                                Navigator.pop(context);
+                              onTap: () {
+                                Navigator.pop(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ModifiedLandingPageWidget()));
+                                //Navigator.pop(context);
                                 //   await Navigator.push(
                                 //  context,
                                 //  MaterialPageRoute(
@@ -570,51 +575,51 @@ class _ChatWidgetState extends State<ChatWidget> {
                     ),
                   ],
                 ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF1A1A1A),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 5),
-                        child: Card(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color: Color(0xFFF5F5F5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TextField(
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Type Here",
-                                      hintStyle:
-                                          TextStyle(color: Color(0xFFE5E5E5))),
-                                ),
-                                Image.asset(
-                                  'assets/images/7830587_send_email_icon.png',
-                                  width: 25,
-                                  height: 25,
-                                  fit: BoxFit.fill,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // Column(
+                //   mainAxisSize: MainAxisSize.max,
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     Container(
+                //       width: double.infinity,
+                //       decoration: BoxDecoration(
+                //         color: Color(0xFF1A1A1A),
+                //       ),
+                //       child: Padding(
+                //         padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 5),
+                //         child: Card(
+                //           clipBehavior: Clip.antiAliasWithSaveLayer,
+                //           color: Color(0xFFF5F5F5),
+                //           shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(10),
+                //           ),
+                //           child: Padding(
+                //             padding:
+                //                 EdgeInsetsDirectional.fromSTEB(15, 10, 15, 10),
+                //             child: Row(
+                //               mainAxisSize: MainAxisSize.max,
+                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //               children: [
+                //                 TextField(
+                //                   decoration: InputDecoration(
+                //                       border: InputBorder.none,
+                //                       hintText: "Type Here",
+                //                       hintStyle:
+                //                           TextStyle(color: Color(0xFFE5E5E5))),
+                //                 ),
+                //                 Image.asset(
+                //                   'assets/images/7830587_send_email_icon.png',
+                //                   width: 25,
+                //                   height: 25,
+                //                   fit: BoxFit.fill,
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),
