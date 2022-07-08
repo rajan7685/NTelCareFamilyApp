@@ -241,15 +241,18 @@ class _Verification extends State<verification> {
                       )
                     ]),
                   if (showtimer == true)
-                    Text(
-                      "OTP is vaild for : $_start",
-                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                            fontFamily: 'Montserrat',
-                            color: Color(0xFFE5E5E5),
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
+                    Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 20, 20),
+                        child: Text(
+                          "OTP is vaild for : $_start seconds",
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'Montserrat',
+                                    color: Color(0xFFE5E5E5),
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                        )),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 20),
                     child: FFButtonWidget(

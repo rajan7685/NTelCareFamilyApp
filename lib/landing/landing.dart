@@ -2289,7 +2289,7 @@ class _dashboardState extends State<dashboard> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          FFAppState().heart_rate,
+                                          FFAppState().heart_rate + "BPM",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -2530,7 +2530,7 @@ class _dashboardState extends State<dashboard> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          FFAppState().Sleep,
+                                          FFAppState().Sleep + "%",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -2890,7 +2890,8 @@ class _dashboardState extends State<dashboard> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                FFAppState().blood_sys,
+                                                "SYS: " +
+                                                    FFAppState().blood_sys,
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -2908,7 +2909,8 @@ class _dashboardState extends State<dashboard> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                FFAppState().blood_dia,
+                                                "DIA: " +
+                                                    FFAppState().blood_dia,
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -3030,7 +3032,7 @@ class _dashboardState extends State<dashboard> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          FFAppState().battery_level,
+                                          FFAppState().battery_level + "%",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
