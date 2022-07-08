@@ -929,7 +929,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.w300,
                                           ),
-                                      hintText: '[Some hint text...]',
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Color(0x00000000),
