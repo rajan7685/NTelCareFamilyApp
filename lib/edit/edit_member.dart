@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
@@ -942,20 +944,27 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                           print("this is the status code");
                                           print(apiCallOutput.statusCode);
                                           if (apiCallOutput.statusCode == 200) {
-                                            Navigator.pop(context);
-                                            print("Member is deleted");
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    "Member Deleted Successfully",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.CENTER,
+                                                timeInSecForIosWeb: 5,
+                                                backgroundColor: Colors.green,
+                                                textColor: Colors.black,
+                                                fontSize: 14.0);
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MembersWidget(),
+                                                ));
                                           }
                                         },
                                         child: Text('Yes'),
                                       ),
                                       TextButton(
-                                        onPressed: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MembersWidget(),
-                                          ),
-                                        ),
+                                        onPressed: () {},
                                         child: Text('Cancel'),
                                       ),
                                     ],

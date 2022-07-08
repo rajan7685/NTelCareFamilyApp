@@ -27,7 +27,7 @@ class Add extends StatefulWidget {
 }
 
 class _AddWidgetState extends State<Add> {
-  String dropDownValue = "Son";
+  String dropDownValue;
   TextEditingController textController1 = TextEditingController();
   TextEditingController textController2 = TextEditingController();
   TextEditingController textController3 = TextEditingController();
@@ -818,7 +818,7 @@ class _AddWidgetState extends State<Add> {
                               children: [
                                 Expanded(
                                   flex: 8,
-                                  child: DropdownButtonFormField(
+                                  child: DropdownButtonFormField<String>(
                                     value: dropDownValue,
                                     items: [
                                       "Son",
@@ -836,8 +836,6 @@ class _AddWidgetState extends State<Add> {
                                     },
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.blue, width: 2),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       border: OutlineInputBorder(
@@ -1526,7 +1524,7 @@ class _AddWidgetState extends State<Add> {
                                 res1.fields["country"] = countryValue;
                                 res1.fields["state"] = stateValue;
                                 res1.fields["city"] = cityValue;
-
+                                res1.fields["age"] = "50";
                                 // ignore: unnecessary_statements
                                 //List<int> imageBytes = image.readAsBytesSync();
                                 // res1.files.add(http.MultipartFile.fromBytes(
@@ -1553,13 +1551,18 @@ class _AddWidgetState extends State<Add> {
                                   print("uploaded");
 
                                   Fluttertoast.showToast(
-                                      msg: "Member added successfully",
+                                      msg: jsonDecode(respStr)["message"],
                                       toastLength: Toast.LENGTH_SHORT,
                                       gravity: ToastGravity.CENTER,
                                       timeInSecForIosWeb: 5,
                                       backgroundColor: Colors.green,
                                       textColor: Colors.black,
                                       fontSize: 14.0);
+                                  await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MembersWidget(),
+                                      ));
                                 } else {
                                   await showDialog(
                                     context: context,
