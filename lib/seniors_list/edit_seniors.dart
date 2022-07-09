@@ -50,10 +50,10 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String stateValue = "";
   String cityValue = "";
   String address = "";
-  String Dateselected = "";
+
   String dateJson;
   DateTime dateTime;
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   dynamic data;
 
@@ -75,7 +75,12 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     profile = data["profile"];
     FFAppState().SeniorId = data["id"];
 
-    Dateselected = data["dob"];
+    cityValue = data["city"];
+    countryValue = data["country"];
+    stateValue = data["state"];
+    selectedDate = HttpDate.parse(data["dob"]);
+    print(data["dob"]);
+    print(DateFormat("yyyy-MM-dd").format(selectedDate));
   }
 
   File image;
@@ -416,7 +421,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                               child: Container(
-                                width: 200,
+                                width: 160,
                                 height: 60,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFEEEEEE),
@@ -459,7 +464,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(10, 0, 0, 0),
-                                                child: Text(Dateselected,
+                                                child: Text(
+                                                    DateFormat("yyyy-MM-dd")
+                                                        .format(selectedDate),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyText1
@@ -498,15 +505,16 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                               await showDatePicker(
                                                   context: context,
                                                   initialDate: selectedDate,
-                                                  firstDate: DateTime(2015, 8),
+                                                  firstDate: DateTime(2000, 8),
                                                   lastDate: DateTime(2101));
                                           if (picked != null &&
                                               picked != selectedDate)
                                             setState(() {
                                               selectedDate = picked;
                                             });
-                                          Dateselected = DateFormat.yM()
+                                          /*  Dateselected = DateFormat.yM()
                                               .format(selectedDate);
+                                          print(Dateselected);*/
                                         },
                                         child: Icon(
                                           Icons.arrow_drop_down_outlined,
@@ -1310,7 +1318,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                 res.fields["zipcode"] = textController9.text;
                                 res.fields["blood_group"] = "o+";
                                 res.fields["age"] = "89";
-                                res.fields["dob"] = Dateselected;
+                                res.fields["dob"] = DateFormat("yyyy-MM-dd")
+                                    .format(selectedDate);
                                 res.fields["country"] = countryValue;
                                 res.fields["state"] = stateValue;
                                 res.fields["city"] = cityValue;
