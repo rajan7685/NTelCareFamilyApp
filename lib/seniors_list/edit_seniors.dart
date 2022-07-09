@@ -49,10 +49,10 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String stateValue = "";
   String cityValue = "";
   String address = "";
-  String Dateselected = "";
+
   String dateJson;
   DateTime dateTime;
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   dynamic data;
 
@@ -73,11 +73,13 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     textController9 = TextEditingController(text: data["zipcode"]);
     profile = data["profile"];
     FFAppState().SeniorId = data["id"];
-    Dateselected = data["dob"];
+
     cityValue = data["city"];
     countryValue = data["country"];
     stateValue = data["state"];
-    //selectedDate = DateTime.tryParse(data["dob"]);
+    selectedDate = HttpDate.parse(data["dob"]);
+    print(data["dob"]);
+    print(DateFormat("yyyy-MM-dd").format(selectedDate));
   }
 
   File image;
@@ -509,9 +511,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             setState(() {
                                               selectedDate = picked;
                                             });
-                                          Dateselected = DateFormat.yM()
+                                          /*  Dateselected = DateFormat.yM()
                                               .format(selectedDate);
-                                          print(Dateselected);
+                                          print(Dateselected);*/
                                         },
                                         child: Icon(
                                           Icons.arrow_drop_down_outlined,
@@ -1315,7 +1317,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                 res.fields["zipcode"] = textController9.text;
                                 res.fields["blood_group"] = "o+";
                                 res.fields["age"] = "89";
-                                res.fields["dob"] = Dateselected;
+                                res.fields["dob"] = DateFormat("yyyy-MM-dd")
+                                    .format(selectedDate);
                                 res.fields["country"] = countryValue;
                                 res.fields["state"] = stateValue;
                                 res.fields["city"] = cityValue;
