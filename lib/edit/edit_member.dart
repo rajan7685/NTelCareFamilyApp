@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:math';
+import 'dart:typed_data';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
@@ -14,13 +17,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class EditMemberWidget extends StatefulWidget {
   dynamic data;
-  EditMemberWidget({Key key, @required this.data}) : super(key: key);
+  String title;
+  EditMemberWidget({Key key, @required this.data, @required this.title})
+      : super(key: key);
 
   @override
-  _EditMemberWidgetState createState() => _EditMemberWidgetState(data);
+  _EditMemberWidgetState createState() => _EditMemberWidgetState(data, title);
 }
 
 class _EditMemberWidgetState extends State<EditMemberWidget> {
@@ -28,11 +34,32 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
+  TextEditingController textController4;
+  TextEditingController textController5;
+  TextEditingController textController6;
+  TextEditingController textController7;
+  bool display = false;
+  bool displayY = true;
+  bool displayN = false;
+  bool displayLive = false;
+  bool displayChat = false;
+  bool displayView = false;
+  String countryValue = "";
+  String stateValue = "";
+  String cityValue = "";
+  String address = "";
+  String Dateselected = "";
+  String dateJson;
+  DateTime dateTime;
+  DateTime selectedDate = DateTime.now();
   bool switchListTileValue;
   bool checkboxListTileValue;
   ApiCallResponse apiCallOutput;
   dynamic data;
-  _EditMemberWidgetState(this.data);
+  String title;
+  var profile = null;
+  _EditMemberWidgetState(this.data, this.title);
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -40,7 +67,12 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     super.initState();
     textController1 = TextEditingController(text: data["fname"]);
     textController2 = TextEditingController(text: data["lname"]);
-    textController3 = TextEditingController(text: data["phone"]);
+    textController3 = TextEditingController(text: data["gender"]);
+    textController4 = TextEditingController(text: data['mobile']);
+    textController5 = TextEditingController(text: data['email']);
+    textController6 = TextEditingController(text: data["address"]);
+    textController7 = TextEditingController(text: data["zipcode"]);
+    profile = data["profile"];
   }
 
   var color1 = Color(0xFF00B89F);
@@ -48,9 +80,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   var color = Color(0xFFD6D6D6);
   var colorA = Color(0xFFD6D6D6);
   var colorB = Color(0xFFD6D6D6);
-  bool display = false;
-  bool displayY = true;
-  bool displayN = false;
+
   File image;
   Future<File> savePermanently(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
@@ -68,9 +98,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
       // final imagePath = File(image.path);
       final imagePathPermanently = await savePermanently(image.path);
       setState(() => this.image = imagePathPermanently);
-      setState(() {
-        display = false;
-      });
     } on PlatformException catch (e) {
       print("Permission Denied");
     }
@@ -89,7 +116,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
             children: [
               SingleChildScrollView(
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
@@ -195,7 +222,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 10),
                           child: Text(
-                            'Edit Members',
+                            title,
                             textAlign: TextAlign.start,
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
@@ -305,6 +332,175 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                             ),
                           ),
                         ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
+                              child: Container(
+                                width: 160,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 0, 0, 0),
+                                  child: TextFormField(
+                                    controller: textController3,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Gender',
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFF9A9A9A),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF606E87),
+                                          fontSize: 16,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                              child: Container(
+                                width: 160,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          2, 10, 0, 3),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'DOB',
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        color:
+                                                            Color(0xFF9A9A9A),
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w300),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(10, 0, 0, 0),
+                                                child: Text(
+                                                    DateFormat('dd-MM-yyyy')
+                                                        .format(selectedDate),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          color:
+                                                              Color(0xFF606E87),
+                                                          fontSize: 16,
+                                                        )),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          /*  showDatePicker(
+                                                context: context,
+                                                initialDate: dateTime == null
+                                                    ? DateTime.now()
+                                                    : dateTime,
+                                                firstDate: DateTime(2001),
+                                                lastDate: DateTime.now())
+                                            .then((date) {
+                                          setState(() {
+                                            dateTime = date;
+                                          });
+                                        });*/
+                                          final DateTime picked =
+                                              await showDatePicker(
+                                                  context: context,
+                                                  initialDate: selectedDate,
+                                                  firstDate: DateTime(2015, 8),
+                                                  lastDate: DateTime(2101));
+                                          if (picked != null &&
+                                              picked != selectedDate)
+                                            setState(() {
+                                              selectedDate = picked;
+                                            });
+                                        },
+                                        child: Icon(
+                                          Icons.arrow_drop_down_outlined,
+                                          color: Colors.black,
+                                          size: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Container(
@@ -317,7 +513,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: TextFormField(
-                                controller: textController3,
+                                controller: textController4,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Phone Number',
@@ -352,6 +548,329 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               ),
                             ),
                           ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          child: Container(
+                            width: 350,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: TextFormField(
+                                controller: textController5,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText: 'Email\n',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
+                                      fontSize: 16,
+                                    ),
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
+                            child: CSCPicker(
+                              ///Enable disable state dropdown [OPTIONAL PARAMETER]
+                              showStates: true,
+
+                              /// Enable disable city drop down [OPTIONAL PARAMETER]
+                              showCities: true,
+
+                              ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
+                              flagState: CountryFlag.DISABLE,
+                              layout: Layout.vertical,
+
+                              ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
+                              dropdownDecoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15)),
+                                  color: Color(0xFFEEEEEE),
+                                  border: Border.all(
+                                      color: Color(0xFFEEEEEE), width: 11)),
+
+                              ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
+                              disabledDropdownDecoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(11)),
+                                  color: Color(0xFFEEEEEE),
+                                  border: Border.all(
+                                      color: Color(0xFFEEEEEE), width: 11)),
+
+                              ///placeholders for dropdown search field
+
+                              stateSearchPlaceholder: "State",
+                              citySearchPlaceholder: "City",
+                              countrySearchPlaceholder: "Country",
+
+                              ///labels for dropdown
+
+                              stateDropdownLabel: data["state"],
+                              cityDropdownLabel: data["city"],
+                              countryDropdownLabel: data["country"],
+
+                              ///Default Country
+                              //  defaultCountry: data["country"],
+
+                              ///selected item style [OPTIONAL PARAMETER]
+                              selectedItemStyle: TextStyle(
+                                color: Color(0xFF606E87),
+                                fontSize: 16,
+                              ),
+
+                              ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                              dropdownHeadingStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+
+                              ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                              dropdownItemStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),
+
+                              ///Dialog box radius [OPTIONAL PARAMETER]
+                              dropdownDialogRadius: 10.0,
+
+                              ///Search bar radius [OPTIONAL PARAMETER]
+                              searchBarRadius: 10.0,
+
+                              ///triggers once country selected in dropdown
+                              onCountryChanged: (value) {
+                                setState(() {
+                                  ///store value in country variable
+                                  countryValue = value;
+                                });
+                              },
+
+                              ///triggers once state selected in dropdown
+                              onStateChanged: (value) {
+                                setState(() {
+                                  ///store value in state variable
+                                  stateValue = value;
+                                });
+                              },
+
+                              ///triggers once city selected in dropdown
+                              onCityChanged: (value) {
+                                setState(() {
+                                  ///store value in city variable
+                                  cityValue = value;
+                                });
+                              },
+                            )
+                            /*    DropdownButtonFormField(
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 2),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                    ),
+                                    onChanged: (val) =>
+                                        setState(() => dropDownValue1 = val),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Colors.black,
+                                        ),
+                                    hint: Text('USA'),
+                                  ),*/
+
+                            ),
+                        /* Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4, 5, 0, 0),
+                                    child: Text(
+                                      'Country',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFF9A9A9A),
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ),*/
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
+                              child: Container(
+                                width: 160,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 0, 0, 0),
+                                  child: TextFormField(
+                                    controller: textController6,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Address',
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFF9A9A9A),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF606E87),
+                                          fontSize: 16,
+                                        ),
+                                    keyboardType: TextInputType.streetAddress,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                              child: Container(
+                                width: 160,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 0, 0, 0),
+                                  child: TextFormField(
+                                    controller: textController7,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Zip Code',
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFF9A9A9A),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF606E87),
+                                          fontSize: 16,
+                                        ),
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
@@ -421,12 +940,13 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   child: Stack(
                                     children: [
                                       if (image == null)
-                                        SvgPicture.asset(
-                                          'assets/images/man.svg',
+                                        ClipOval(
+                                            child: Image.network(
+                                          profile,
                                           width: 100,
                                           height: 100,
                                           fit: BoxFit.cover,
-                                        )
+                                        ))
                                       else
                                         //Image.asset(Image.file(image!),width: 100,height: 100,fit: BoxFit.cover)
                                         ClipOval(
@@ -750,10 +1270,13 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                           child: InkWell(
                                             onTap: () async {
                                               setState(() {
-                                                if (color == color1) {
+                                                if (color == color1 &&
+                                                    displayLive == displayY) {
                                                   color = color2;
+                                                  displayLive = displayN;
                                                 } else {
                                                   color = color1;
+                                                  displayLive = displayY;
                                                 }
                                               });
                                             },
@@ -800,10 +1323,13 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       child: InkWell(
                                         onTap: () async {
                                           setState(() {
-                                            if (colorA == color1) {
+                                            if (colorA == color1 &&
+                                                displayView == displayY) {
                                               colorA = color2;
+                                              displayView = displayN;
                                             } else {
                                               colorA = color1;
+                                              displayView = displayY;
                                             }
                                           });
                                         },
@@ -855,10 +1381,13 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       child: InkWell(
                                         onTap: () async {
                                           setState(() {
-                                            if (colorB == color1) {
+                                            if (colorB == color1 &&
+                                                displayChat == displayY) {
                                               colorB = color2;
+                                              displayChat = displayN;
                                             } else {
                                               colorB = color1;
+                                              displayChat = displayY;
                                             }
                                           });
                                         },
@@ -902,8 +1431,174 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: FFButtonWidget(
-                            onPressed: () {
-                              print(FFAppState().MemberId);
+                            onPressed: () async {
+                              // await Navigator.push(
+                              //  context,
+                              // MaterialPageRoute(
+                              //  builder: (context) =>
+                              //   NavBarPage(initialPage: 'Landing'),
+                              //  ),
+                              // );
+                              if (textController1.text == "" ||
+                                  textController2.text == "" ||
+                                  textController3.text == "" ||
+                                  textController4.text == "" ||
+                                  textController5.text == "" ||
+                                  textController6.text == "" ||
+                                  textController7.text == "" ||
+                                  dropDownValue == "" ||
+                                  countryValue == "" ||
+                                  stateValue == "||" ||
+                                  cityValue == "") {
+                                Fluttertoast.showToast(
+                                    msg: "All fields are necessary to fill",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 5,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.black,
+                                    fontSize: 14.0);
+                              } else {
+                                print(FFAppState().AccountId);
+                                print(displayLive.toString());
+                                print(displayChat.toString());
+                                print(displayView.toString());
+                                // List<int> imageBytes = image.readAsBytesSync();
+                                // String base64Image = base64Encode(imageBytes);
+                                //BASE64.encode(imageBytes);
+
+                                final String url =
+                                    "http://18.208.148.208:4000/edit/member/${data["id"]}";
+                                /* final res =
+                                  await http.post(Uri.parse(url), headers: {
+                                "Authorization": "Bearer ${FFAppState().Token}"
+                              }, body: {
+                                "fname": textController1.text,
+                                "lname": textController2.text,
+                                "email": "hong@gmail.com",
+                                "mobile": textController3.text,
+                                "relation": dropDownValue,
+                                "executive": display.toString(),
+                                "m_acc_id": FFAppState().AccountId,
+                                "age": "80",
+                                "gender": "Female",
+                                "address": "123456",
+                                "zipcode": "123456",
+                                "profile": image,
+                                "live_video": true.toString(),
+                                "chats": displayChat.toString(),
+                                "view_video": displayView.toString(),
+                              });*/
+                                print(image.path);
+                                //  var stream =
+                                //     new http.ByteStream(image.openRead());
+                                // stream.cast();
+
+                                // var length = await image.length();
+
+                                var res1 = new http.MultipartRequest(
+                                    'POST', Uri.parse(url));
+
+                                res1.headers['Authorization'] =
+                                    "Bearer ${FFAppState().Token}";
+                                res1.fields['fname'] = textController1.text;
+                                res1.fields['lname'] = textController2.text;
+                                res1.fields['gender'] = textController3.text;
+                                res1.fields['mobile'] = textController4.text;
+                                res1.fields['email'] = textController5.text;
+                                res1.fields['address'] = textController6.text;
+                                res1.fields['zipcode'] = textController7.text;
+                                res1.fields['relation'] = dropDownValue;
+                                res1.fields['executive'] =
+                                    FFAppState().Chattoggle5.toString();
+                                res1.fields["dob"] = Dateselected;
+                                res1.fields["country"] = countryValue;
+                                res1.fields["state"] = stateValue;
+                                res1.fields["city"] = cityValue;
+                                res1.fields['live_video'] =
+                                    displayLive.toString();
+                                res1.fields['chats'] = displayChat.toString();
+                                res1.fields['view_video'] =
+                                    displayView.toString();
+
+                                final http.Response responseData =
+                                    await http.get(Uri.parse(profile));
+                                Uint8List uint8list = responseData.bodyBytes;
+                                var buffer = uint8list.buffer;
+                                ByteData byteData = ByteData.view(buffer);
+                                var tempDir = await getTemporaryDirectory();
+                                File file = await File('${tempDir.path}/img')
+                                    .writeAsBytes(buffer.asUint8List(
+                                        byteData.offsetInBytes,
+                                        byteData.lengthInBytes));
+                                print(file.path);
+                                // File imageFile = File(profile.toString());
+                                image == null
+                                    ? res1.files.add(
+                                        await http.MultipartFile.fromPath(
+                                            "profile", file.path))
+                                    : res1.files.add(
+                                        await http.MultipartFile.fromPath(
+                                            "profile", image.path));
+
+                                var response = await res1.send();
+                                // ignore: unnecessary_statements
+                                //List<int> imageBytes = image.readAsBytesSync();
+                                // res1.files.add(http.MultipartFile.fromBytes(
+                                // 'profile', imageBytes));
+                                //res1.files.add.(http.MultipartFile.fromPath('profile', image.path));
+
+                                // final result = jsonDecode(res.body);
+                                // print(data?.jsonBody[0].runtimeType);
+
+                                //if ((getJsonField(
+                                //  (data?.jsonBody ?? ''),
+                                //  r'''$[:].Error''',
+                                //)) ==
+                                // ('Nill'))
+
+                                print("this is the status code");
+                                print(response.statusCode);
+                                final respStr =
+                                    await response.stream.bytesToString();
+                                // final result = jsonDecode(res.body);*/
+                                print(response.statusCode);
+                                if (response.statusCode == 200) {
+                                  print("uploaded");
+
+                                  Fluttertoast.showToast(
+                                      msg: jsonDecode(respStr)["message"],
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 5,
+                                      backgroundColor: Colors.green,
+                                      textColor: Colors.black,
+                                      fontSize: 14.0);
+                                  await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MembersWidget(),
+                                      ));
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Error'),
+                                        content: Text("Error"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              }
+                              // setState(() {});
                             },
                             text: 'Save',
                             options: FFButtonOptions(
@@ -1003,5 +1698,23 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
         ),
       ),
     );
+  }
+
+  Future<File> urlToFile(String imageUrl) async {
+// generate random number.
+    var rng = new Random();
+// get temporary directory of device.
+    Directory tempDir = await getTemporaryDirectory();
+
+    String tempPath = tempDir.path;
+// create a new file in temporary path with random file name.
+    File file = new File('$tempPath' + (rng.nextInt(100)).toString() + '.png');
+// call http.get method and pass imageUrl into it to get response.
+    http.Response response = await http.get(Uri.parse(imageUrl));
+// write bodyBytes received in response to file.
+    await file.writeAsBytes(response.bodyBytes);
+// now return the file which is created with random name in
+// temporary directory and image bytes from response is written to // that file.
+    return file;
   }
 }

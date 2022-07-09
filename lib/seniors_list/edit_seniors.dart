@@ -29,9 +29,10 @@ class EditSeniorsWidget extends StatefulWidget {
 
 class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String dropDownValue1;
-  TextEditingController textController3;
+
   TextEditingController textController1;
   TextEditingController textController2;
+  TextEditingController textController3;
   TextEditingController textController4;
   TextEditingController textController5;
   TextEditingController textController6;
@@ -1348,7 +1349,11 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     await response.stream.bytesToString();
                                 if (response.statusCode == 200) {
                                   print("uploaded");
-
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ModifiedLandingPageWidget()));
                                   Fluttertoast.showToast(
                                       msg: "Updated Successfully!",
                                       toastLength: Toast.LENGTH_SHORT,
@@ -1357,11 +1362,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       backgroundColor: Colors.green,
                                       textColor: Colors.black,
                                       fontSize: 14.0);
-                                  Navigator.pop(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ModifiedLandingPageWidget()));
                                 } else {
                                   await showDialog(
                                     context: context,

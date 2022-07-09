@@ -483,162 +483,166 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                       itemBuilder:
                                                                           (BuildContext context,
                                                                               int index) {
-                                                                        bool
-                                                                            ex =
+                                                                        final ex =
                                                                             snapshot.data[index]["executive"];
                                                                         if (ex ==
                                                                             true) {
-                                                                          return Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                5,
-                                                                                10,
-                                                                                5,
-                                                                                0),
+                                                                          print(
+                                                                              snapshot.data);
+                                                                        }
+
+                                                                        return Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5,
+                                                                              10,
+                                                                              5,
+                                                                              0),
+                                                                          child:
+                                                                              InkWell(
+                                                                            onTap:
+                                                                                () async {
+                                                                              FFAppState().MemberId = snapshot.data[index]["id"];
+                                                                              await Navigator.push(
+                                                                                context,
+                                                                                MaterialPageRoute(
+                                                                                  builder: (context) => EditMemberWidget(data: snapshot.data[index], title: "Edit Executive"),
+                                                                                ),
+                                                                              );
+                                                                            },
                                                                             child:
-                                                                                InkWell(
-                                                                              onTap: () async {
-                                                                                FFAppState().MemberId = snapshot.data[index]["id"];
-                                                                                await Navigator.push(
-                                                                                  context,
-                                                                                  MaterialPageRoute(
-                                                                                    builder: (context) => EditExecutiveWidget(info: snapshot.data[index]),
-                                                                                  ),
-                                                                                );
-                                                                              },
-                                                                              child: Card(
-                                                                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                                                color: Color(0xFF272E36),
-                                                                                child: Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
-                                                                                  child: Row(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    children: [
-                                                                                      Container(
-                                                                                        width: 80,
-                                                                                        height: 80,
-                                                                                        decoration: BoxDecoration(
-                                                                                          color: Color(0xFF272E36),
-                                                                                        ),
-                                                                                        child: Stack(
-                                                                                          children: [
-                                                                                            Container(
-                                                                                              width: 100,
-                                                                                              height: 100,
-                                                                                              clipBehavior: Clip.antiAlias,
+                                                                                Card(
+                                                                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                                              color: Color(0xFF272E36),
+                                                                              child: Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
+                                                                                child: Row(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  children: [
+                                                                                    Container(
+                                                                                      width: 80,
+                                                                                      height: 80,
+                                                                                      decoration: BoxDecoration(
+                                                                                        color: Color(0xFF272E36),
+                                                                                      ),
+                                                                                      child: Stack(
+                                                                                        children: [
+                                                                                          Container(
+                                                                                            width: 100,
+                                                                                            height: 100,
+                                                                                            clipBehavior: Clip.antiAlias,
+                                                                                            decoration: BoxDecoration(
+                                                                                              shape: BoxShape.circle,
+                                                                                            ),
+                                                                                            child: Image.network(
+                                                                                              snapshot.data[index]["profile"],
+                                                                                              fit: BoxFit.cover,
+                                                                                            ),
+                                                                                          ),
+                                                                                          Align(
+                                                                                            alignment: AlignmentDirectional(1.2, 0.83),
+                                                                                            child: Container(
+                                                                                              width: 30,
+                                                                                              height: 30,
                                                                                               decoration: BoxDecoration(
+                                                                                                color: Color(0xFF00B89F),
                                                                                                 shape: BoxShape.circle,
                                                                                               ),
-                                                                                              child: Image.network(
-                                                                                                snapshot.data[index]["profile"],
-                                                                                                fit: BoxFit.cover,
-                                                                                              ),
-                                                                                            ),
-                                                                                            Align(
-                                                                                              alignment: AlignmentDirectional(1.2, 0.83),
-                                                                                              child: Container(
-                                                                                                width: 30,
-                                                                                                height: 30,
-                                                                                                decoration: BoxDecoration(
-                                                                                                  color: Color(0xFF00B89F),
-                                                                                                  shape: BoxShape.circle,
-                                                                                                ),
-                                                                                                alignment: AlignmentDirectional(0, 0),
-                                                                                                child: Column(
-                                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                  children: [
-                                                                                                    Expanded(
-                                                                                                      child: Column(
-                                                                                                        mainAxisSize: MainAxisSize.min,
-                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                                        children: [
-                                                                                                          SvgPicture.asset(
-                                                                                                            'assets/images/achievment.svg',
-                                                                                                            height: 20,
-                                                                                                            fit: BoxFit.cover,
-                                                                                                          ),
-                                                                                                        ],
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ],
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ),
-                                                                                      Expanded(
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                          children: [
-                                                                                            Padding(
-                                                                                              padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                                                                              alignment: AlignmentDirectional(0, 0),
                                                                                               child: Column(
                                                                                                 mainAxisSize: MainAxisSize.max,
-                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                mainAxisAlignment: MainAxisAlignment.center,
                                                                                                 children: [
-                                                                                                  Row(
-                                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                                    children: [
-                                                                                                      Text(
-                                                                                                        snapshot.data[index]["fname"] + " " + snapshot.data[index]["lname"],
-                                                                                                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                              fontFamily: 'Montserrat',
-                                                                                                              color: Color(0xFF00B89F),
-                                                                                                              fontWeight: FontWeight.bold,
-                                                                                                            ),
-                                                                                                      ),
-                                                                                                    ],
-                                                                                                  ),
-                                                                                                  Row(
-                                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                                    children: [
-                                                                                                      Text(
-                                                                                                        snapshot.data[index]["email"],
-                                                                                                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                              fontFamily: 'Montserrat',
-                                                                                                              color: Color(0xFFAFAFAF),
-                                                                                                              fontSize: 12,
-                                                                                                              fontWeight: FontWeight.w200,
-                                                                                                            ),
-                                                                                                      ),
-                                                                                                    ],
-                                                                                                  ),
-                                                                                                  Row(
-                                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                                    children: [
-                                                                                                      Text(
-                                                                                                        snapshot.data[index]["mobile"],
-                                                                                                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                              fontFamily: 'Montserrat',
-                                                                                                              color: Color(0xFFAFAFAF),
-                                                                                                              fontSize: 12,
-                                                                                                              fontWeight: FontWeight.w200,
-                                                                                                            ),
-                                                                                                      ),
-                                                                                                    ],
+                                                                                                  Expanded(
+                                                                                                    child: Column(
+                                                                                                      mainAxisSize: MainAxisSize.min,
+                                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                      children: [
+                                                                                                        SvgPicture.asset(
+                                                                                                          'assets/images/achievment.svg',
+                                                                                                          height: 20,
+                                                                                                          fit: BoxFit.cover,
+                                                                                                        ),
+                                                                                                      ],
+                                                                                                    ),
                                                                                                   ),
                                                                                                 ],
                                                                                               ),
                                                                                             ),
-                                                                                            Icon(
-                                                                                              Icons.chevron_right,
-                                                                                              color: Color(0xFF00B89F),
-                                                                                              size: 30,
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
+                                                                                          ),
+                                                                                        ],
                                                                                       ),
-                                                                                    ],
-                                                                                  ),
+                                                                                    ),
+                                                                                    Expanded(
+                                                                                      child: Row(
+                                                                                        mainAxisSize: MainAxisSize.max,
+                                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                        children: [
+                                                                                          Padding(
+                                                                                            padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                                                                            child: Column(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                              children: [
+                                                                                                Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      snapshot.data[index]["fname"] + " " + snapshot.data[index]["lname"],
+                                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                            fontFamily: 'Montserrat',
+                                                                                                            color: Color(0xFF00B89F),
+                                                                                                            fontWeight: FontWeight.bold,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                                Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      snapshot.data[index]["email"],
+                                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                            fontFamily: 'Montserrat',
+                                                                                                            color: Color(0xFFAFAFAF),
+                                                                                                            fontSize: 12,
+                                                                                                            fontWeight: FontWeight.w200,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                                Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      snapshot.data[index]["mobile"],
+                                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                            fontFamily: 'Montserrat',
+                                                                                                            color: Color(0xFFAFAFAF),
+                                                                                                            fontSize: 12,
+                                                                                                            fontWeight: FontWeight.w200,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
+                                                                                          Icon(
+                                                                                            Icons.chevron_right,
+                                                                                            color: Color(0xFF00B89F),
+                                                                                            size: 30,
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
                                                                                 ),
                                                                               ),
                                                                             ),
-                                                                          );
-                                                                        }
+                                                                          ),
+                                                                        );
                                                                       }),
                                                             )
                                                           ],
@@ -683,7 +687,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                             await Navigator.push(
                                                                               context,
                                                                               MaterialPageRoute(
-                                                                                builder: (context) => EditMemberWidget(data: snapshot.data[index]),
+                                                                                builder: (context) => EditMemberWidget(data: snapshot.data[index], title: "Edit Members"),
                                                                               ),
                                                                             );
                                                                           },

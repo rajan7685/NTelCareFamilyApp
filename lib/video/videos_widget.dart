@@ -2511,414 +2511,422 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                     ),
                                                   ],
                                                 ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: [
-                                                    Container(
-                                                      width: 90,
-                                                      height: 90,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFF535353),
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        5,
-                                                                        0,
-                                                                        5,
-                                                                        0),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Text(
-                                                                  '03:24',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: Color(
-                                                                            0xFFE5E5E5),
-                                                                        fontSize:
-                                                                            10,
-                                                                        fontWeight:
-                                                                            FontWeight.w100,
-                                                                      ),
-                                                                ),
-                                                                Icon(
-                                                                  Icons
-                                                                      .cloud_download_rounded,
-                                                                  color: Color(
-                                                                      0xFF00B89F),
-                                                                  size: 18,
-                                                                ),
-                                                              ],
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 3),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      Container(
+                                                        width: 90,
+                                                        height: 90,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0xFF535353),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          5,
+                                                                          0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Text(
+                                                                    '03:24',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              Color(0xFFE5E5E5),
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontWeight:
+                                                                              FontWeight.w100,
+                                                                        ),
+                                                                  ),
+                                                                  Icon(
+                                                                    Icons
+                                                                        .cloud_download_rounded,
+                                                                    color: Color(
+                                                                        0xFF00B89F),
+                                                                    size: 18,
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Image.asset(
-                                                            'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
-                                                            width: 35,
-                                                            height: 25,
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        0,
-                                                                        10),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  'Living Room',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: Color(
-                                                                            0xFFE5E5E5),
-                                                                        fontSize:
-                                                                            9,
-                                                                        fontWeight:
-                                                                            FontWeight.w200,
-                                                                      ),
-                                                                ),
-                                                              ],
+                                                            Image.asset(
+                                                              'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
+                                                              width: 35,
+                                                              height: 25,
+                                                              fit: BoxFit.fill,
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      width: 90,
-                                                      height: 90,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFF535353),
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        5,
-                                                                        0,
-                                                                        5,
-                                                                        0),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Text(
-                                                                  '03:24',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: Color(
-                                                                            0xFFE5E5E5),
-                                                                        fontSize:
-                                                                            10,
-                                                                        fontWeight:
-                                                                            FontWeight.w100,
-                                                                      ),
-                                                                ),
-                                                                Icon(
-                                                                  Icons
-                                                                      .cloud_download_rounded,
-                                                                  color: Color(
-                                                                      0xFF00B89F),
-                                                                  size: 18,
-                                                                ),
-                                                              ],
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          0,
+                                                                          0,
+                                                                          10),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    'Living Room',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              Color(0xFFE5E5E5),
+                                                                          fontSize:
+                                                                              9,
+                                                                          fontWeight:
+                                                                              FontWeight.w200,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Image.asset(
-                                                            'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
-                                                            width: 35,
-                                                            height: 25,
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        0,
-                                                                        10),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  'Living Room',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: Color(
-                                                                            0xFFE5E5E5),
-                                                                        fontSize:
-                                                                            9,
-                                                                        fontWeight:
-                                                                            FontWeight.w200,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      width: 90,
-                                                      height: 90,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFF535353),
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        5,
-                                                                        0,
-                                                                        5,
-                                                                        0),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Text(
-                                                                  '03:24',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: Color(
-                                                                            0xFFE5E5E5),
-                                                                        fontSize:
-                                                                            10,
-                                                                        fontWeight:
-                                                                            FontWeight.w100,
-                                                                      ),
-                                                                ),
-                                                                Icon(
-                                                                  Icons
-                                                                      .cloud_download_rounded,
-                                                                  color: Color(
-                                                                      0xFF00B89F),
-                                                                  size: 18,
-                                                                ),
-                                                              ],
+                                                      Container(
+                                                        width: 90,
+                                                        height: 90,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0xFF535353),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          5,
+                                                                          0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Text(
+                                                                    '03:24',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              Color(0xFFE5E5E5),
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontWeight:
+                                                                              FontWeight.w100,
+                                                                        ),
+                                                                  ),
+                                                                  Icon(
+                                                                    Icons
+                                                                        .cloud_download_rounded,
+                                                                    color: Color(
+                                                                        0xFF00B89F),
+                                                                    size: 18,
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Image.asset(
-                                                            'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
-                                                            width: 35,
-                                                            height: 25,
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        0,
-                                                                        10),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  'Living Room',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: Color(
-                                                                            0xFFE5E5E5),
-                                                                        fontSize:
-                                                                            9,
-                                                                        fontWeight:
-                                                                            FontWeight.w200,
-                                                                      ),
-                                                                ),
-                                                              ],
+                                                            Image.asset(
+                                                              'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
+                                                              width: 35,
+                                                              height: 25,
+                                                              fit: BoxFit.fill,
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      width: 90,
-                                                      height: 90,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFF535353),
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        5,
-                                                                        0,
-                                                                        5,
-                                                                        0),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Text(
-                                                                  '03:24',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: Color(
-                                                                            0xFFE5E5E5),
-                                                                        fontSize:
-                                                                            10,
-                                                                        fontWeight:
-                                                                            FontWeight.w100,
-                                                                      ),
-                                                                ),
-                                                                Icon(
-                                                                  Icons
-                                                                      .cloud_download_rounded,
-                                                                  color: Color(
-                                                                      0xFF00B89F),
-                                                                  size: 18,
-                                                                ),
-                                                              ],
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          0,
+                                                                          0,
+                                                                          10),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    'Living Room',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              Color(0xFFE5E5E5),
+                                                                          fontSize:
+                                                                              9,
+                                                                          fontWeight:
+                                                                              FontWeight.w200,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Image.asset(
-                                                            'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
-                                                            width: 35,
-                                                            height: 25,
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        0,
-                                                                        10),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  'Living Room',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: Color(
-                                                                            0xFFE5E5E5),
-                                                                        fontSize:
-                                                                            9,
-                                                                        fontWeight:
-                                                                            FontWeight.w200,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                      Container(
+                                                        width: 90,
+                                                        height: 90,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0xFF535353),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          5,
+                                                                          0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Text(
+                                                                    '03:24',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              Color(0xFFE5E5E5),
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontWeight:
+                                                                              FontWeight.w100,
+                                                                        ),
+                                                                  ),
+                                                                  Icon(
+                                                                    Icons
+                                                                        .cloud_download_rounded,
+                                                                    color: Color(
+                                                                        0xFF00B89F),
+                                                                    size: 18,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Image.asset(
+                                                              'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
+                                                              width: 35,
+                                                              height: 25,
+                                                              fit: BoxFit.fill,
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          0,
+                                                                          0,
+                                                                          10),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    'Living Room',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              Color(0xFFE5E5E5),
+                                                                          fontSize:
+                                                                              9,
+                                                                          fontWeight:
+                                                                              FontWeight.w200,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 90,
+                                                        height: 90,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0xFF535353),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          5,
+                                                                          0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Text(
+                                                                    '03:24',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              Color(0xFFE5E5E5),
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontWeight:
+                                                                              FontWeight.w100,
+                                                                        ),
+                                                                  ),
+                                                                  Icon(
+                                                                    Icons
+                                                                        .cloud_download_rounded,
+                                                                    color: Color(
+                                                                        0xFF00B89F),
+                                                                    size: 18,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Image.asset(
+                                                              'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
+                                                              width: 35,
+                                                              height: 25,
+                                                              fit: BoxFit.fill,
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          0,
+                                                                          0,
+                                                                          10),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    'Living Room',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              Color(0xFFE5E5E5),
+                                                                          fontSize:
+                                                                              9,
+                                                                          fontWeight:
+                                                                              FontWeight.w200,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ],
                                             ),

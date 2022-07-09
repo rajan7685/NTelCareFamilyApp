@@ -64,7 +64,7 @@ class FFAppState {
   //   _Chattoggle2 = _value;
   //   prefs.setBool('ff_Chattoggle2', _value);
   // }
-  bool Chattoggle2 = false;
+  bool Chattoggle2 = true;
 
   bool _Chattoggle3 = false;
   bool get Chattoggle3 => _Chattoggle3;

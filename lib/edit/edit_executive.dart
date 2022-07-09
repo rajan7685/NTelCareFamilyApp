@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,7 +16,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EditExecutiveWidget extends StatefulWidget {
   dynamic info;
-  EditExecutiveWidget({Key key, @required this.info}) : super(key: key);
+  EditExecutiveWidget({Key key, @required this.info, String title})
+      : super(key: key);
 
   @override
   _EditExecutiveWidgetState createState() => _EditExecutiveWidgetState(info);
@@ -29,6 +31,7 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
   TextEditingController textController4;
   bool switchListTileValue;
   bool checkboxListTileValue;
+  ApiCallResponse apiCallOutput;
   dynamic info;
   _EditExecutiveWidgetState(this.info);
 
@@ -795,8 +798,52 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                               child: FFButtonWidget(
-                                onPressed: () {
-                                  print('Button pressed ...');
+                                onPressed: () async {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Are you sure?'),
+                                        content: Text('Delete the user'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () async {
+                                              apiCallOutput =
+                                                  await DeleteUserCall.call();
+                                              print("this is the status code");
+                                              print(apiCallOutput.statusCode);
+                                              if (apiCallOutput.statusCode ==
+                                                  200) {
+                                                Fluttertoast.showToast(
+                                                    msg:
+                                                        "Executive Member Deleted Successfully",
+                                                    toastLength:
+                                                        Toast.LENGTH_SHORT,
+                                                    gravity:
+                                                        ToastGravity.CENTER,
+                                                    timeInSecForIosWeb: 5,
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                    textColor: Colors.black,
+                                                    fontSize: 14.0);
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          MembersWidget(),
+                                                    ));
+                                              }
+                                            },
+                                            child: Text('Yes'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {},
+                                            child: Text('Cancel'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 },
                                 text: 'Delete User',
                                 options: FFButtonOptions(
