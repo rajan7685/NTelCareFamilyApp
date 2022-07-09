@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
+import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/seniors_list/senior_list.dart';
 import 'package:image_picker/image_picker.dart';
 import '../backend/api_requests/api_calls.dart';
@@ -65,7 +66,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     textController2 = TextEditingController(text: data["lname"]);
     textController3 = TextEditingController(text: data["gender"]);
     textController4 = TextEditingController(text: data['height']);
-    textController5 = TextEditingController(text: data['weight'] + " lbs");
+    textController5 = TextEditingController(text: data['weight']);
     textController6 = TextEditingController(text: data["mobile"]);
     textController7 = TextEditingController(text: data["email"]);
     textController8 = TextEditingController(text: data['address']);
@@ -763,7 +764,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                         ),
                         Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
+                                EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                             child: CSCPicker(
                               ///Enable disable state dropdown [OPTIONAL PARAMETER]
                               showStates: true,
@@ -1362,6 +1363,11 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       backgroundColor: Colors.green,
                                       textColor: Colors.black,
                                       fontSize: 14.0);
+                                  Navigator.pop(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ModifiedLandingPageWidget()));
                                 } else {
                                   await showDialog(
                                     context: context,

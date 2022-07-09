@@ -14,7 +14,7 @@ class FFAppState {
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
-    _Chattoggle2 = prefs.getBool('ff_Chattoggle2') ?? _Chattoggle2;
+    // _Chattoggle2 = prefs.getBool('ff_Chattoggle2') ?? _Chattoggle2;
   }
 
   SharedPreferences prefs;
@@ -54,12 +54,17 @@ class FFAppState {
   String door = '';
   String shower = '';
 
-  bool _Chattoggle2 = false;
-  bool get Chattoggle2 => _Chattoggle2;
-  set Chattoggle2(bool _value) {
-    _Chattoggle2 = _value;
-    prefs.setBool('ff_Chattoggle2', _value);
-  }
+  bool liveView;
+  bool chat;
+  bool viewVideo;
+
+  // bool _Chattoggle2 = false;
+  // bool get Chattoggle2 => _Chattoggle2;
+  // set Chattoggle2(bool _value) {
+  //   _Chattoggle2 = _value;
+  //   prefs.setBool('ff_Chattoggle2', _value);
+  // }
+  bool Chattoggle2 = false;
 
   bool _Chattoggle3 = false;
   bool get Chattoggle3 => _Chattoggle3;

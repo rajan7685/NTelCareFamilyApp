@@ -227,7 +227,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'First Name',
-                                  hintText: '[Some hint text...]',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -275,7 +274,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Last Name',
-                                  hintText: '[Some hint text...]',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -323,7 +321,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Phone Number',
-                                  hintText: '[Some hint text...]',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
