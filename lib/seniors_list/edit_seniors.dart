@@ -72,8 +72,11 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     textController9 = TextEditingController(text: data["zipcode"]);
     profile = data["profile"];
     FFAppState().SeniorId = data["id"];
-
     Dateselected = data["dob"];
+    cityValue = data["city"];
+    countryValue = data["country"];
+    stateValue = data["state"];
+    //selectedDate = DateTime.tryParse(data["dob"]);
   }
 
   File image;
@@ -414,7 +417,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                               child: Container(
-                                width: 200,
+                                width: 160,
                                 height: 60,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFEEEEEE),
@@ -457,7 +460,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(10, 0, 0, 0),
-                                                child: Text(Dateselected,
+                                                child: Text(
+                                                    DateFormat("yyyy-MM-dd")
+                                                        .format(selectedDate),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyText1
@@ -496,7 +501,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                               await showDatePicker(
                                                   context: context,
                                                   initialDate: selectedDate,
-                                                  firstDate: DateTime(2015, 8),
+                                                  firstDate: DateTime(2000, 8),
                                                   lastDate: DateTime(2101));
                                           if (picked != null &&
                                               picked != selectedDate)
@@ -505,6 +510,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             });
                                           Dateselected = DateFormat.yM()
                                               .format(selectedDate);
+                                          print(Dateselected);
                                         },
                                         child: Icon(
                                           Icons.arrow_drop_down_outlined,
