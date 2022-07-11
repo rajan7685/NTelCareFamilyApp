@@ -504,8 +504,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                               await showDatePicker(
                                                   context: context,
                                                   initialDate: selectedDate,
-                                                  firstDate: DateTime(2000, 8),
-                                                  lastDate: DateTime(2101));
+                                                  firstDate: DateTime(1900, 8),
+                                                  lastDate: DateTime.now());
                                           if (picked != null &&
                                               picked != selectedDate)
                                             setState(() {
