@@ -29,7 +29,7 @@ class EditSeniorsWidget extends StatefulWidget {
 
 class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String dropDownValue1;
-  TextEditingController textController3;
+  //TextEditingController textController3;
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController4;
@@ -42,6 +42,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String dropDownValue3;
   String dropDownValue4;
   String dropDownValue5;
+  String dropDownValueGender;
   bool display = false;
   bool displayY = true;
   bool displayN = false;
@@ -64,7 +65,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     super.initState();
     textController1 = TextEditingController(text: data["fname"]);
     textController2 = TextEditingController(text: data["lname"]);
-    textController3 = TextEditingController(text: data["gender"]);
+    dropDownValueGender = data["gender"];
     textController4 = TextEditingController(text: data['height']);
     textController5 = TextEditingController(text: data['weight']);
     textController6 = TextEditingController(text: data["mobile"]);
@@ -361,6 +362,62 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                           children: [
                             Padding(
                               padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                              child: Container(
+                                width: 160,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      flex: 8,
+                                      child: DropdownButtonFormField<String>(
+                                        value: dropDownValueGender,
+                                        items: ["male", "female", "transgender"]
+                                            .map((label) => DropdownMenuItem(
+                                                  child: Text(label),
+                                                  value: label,
+                                                ))
+                                            .toList(),
+                                        onChanged: (value) {
+                                          setState(() =>
+                                              dropDownValueGender = value);
+                                        },
+                                        decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          filled: true,
+                                          fillColor: Color(0xFFEEEEEE),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFF606E87),
+                                            ),
+                                        hint: Text('Gender'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            /*
+                            Padding(
+                              padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
                               child: Container(
                                 width: 160,
@@ -415,7 +472,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   ),
                                 ),
                               ),
-                            ),
+                            ),*/
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
@@ -766,7 +823,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                         ),
                         Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
+                                EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
                             child: CSCPicker(
                               ///Enable disable state dropdown [OPTIONAL PARAMETER]
                               showStates: true,
@@ -1274,7 +1331,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                             onPressed: () async {
                               if (textController1.text == "" ||
                                   textController2.text == "" ||
-                                  textController3.text == "" ||
+                                  dropDownValueGender == "" ||
                                   textController4.text == "" ||
                                   textController5.text == "" ||
                                   textController6.text == "" ||
@@ -1310,7 +1367,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                 res.fields["lname"] = textController2.text;
                                 res.fields["mobile"] = textController6.text;
                                 res.fields["email"] = textController7.text;
-                                res.fields["gender"] = textController3.text;
+                                res.fields["gender"] = dropDownValueGender;
                                 res.fields["height"] = textController4.text;
                                 res.fields["weight"] = textController5.text;
                                 res.fields["address"] = textController8.text;
