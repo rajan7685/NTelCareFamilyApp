@@ -219,11 +219,22 @@ class _newPasswordState extends State<newPassword> {
                         padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            if (textController1.text.isEmpty) {
+                            if (textController1.text.length < 8 &&
+                                textController1.text.isNotEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                    content: Text("Complete the details")),
+                                    content: Text(
+                                        "Your password must be at least 8 characters long.")),
                               );
+                            } else if (textController1.text.isEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: "Enter new password",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.black,
+                                  fontSize: 14.0);
                             } else {
                               final String url =
                                   "http://18.208.148.208:4000/reset/member";

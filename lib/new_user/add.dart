@@ -28,6 +28,7 @@ class Add extends StatefulWidget {
 
 class _AddWidgetState extends State<Add> {
   String dropDownValue;
+  String dropDownValueGender;
   TextEditingController textController1 = TextEditingController();
   TextEditingController textController2 = TextEditingController();
   TextEditingController textController3 = TextEditingController();
@@ -47,6 +48,7 @@ class _AddWidgetState extends State<Add> {
   String stateValue = "";
   String cityValue = "";
   DateTime dateTime;
+  String Date = "Select";
   DateTime selectedDate = DateTime.now();
   @override
   void initState() {
@@ -237,6 +239,14 @@ class _AddWidgetState extends State<Add> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'First Name',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -284,6 +294,14 @@ class _AddWidgetState extends State<Add> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Last Name',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -320,6 +338,66 @@ class _AddWidgetState extends State<Add> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                              child: Container(
+                                width: 160,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      flex: 8,
+                                      child: DropdownButtonFormField<String>(
+                                        value: dropDownValueGender,
+                                        items: [
+                                          "Male",
+                                          "Female",
+                                          "Transgender",
+                                          "Non binary"
+                                        ]
+                                            .map((label) => DropdownMenuItem(
+                                                  child: Text(label),
+                                                  value: label,
+                                                ))
+                                            .toList(),
+                                        onChanged: (value) {
+                                          setState(() =>
+                                              dropDownValueGender = value);
+                                        },
+                                        decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          filled: true,
+                                          fillColor: Color(0xFFEEEEEE),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFF606E87),
+                                            ),
+                                        hint: Text('Gender'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            /*Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
                               child: Container(
@@ -375,7 +453,7 @@ class _AddWidgetState extends State<Add> {
                                   ),
                                 ),
                               ),
-                            ),
+                            ),*/
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
@@ -392,12 +470,12 @@ class _AddWidgetState extends State<Add> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          2, 10, 0, 3),
+                                          2, 7, 0, 3),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Row(
-                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: [
@@ -423,9 +501,7 @@ class _AddWidgetState extends State<Add> {
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(10, 0, 0, 0),
-                                                child: Text(
-                                                    DateFormat('dd-MM-yyyy')
-                                                        .format(selectedDate),
+                                                child: Text(Date,
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyText1
@@ -442,12 +518,17 @@ class _AddWidgetState extends State<Add> {
                                         ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 0, 0),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          /*  showDatePicker(
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 0, 0, 0),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              /*  showDatePicker(
                                                 context: context,
                                                 initialDate: dateTime == null
                                                     ? DateTime.now()
@@ -459,24 +540,29 @@ class _AddWidgetState extends State<Add> {
                                             dateTime = date;
                                           });
                                         });*/
-                                          final DateTime picked =
-                                              await showDatePicker(
-                                                  context: context,
-                                                  initialDate: selectedDate,
-                                                  firstDate: DateTime(2015, 8),
-                                                  lastDate: DateTime(2101));
-                                          if (picked != null &&
-                                              picked != selectedDate)
-                                            setState(() {
-                                              selectedDate = picked;
-                                            });
-                                        },
-                                        child: Icon(
-                                          Icons.arrow_drop_down_outlined,
-                                          color: Colors.black,
-                                          size: 20,
+                                              final DateTime picked =
+                                                  await showDatePicker(
+                                                      context: context,
+                                                      initialDate: selectedDate,
+                                                      firstDate:
+                                                          DateTime(1900, 8),
+                                                      lastDate: DateTime.now());
+                                              if (picked != null &&
+                                                  picked != selectedDate)
+                                                setState(() {
+                                                  selectedDate = picked;
+                                                });
+                                              Date = DateFormat('dd-MM-yyyy')
+                                                  .format(selectedDate);
+                                            },
+                                            child: Icon(
+                                              Icons.arrow_drop_down_outlined,
+                                              color: Colors.black,
+                                              size: 20,
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -557,6 +643,14 @@ class _AddWidgetState extends State<Add> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Phone Number',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -590,8 +684,7 @@ class _AddWidgetState extends State<Add> {
                           ),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
                           child: CSCPicker(
                             ///Enable disable state dropdown [OPTIONAL PARAMETER]
                             showStates: true,
@@ -845,13 +938,13 @@ class _AddWidgetState extends State<Add> {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       filled: true,
-                                      fillColor: Colors.white,
+                                      fillColor: Color(0xFFEEEEEE),
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
                                           fontFamily: 'Poppins',
-                                          color: Colors.black,
+                                          color: Color(0xFF9A9A9A),
                                         ),
                                     hint: Text('Enter relationship'),
                                   ),
@@ -1510,7 +1603,7 @@ class _AddWidgetState extends State<Add> {
                                 res1.fields['m_acc_id'] =
                                     FFAppState().AccountId;
 
-                                res1.fields['gender'] = textController3.text;
+                                res1.fields['gender'] = dropDownValueGender;
                                 res1.fields['address'] = textController6.text;
                                 res1.fields['zipcode'] = textController7.text;
                                 res1.files.add(
@@ -1524,7 +1617,8 @@ class _AddWidgetState extends State<Add> {
                                 res1.fields["country"] = countryValue;
                                 res1.fields["state"] = stateValue;
                                 res1.fields["city"] = cityValue;
-                                res1.fields["age"] = "50";
+                                res1.fields["dob"] = DateFormat("yyyy-MM-dd")
+                                    .format(selectedDate);
                                 // ignore: unnecessary_statements
                                 //List<int> imageBytes = image.readAsBytesSync();
                                 // res1.files.add(http.MultipartFile.fromBytes(
@@ -1569,7 +1663,7 @@ class _AddWidgetState extends State<Add> {
                                     builder: (alertDialogContext) {
                                       return AlertDialog(
                                         title: Text('Error'),
-                                        content: Text("Error"),
+                                        content: jsonDecode(respStr)["message"],
                                         actions: [
                                           TextButton(
                                             onPressed: () => Navigator.pop(
