@@ -49,7 +49,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   String stateValue = "";
   String cityValue = "";
   String address = "";
-
+  String dropDownValueGender;
   String dateJson;
   DateTime dateTime;
   DateTime selectedDate;
@@ -68,18 +68,18 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     super.initState();
     textController1 = TextEditingController(text: data["fname"]);
     textController2 = TextEditingController(text: data["lname"]);
-    textController3 = TextEditingController(text: data["gender"]);
+
     textController4 = TextEditingController(text: data['mobile']);
     textController5 = TextEditingController(text: data['email']);
     textController6 = TextEditingController(text: data["address"]);
     textController7 = TextEditingController(text: data["zipcode"]);
     profile = data["profile"];
-
+    dropDownValueGender = data["gender"];
     cityValue = data["city"];
     countryValue = data["country"];
     stateValue = data["state"];
-
-    selectedDate = HttpDate.parse(data["dob"]);
+    dropDownValue = data["relation"];
+    selectedDate = DateTime.parse(data["dob"]);
     print(data["dob"]);
     print(DateFormat("yyyy-MM-dd").format(selectedDate));
   }
@@ -347,6 +347,61 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           children: [
                             Padding(
                               padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                              child: Container(
+                                width: 160,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      flex: 8,
+                                      child: DropdownButtonFormField<String>(
+                                        value: dropDownValueGender,
+                                        items: ["male", "female", "transgender"]
+                                            .map((label) => DropdownMenuItem(
+                                                  child: Text(label),
+                                                  value: label,
+                                                ))
+                                            .toList(),
+                                        onChanged: (value) {
+                                          setState(() =>
+                                              dropDownValueGender = value);
+                                        },
+                                        decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          filled: true,
+                                          fillColor: Color(0xFFEEEEEE),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFF606E87),
+                                            ),
+                                        hint: Text('Gender'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            /* Padding(
+                              padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
                               child: Container(
                                 width: 160,
@@ -354,7 +409,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   color: Color(0xFFEEEEEE),
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: Padding(
+                               child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       10, 0, 0, 0),
                                   child: TextFormField(
@@ -401,7 +456,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   ),
                                 ),
                               ),
-                            ),
+                            ),*/
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
@@ -617,7 +672,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         ),
                         Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
+                                EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
                             child: CSCPicker(
                               ///Enable disable state dropdown [OPTIONAL PARAMETER]
                               showStates: true,
@@ -907,8 +962,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               },
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.blue, width: 2),
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFEEEEEE), width: 2),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 border: OutlineInputBorder(
@@ -917,13 +972,13 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 filled: true,
-                                fillColor: Colors.white,
+                                fillColor: Color(0xFFEEEEEE),
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyText1
                                   .override(
                                     fontFamily: 'Poppins',
-                                    color: Colors.black,
+                                    color: Color(0xFF606E87),
                                   ),
                               hint: Text('Enter relationship'),
                             ),

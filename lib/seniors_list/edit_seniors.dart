@@ -29,11 +29,7 @@ class EditSeniorsWidget extends StatefulWidget {
 
 class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String dropDownValue1;
-<<<<<<< HEAD
   //TextEditingController textController3;
-=======
-
->>>>>>> 874c72118bfcd512c8aad24abb45c639aad5706f
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
@@ -112,8 +108,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
 
   @override
   Widget build(BuildContext context) {
-
-    
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

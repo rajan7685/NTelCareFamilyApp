@@ -66,6 +66,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
     countryValue = info["member"]["country"];
     stateValue = info["member"]["state"];
     selectedDate = HttpDate.parse(info["member"]["dob"]);
+    dropDownValue = info["member"]["relation"];
   }
 
   var color1 = Color(0xFF00B89F);
