@@ -362,7 +362,12 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       flex: 8,
                                       child: DropdownButtonFormField<String>(
                                         value: dropDownValueGender,
-                                        items: ["male", "female", "transgender"]
+                                        items: [
+                                          "Male",
+                                          "Female",
+                                          "Transgender",
+                                          "Non binary"
+                                        ]
                                             .map((label) => DropdownMenuItem(
                                                   child: Text(label),
                                                   value: label,
@@ -396,7 +401,52 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         hint: Text('Gender'),
                                       ),
                                     ),
-                                  ],
+                                  ]
+                                  /* Expanded(
+                                      flex: 8,
+                                      child: DropdownButtonFormField<String>(
+                                        value: dropDownValueGender,
+                                        items: [
+                                          "Male",
+                                          "Female"
+                                              "Transgender",
+                                          "Non binary",
+                                        ]
+                                            .map((label) => DropdownMenuItem(
+                                                  child: Text(label),
+                                                  value: label,
+                                                ))
+                                            .toList(),
+                                        onChanged: (value) {
+                                          setState(() =>
+                                              dropDownValueGender = value);
+                                        },
+                                        decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          filled: true,
+                                          fillColor: Color(0xFFEEEEEE),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFF606E87),
+                                            ),
+                                        hint: Text('Gender'),
+                                      ),
+                                    ),
+                                  ]*/
+                                  ,
                                 ),
                               ),
                             ),
@@ -1552,7 +1602,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 "chats": displayChat.toString(),
                                 "view_video": displayView.toString(),
                               });*/
-                                print(image.path);
+
                                 //  var stream =
                                 //     new http.ByteStream(image.openRead());
                                 // stream.cast();
@@ -1596,7 +1646,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         byteData.offsetInBytes,
                                         byteData.lengthInBytes));
                                 print(file.path);
-                                // File imageFile = File(profile.toString());
+
                                 image == null
                                     ? res1.files.add(
                                         await http.MultipartFile.fromPath(
@@ -1649,7 +1699,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     builder: (alertDialogContext) {
                                       return AlertDialog(
                                         title: Text('Error'),
-                                        content: Text("Error"),
+                                        content: jsonDecode(respStr)["message"],
                                         actions: [
                                           TextButton(
                                             onPressed: () => Navigator.pop(

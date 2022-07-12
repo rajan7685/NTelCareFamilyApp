@@ -378,7 +378,12 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       flex: 8,
                                       child: DropdownButtonFormField<String>(
                                         value: dropDownValueGender,
-                                        items: ["male", "female", "transgender"]
+                                        items: [
+                                          "Male",
+                                          "Female",
+                                          "Transgender",
+                                          "Non Binary"
+                                        ]
                                             .map((label) => DropdownMenuItem(
                                                   child: Text(label),
                                                   value: label,
