@@ -48,10 +48,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   String stateValue = "";
   String cityValue = "";
   String address = "";
-  String Dateselected = "";
+
   String dateJson;
   DateTime dateTime;
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate;
   bool switchListTileValue;
   bool checkboxListTileValue;
   ApiCallResponse apiCallOutput;
@@ -73,6 +73,14 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     textController6 = TextEditingController(text: data["address"]);
     textController7 = TextEditingController(text: data["zipcode"]);
     profile = data["profile"];
+
+    cityValue = data["city"];
+    countryValue = data["country"];
+    stateValue = data["state"];
+
+    selectedDate = HttpDate.parse(data["dob"]);
+    print(data["dob"]);
+    print(DateFormat("yyyy-MM-dd").format(selectedDate));
   }
 
   var color1 = Color(0xFF00B89F);
@@ -1511,7 +1519,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 res1.fields['relation'] = dropDownValue;
                                 res1.fields['executive'] =
                                     FFAppState().Chattoggle5.toString();
-                                res1.fields["dob"] = Dateselected;
+                                res1.fields["dob"] = DateFormat("yyyy-MM-dd")
+                                    .format(selectedDate);
                                 res1.fields["country"] = countryValue;
                                 res1.fields["state"] = stateValue;
                                 res1.fields["city"] = cityValue;

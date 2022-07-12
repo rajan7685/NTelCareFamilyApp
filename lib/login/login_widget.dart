@@ -232,6 +232,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                             // print(data["access_token"]);
                             FFAppState().Token = data["access_token"];
                             FFAppState().AccountId = data["master_obj_id"];
+                            FFAppState().executive = data["execeutive"];
+                            FFAppState().liveView = data["live_video"];
+
                             print(FFAppState().Token);
                             /* LoginModel loginModel =
                                 LoginModel.fromJsonData(data.jsonBody[0]);
