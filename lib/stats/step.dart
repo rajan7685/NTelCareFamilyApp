@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -8,24 +11,43 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class StepWidget extends StatefulWidget {
-  const StepWidget({Key key}) : super(key: key);
+  String data;
+  StepWidget({Key key, @required this.data}) : super(key: key);
 
   @override
-  _StepWidgetState createState() => _StepWidgetState();
+  _StepWidgetState createState() => _StepWidgetState(data);
 }
 
 class _StepWidgetState extends State<StepWidget> {
-  static final List<StepStat> stepStat = [
-    StepStat("10:00", 50, Color(0xFF00B89F)),
-    StepStat("11:00", 60, Color(0xFF00B89F)),
-    StepStat("12:00", 50, Color(0xFF00B89F)),
-    StepStat("13:00", 70, Color(0xFF00B89F)),
-    StepStat("14:00", 80, Color(0xFF00B89F)),
-    StepStat("15:00", 40, Color(0xFF00B89F)),
-    StepStat("16:00", 50, Color(0xFF00B89F)),
-    StepStat("17:00", 80, Color(0xFF00B89F)),
-    StepStat("18:00", 70, Color(0xFF00B89F)),
-  ];
+  Future<dynamic> Stepcount;
+  List<StepsStat> stepStat = [];
+  GetSteps getSteps = GetSteps();
+  String id;
+  _StepWidgetState(this.id);
+
+  @override
+  void initState() {
+    super.initState();
+    getStepscount();
+    // int versionCode = BuildConfig.VERSION_CODE;
+    // HeartStatus = fetchStat();
+  }
+
+  void getStepscount() async {
+    var response = await getSteps
+        .get('http://18.208.148.208:4000/graph/health_status/?senior_id=${id}');
+    print(response.statusCode);
+    print(response.body.runtimeType);
+    print(response.body);
+    final rate = jsonDecode((response.body));
+    print(rate["health_status"]["heart_rate"].runtimeType);
+
+    List<StepsStat> temp = stepsStatFromJson(rate["health_status"]["steps"]);
+    setState(() {
+      stepStat = temp;
+    });
+    print(stepStat);
+  }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var color1 = Color(0xFF00B89F);
@@ -34,14 +56,14 @@ class _StepWidgetState extends State<StepWidget> {
   DateTime dateTime;
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<StepStat, String>> step = [
+    List<charts.Series<StepsStat, String>> step = [
       charts.Series(
           data: stepStat,
           id: "Step",
-          domainFn: (StepStat pops, _) => pops.Time,
-          measureFn: (StepStat pops, _) => pops.Stat,
-          colorFn: (StepStat pops, _) =>
-              charts.ColorUtil.fromDartColor(pops.line))
+          domainFn: (StepsStat pops, _) => pops.time,
+          measureFn: (StepsStat pops, _) => pops.value,
+          colorFn: (StepsStat pops, _) =>
+              charts.ColorUtil.fromDartColor(Color(0xFF00B89F)))
     ];
 
     return Scaffold(
@@ -330,10 +352,34 @@ class _StepWidgetState extends State<StepWidget> {
   }
 }
 
-class StepStat {
-  final String Time;
-  final int Stat;
-  final Color line;
+List<StepsStat> stepsStatFromJson(List<dynamic> rate) {
+  List<StepsStat> step = [];
+  rate.forEach((element) {
+    step.add(StepsStat.fromJson(element));
+  });
+  return step;
+}
+// List<HeartStat>.from(json.decode(str).map((x) => HeartStat.fromJson(x)));
 
-  StepStat(this.Time, this.Stat, this.line);
+String stepStatToJson(List<StepsStat> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class StepsStat {
+  StepsStat({
+    this.time,
+    this.value,
+  });
+
+  String time;
+  int value;
+
+  factory StepsStat.fromJson(Map<String, dynamic> json) => StepsStat(
+        time: json["time"],
+        value: json["value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "time": time,
+        "value": value,
+      };
 }

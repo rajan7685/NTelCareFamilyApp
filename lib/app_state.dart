@@ -54,6 +54,7 @@ class FFAppState {
   String door = '';
   String shower = '';
 
+  bool executive;
   bool liveView;
   bool chat;
   bool viewVideo;
