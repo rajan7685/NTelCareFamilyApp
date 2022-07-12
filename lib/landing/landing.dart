@@ -31,7 +31,7 @@ class ModifiedLandingPageWidget extends StatefulWidget {
 class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
-  String selectedId = null;
+  var selectedId;
   int isSelected = 0;
   var selList = Colors.red;
   dynamic data;
@@ -173,7 +173,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                           fontSize: 20),
                                 );
                               } else {
-                                Future.delayed(Duration(milliseconds: 500), () {
+                                Future.delayed(Duration(seconds: 1), () {
                                   setState(() {
                                     selectedId = inf[0]["id"];
                                   });
@@ -379,1742 +379,1743 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                               }
                             }),
                       ),
-                      if (selectedId == " ") CircularProgressIndicator(),
-                      //  if (selectedId != null) dashboard(),
-                      if (selectedId != " ")
-                        FutureBuilder(
-                            future: fetchDashData(selectedId),
-                            builder: (context, snapshot) {
-                              final info = snapshot.data;
-                              print(info);
-                              return Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 10),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF272E36),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          StatsWidget(
-                                                              data: selectedId),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Stack(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(15,
-                                                                      0, 50, 0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            10,
-                                                                            0,
-                                                                            0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      'Heart Rate',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText1
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            color:
-                                                                                Color(0xFF00B89F),
-                                                                            fontSize:
-                                                                                10,
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
-                                                                          ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Text(
-                                                                    info["watch_status"]
-                                                                            [
-                                                                            'heart_rate'] +
-                                                                        " bpm",
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyText1
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Montserrat',
-                                                                          color:
-                                                                              Color(0xFFE5E5E5),
-                                                                          fontSize:
-                                                                              20,
-                                                                          fontWeight:
-                                                                              FontWeight.w200,
-                                                                        ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          20,
-                                                                          0,
-                                                                          0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .arrow_forward_ios_sharp,
-                                                                color: Color(
-                                                                    0xFF00B89F),
-                                                                size: 35,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          1,
-                                                                          0,
-                                                                          0),
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/15-health.png',
-                                                                height: 90,
-                                                                fit:
-                                                                    BoxFit.fill,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 0, 0, 0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF272E36),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            OxygenWidget(),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Stack(
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            15,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              0,
-                                                                              10,
-                                                                              0,
-                                                                              0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Blood Oxygen',
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                  fontFamily: 'Montserrat',
-                                                                                  color: Color(0xFF00B89F),
-                                                                                  fontSize: 10,
-                                                                                  fontWeight: FontWeight.w300,
-                                                                                ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          info["watch_status"]
-                                                                              [
-                                                                              'blood_oxygen'],
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFFE5E5E5),
-                                                                                fontSize: 20,
-                                                                                fontWeight: FontWeight.w200,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            20,
-                                                                            0,
-                                                                            0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .arrow_forward_ios_sharp,
-                                                                  color: Color(
-                                                                      0xFF00B89F),
-                                                                  size: 35,
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            1,
-                                                                            0,
-                                                                            0),
-                                                                child:
-                                                                    Image.asset(
-                                                                  'assets/images/pulse-oximeter.png',
-                                                                  height: 90,
-                                                                  fit: BoxFit
-                                                                      .fill,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 10),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF272E36),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          SleepWidget(),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Stack(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(15,
-                                                                      0, 50, 0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            10,
-                                                                            0,
-                                                                            0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      'Sleep',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText1
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            color:
-                                                                                Color(0xFF00B89F),
-                                                                            fontSize:
-                                                                                10,
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
-                                                                          ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Text(
-                                                                    info["watch_status"]
-                                                                        [
-                                                                        'sleep'],
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyText1
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Montserrat',
-                                                                          color:
-                                                                              Color(0xFFE5E5E5),
-                                                                          fontSize:
-                                                                              20,
-                                                                          fontWeight:
-                                                                              FontWeight.w200,
-                                                                        ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          20,
-                                                                          0,
-                                                                          0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .arrow_forward_ios_sharp,
-                                                                color: Color(
-                                                                    0xFF00B89F),
-                                                                size: 35,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          1,
-                                                                          0,
-                                                                          0),
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/Layer_2_active.png',
-                                                                height: 90,
-                                                                fit:
-                                                                    BoxFit.fill,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 0, 0, 0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF272E36),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            StepWidget(
-                                                                data:
-                                                                    selectedId),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Stack(
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            15,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              0,
-                                                                              10,
-                                                                              0,
-                                                                              0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Steps',
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                  fontFamily: 'Montserrat',
-                                                                                  color: Color(0xFF00B89F),
-                                                                                  fontSize: 10,
-                                                                                  fontWeight: FontWeight.w300,
-                                                                                ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          info["watch_status"]
-                                                                              [
-                                                                              'step'],
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFFE5E5E5),
-                                                                                fontSize: 20,
-                                                                                fontWeight: FontWeight.w200,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            20,
-                                                                            0,
-                                                                            0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .arrow_forward_ios_sharp,
-                                                                  color: Color(
-                                                                      0xFF00B89F),
-                                                                  size: 35,
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            1,
-                                                                            0,
-                                                                            0),
-                                                                child:
-                                                                    Image.asset(
-                                                                  'assets/images/8679613_footprint_line_icon_active.png',
-                                                                  height: 90,
-                                                                  fit: BoxFit
-                                                                      .fill,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 10),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF272E36),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          CalorieWidget(
-                                                              data: selectedId),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Stack(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(15,
-                                                                      0, 50, 0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            10,
-                                                                            0,
-                                                                            0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      'Calorie\'s',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText1
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            color:
-                                                                                Color(0xFF00B89F),
-                                                                            fontSize:
-                                                                                10,
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
-                                                                          ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Text(
-                                                                    info["watch_status"]
-                                                                        [
-                                                                        "calories"],
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyText1
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Montserrat',
-                                                                          color:
-                                                                              Color(0xFFE5E5E5),
-                                                                          fontSize:
-                                                                              20,
-                                                                          fontWeight:
-                                                                              FontWeight.w200,
-                                                                        ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          20,
-                                                                          0,
-                                                                          0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .arrow_forward_ios_sharp,
-                                                                color: Color(
-                                                                    0xFF00B89F),
-                                                                size: 35,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          1,
-                                                                          0,
-                                                                          0),
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/Group 697.png',
-                                                                height: 90,
-                                                                fit:
-                                                                    BoxFit.fill,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 0, 0, 0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF272E36),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            BloodWidget(),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Stack(
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            15,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              0,
-                                                                              10,
-                                                                              0,
-                                                                              0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Blood Pressure',
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                  fontFamily: 'Montserrat',
-                                                                                  color: Color(0xFF00B89F),
-                                                                                  fontSize: 10,
-                                                                                  fontWeight: FontWeight.w300,
-                                                                                ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          "sys: " +
-                                                                              info["watch_status"]["blood_pressure"]["sys"],
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFFE5E5E5),
-                                                                                fontSize: 11,
-                                                                                fontWeight: FontWeight.w200,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          "dia: " +
-                                                                              info["watch_status"]["blood_pressure"]["dia"],
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFFE5E5E5),
-                                                                                fontSize: 11,
-                                                                                fontWeight: FontWeight.w200,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            20,
-                                                                            0,
-                                                                            0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .arrow_forward_ios_sharp,
-                                                                  color: Color(
-                                                                      0xFF00B89F),
-                                                                  size: 35,
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            1,
-                                                                            0,
-                                                                            0),
-                                                                child:
-                                                                    Image.asset(
-                                                                  'assets/images/01.png',
-                                                                  height: 90,
-                                                                  fit: BoxFit
-                                                                      .fill,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 10),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF272E36),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          BatteryWidget(),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Stack(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(15,
-                                                                      0, 50, 0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            10,
-                                                                            0,
-                                                                            0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      'Smart Watch Battery',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText1
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            color:
-                                                                                Color(0xFF00B89F),
-                                                                            fontSize:
-                                                                                10,
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
-                                                                          ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Text(
-                                                                    info["watch_status"]
-                                                                        [
-                                                                        "battery_level"],
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyText1
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Montserrat',
-                                                                          color:
-                                                                              Color(0xFFE5E5E5),
-                                                                          fontSize:
-                                                                              20,
-                                                                          fontWeight:
-                                                                              FontWeight.w200,
-                                                                        ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          20,
-                                                                          0,
-                                                                          0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .arrow_forward_ios_sharp,
-                                                                color: Color(
-                                                                    0xFF00B89F),
-                                                                size: 35,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          1,
-                                                                          0,
-                                                                          0),
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                'assets/images/65-battery (1).svg',
-                                                                height: 90,
-                                                                fit:
-                                                                    BoxFit.fill,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 0, 0, 0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF272E36),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            PillWidget(),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Stack(
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            15,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              0,
-                                                                              10,
-                                                                              0,
-                                                                              0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Pill Box',
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                  fontFamily: 'Montserrat',
-                                                                                  color: Color(0xFF00B89F),
-                                                                                  fontSize: 10,
-                                                                                  fontWeight: FontWeight.w300,
-                                                                                ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          info["sensors_status"]
-                                                                              [
-                                                                              "pillbox"],
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFFE5E5E5),
-                                                                                fontSize: 20,
-                                                                                fontWeight: FontWeight.w200,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            20,
-                                                                            0,
-                                                                            0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .arrow_forward_ios_sharp,
-                                                                  color: Color(
-                                                                      0xFF00B89F),
-                                                                  size: 35,
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            1,
-                                                                            0,
-                                                                            0),
-                                                                child:
-                                                                    Image.asset(
-                                                                  'assets/images/8675105_ic_fluent_pill_regular_icon.png',
-                                                                  height: 90,
-                                                                  fit: BoxFit
-                                                                      .fill,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 10, 10),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF272E36),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          DoorWidget(),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Stack(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(15,
-                                                                      0, 50, 0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            10,
-                                                                            0,
-                                                                            0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      'Door',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText1
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            color:
-                                                                                Color(0xFF00B89F),
-                                                                            fontSize:
-                                                                                10,
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
-                                                                          ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Text(
-                                                                    info["sensors_status"]
-                                                                        [
-                                                                        "door"],
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyText1
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Montserrat',
-                                                                          color:
-                                                                              Color(0xFFE5E5E5),
-                                                                          fontSize:
-                                                                              20,
-                                                                          fontWeight:
-                                                                              FontWeight.w200,
-                                                                        ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          20,
-                                                                          0,
-                                                                          0),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .arrow_forward_ios_sharp,
-                                                                color: Color(
-                                                                    0xFF00B89F),
-                                                                size: 35,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          1,
-                                                                          0,
-                                                                          0),
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/7068954_furniture_door_interior_house_front_icon.png',
-                                                                height: 90,
-                                                                fit:
-                                                                    BoxFit.fill,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(10, 0, 0, 0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF272E36),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ShowerWidget(),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Stack(
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            15,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              0,
-                                                                              10,
-                                                                              0,
-                                                                              0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Shower',
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                  fontFamily: 'Montserrat',
-                                                                                  color: Color(0xFF00B89F),
-                                                                                  fontSize: 10,
-                                                                                  fontWeight: FontWeight.w300,
-                                                                                ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          info["sensors_status"]
-                                                                              [
-                                                                              "shower"],
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
-                                                                              .override(
-                                                                                fontFamily: 'Montserrat',
-                                                                                color: Color(0xFFE5E5E5),
-                                                                                fontSize: 20,
-                                                                                fontWeight: FontWeight.w200,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            20,
-                                                                            0,
-                                                                            0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .arrow_forward_ios_sharp,
-                                                                  color: Color(
-                                                                      0xFF00B89F),
-                                                                  size: 35,
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            1,
-                                                                            0,
-                                                                            0),
-                                                                child:
-                                                                    Image.asset(
-                                                                  'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon.png',
-                                                                  height: 90,
-                                                                  fit: BoxFit
-                                                                      .fill,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }),
+                      if (selectedId == null) CircularProgressIndicator(),
+                      if (selectedId != null) dashboard(),
+                      // if (selectedId != null)
+                      //   FutureBuilder(
+                      //       future: fetchDashData(selectedId),
+                      //       builder: (context, snapshot) {
+                      //         final info = snapshot.data;
+                      //         print(info);
+                      //         print(FFAppState().Steps);
+                      //         return Padding(
+                      //           padding:
+                      //               EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      //           child: Column(
+                      //             mainAxisSize: MainAxisSize.max,
+                      //             children: [
+                      //               Padding(
+                      //                 padding: EdgeInsetsDirectional.fromSTEB(
+                      //                     10, 0, 10, 10),
+                      //                 child: Row(
+                      //                   mainAxisSize: MainAxisSize.max,
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.spaceAround,
+                      //                   children: [
+                      //                     Expanded(
+                      //                       child: Container(
+                      //                         decoration: BoxDecoration(
+                      //                           color: Color(0xFF272E36),
+                      //                           borderRadius:
+                      //                               BorderRadius.circular(10),
+                      //                         ),
+                      //                         child: InkWell(
+                      //                           onTap: () async {
+                      //                             await Navigator.push(
+                      //                               context,
+                      //                               MaterialPageRoute(
+                      //                                 builder: (context) =>
+                      //                                     StatsWidget(
+                      //                                         data: selectedId),
+                      //                               ),
+                      //                             );
+                      //                           },
+                      //                           child: Column(
+                      //                             mainAxisSize:
+                      //                                 MainAxisSize.max,
+                      //                             mainAxisAlignment:
+                      //                                 MainAxisAlignment.end,
+                      //                             crossAxisAlignment:
+                      //                                 CrossAxisAlignment.start,
+                      //                             children: [
+                      //                               Stack(
+                      //                                 children: [
+                      //                                   Padding(
+                      //                                     padding:
+                      //                                         EdgeInsetsDirectional
+                      //                                             .fromSTEB(15,
+                      //                                                 0, 50, 0),
+                      //                                     child: Column(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .start,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       10,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Row(
+                      //                                             mainAxisSize:
+                      //                                                 MainAxisSize
+                      //                                                     .max,
+                      //                                             children: [
+                      //                                               Text(
+                      //                                                 'Heart Rate',
+                      //                                                 style: FlutterFlowTheme.of(
+                      //                                                         context)
+                      //                                                     .bodyText1
+                      //                                                     .override(
+                      //                                                       fontFamily:
+                      //                                                           'Montserrat',
+                      //                                                       color:
+                      //                                                           Color(0xFF00B89F),
+                      //                                                       fontSize:
+                      //                                                           10,
+                      //                                                       fontWeight:
+                      //                                                           FontWeight.w300,
+                      //                                                     ),
+                      //                                               ),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                         Row(
+                      //                                           mainAxisSize:
+                      //                                               MainAxisSize
+                      //                                                   .max,
+                      //                                           children: [
+                      //                                             Text(
+                      //                                               info["watch_status"]
+                      //                                                       [
+                      //                                                       'heart_rate'] +
+                      //                                                   " bpm",
+                      //                                               style: FlutterFlowTheme.of(
+                      //                                                       context)
+                      //                                                   .bodyText1
+                      //                                                   .override(
+                      //                                                     fontFamily:
+                      //                                                         'Montserrat',
+                      //                                                     color:
+                      //                                                         Color(0xFFE5E5E5),
+                      //                                                     fontSize:
+                      //                                                         20,
+                      //                                                     fontWeight:
+                      //                                                         FontWeight.w200,
+                      //                                                   ),
+                      //                                             ),
+                      //                                           ],
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                               Column(
+                      //                                 mainAxisSize:
+                      //                                     MainAxisSize.max,
+                      //                                 mainAxisAlignment:
+                      //                                     MainAxisAlignment.end,
+                      //                                 crossAxisAlignment:
+                      //                                     CrossAxisAlignment
+                      //                                         .end,
+                      //                                 children: [
+                      //                                   Row(
+                      //                                     mainAxisSize:
+                      //                                         MainAxisSize.max,
+                      //                                     mainAxisAlignment:
+                      //                                         MainAxisAlignment
+                      //                                             .spaceBetween,
+                      //                                     crossAxisAlignment:
+                      //                                         CrossAxisAlignment
+                      //                                             .center,
+                      //                                     children: [
+                      //                                       Padding(
+                      //                                         padding:
+                      //                                             EdgeInsetsDirectional
+                      //                                                 .fromSTEB(
+                      //                                                     0,
+                      //                                                     20,
+                      //                                                     0,
+                      //                                                     0),
+                      //                                         child: Icon(
+                      //                                           Icons
+                      //                                               .arrow_forward_ios_sharp,
+                      //                                           color: Color(
+                      //                                               0xFF00B89F),
+                      //                                           size: 35,
+                      //                                         ),
+                      //                                       ),
+                      //                                       Padding(
+                      //                                         padding:
+                      //                                             EdgeInsetsDirectional
+                      //                                                 .fromSTEB(
+                      //                                                     0,
+                      //                                                     1,
+                      //                                                     0,
+                      //                                                     0),
+                      //                                         child:
+                      //                                             Image.asset(
+                      //                                           'assets/images/15-health.png',
+                      //                                           height: 90,
+                      //                                           fit:
+                      //                                               BoxFit.fill,
+                      //                                         ),
+                      //                                       ),
+                      //                                     ],
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                             ],
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     Expanded(
+                      //                       child: Padding(
+                      //                         padding: EdgeInsetsDirectional
+                      //                             .fromSTEB(10, 0, 0, 0),
+                      //                         child: Container(
+                      //                           decoration: BoxDecoration(
+                      //                             color: Color(0xFF272E36),
+                      //                             borderRadius:
+                      //                                 BorderRadius.circular(10),
+                      //                           ),
+                      //                           child: InkWell(
+                      //                             onTap: () async {
+                      //                               await Navigator.push(
+                      //                                 context,
+                      //                                 MaterialPageRoute(
+                      //                                   builder: (context) =>
+                      //                                       OxygenWidget(),
+                      //                                 ),
+                      //                               );
+                      //                             },
+                      //                             child: Column(
+                      //                               mainAxisSize:
+                      //                                   MainAxisSize.max,
+                      //                               mainAxisAlignment:
+                      //                                   MainAxisAlignment.end,
+                      //                               crossAxisAlignment:
+                      //                                   CrossAxisAlignment
+                      //                                       .start,
+                      //                               children: [
+                      //                                 Stack(
+                      //                                   children: [
+                      //                                     Row(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       15,
+                      //                                                       0,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Column(
+                      //                                             mainAxisSize:
+                      //                                                 MainAxisSize
+                      //                                                     .max,
+                      //                                             crossAxisAlignment:
+                      //                                                 CrossAxisAlignment
+                      //                                                     .start,
+                      //                                             children: [
+                      //                                               Padding(
+                      //                                                 padding: EdgeInsetsDirectional
+                      //                                                     .fromSTEB(
+                      //                                                         0,
+                      //                                                         10,
+                      //                                                         0,
+                      //                                                         0),
+                      //                                                 child:
+                      //                                                     Row(
+                      //                                                   mainAxisSize:
+                      //                                                       MainAxisSize.max,
+                      //                                                   children: [
+                      //                                                     Text(
+                      //                                                       'Blood Oxygen',
+                      //                                                       style: FlutterFlowTheme.of(context).bodyText1.override(
+                      //                                                             fontFamily: 'Montserrat',
+                      //                                                             color: Color(0xFF00B89F),
+                      //                                                             fontSize: 10,
+                      //                                                             fontWeight: FontWeight.w300,
+                      //                                                           ),
+                      //                                                     ),
+                      //                                                   ],
+                      //                                                 ),
+                      //                                               ),
+                      //                                               Row(
+                      //                                                 mainAxisSize:
+                      //                                                     MainAxisSize
+                      //                                                         .max,
+                      //                                                 children: [
+                      //                                                   Text(
+                      //                                                     info["watch_status"]
+                      //                                                         [
+                      //                                                         'blood_oxygen'],
+                      //                                                     style: FlutterFlowTheme.of(context)
+                      //                                                         .bodyText1
+                      //                                                         .override(
+                      //                                                           fontFamily: 'Montserrat',
+                      //                                                           color: Color(0xFFE5E5E5),
+                      //                                                           fontSize: 20,
+                      //                                                           fontWeight: FontWeight.w200,
+                      //                                                         ),
+                      //                                                   ),
+                      //                                                 ],
+                      //                                               ),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ],
+                      //                                 ),
+                      //                                 Column(
+                      //                                   mainAxisSize:
+                      //                                       MainAxisSize.max,
+                      //                                   mainAxisAlignment:
+                      //                                       MainAxisAlignment
+                      //                                           .end,
+                      //                                   crossAxisAlignment:
+                      //                                       CrossAxisAlignment
+                      //                                           .end,
+                      //                                   children: [
+                      //                                     Row(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       mainAxisAlignment:
+                      //                                           MainAxisAlignment
+                      //                                               .spaceBetween,
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .center,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       20,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Icon(
+                      //                                             Icons
+                      //                                                 .arrow_forward_ios_sharp,
+                      //                                             color: Color(
+                      //                                                 0xFF00B89F),
+                      //                                             size: 35,
+                      //                                           ),
+                      //                                         ),
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       1,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child:
+                      //                                               Image.asset(
+                      //                                             'assets/images/pulse-oximeter.png',
+                      //                                             height: 90,
+                      //                                             fit: BoxFit
+                      //                                                 .fill,
+                      //                                           ),
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ],
+                      //                                 ),
+                      //                               ],
+                      //                             ),
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //               Padding(
+                      //                 padding: EdgeInsetsDirectional.fromSTEB(
+                      //                     10, 0, 10, 10),
+                      //                 child: Row(
+                      //                   mainAxisSize: MainAxisSize.max,
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.spaceAround,
+                      //                   children: [
+                      //                     Expanded(
+                      //                       child: Container(
+                      //                         decoration: BoxDecoration(
+                      //                           color: Color(0xFF272E36),
+                      //                           borderRadius:
+                      //                               BorderRadius.circular(10),
+                      //                         ),
+                      //                         child: InkWell(
+                      //                           onTap: () async {
+                      //                             await Navigator.push(
+                      //                               context,
+                      //                               MaterialPageRoute(
+                      //                                 builder: (context) =>
+                      //                                     SleepWidget(),
+                      //                               ),
+                      //                             );
+                      //                           },
+                      //                           child: Column(
+                      //                             mainAxisSize:
+                      //                                 MainAxisSize.max,
+                      //                             mainAxisAlignment:
+                      //                                 MainAxisAlignment.end,
+                      //                             crossAxisAlignment:
+                      //                                 CrossAxisAlignment.start,
+                      //                             children: [
+                      //                               Stack(
+                      //                                 children: [
+                      //                                   Padding(
+                      //                                     padding:
+                      //                                         EdgeInsetsDirectional
+                      //                                             .fromSTEB(15,
+                      //                                                 0, 50, 0),
+                      //                                     child: Column(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .start,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       10,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Row(
+                      //                                             mainAxisSize:
+                      //                                                 MainAxisSize
+                      //                                                     .max,
+                      //                                             children: [
+                      //                                               Text(
+                      //                                                 'Sleep',
+                      //                                                 style: FlutterFlowTheme.of(
+                      //                                                         context)
+                      //                                                     .bodyText1
+                      //                                                     .override(
+                      //                                                       fontFamily:
+                      //                                                           'Montserrat',
+                      //                                                       color:
+                      //                                                           Color(0xFF00B89F),
+                      //                                                       fontSize:
+                      //                                                           10,
+                      //                                                       fontWeight:
+                      //                                                           FontWeight.w300,
+                      //                                                     ),
+                      //                                               ),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                         Row(
+                      //                                           mainAxisSize:
+                      //                                               MainAxisSize
+                      //                                                   .max,
+                      //                                           children: [
+                      //                                             Text(
+                      //                                               info["watch_status"]
+                      //                                                   [
+                      //                                                   'sleep'],
+                      //                                               style: FlutterFlowTheme.of(
+                      //                                                       context)
+                      //                                                   .bodyText1
+                      //                                                   .override(
+                      //                                                     fontFamily:
+                      //                                                         'Montserrat',
+                      //                                                     color:
+                      //                                                         Color(0xFFE5E5E5),
+                      //                                                     fontSize:
+                      //                                                         20,
+                      //                                                     fontWeight:
+                      //                                                         FontWeight.w200,
+                      //                                                   ),
+                      //                                             ),
+                      //                                           ],
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                               Column(
+                      //                                 mainAxisSize:
+                      //                                     MainAxisSize.max,
+                      //                                 mainAxisAlignment:
+                      //                                     MainAxisAlignment.end,
+                      //                                 crossAxisAlignment:
+                      //                                     CrossAxisAlignment
+                      //                                         .end,
+                      //                                 children: [
+                      //                                   Row(
+                      //                                     mainAxisSize:
+                      //                                         MainAxisSize.max,
+                      //                                     mainAxisAlignment:
+                      //                                         MainAxisAlignment
+                      //                                             .spaceBetween,
+                      //                                     crossAxisAlignment:
+                      //                                         CrossAxisAlignment
+                      //                                             .center,
+                      //                                     children: [
+                      //                                       Padding(
+                      //                                         padding:
+                      //                                             EdgeInsetsDirectional
+                      //                                                 .fromSTEB(
+                      //                                                     0,
+                      //                                                     20,
+                      //                                                     0,
+                      //                                                     0),
+                      //                                         child: Icon(
+                      //                                           Icons
+                      //                                               .arrow_forward_ios_sharp,
+                      //                                           color: Color(
+                      //                                               0xFF00B89F),
+                      //                                           size: 35,
+                      //                                         ),
+                      //                                       ),
+                      //                                       Padding(
+                      //                                         padding:
+                      //                                             EdgeInsetsDirectional
+                      //                                                 .fromSTEB(
+                      //                                                     0,
+                      //                                                     1,
+                      //                                                     0,
+                      //                                                     0),
+                      //                                         child:
+                      //                                             Image.asset(
+                      //                                           'assets/images/Layer_2_active.png',
+                      //                                           height: 90,
+                      //                                           fit:
+                      //                                               BoxFit.fill,
+                      //                                         ),
+                      //                                       ),
+                      //                                     ],
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                             ],
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     Expanded(
+                      //                       child: Padding(
+                      //                         padding: EdgeInsetsDirectional
+                      //                             .fromSTEB(10, 0, 0, 0),
+                      //                         child: Container(
+                      //                           decoration: BoxDecoration(
+                      //                             color: Color(0xFF272E36),
+                      //                             borderRadius:
+                      //                                 BorderRadius.circular(10),
+                      //                           ),
+                      //                           child: InkWell(
+                      //                             onTap: () async {
+                      //                               await Navigator.push(
+                      //                                 context,
+                      //                                 MaterialPageRoute(
+                      //                                   builder: (context) =>
+                      //                                       StepWidget(
+                      //                                           data:
+                      //                                               selectedId),
+                      //                                 ),
+                      //                               );
+                      //                             },
+                      //                             child: Column(
+                      //                               mainAxisSize:
+                      //                                   MainAxisSize.max,
+                      //                               mainAxisAlignment:
+                      //                                   MainAxisAlignment.end,
+                      //                               crossAxisAlignment:
+                      //                                   CrossAxisAlignment
+                      //                                       .start,
+                      //                               children: [
+                      //                                 Stack(
+                      //                                   children: [
+                      //                                     Row(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       15,
+                      //                                                       0,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Column(
+                      //                                             mainAxisSize:
+                      //                                                 MainAxisSize
+                      //                                                     .max,
+                      //                                             crossAxisAlignment:
+                      //                                                 CrossAxisAlignment
+                      //                                                     .start,
+                      //                                             children: [
+                      //                                               Padding(
+                      //                                                 padding: EdgeInsetsDirectional
+                      //                                                     .fromSTEB(
+                      //                                                         0,
+                      //                                                         10,
+                      //                                                         0,
+                      //                                                         0),
+                      //                                                 child:
+                      //                                                     Row(
+                      //                                                   mainAxisSize:
+                      //                                                       MainAxisSize.max,
+                      //                                                   children: [
+                      //                                                     Text(
+                      //                                                       'Steps',
+                      //                                                       style: FlutterFlowTheme.of(context).bodyText1.override(
+                      //                                                             fontFamily: 'Montserrat',
+                      //                                                             color: Color(0xFF00B89F),
+                      //                                                             fontSize: 10,
+                      //                                                             fontWeight: FontWeight.w300,
+                      //                                                           ),
+                      //                                                     ),
+                      //                                                   ],
+                      //                                                 ),
+                      //                                               ),
+                      //                                               Row(
+                      //                                                 mainAxisSize:
+                      //                                                     MainAxisSize
+                      //                                                         .max,
+                      //                                                 children: [
+                      //                                                   Text(
+                      //                                                     info["watch_status"]
+                      //                                                         [
+                      //                                                         'step'],
+                      //                                                     style: FlutterFlowTheme.of(context)
+                      //                                                         .bodyText1
+                      //                                                         .override(
+                      //                                                           fontFamily: 'Montserrat',
+                      //                                                           color: Color(0xFFE5E5E5),
+                      //                                                           fontSize: 20,
+                      //                                                           fontWeight: FontWeight.w200,
+                      //                                                         ),
+                      //                                                   ),
+                      //                                                 ],
+                      //                                               ),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ],
+                      //                                 ),
+                      //                                 Column(
+                      //                                   mainAxisSize:
+                      //                                       MainAxisSize.max,
+                      //                                   mainAxisAlignment:
+                      //                                       MainAxisAlignment
+                      //                                           .end,
+                      //                                   crossAxisAlignment:
+                      //                                       CrossAxisAlignment
+                      //                                           .end,
+                      //                                   children: [
+                      //                                     Row(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       mainAxisAlignment:
+                      //                                           MainAxisAlignment
+                      //                                               .spaceBetween,
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .center,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       20,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Icon(
+                      //                                             Icons
+                      //                                                 .arrow_forward_ios_sharp,
+                      //                                             color: Color(
+                      //                                                 0xFF00B89F),
+                      //                                             size: 35,
+                      //                                           ),
+                      //                                         ),
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       1,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child:
+                      //                                               Image.asset(
+                      //                                             'assets/images/8679613_footprint_line_icon_active.png',
+                      //                                             height: 90,
+                      //                                             fit: BoxFit
+                      //                                                 .fill,
+                      //                                           ),
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ],
+                      //                                 ),
+                      //                               ],
+                      //                             ),
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //               Padding(
+                      //                 padding: EdgeInsetsDirectional.fromSTEB(
+                      //                     10, 0, 10, 10),
+                      //                 child: Row(
+                      //                   mainAxisSize: MainAxisSize.max,
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.spaceAround,
+                      //                   children: [
+                      //                     Expanded(
+                      //                       child: Container(
+                      //                         decoration: BoxDecoration(
+                      //                           color: Color(0xFF272E36),
+                      //                           borderRadius:
+                      //                               BorderRadius.circular(10),
+                      //                         ),
+                      //                         child: InkWell(
+                      //                           onTap: () async {
+                      //                             await Navigator.push(
+                      //                               context,
+                      //                               MaterialPageRoute(
+                      //                                 builder: (context) =>
+                      //                                     CalorieWidget(
+                      //                                         data: selectedId),
+                      //                               ),
+                      //                             );
+                      //                           },
+                      //                           child: Column(
+                      //                             mainAxisSize:
+                      //                                 MainAxisSize.max,
+                      //                             mainAxisAlignment:
+                      //                                 MainAxisAlignment.end,
+                      //                             crossAxisAlignment:
+                      //                                 CrossAxisAlignment.start,
+                      //                             children: [
+                      //                               Stack(
+                      //                                 children: [
+                      //                                   Padding(
+                      //                                     padding:
+                      //                                         EdgeInsetsDirectional
+                      //                                             .fromSTEB(15,
+                      //                                                 0, 50, 0),
+                      //                                     child: Column(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .start,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       10,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Row(
+                      //                                             mainAxisSize:
+                      //                                                 MainAxisSize
+                      //                                                     .max,
+                      //                                             children: [
+                      //                                               Text(
+                      //                                                 'Calorie\'s',
+                      //                                                 style: FlutterFlowTheme.of(
+                      //                                                         context)
+                      //                                                     .bodyText1
+                      //                                                     .override(
+                      //                                                       fontFamily:
+                      //                                                           'Montserrat',
+                      //                                                       color:
+                      //                                                           Color(0xFF00B89F),
+                      //                                                       fontSize:
+                      //                                                           10,
+                      //                                                       fontWeight:
+                      //                                                           FontWeight.w300,
+                      //                                                     ),
+                      //                                               ),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                         Row(
+                      //                                           mainAxisSize:
+                      //                                               MainAxisSize
+                      //                                                   .max,
+                      //                                           children: [
+                      //                                             Text(
+                      //                                               info["watch_status"]
+                      //                                                   [
+                      //                                                   "calories"],
+                      //                                               style: FlutterFlowTheme.of(
+                      //                                                       context)
+                      //                                                   .bodyText1
+                      //                                                   .override(
+                      //                                                     fontFamily:
+                      //                                                         'Montserrat',
+                      //                                                     color:
+                      //                                                         Color(0xFFE5E5E5),
+                      //                                                     fontSize:
+                      //                                                         20,
+                      //                                                     fontWeight:
+                      //                                                         FontWeight.w200,
+                      //                                                   ),
+                      //                                             ),
+                      //                                           ],
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                               Column(
+                      //                                 mainAxisSize:
+                      //                                     MainAxisSize.max,
+                      //                                 mainAxisAlignment:
+                      //                                     MainAxisAlignment.end,
+                      //                                 crossAxisAlignment:
+                      //                                     CrossAxisAlignment
+                      //                                         .end,
+                      //                                 children: [
+                      //                                   Row(
+                      //                                     mainAxisSize:
+                      //                                         MainAxisSize.max,
+                      //                                     mainAxisAlignment:
+                      //                                         MainAxisAlignment
+                      //                                             .spaceBetween,
+                      //                                     crossAxisAlignment:
+                      //                                         CrossAxisAlignment
+                      //                                             .center,
+                      //                                     children: [
+                      //                                       Padding(
+                      //                                         padding:
+                      //                                             EdgeInsetsDirectional
+                      //                                                 .fromSTEB(
+                      //                                                     0,
+                      //                                                     20,
+                      //                                                     0,
+                      //                                                     0),
+                      //                                         child: Icon(
+                      //                                           Icons
+                      //                                               .arrow_forward_ios_sharp,
+                      //                                           color: Color(
+                      //                                               0xFF00B89F),
+                      //                                           size: 35,
+                      //                                         ),
+                      //                                       ),
+                      //                                       Padding(
+                      //                                         padding:
+                      //                                             EdgeInsetsDirectional
+                      //                                                 .fromSTEB(
+                      //                                                     0,
+                      //                                                     1,
+                      //                                                     0,
+                      //                                                     0),
+                      //                                         child:
+                      //                                             Image.asset(
+                      //                                           'assets/images/Group 697.png',
+                      //                                           height: 90,
+                      //                                           fit:
+                      //                                               BoxFit.fill,
+                      //                                         ),
+                      //                                       ),
+                      //                                     ],
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                             ],
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     Expanded(
+                      //                       child: Padding(
+                      //                         padding: EdgeInsetsDirectional
+                      //                             .fromSTEB(10, 0, 0, 0),
+                      //                         child: Container(
+                      //                           decoration: BoxDecoration(
+                      //                             color: Color(0xFF272E36),
+                      //                             borderRadius:
+                      //                                 BorderRadius.circular(10),
+                      //                           ),
+                      //                           child: InkWell(
+                      //                             onTap: () async {
+                      //                               await Navigator.push(
+                      //                                 context,
+                      //                                 MaterialPageRoute(
+                      //                                   builder: (context) =>
+                      //                                       BloodWidget(),
+                      //                                 ),
+                      //                               );
+                      //                             },
+                      //                             child: Column(
+                      //                               mainAxisSize:
+                      //                                   MainAxisSize.max,
+                      //                               mainAxisAlignment:
+                      //                                   MainAxisAlignment.end,
+                      //                               crossAxisAlignment:
+                      //                                   CrossAxisAlignment
+                      //                                       .start,
+                      //                               children: [
+                      //                                 Stack(
+                      //                                   children: [
+                      //                                     Row(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       15,
+                      //                                                       0,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Column(
+                      //                                             mainAxisSize:
+                      //                                                 MainAxisSize
+                      //                                                     .max,
+                      //                                             crossAxisAlignment:
+                      //                                                 CrossAxisAlignment
+                      //                                                     .start,
+                      //                                             children: [
+                      //                                               Padding(
+                      //                                                 padding: EdgeInsetsDirectional
+                      //                                                     .fromSTEB(
+                      //                                                         0,
+                      //                                                         10,
+                      //                                                         0,
+                      //                                                         0),
+                      //                                                 child:
+                      //                                                     Row(
+                      //                                                   mainAxisSize:
+                      //                                                       MainAxisSize.max,
+                      //                                                   children: [
+                      //                                                     Text(
+                      //                                                       'Blood Pressure',
+                      //                                                       style: FlutterFlowTheme.of(context).bodyText1.override(
+                      //                                                             fontFamily: 'Montserrat',
+                      //                                                             color: Color(0xFF00B89F),
+                      //                                                             fontSize: 10,
+                      //                                                             fontWeight: FontWeight.w300,
+                      //                                                           ),
+                      //                                                     ),
+                      //                                                   ],
+                      //                                                 ),
+                      //                                               ),
+                      //                                               Row(
+                      //                                                 mainAxisSize:
+                      //                                                     MainAxisSize
+                      //                                                         .max,
+                      //                                                 children: [
+                      //                                                   Text(
+                      //                                                     "sys: " +
+                      //                                                         info["watch_status"]["blood_pressure"]["sys"],
+                      //                                                     style: FlutterFlowTheme.of(context)
+                      //                                                         .bodyText1
+                      //                                                         .override(
+                      //                                                           fontFamily: 'Montserrat',
+                      //                                                           color: Color(0xFFE5E5E5),
+                      //                                                           fontSize: 11,
+                      //                                                           fontWeight: FontWeight.w200,
+                      //                                                         ),
+                      //                                                   ),
+                      //                                                 ],
+                      //                                               ),
+                      //                                               Row(
+                      //                                                 mainAxisSize:
+                      //                                                     MainAxisSize
+                      //                                                         .max,
+                      //                                                 children: [
+                      //                                                   Text(
+                      //                                                     "dia: " +
+                      //                                                         info["watch_status"]["blood_pressure"]["dia"],
+                      //                                                     style: FlutterFlowTheme.of(context)
+                      //                                                         .bodyText1
+                      //                                                         .override(
+                      //                                                           fontFamily: 'Montserrat',
+                      //                                                           color: Color(0xFFE5E5E5),
+                      //                                                           fontSize: 11,
+                      //                                                           fontWeight: FontWeight.w200,
+                      //                                                         ),
+                      //                                                   ),
+                      //                                                 ],
+                      //                                               ),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ],
+                      //                                 ),
+                      //                                 Column(
+                      //                                   mainAxisSize:
+                      //                                       MainAxisSize.max,
+                      //                                   mainAxisAlignment:
+                      //                                       MainAxisAlignment
+                      //                                           .end,
+                      //                                   crossAxisAlignment:
+                      //                                       CrossAxisAlignment
+                      //                                           .end,
+                      //                                   children: [
+                      //                                     Row(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       mainAxisAlignment:
+                      //                                           MainAxisAlignment
+                      //                                               .spaceBetween,
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .center,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       20,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Icon(
+                      //                                             Icons
+                      //                                                 .arrow_forward_ios_sharp,
+                      //                                             color: Color(
+                      //                                                 0xFF00B89F),
+                      //                                             size: 35,
+                      //                                           ),
+                      //                                         ),
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       1,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child:
+                      //                                               Image.asset(
+                      //                                             'assets/images/01.png',
+                      //                                             height: 90,
+                      //                                             fit: BoxFit
+                      //                                                 .fill,
+                      //                                           ),
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ],
+                      //                                 ),
+                      //                               ],
+                      //                             ),
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //               Padding(
+                      //                 padding: EdgeInsetsDirectional.fromSTEB(
+                      //                     10, 0, 10, 10),
+                      //                 child: Row(
+                      //                   mainAxisSize: MainAxisSize.max,
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.spaceAround,
+                      //                   children: [
+                      //                     Expanded(
+                      //                       child: Container(
+                      //                         decoration: BoxDecoration(
+                      //                           color: Color(0xFF272E36),
+                      //                           borderRadius:
+                      //                               BorderRadius.circular(10),
+                      //                         ),
+                      //                         child: InkWell(
+                      //                           onTap: () async {
+                      //                             await Navigator.push(
+                      //                               context,
+                      //                               MaterialPageRoute(
+                      //                                 builder: (context) =>
+                      //                                     BatteryWidget(),
+                      //                               ),
+                      //                             );
+                      //                           },
+                      //                           child: Column(
+                      //                             mainAxisSize:
+                      //                                 MainAxisSize.max,
+                      //                             mainAxisAlignment:
+                      //                                 MainAxisAlignment.end,
+                      //                             crossAxisAlignment:
+                      //                                 CrossAxisAlignment.start,
+                      //                             children: [
+                      //                               Stack(
+                      //                                 children: [
+                      //                                   Padding(
+                      //                                     padding:
+                      //                                         EdgeInsetsDirectional
+                      //                                             .fromSTEB(15,
+                      //                                                 0, 50, 0),
+                      //                                     child: Column(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .start,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       10,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Row(
+                      //                                             mainAxisSize:
+                      //                                                 MainAxisSize
+                      //                                                     .max,
+                      //                                             children: [
+                      //                                               Text(
+                      //                                                 'Smart Watch Battery',
+                      //                                                 style: FlutterFlowTheme.of(
+                      //                                                         context)
+                      //                                                     .bodyText1
+                      //                                                     .override(
+                      //                                                       fontFamily:
+                      //                                                           'Montserrat',
+                      //                                                       color:
+                      //                                                           Color(0xFF00B89F),
+                      //                                                       fontSize:
+                      //                                                           10,
+                      //                                                       fontWeight:
+                      //                                                           FontWeight.w300,
+                      //                                                     ),
+                      //                                               ),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                         Row(
+                      //                                           mainAxisSize:
+                      //                                               MainAxisSize
+                      //                                                   .max,
+                      //                                           children: [
+                      //                                             Text(
+                      //                                               info["watch_status"]
+                      //                                                   [
+                      //                                                   "battery_level"],
+                      //                                               style: FlutterFlowTheme.of(
+                      //                                                       context)
+                      //                                                   .bodyText1
+                      //                                                   .override(
+                      //                                                     fontFamily:
+                      //                                                         'Montserrat',
+                      //                                                     color:
+                      //                                                         Color(0xFFE5E5E5),
+                      //                                                     fontSize:
+                      //                                                         20,
+                      //                                                     fontWeight:
+                      //                                                         FontWeight.w200,
+                      //                                                   ),
+                      //                                             ),
+                      //                                           ],
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                               Column(
+                      //                                 mainAxisSize:
+                      //                                     MainAxisSize.max,
+                      //                                 mainAxisAlignment:
+                      //                                     MainAxisAlignment.end,
+                      //                                 crossAxisAlignment:
+                      //                                     CrossAxisAlignment
+                      //                                         .end,
+                      //                                 children: [
+                      //                                   Row(
+                      //                                     mainAxisSize:
+                      //                                         MainAxisSize.max,
+                      //                                     mainAxisAlignment:
+                      //                                         MainAxisAlignment
+                      //                                             .spaceBetween,
+                      //                                     crossAxisAlignment:
+                      //                                         CrossAxisAlignment
+                      //                                             .center,
+                      //                                     children: [
+                      //                                       Padding(
+                      //                                         padding:
+                      //                                             EdgeInsetsDirectional
+                      //                                                 .fromSTEB(
+                      //                                                     0,
+                      //                                                     20,
+                      //                                                     0,
+                      //                                                     0),
+                      //                                         child: Icon(
+                      //                                           Icons
+                      //                                               .arrow_forward_ios_sharp,
+                      //                                           color: Color(
+                      //                                               0xFF00B89F),
+                      //                                           size: 35,
+                      //                                         ),
+                      //                                       ),
+                      //                                       Padding(
+                      //                                         padding:
+                      //                                             EdgeInsetsDirectional
+                      //                                                 .fromSTEB(
+                      //                                                     0,
+                      //                                                     1,
+                      //                                                     0,
+                      //                                                     0),
+                      //                                         child: SvgPicture
+                      //                                             .asset(
+                      //                                           'assets/images/65-battery (1).svg',
+                      //                                           height: 90,
+                      //                                           fit:
+                      //                                               BoxFit.fill,
+                      //                                         ),
+                      //                                       ),
+                      //                                     ],
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                             ],
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     Expanded(
+                      //                       child: Padding(
+                      //                         padding: EdgeInsetsDirectional
+                      //                             .fromSTEB(10, 0, 0, 0),
+                      //                         child: Container(
+                      //                           decoration: BoxDecoration(
+                      //                             color: Color(0xFF272E36),
+                      //                             borderRadius:
+                      //                                 BorderRadius.circular(10),
+                      //                           ),
+                      //                           child: InkWell(
+                      //                             onTap: () async {
+                      //                               await Navigator.push(
+                      //                                 context,
+                      //                                 MaterialPageRoute(
+                      //                                   builder: (context) =>
+                      //                                       PillWidget(),
+                      //                                 ),
+                      //                               );
+                      //                             },
+                      //                             child: Column(
+                      //                               mainAxisSize:
+                      //                                   MainAxisSize.max,
+                      //                               mainAxisAlignment:
+                      //                                   MainAxisAlignment.end,
+                      //                               crossAxisAlignment:
+                      //                                   CrossAxisAlignment
+                      //                                       .start,
+                      //                               children: [
+                      //                                 Stack(
+                      //                                   children: [
+                      //                                     Row(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       15,
+                      //                                                       0,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Column(
+                      //                                             mainAxisSize:
+                      //                                                 MainAxisSize
+                      //                                                     .max,
+                      //                                             crossAxisAlignment:
+                      //                                                 CrossAxisAlignment
+                      //                                                     .start,
+                      //                                             children: [
+                      //                                               Padding(
+                      //                                                 padding: EdgeInsetsDirectional
+                      //                                                     .fromSTEB(
+                      //                                                         0,
+                      //                                                         10,
+                      //                                                         0,
+                      //                                                         0),
+                      //                                                 child:
+                      //                                                     Row(
+                      //                                                   mainAxisSize:
+                      //                                                       MainAxisSize.max,
+                      //                                                   children: [
+                      //                                                     Text(
+                      //                                                       'Pill Box',
+                      //                                                       style: FlutterFlowTheme.of(context).bodyText1.override(
+                      //                                                             fontFamily: 'Montserrat',
+                      //                                                             color: Color(0xFF00B89F),
+                      //                                                             fontSize: 10,
+                      //                                                             fontWeight: FontWeight.w300,
+                      //                                                           ),
+                      //                                                     ),
+                      //                                                   ],
+                      //                                                 ),
+                      //                                               ),
+                      //                                               Row(
+                      //                                                 mainAxisSize:
+                      //                                                     MainAxisSize
+                      //                                                         .max,
+                      //                                                 children: [
+                      //                                                   Text(
+                      //                                                     info["sensors_status"]
+                      //                                                         [
+                      //                                                         "pillbox"],
+                      //                                                     style: FlutterFlowTheme.of(context)
+                      //                                                         .bodyText1
+                      //                                                         .override(
+                      //                                                           fontFamily: 'Montserrat',
+                      //                                                           color: Color(0xFFE5E5E5),
+                      //                                                           fontSize: 20,
+                      //                                                           fontWeight: FontWeight.w200,
+                      //                                                         ),
+                      //                                                   ),
+                      //                                                 ],
+                      //                                               ),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ],
+                      //                                 ),
+                      //                                 Column(
+                      //                                   mainAxisSize:
+                      //                                       MainAxisSize.max,
+                      //                                   mainAxisAlignment:
+                      //                                       MainAxisAlignment
+                      //                                           .end,
+                      //                                   crossAxisAlignment:
+                      //                                       CrossAxisAlignment
+                      //                                           .end,
+                      //                                   children: [
+                      //                                     Row(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       mainAxisAlignment:
+                      //                                           MainAxisAlignment
+                      //                                               .spaceBetween,
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .center,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       20,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Icon(
+                      //                                             Icons
+                      //                                                 .arrow_forward_ios_sharp,
+                      //                                             color: Color(
+                      //                                                 0xFF00B89F),
+                      //                                             size: 35,
+                      //                                           ),
+                      //                                         ),
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       1,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child:
+                      //                                               Image.asset(
+                      //                                             'assets/images/8675105_ic_fluent_pill_regular_icon.png',
+                      //                                             height: 90,
+                      //                                             fit: BoxFit
+                      //                                                 .fill,
+                      //                                           ),
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ],
+                      //                                 ),
+                      //                               ],
+                      //                             ),
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //               Padding(
+                      //                 padding: EdgeInsetsDirectional.fromSTEB(
+                      //                     10, 0, 10, 10),
+                      //                 child: Row(
+                      //                   mainAxisSize: MainAxisSize.max,
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.spaceAround,
+                      //                   children: [
+                      //                     Expanded(
+                      //                       child: Container(
+                      //                         decoration: BoxDecoration(
+                      //                           color: Color(0xFF272E36),
+                      //                           borderRadius:
+                      //                               BorderRadius.circular(10),
+                      //                         ),
+                      //                         child: InkWell(
+                      //                           onTap: () async {
+                      //                             await Navigator.push(
+                      //                               context,
+                      //                               MaterialPageRoute(
+                      //                                 builder: (context) =>
+                      //                                     DoorWidget(),
+                      //                               ),
+                      //                             );
+                      //                           },
+                      //                           child: Column(
+                      //                             mainAxisSize:
+                      //                                 MainAxisSize.max,
+                      //                             mainAxisAlignment:
+                      //                                 MainAxisAlignment.end,
+                      //                             crossAxisAlignment:
+                      //                                 CrossAxisAlignment.start,
+                      //                             children: [
+                      //                               Stack(
+                      //                                 children: [
+                      //                                   Padding(
+                      //                                     padding:
+                      //                                         EdgeInsetsDirectional
+                      //                                             .fromSTEB(15,
+                      //                                                 0, 50, 0),
+                      //                                     child: Column(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .start,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       10,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Row(
+                      //                                             mainAxisSize:
+                      //                                                 MainAxisSize
+                      //                                                     .max,
+                      //                                             children: [
+                      //                                               Text(
+                      //                                                 'Door',
+                      //                                                 style: FlutterFlowTheme.of(
+                      //                                                         context)
+                      //                                                     .bodyText1
+                      //                                                     .override(
+                      //                                                       fontFamily:
+                      //                                                           'Montserrat',
+                      //                                                       color:
+                      //                                                           Color(0xFF00B89F),
+                      //                                                       fontSize:
+                      //                                                           10,
+                      //                                                       fontWeight:
+                      //                                                           FontWeight.w300,
+                      //                                                     ),
+                      //                                               ),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                         Row(
+                      //                                           mainAxisSize:
+                      //                                               MainAxisSize
+                      //                                                   .max,
+                      //                                           children: [
+                      //                                             Text(
+                      //                                               info["sensors_status"]
+                      //                                                   [
+                      //                                                   "door"],
+                      //                                               style: FlutterFlowTheme.of(
+                      //                                                       context)
+                      //                                                   .bodyText1
+                      //                                                   .override(
+                      //                                                     fontFamily:
+                      //                                                         'Montserrat',
+                      //                                                     color:
+                      //                                                         Color(0xFFE5E5E5),
+                      //                                                     fontSize:
+                      //                                                         20,
+                      //                                                     fontWeight:
+                      //                                                         FontWeight.w200,
+                      //                                                   ),
+                      //                                             ),
+                      //                                           ],
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                               Column(
+                      //                                 mainAxisSize:
+                      //                                     MainAxisSize.max,
+                      //                                 mainAxisAlignment:
+                      //                                     MainAxisAlignment.end,
+                      //                                 crossAxisAlignment:
+                      //                                     CrossAxisAlignment
+                      //                                         .end,
+                      //                                 children: [
+                      //                                   Row(
+                      //                                     mainAxisSize:
+                      //                                         MainAxisSize.max,
+                      //                                     mainAxisAlignment:
+                      //                                         MainAxisAlignment
+                      //                                             .spaceBetween,
+                      //                                     crossAxisAlignment:
+                      //                                         CrossAxisAlignment
+                      //                                             .center,
+                      //                                     children: [
+                      //                                       Padding(
+                      //                                         padding:
+                      //                                             EdgeInsetsDirectional
+                      //                                                 .fromSTEB(
+                      //                                                     0,
+                      //                                                     20,
+                      //                                                     0,
+                      //                                                     0),
+                      //                                         child: Icon(
+                      //                                           Icons
+                      //                                               .arrow_forward_ios_sharp,
+                      //                                           color: Color(
+                      //                                               0xFF00B89F),
+                      //                                           size: 35,
+                      //                                         ),
+                      //                                       ),
+                      //                                       Padding(
+                      //                                         padding:
+                      //                                             EdgeInsetsDirectional
+                      //                                                 .fromSTEB(
+                      //                                                     0,
+                      //                                                     1,
+                      //                                                     0,
+                      //                                                     0),
+                      //                                         child:
+                      //                                             Image.asset(
+                      //                                           'assets/images/7068954_furniture_door_interior_house_front_icon.png',
+                      //                                           height: 90,
+                      //                                           fit:
+                      //                                               BoxFit.fill,
+                      //                                         ),
+                      //                                       ),
+                      //                                     ],
+                      //                                   ),
+                      //                                 ],
+                      //                               ),
+                      //                             ],
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                     Expanded(
+                      //                       child: Padding(
+                      //                         padding: EdgeInsetsDirectional
+                      //                             .fromSTEB(10, 0, 0, 0),
+                      //                         child: Container(
+                      //                           decoration: BoxDecoration(
+                      //                             color: Color(0xFF272E36),
+                      //                             borderRadius:
+                      //                                 BorderRadius.circular(10),
+                      //                           ),
+                      //                           child: InkWell(
+                      //                             onTap: () async {
+                      //                               await Navigator.push(
+                      //                                 context,
+                      //                                 MaterialPageRoute(
+                      //                                   builder: (context) =>
+                      //                                       ShowerWidget(),
+                      //                                 ),
+                      //                               );
+                      //                             },
+                      //                             child: Column(
+                      //                               mainAxisSize:
+                      //                                   MainAxisSize.max,
+                      //                               mainAxisAlignment:
+                      //                                   MainAxisAlignment.end,
+                      //                               crossAxisAlignment:
+                      //                                   CrossAxisAlignment
+                      //                                       .start,
+                      //                               children: [
+                      //                                 Stack(
+                      //                                   children: [
+                      //                                     Row(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       15,
+                      //                                                       0,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Column(
+                      //                                             mainAxisSize:
+                      //                                                 MainAxisSize
+                      //                                                     .max,
+                      //                                             crossAxisAlignment:
+                      //                                                 CrossAxisAlignment
+                      //                                                     .start,
+                      //                                             children: [
+                      //                                               Padding(
+                      //                                                 padding: EdgeInsetsDirectional
+                      //                                                     .fromSTEB(
+                      //                                                         0,
+                      //                                                         10,
+                      //                                                         0,
+                      //                                                         0),
+                      //                                                 child:
+                      //                                                     Row(
+                      //                                                   mainAxisSize:
+                      //                                                       MainAxisSize.max,
+                      //                                                   children: [
+                      //                                                     Text(
+                      //                                                       'Shower',
+                      //                                                       style: FlutterFlowTheme.of(context).bodyText1.override(
+                      //                                                             fontFamily: 'Montserrat',
+                      //                                                             color: Color(0xFF00B89F),
+                      //                                                             fontSize: 10,
+                      //                                                             fontWeight: FontWeight.w300,
+                      //                                                           ),
+                      //                                                     ),
+                      //                                                   ],
+                      //                                                 ),
+                      //                                               ),
+                      //                                               Row(
+                      //                                                 mainAxisSize:
+                      //                                                     MainAxisSize
+                      //                                                         .max,
+                      //                                                 children: [
+                      //                                                   Text(
+                      //                                                     info["sensors_status"]
+                      //                                                         [
+                      //                                                         "shower"],
+                      //                                                     style: FlutterFlowTheme.of(context)
+                      //                                                         .bodyText1
+                      //                                                         .override(
+                      //                                                           fontFamily: 'Montserrat',
+                      //                                                           color: Color(0xFFE5E5E5),
+                      //                                                           fontSize: 20,
+                      //                                                           fontWeight: FontWeight.w200,
+                      //                                                         ),
+                      //                                                   ),
+                      //                                                 ],
+                      //                                               ),
+                      //                                             ],
+                      //                                           ),
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ],
+                      //                                 ),
+                      //                                 Column(
+                      //                                   mainAxisSize:
+                      //                                       MainAxisSize.max,
+                      //                                   mainAxisAlignment:
+                      //                                       MainAxisAlignment
+                      //                                           .end,
+                      //                                   crossAxisAlignment:
+                      //                                       CrossAxisAlignment
+                      //                                           .end,
+                      //                                   children: [
+                      //                                     Row(
+                      //                                       mainAxisSize:
+                      //                                           MainAxisSize
+                      //                                               .max,
+                      //                                       mainAxisAlignment:
+                      //                                           MainAxisAlignment
+                      //                                               .spaceBetween,
+                      //                                       crossAxisAlignment:
+                      //                                           CrossAxisAlignment
+                      //                                               .center,
+                      //                                       children: [
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       20,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child: Icon(
+                      //                                             Icons
+                      //                                                 .arrow_forward_ios_sharp,
+                      //                                             color: Color(
+                      //                                                 0xFF00B89F),
+                      //                                             size: 35,
+                      //                                           ),
+                      //                                         ),
+                      //                                         Padding(
+                      //                                           padding:
+                      //                                               EdgeInsetsDirectional
+                      //                                                   .fromSTEB(
+                      //                                                       0,
+                      //                                                       1,
+                      //                                                       0,
+                      //                                                       0),
+                      //                                           child:
+                      //                                               Image.asset(
+                      //                                             'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon.png',
+                      //                                             height: 90,
+                      //                                             fit: BoxFit
+                      //                                                 .fill,
+                      //                                           ),
+                      //                                         ),
+                      //                                       ],
+                      //                                     ),
+                      //                                   ],
+                      //                                 ),
+                      //                               ],
+                      //                             ),
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //         );
+                      //       }),
                     ],
                   ),
                 ),
@@ -2256,20 +2257,20 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     final ApiCallResponse Ddata = await DashBoardStat.call(id: id);
     // print(Ddata.statusCode);
     print(Ddata.jsonBody["dashboard"]);
-    return Ddata.jsonBody["dashboard"];
-    // data = Ddata.jsonBody["dashboard"];
-    // FFAppState().heart_rate = data["watch_status"]["heart_rate"];
-    // FFAppState().blood_oxygen = data["watch_status"]["blood_oxygen"];
-    // FFAppState().Sleep = data["watch_status"]["sleep"];
-    // FFAppState().Steps = data["watch_status"]["step"];
-    // FFAppState().Calories = data["watch_status"]["calories"];
-    // FFAppState().blood_dia = data["watch_status"]["blood_pressure"]["dia"];
-    // FFAppState().blood_sys = data["watch_status"]["blood_pressure"]["sys"];
-    // FFAppState().battery_level = data["watch_status"]["battery_level"];
-    // FFAppState().Pill_box = data["sensor_status"]["pillbox"];
-    // FFAppState().door = data["sensor_status"]["door"];
-    // FFAppState().shower = data["sensor_status"]["shower"];
-    // print(FFAppState().heart_rate);
+    //  return Ddata.jsonBody["dashboard"];
+    data = Ddata.jsonBody["dashboard"];
+    FFAppState().heart_rate = data["watch_status"]["heart_rate"];
+    FFAppState().blood_oxygen = data["watch_status"]["blood_oxygen"];
+    FFAppState().Sleep = data["watch_status"]["sleep"];
+    FFAppState().Steps = data["watch_status"]["step"];
+    FFAppState().Calories = data["watch_status"]["calories"];
+    FFAppState().blood_dia = data["watch_status"]["blood_pressure"]["dia"];
+    FFAppState().blood_sys = data["watch_status"]["blood_pressure"]["sys"];
+    FFAppState().battery_level = data["watch_status"]["battery_level"];
+    FFAppState().Pill_box = data["sensor_status"]["pillbox"];
+    FFAppState().door = data["sensor_status"]["door"];
+    FFAppState().shower = data["sensor_status"]["shower"];
+    print(FFAppState().heart_rate);
     // return data;
   }
 }
@@ -2348,10 +2349,10 @@ class _dashboardState extends State<dashboard> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          FFAppState().heart_rate == null
-                                              ? "0 bpm"
-                                              : FFAppState().heart_rate +
-                                                  " bpm",
+                                          // FFAppState().heart_rate,
+                                          FFAppState().heart_rate != "rate"
+                                              ? FFAppState().heart_rate + " bpm"
+                                              : "0 bpm",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -2470,7 +2471,10 @@ class _dashboardState extends State<dashboard> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                FFAppState().blood_oxygen,
+                                                FFAppState().blood_oxygen !=
+                                                        "oxygen"
+                                                    ? FFAppState().blood_oxygen
+                                                    : "0",
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -2592,7 +2596,9 @@ class _dashboardState extends State<dashboard> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          FFAppState().Sleep,
+                                          FFAppState().Sleep != "sleep"
+                                              ? FFAppState().Sleep
+                                              : "0",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -2711,7 +2717,9 @@ class _dashboardState extends State<dashboard> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                FFAppState().Steps,
+                                                FFAppState().Steps != "step"
+                                                    ? FFAppState().Steps
+                                                    : "0",
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -2833,7 +2841,9 @@ class _dashboardState extends State<dashboard> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          FFAppState().Calories,
+                                          FFAppState().Calories != "calorie"
+                                              ? FFAppState().Calories
+                                              : "0",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -2953,7 +2963,10 @@ class _dashboardState extends State<dashboard> {
                                             children: [
                                               Text(
                                                 "SYS: " +
-                                                    FFAppState().blood_sys,
+                                                    (FFAppState().blood_sys !=
+                                                            "sys"
+                                                        ? FFAppState().blood_sys
+                                                        : "0"),
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -2972,7 +2985,10 @@ class _dashboardState extends State<dashboard> {
                                             children: [
                                               Text(
                                                 "DIA: " +
-                                                    FFAppState().blood_dia,
+                                                    (FFAppState().blood_dia !=
+                                                            "dia"
+                                                        ? FFAppState().blood_dia
+                                                        : "0"),
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -3094,7 +3110,10 @@ class _dashboardState extends State<dashboard> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          FFAppState().battery_level,
+                                          FFAppState().battery_level !=
+                                                  "battery"
+                                              ? FFAppState().battery_level
+                                              : "0",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -3213,7 +3232,9 @@ class _dashboardState extends State<dashboard> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                'Closed',
+                                                FFAppState().Pill_box != "box"
+                                                    ? FFAppState().Pill_box
+                                                    : "null",
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -3335,7 +3356,9 @@ class _dashboardState extends State<dashboard> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          'Open',
+                                          FFAppState().door != "door"
+                                              ? FFAppState().door
+                                              : "null",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -3454,7 +3477,9 @@ class _dashboardState extends State<dashboard> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                'Closed',
+                                                FFAppState().shower != "shower"
+                                                    ? FFAppState().shower
+                                                    : "null",
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1

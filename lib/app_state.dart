@@ -42,17 +42,17 @@ class FFAppState {
   bool Chattoggle = false;
   String MemberId = '';
   String SeniorId = '';
-  String heart_rate = '';
-  String blood_oxygen = '';
-  String Sleep = "";
-  String Steps = ' ';
-  String Calories = '';
-  String blood_sys = '';
-  String blood_dia = '';
-  String battery_level = '';
-  String Pill_box = '';
-  String door = '';
-  String shower = '';
+  String heart_rate = "rate";
+  String blood_oxygen = 'oxygen';
+  String Sleep = "sleep";
+  String Steps = "step";
+  String Calories = 'calorie';
+  String blood_sys = 'sys';
+  String blood_dia = 'dia';
+  String battery_level = 'battery';
+  String Pill_box = 'box';
+  String door = 'door';
+  String shower = 'shower';
 
   bool executive;
   bool liveView;
