@@ -410,57 +410,53 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              if (FFAppState().chat == false)
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
+                                      child: SvgPicture.asset(
+                                        'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
+                                        width: 21,
+                                        height: 21,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 0, 0, 0),
-                                        child: SvgPicture.asset(
-                                          'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
-                                          width: 21,
-                                          height: 21,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  17, 0, 0, 0),
-                                          child: SwitchListTile(
-                                            value: FFAppState().Chattoggle2,
-                                            onChanged: (bool value) => setState(
-                                                () => FFAppState().Chattoggle2 =
-                                                    value),
-                                            title: Text(
-                                              'Enable Chat',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .title3
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFFAFAFAF),
-                                                    fontWeight: FontWeight.w300,
-                                                  ),
-                                            ),
-                                            tileColor: Color(0xFFF5F5F5),
-                                            activeColor: Color(0xFFECECEC),
-                                            activeTrackColor: Color(0xFF00B89F),
-                                            dense: false,
-                                            controlAffinity:
-                                                ListTileControlAffinity
-                                                    .trailing,
+                                            17, 0, 0, 0),
+                                        child: SwitchListTile(
+                                          value: FFAppState().Chattoggle2,
+                                          onChanged: (bool value) => setState(
+                                              () => FFAppState().Chattoggle2 =
+                                                  value),
+                                          title: Text(
+                                            'Enable Chat',
+                                            style: FlutterFlowTheme.of(context)
+                                                .title3
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFFAFAFAF),
+                                                  fontWeight: FontWeight.w300,
+                                                ),
                                           ),
+                                          tileColor: Color(0xFFF5F5F5),
+                                          activeColor: Color(0xFFECECEC),
+                                          activeTrackColor: Color(0xFF00B89F),
+                                          dense: false,
+                                          controlAffinity:
+                                              ListTileControlAffinity.trailing,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
+                              ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0, 10, 10, 0),

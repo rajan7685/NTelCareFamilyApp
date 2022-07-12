@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -8,40 +11,62 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class CalorieWidget extends StatefulWidget {
-  const CalorieWidget({Key key}) : super(key: key);
+  String data;
+  CalorieWidget({Key key, @required this.data}) : super(key: key);
 
   @override
-  _CalorieWidgetState createState() => _CalorieWidgetState();
+  _CalorieWidgetState createState() => _CalorieWidgetState(data);
 }
 
 class _CalorieWidgetState extends State<CalorieWidget> {
-  static final List<BloodStat> stepStat = [
-    BloodStat("10:00", 50, Color(0xFF00B89F)),
-    BloodStat("11:00", 60, Color(0xFF00B89F)),
-    BloodStat("12:00", 50, Color(0xFF00B89F)),
-    BloodStat("13:00", 70, Color(0xFF00B89F)),
-    BloodStat("14:00", 80, Color(0xFF00B89F)),
-    BloodStat("15:00", 40, Color(0xFF00B89F)),
-    BloodStat("16:00", 50, Color(0xFF00B89F)),
-    BloodStat("17:00", 80, Color(0xFF00B89F)),
-    BloodStat("18:00", 70, Color(0xFF00B89F)),
-  ];
+  Future<dynamic> calories;
+  List<CalorieStat> calorie = [];
+  GetCalories getCalories = GetCalories();
+  static final List<CalorieStat> calorieStat = [];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var color1 = Color(0xFF00B89F);
   var color2 = Color(0xFF1A1A1A);
   var color3 = Color(0xFF1A1A1A);
   DateTime dateTime;
+  String id;
+  _CalorieWidgetState(this.id);
+
+  @override
+  void initState() {
+    super.initState();
+    getCalori();
+    // int versionCode = BuildConfig.VERSION_CODE;
+    // HeartStatus = fetchStat();
+  }
+
+  void getCalori() async {
+    var response = await getCalories
+        .get('http://18.208.148.208:4000/graph/health_status/?senior_id=${id}');
+    print(response.statusCode);
+    print(response.body.runtimeType);
+    print(response.body);
+    final rate = jsonDecode((response.body));
+    print(rate["health_status"]["heart_rate"].runtimeType);
+
+    List<CalorieStat> temp =
+        calorieStatFromJson(rate["health_status"]["heart_rate"]);
+    setState(() {
+      calorie = temp;
+    });
+    print(calorie);
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<BloodStat, String>> step = [
+    List<charts.Series<CalorieStat, String>> calories = [
       charts.Series(
-          data: stepStat,
+          data: calorie,
           id: "Calorie",
-          domainFn: (BloodStat pops, _) => pops.Time,
-          measureFn: (BloodStat pops, _) => pops.Stat,
-          colorFn: (BloodStat pops, _) =>
-              charts.ColorUtil.fromDartColor(pops.line))
+          domainFn: (CalorieStat pops, _) => pops.time,
+          measureFn: (CalorieStat pops, _) => pops.value,
+          colorFn: (CalorieStat pops, _) =>
+              charts.ColorUtil.fromDartColor(Color(0xFF00B89F)))
     ];
 
     return Scaffold(
@@ -318,7 +343,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
                               color: Color(0xFF272E36),
                               borderRadius: BorderRadius.circular(10)),
                           child: charts.BarChart(
-                            step,
+                            calories,
                             animate: true,
                           ),
                         )),
@@ -333,10 +358,34 @@ class _CalorieWidgetState extends State<CalorieWidget> {
   }
 }
 
-class BloodStat {
-  final String Time;
-  final int Stat;
-  final Color line;
+List<CalorieStat> calorieStatFromJson(List<dynamic> rate) {
+  List<CalorieStat> heart = [];
+  rate.forEach((element) {
+    heart.add(CalorieStat.fromJson(element));
+  });
+  return heart;
+}
+// List<HeartStat>.from(json.decode(str).map((x) => HeartStat.fromJson(x)));
 
-  BloodStat(this.Time, this.Stat, this.line);
+String calorieStatToJson(List<CalorieStat> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class CalorieStat {
+  CalorieStat({
+    this.time,
+    this.value,
+  });
+
+  String time;
+  int value;
+
+  factory CalorieStat.fromJson(Map<String, dynamic> json) => CalorieStat(
+        time: json["time"],
+        value: json["value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "time": time,
+        "value": value,
+      };
 }
