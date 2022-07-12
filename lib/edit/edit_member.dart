@@ -68,7 +68,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     super.initState();
     textController1 = TextEditingController(text: data["fname"]);
     textController2 = TextEditingController(text: data["lname"]);
-    textController3 = TextEditingController(text: data["gender"]);
+    textController3 = TextEditingController(text: data["sex"]);
     textController4 = TextEditingController(text: data['mobile']);
     textController5 = TextEditingController(text: data['email']);
     textController6 = TextEditingController(text: data["address"]);
@@ -79,7 +79,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     countryValue = data["country"];
     stateValue = data["state"];
 
-    selectedDate = HttpDate.parse(data["dob"]);
+    selectedDate = DateTime.parse(data["dob"]);
     print(data["dob"]);
     print(DateFormat("yyyy-MM-dd").format(selectedDate));
   }

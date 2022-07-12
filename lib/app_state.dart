@@ -50,9 +50,9 @@ class FFAppState {
   String blood_sys = 'sys';
   String blood_dia = 'dia';
   String battery_level = 'battery';
-  String Pill_box = 'box';
-  String door = 'door';
-  String shower = 'shower';
+  bool Pill_box = true;
+  bool door = true;
+  bool shower = true;
 
   bool executive;
   bool liveView;

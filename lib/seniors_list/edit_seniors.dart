@@ -107,8 +107,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
 
   @override
   Widget build(BuildContext context) {
-
-    
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -1360,11 +1358,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     await response.stream.bytesToString();
                                 if (response.statusCode == 200) {
                                   print("uploaded");
-                                  Navigator.pop(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ModifiedLandingPageWidget()));
+                                  Navigator.pop(context);
                                   Fluttertoast.showToast(
                                       msg: "Updated Successfully!",
                                       toastLength: Toast.LENGTH_SHORT,
