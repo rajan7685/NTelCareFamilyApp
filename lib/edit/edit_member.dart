@@ -38,6 +38,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   TextEditingController textController5;
   TextEditingController textController6;
   TextEditingController textController7;
+  TextEditingController textController8;
   bool display = false;
   bool displayY = true;
   bool displayN = false;
