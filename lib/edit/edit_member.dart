@@ -68,7 +68,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     super.initState();
     textController1 = TextEditingController(text: data["fname"]);
     textController2 = TextEditingController(text: data["lname"]);
-
     textController4 = TextEditingController(text: data['mobile']);
     textController5 = TextEditingController(text: data['email']);
     textController6 = TextEditingController(text: data["address"]);

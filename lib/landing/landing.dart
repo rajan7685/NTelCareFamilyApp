@@ -149,200 +149,122 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                           ],
                         ),
                       ),
-                      Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF1F252B),
-                        ),
-                        child: FutureBuilder<dynamic>(
-                            future: SList,
-                            builder: (context, snapshot) {
-                              final inf = snapshot.data;
-                              print(inf);
-                              // setState(() {
-                              //   selectedId = inf[0]["id"];
-                              // });
-                              if (!snapshot.hasData) {
-                                return Text(
-                                  "Loading...",
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFFE5E5E5),
-                                          fontSize: 20),
-                                );
-                              } else {
-                                Future.delayed(Duration(seconds: 1), () {
-                                  setState(() {
-                                    selectedId = inf[0]["id"];
+                      RefreshIndicator(
+                        onRefresh: () async {
+                          await fetchDashData(selectedId);
+                        },
+                        child: Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF1F252B),
+                          ),
+                          child: FutureBuilder<dynamic>(
+                              future: SList,
+                              builder: (context, snapshot) {
+                                final inf = snapshot.data;
+                                print(inf);
+                                // setState(() {
+                                //   selectedId = inf[0]["id"];
+                                // });
+                                if (!snapshot.hasData) {
+                                  return Text(
+                                    "Loading...",
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFE5E5E5),
+                                            fontSize: 20),
+                                  );
+                                } else {
+                                  Future.delayed(Duration(seconds: 1), () {
+                                    setState(() {
+                                      selectedId = inf[0]["id"];
+                                    });
                                   });
-                                });
 
-                                return ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: snapshot.data.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      final id = inf[index]["id"];
-                                      FFAppState().id = id;
-                                      return Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 0, 10, 0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
+                                  return ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: snapshot.data.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        final id = inf[index]["id"];
+                                        FFAppState().id = id;
+                                        return Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 0, 10, 0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
 
-                                              // Colors.transparent
+                                                // Colors.transparent
 
-                                              //Color(0xFF1F252B).withOpacity(1),
-                                              ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    selectedId = id;
-                                                  });
-                                                  fetchDashData(selectedId);
-                                                  _isSelected(index);
-                                                },
-                                                child: Container(
-                                                  width: 70,
-                                                  height: 70,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: isSelected == true
-                                                        ? Colors.red
-                                                        : Colors.black,
-                                                  ),
-                                                  child: Image.network(
-                                                    inf[index]["profile"],
-                                                    fit: BoxFit.cover,
+                                                //Color(0xFF1F252B).withOpacity(1),
+                                                ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      selectedId = id;
+                                                    });
+                                                    fetchDashData(selectedId);
+                                                    _isSelected(index);
+                                                  },
+                                                  child: Container(
+                                                    width: 70,
+                                                    height: 70,
+                                                    clipBehavior:
+                                                        Clip.antiAlias,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: isSelected == true
+                                                          ? Colors.red
+                                                          : Colors.black,
+                                                    ),
+                                                    child: Image.network(
+                                                      inf[index]["profile"],
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(10, 0, 0, 0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0, 20, 0, 0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            inf[index]
-                                                                    ["fname"] +
-                                                                " " +
-                                                                inf[index]
-                                                                    ["lname"],
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  color: isSelected !=
-                                                                              null &&
-                                                                          isSelected ==
-                                                                              index
-                                                                      ? Color(
-                                                                          0xFF00B89F)
-                                                                      : Color(
-                                                                          0xFF535353),
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w300,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      2, 0, 0),
-                                                          child: Text(
-                                                            "Age " +
-                                                                inf[index]
-                                                                    ["age"] +
-                                                                ", " +
-                                                                inf[index]
-                                                                    ["gender"],
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  color: isSelected !=
-                                                                              null &&
-                                                                          isSelected ==
-                                                                              index
-                                                                      ? Color(
-                                                                          0xFFE5E5E5)
-                                                                      : Color(
-                                                                          0xFF535353),
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w200,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () async {
-                                                        await Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (context) =>
-                                                                    EditSeniorsWidget(
-                                                                        data: snapshot
-                                                                            .data[index])));
-                                                      },
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        6,
-                                                                        0,
-                                                                        0),
-                                                            child: Text(
-                                                              'More Info',
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(10, 0, 0, 0),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(0, 20,
+                                                                    0, 0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              inf[index][
+                                                                      "fname"] +
+                                                                  " " +
+                                                                  inf[index]
+                                                                      ["lname"],
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
@@ -353,8 +275,51 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                                 null &&
                                                                             isSelected ==
                                                                                 index
-                                                                        ? Colors
-                                                                            .blue
+                                                                        ? Color(
+                                                                            0xFF00B89F)
+                                                                        : Color(
+                                                                            0xFF535353),
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0,
+                                                                        2,
+                                                                        0,
+                                                                        0),
+                                                            child: Text(
+                                                              "Age " +
+                                                                  inf[index]
+                                                                      ["age"] +
+                                                                  ", " +
+                                                                  inf[index][
+                                                                      "gender"],
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyText1
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Montserrat',
+                                                                    color: isSelected !=
+                                                                                null &&
+                                                                            isSelected ==
+                                                                                index
+                                                                        ? Color(
+                                                                            0xFFE5E5E5)
                                                                         : Color(
                                                                             0xFF535353),
                                                                     fontSize:
@@ -367,17 +332,66 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           ),
                                                         ],
                                                       ),
-                                                    ),
-                                                  ],
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          await Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      EditSeniorsWidget(
+                                                                          data:
+                                                                              snapshot.data[index])));
+                                                          dashboard();
+                                                        },
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          6,
+                                                                          0,
+                                                                          0),
+                                                              child: Text(
+                                                                'More Info',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Montserrat',
+                                                                      color: isSelected != null &&
+                                                                              isSelected ==
+                                                                                  index
+                                                                          ? Colors
+                                                                              .blue
+                                                                          : Color(
+                                                                              0xFF535353),
+                                                                      fontSize:
+                                                                          12,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w200,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    });
-                              }
-                            }),
+                                        );
+                                      });
+                                }
+                              }),
+                        ),
                       ),
                       if (selectedId == null) CircularProgressIndicator(),
                       if (selectedId != null) dashboard(),
@@ -2267,10 +2281,10 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     FFAppState().blood_dia = data["watch_status"]["blood_pressure"]["dia"];
     FFAppState().blood_sys = data["watch_status"]["blood_pressure"]["sys"];
     FFAppState().battery_level = data["watch_status"]["battery_level"];
-    FFAppState().Pill_box = data["sensor_status"]["pillbox"];
-    FFAppState().door = data["sensor_status"]["door"];
-    FFAppState().shower = data["sensor_status"]["shower"];
-    print(FFAppState().heart_rate);
+    FFAppState().Pill_box = data["sensors_status"]["sos"]["bool"];
+    FFAppState().door = data["sensors_status"]["door"]["bool"];
+    FFAppState().shower = data["sensors_status"]["bath"]["bool"];
+    print(FFAppState().door);
     // return data;
   }
 }
@@ -3232,9 +3246,9 @@ class _dashboardState extends State<dashboard> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                FFAppState().Pill_box != "box"
-                                                    ? FFAppState().Pill_box
-                                                    : "null",
+                                                FFAppState()
+                                                    .Pill_box
+                                                    .toString(),
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -3356,9 +3370,9 @@ class _dashboardState extends State<dashboard> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          FFAppState().door != "door"
-                                              ? FFAppState().door
-                                              : "null",
+                                          FFAppState().door.toString() != true
+                                              ? "Closed"
+                                              : "Open",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -3477,9 +3491,12 @@ class _dashboardState extends State<dashboard> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                FFAppState().shower != "shower"
-                                                    ? FFAppState().shower
-                                                    : "null",
+                                                FFAppState()
+                                                            .shower
+                                                            .toString() !=
+                                                        true
+                                                    ? "Not Bathed"
+                                                    : "Bathed",
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
