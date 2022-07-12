@@ -544,8 +544,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                               await showDatePicker(
                                                   context: context,
                                                   initialDate: selectedDate,
-                                                  firstDate: DateTime(2015, 8),
-                                                  lastDate: DateTime(2101));
+                                                  firstDate: DateTime(1900, 8),
+                                                  lastDate: DateTime.now());
                                           if (picked != null &&
                                               picked != selectedDate)
                                             setState(() {
@@ -1505,7 +1505,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               // );
                               if (textController1.text == "" ||
                                   textController2.text == "" ||
-                                  textController3.text == "" ||
                                   textController4.text == "" ||
                                   textController5.text == "" ||
                                   textController6.text == "" ||
@@ -1567,7 +1566,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     "Bearer ${FFAppState().Token}";
                                 res1.fields['fname'] = textController1.text;
                                 res1.fields['lname'] = textController2.text;
-                                res1.fields['gender'] = textController3.text;
+                                res1.fields['gender'] = dropDownValueGender;
                                 res1.fields['mobile'] = textController4.text;
                                 res1.fields['email'] = textController5.text;
                                 res1.fields['address'] = textController6.text;

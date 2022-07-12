@@ -5,8 +5,10 @@ import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/custom_code/widgets/custom_message.dart';
 import 'package:n_tel_care_family_app/edit/demo_editProfile.dart';
 import 'package:n_tel_care_family_app/login/login_widget.dart';
+import 'package:n_tel_care_family_app/profile/help.dart';
 import 'package:n_tel_care_family_app/seniors_list/senior_list.dart';
 import 'package:http/http.dart' as http;
+import 'package:n_tel_care_family_app/spalsh/spalsh_widget.dart';
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -593,6 +595,44 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   ),
                                 ),
                               ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0, 10, 10, 0),
+                                child: InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SpalshWidget(),
+                                      ),
+                                    );
+                                  },
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.help,
+                                      color: Color(0xFF00B89F),
+                                      size: 25,
+                                    ),
+                                    title: Text(
+                                      'Help',
+                                      style: FlutterFlowTheme.of(context)
+                                          .title3
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            color: Color(0xFFAFAFAF),
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
+                                    trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF00B89F),
+                                      size: 25,
+                                    ),
+                                    tileColor: Color(0xFFF5F5F5),
+                                    dense: false,
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         ),

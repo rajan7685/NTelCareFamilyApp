@@ -1,4 +1,4 @@
-import 'package:n_tel_care_family_app/login/login_widget.dart';
+/*import 'package:n_tel_care_family_app/login/login_widget.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -85,4 +85,4 @@ class _SpalshWidgetState extends State<SpalshWidget> {
       ),
     );
   }
-}
+}*/
