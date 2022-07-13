@@ -2286,6 +2286,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     FFAppState().door = data["sensors_status"]["door"]["bool"];
     FFAppState().shower = data["sensors_status"]["bath"]["bool"];
     print(FFAppState().door);
+
     // return data;
   }
 }
@@ -3226,7 +3227,7 @@ class _dashboardState extends State<dashboard> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Text(
-                                                  'Pill Box',
+                                                  'SOS',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
@@ -3248,8 +3249,11 @@ class _dashboardState extends State<dashboard> {
                                             children: [
                                               Text(
                                                 FFAppState()
-                                                    .Pill_box
-                                                    .toString(),
+                                                            .Pill_box
+                                                            .toString() !=
+                                                        "true"
+                                                    ? "Not Active"
+                                                    : "Active",
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -3371,7 +3375,9 @@ class _dashboardState extends State<dashboard> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          FFAppState().door.toString(),
+                                          FFAppState().door.toString() != "true"
+                                              ? "Closed"
+                                              : "Open",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -3493,7 +3499,7 @@ class _dashboardState extends State<dashboard> {
                                                 FFAppState()
                                                             .shower
                                                             .toString() !=
-                                                        true
+                                                        "true"
                                                     ? "Not Bathed"
                                                     : "Bathed",
                                                 style: FlutterFlowTheme.of(

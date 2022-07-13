@@ -1585,7 +1585,7 @@ class _AddWidgetState extends State<Add> {
                                 "chats": displayChat.toString(),
                                 "view_video": displayView.toString(),
                               });*/
-                                print(image.path);
+                                //  print(image.path);
                                 //  var stream =
                                 //     new http.ByteStream(image.openRead());
                                 // stream.cast();
