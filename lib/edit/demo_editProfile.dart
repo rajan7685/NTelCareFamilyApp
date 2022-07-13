@@ -382,10 +382,54 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                       child: DropdownButtonFormField<String>(
                                         value: dropDownValueGender,
                                         items: [
-                                          "male",
-                                          "female",
-                                          "transgender",
-                                          "non binary"
+                                          "Male",
+                                          "Female",
+                                          "Transgender",
+                                          "Non binary"
+                                        ]
+                                            .map((label) => DropdownMenuItem(
+                                                  child: Text(label),
+                                                  value: label,
+                                                ))
+                                            .toList(),
+                                        onChanged: (value) {
+                                          setState(() =>
+                                              dropDownValueGender = value);
+                                        },
+                                        decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          filled: true,
+                                          fillColor: Color(0xFFEEEEEE),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFF606E87),
+                                            ),
+                                        hint: Text('Gender'),
+                                      ),
+                                    ),
+                                  ],
+                                  /*Expanded(
+                                      flex: 8,
+                                      child: DropdownButtonFormField<String>(
+                                        value: dropDownValueGender,
+                                        items: [
+                                          "Male",
+                                          "Female"
+                                              "Transgender",
+                                          "Non binary",
                                         ]
                                             .map((label) => DropdownMenuItem(
                                                   child: Text(label),
@@ -420,8 +464,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                             ),
                                         hint: Text('Gender'),
                                       ),
-                                    ),
-                                  ],
+                                    ),*/
                                 ),
                               ),
                             ),
