@@ -1759,12 +1759,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                 backgroundColor: Colors.green,
                                                 textColor: Colors.black,
                                                 fontSize: 14.0);
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      MembersWidget(),
-                                                ));
+                                            Navigator.pop(context);
                                           }
                                         },
                                         child: Text('Yes'),

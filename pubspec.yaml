@@ -43,7 +43,7 @@ dependencies:
   path_provider: ^2.0.11
   http: ^0.13.4
   csc_picker: ^0.2.6
-  
+  package_info_plus: ^1.0.6
   fluttertoast: ^8.0.9 
   flutter_svg: 0.22.0
   better_player: 0.0.82
@@ -60,7 +60,7 @@ dependencies:
   video_player_web: ^2.0.8
   charts_flutter: ^0.12.0
   month_year_picker: ^0.1.0+3
-  package_info_plus: ^1.4.2
+  
   
 
 dev_dependencies:

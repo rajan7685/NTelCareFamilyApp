@@ -1539,8 +1539,12 @@ class _AddWidgetState extends State<Add> {
                               // );
                               if (textController1.text == "" ||
                                   textController2.text == "" ||
-                                  textController3.text == "" ||
+                                  textController5.text == "" ||
+                                  textController6.text == "" ||
+                                  textController7.text == "" ||
+                                  textController4.text == "" ||
                                   dropDownValue == "" ||
+                                  dropDownValueGender == "" ||
                                   image == null) {
                                 Fluttertoast.showToast(
                                     msg: "All fields are necessary to fill",
@@ -1652,11 +1656,7 @@ class _AddWidgetState extends State<Add> {
                                       backgroundColor: Colors.green,
                                       textColor: Colors.black,
                                       fontSize: 14.0);
-                                  await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MembersWidget(),
-                                      ));
+                                  await Navigator.pop(context);
                                 } else {
                                   await showDialog(
                                     context: context,
