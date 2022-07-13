@@ -1,10 +1,10 @@
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../login/login_widget.dart';
+import 'dart:io';
 
+import 'package:n_tel_care_family_app/app_state.dart';
+
+import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SpalshWidget extends StatefulWidget {
   const SpalshWidget({Key key}) : super(key: key);
@@ -15,6 +15,20 @@ class SpalshWidget extends StatefulWidget {
 
 class _SpalshWidgetState extends State<SpalshWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    // TODO: implement initStae
+    super.initState();
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      String appName = packageInfo.appName;
+      String packageName = packageInfo.packageName;
+      String version = packageInfo.version;
+      FFAppState().buildversion = version;
+      String buildNumber = packageInfo.buildNumber;
+      print(buildNumber);
+    });
+  }
 
   /* @override
   void initState() {
@@ -121,21 +135,20 @@ class _SpalshWidgetState extends State<SpalshWidget> {
                                   ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 3),
-                        child: Text(
-                          '12.00.01',
-                          textAlign: TextAlign.start,
-                          style:
-                              FlutterFlowTheme.of(context).bodyText1.override(
-                                    fontFamily: 'Poppins',
-                                    color: Color(0xFFAFAFAF),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w200,
-                                  ),
-                        ),
-                      ),
                     ],
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 3),
+                    child: Text(
+                      Platform.version,
+                      textAlign: TextAlign.start,
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFAFAFAF),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w200,
+                          ),
+                    ),
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -158,7 +171,7 @@ class _SpalshWidgetState extends State<SpalshWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 3),
                         child: Text(
-                          '12.50.91',
+                          "buildNumber",
                           textAlign: TextAlign.start,
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(

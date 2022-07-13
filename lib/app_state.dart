@@ -51,7 +51,7 @@ class FFAppState {
   String blood_dia = 'dia';
   String battery_level = 'battery';
   bool Pill_box = true;
-  bool door = true;
+  bool door = false;
   bool shower = true;
 
   bool executive;
@@ -59,6 +59,8 @@ class FFAppState {
   bool chat;
   bool viewVideo;
 
+  String buildversion = " ";
+  String buildNumber = " ";
   // bool _Chattoggle2 = false;
   // bool get Chattoggle2 => _Chattoggle2;
   // set Chattoggle2(bool _value) {

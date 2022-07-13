@@ -121,21 +121,6 @@ class UserList {
   }
 }
 
-class MemberList {
-  static Future<dynamic> call() {
-    return ApiManager.instance.makeApiCall(
-      callName: 'MemberList',
-      apiUrl: 'http://18.208.148.208:4000/get/members/member',
-      callType: ApiCallType.GET,
-      headers: {
-        'Authorization': 'Bearer ${FFAppState().Token}',
-      },
-      params: {},
-      returnBody: true,
-    );
-  }
-}
-
 class SeniorsList {
   static Future<dynamic> call() {
     return ApiManager.instance.makeApiCall(

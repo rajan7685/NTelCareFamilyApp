@@ -39,6 +39,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   TextEditingController textController6;
   TextEditingController textController7;
   TextEditingController textController8;
+
   bool display = false;
   bool displayY = true;
   bool displayN = false;
@@ -66,6 +67,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   @override
   void initState() {
     super.initState();
+    print(data);
     textController1 = TextEditingController(text: data["fname"]);
     textController2 = TextEditingController(text: data["lname"]);
     textController4 = TextEditingController(text: data['mobile']);
@@ -1637,11 +1639,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       backgroundColor: Colors.green,
                                       textColor: Colors.black,
                                       fontSize: 14.0);
-                                  await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MembersWidget(),
-                                      ));
+                                  await Navigator.pop(context);
                                 } else {
                                   await showDialog(
                                     context: context,

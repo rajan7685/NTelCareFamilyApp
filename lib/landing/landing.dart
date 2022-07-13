@@ -2273,6 +2273,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     print(Ddata.jsonBody["dashboard"]);
     //  return Ddata.jsonBody["dashboard"];
     data = Ddata.jsonBody["dashboard"];
+
     FFAppState().heart_rate = data["watch_status"]["heart_rate"];
     FFAppState().blood_oxygen = data["watch_status"]["blood_oxygen"];
     FFAppState().Sleep = data["watch_status"]["sleep"];
@@ -2365,8 +2366,8 @@ class _dashboardState extends State<dashboard> {
                                         Text(
                                           // FFAppState().heart_rate,
                                           FFAppState().heart_rate != "rate"
-                                              ? FFAppState().heart_rate + " bpm"
-                                              : "0 bpm",
+                                              ? FFAppState().heart_rate + " BPM"
+                                              : "0 BPM",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -3370,9 +3371,7 @@ class _dashboardState extends State<dashboard> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          FFAppState().door.toString() != true
-                                              ? "Closed"
-                                              : "Open",
+                                          FFAppState().door.toString(),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
