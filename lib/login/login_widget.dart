@@ -238,7 +238,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             FFAppState().viewVideo =
                                 data["permission"]["view_video"];
                             FFAppState().chat = data["permission"]["chat"];
-                            print(FFAppState().viewVideo);
+                            print(FFAppState().chat);
                             print(FFAppState().executive);
 
                             print(FFAppState().Token);

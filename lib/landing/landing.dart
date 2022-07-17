@@ -221,9 +221,6 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                         Clip.antiAlias,
                                                     decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
-                                                      color: isSelected == true
-                                                          ? Colors.red
-                                                          : Colors.black,
                                                     ),
                                                     child: Image.network(
                                                       inf[index]["profile"],
@@ -341,7 +338,6 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                       EditSeniorsWidget(
                                                                           data:
                                                                               snapshot.data[index])));
-                                                          dashboard();
                                                         },
                                                         child: Row(
                                                           mainAxisSize:
@@ -394,7 +390,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                         ),
                       ),
                       if (selectedId == null) CircularProgressIndicator(),
-                      if (selectedId != null) dashboard(),
+                      if (selectedId != null) dashboard(data: selectedId),
                       // if (selectedId != null)
                       //   FutureBuilder(
                       //       future: fetchDashData(selectedId),
@@ -2292,13 +2288,16 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
 }
 
 class dashboard extends StatefulWidget {
-  const dashboard({Key key}) : super(key: key);
+  String data;
+  dashboard({Key key, @required this.data}) : super(key: key);
 
   @override
-  State<dashboard> createState() => _dashboardState();
+  State<dashboard> createState() => _dashboardState(data);
 }
 
 class _dashboardState extends State<dashboard> {
+  String id;
+  _dashboardState(this.id);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -2323,7 +2322,9 @@ class _dashboardState extends State<dashboard> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => StatsWidget(),
+                            builder: (context) => StatsWidget(
+                              data: id,
+                            ),
                           ),
                         );
                       },
