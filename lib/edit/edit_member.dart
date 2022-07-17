@@ -1689,7 +1689,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       backgroundColor: Colors.green,
                                       textColor: Colors.black,
                                       fontSize: 14.0);
-                                  await Navigator.pop(context);
+                                  Navigator.pop(context);
                                 } else {
                                   await showDialog(
                                     context: context,
@@ -1732,6 +1732,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                             ),
                           ),
                         ),
+                        //Delete User
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                           child: FFButtonWidget(
@@ -1765,7 +1766,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         child: Text('Yes'),
                                       ),
                                       TextButton(
-                                        onPressed: () {},
+                                        onPressed: () => Navigator.pop(context),
                                         child: Text('Cancel'),
                                       ),
                                     ],

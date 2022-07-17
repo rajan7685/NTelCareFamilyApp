@@ -1,15 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
-import 'package:n_tel_care_family_app/profile/profile.dart';
-import 'package:n_tel_care_family_app/profile/profile_page.dart';
+
 import 'package:image_picker/image_picker.dart';
-import 'package:image_picker/image_picker.dart';
-import '../backend/api_requests/api_calls.dart';
+
 import 'package:http/http.dart' as http;
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -18,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class EditCopy2Widget extends StatefulWidget {
   dynamic info;
@@ -91,7 +87,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
 
   Future pickimage(ImageSource source1) async {
     try {
-      final image = await ImagePicker().pickImage(source: source1);
+      final image =
+          await ImagePicker().pickImage(source: source1, imageQuality: 50);
       if (image == Null) {
         return Null;
       }
