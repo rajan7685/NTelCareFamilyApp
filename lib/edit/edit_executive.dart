@@ -59,7 +59,8 @@ class _EditExecutiveWidgetState extends State<EditExecutiveWidget> {
 
   Future pickimage(ImageSource source1) async {
     try {
-      final image = await ImagePicker().pickImage(source: source1);
+      final image =
+          await ImagePicker().pickImage(source: source1, imageQuality: 20);
       if (image == Null) {
         return Null;
       }

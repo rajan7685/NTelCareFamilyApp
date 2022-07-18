@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
-import 'package:n_tel_care_family_app/profile/profile.dart';
 import 'package:n_tel_care_family_app/profile/profile_page.dart';
 import 'package:n_tel_care_family_app/spalsh/modified_splash.dart';
 import 'package:flutter/services.dart';
-import 'package:n_tel_care_family_app/spalsh/spalsh_widget.dart';
 import 'package:n_tel_care_family_app/video/videos_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'devices/devices_widget.dart';
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 
 void main() async {
@@ -76,12 +77,106 @@ class NavBarPage extends StatefulWidget {
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
   String _currentPage = 'Landing';
+  //PersistentTabController _controller;
 
   @override
   void initState() {
     super.initState();
+    //_controller = PersistentTabController(initialIndex: 0);
     _currentPage = widget.initialPage ?? _currentPage;
   }
+
+//Screens for each nav items.
+  /*List<Widget> _NavScreens() {
+    return [
+      ModifiedLandingPageWidget(),
+      VideoClipsWidget(),
+      MembersWidget(),
+      ProfilePageWidget(),
+    ];
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItems() {
+    return [
+      PersistentBottomNavBarItem(
+          icon: Icon(Icons.now_widgets_sharp),
+          title: ("Dashboard"),
+          activeColorPrimary: Color(0xFF00B89F),
+          inactiveColorPrimary: Color(0xFF535353),
+          iconSize: 24,
+          onPressed: (context) {
+            pushDynamicScreen(context, screen: dashboard(), withNavBar: true);
+          }),
+      PersistentBottomNavBarItem(
+          icon: Icon(Icons.ondemand_video),
+          title: ("Video"),
+          activeColorPrimary: Color(0xFF00B89F),
+          inactiveColorPrimary: Color(0xFF535353),
+          iconSize: 24,
+          onPressed: (context) {
+            pushDynamicScreen(context,
+                screen: VideoClipsWidget(), withNavBar: true);
+          }),
+      PersistentBottomNavBarItem(
+          icon: Icon(Icons.people_rounded),
+          title: ("Members"),
+          activeColorPrimary: Color(0xFF00B89F),
+          inactiveColorPrimary: Color(0xFF535353),
+          iconSize: 24,
+          onPressed: (context) {
+            pushDynamicScreen(context,
+                screen: MembersWidget(), withNavBar: true);
+          }),
+      PersistentBottomNavBarItem(
+          icon: Icon(Icons.person),
+          title: ("Profile"),
+          activeColorPrimary: Color(0xFF00B89F),
+          inactiveColorPrimary: Color(0xFF535353),
+          iconSize: 24,
+          onPressed: (context) {
+            pushDynamicScreen(context,
+                screen: ProfilePageWidget(), withNavBar: true);
+          }),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PersistentTabView(
+      context,
+      controller: _controller,
+      screens: _NavScreens(),
+      items: _navBarsItems(),
+      confineInSafeArea: true,
+      backgroundColor: Color(0xFF1A1A1A), // Default is Colors.white.
+      handleAndroidBackButtonPress: true, // Default is true.
+      resizeToAvoidBottomInset:
+          true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+      stateManagement: true, // Default is true.
+      hideNavigationBarWhenKeyboardShows:
+          true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+      decoration: NavBarDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        colorBehindNavBar: Color(0xFF1A1A1A),
+      ),
+      popAllScreensOnTapOfSelectedTab: true,
+      popActionScreens: PopActionScreensType.all,
+      itemAnimationProperties: ItemAnimationProperties(
+        // Navigation Bar's items animation properties.
+        duration: Duration(milliseconds: 200),
+        curve: Curves.ease,
+      ),
+      screenTransitionAnimation: ScreenTransitionAnimation(
+        // Screen transition animation on change of selected tab.
+        animateTabTransition: true,
+        curve: Curves.ease,
+        duration: Duration(milliseconds: 200),
+      ),
+      navBarStyle:
+          NavBarStyle.style1, // Choose the nav bar style with this property.
+    );
+  }
+}*/
 
   @override
   Widget build(BuildContext context) {

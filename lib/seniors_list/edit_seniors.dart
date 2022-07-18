@@ -94,13 +94,14 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
 
   Future pickimage(ImageSource source1) async {
     try {
-      final image = await ImagePicker().pickImage(source: source1);
-      if (image == Null) {
-        return Null;
+      final image =
+          await ImagePicker().pickImage(source: source1, imageQuality: 20);
+      if (image == null) {
+        return null;
       }
-      // final imagePath = File(image.path);
-      final imagePathPermanently = await savePermanently(image.path);
-      setState(() => this.image = imagePathPermanently);
+      final imagePath = File(image.path);
+      // final imagePathPermanently = await savePermanently(image.path);
+      setState(() => this.image = imagePath);
     } on PlatformException catch (e) {
       print("Permission Denied");
     }
@@ -1404,7 +1405,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                         byteData.offsetInBytes,
                                         byteData.lengthInBytes));
                                 print(file.path);
-                                // File imageFile = File(profile.toString());
                                 image == null
                                     ? res.files.add(
                                         await http.MultipartFile.fromPath(
@@ -1412,7 +1412,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     : res.files.add(
                                         await http.MultipartFile.fromPath(
                                             "profile", image.path));
-
                                 var response = await res.send();
 
                                 print(response.statusCode);

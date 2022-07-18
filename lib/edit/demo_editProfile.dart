@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
-import 'package:n_tel_care_family_app/profile/profile.dart';
+
 import 'package:n_tel_care_family_app/profile/profile_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_picker/image_picker.dart';
@@ -91,7 +91,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
 
   Future pickimage(ImageSource source1) async {
     try {
-      final image = await ImagePicker().pickImage(source: source1);
+      final image =
+          await ImagePicker().pickImage(source: source1, imageQuality: 20);
       if (image == Null) {
         return Null;
       }

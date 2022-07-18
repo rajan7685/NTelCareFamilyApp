@@ -101,13 +101,15 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
 
   Future pickimage(ImageSource source1) async {
     try {
-      final image = await ImagePicker().pickImage(source: source1);
-      if (image == Null) {
-        return Null;
+      final image =
+          await ImagePicker().pickImage(source: source1, imageQuality: 50);
+      if (image == null) {
+        return null;
       }
-      // final imagePath = File(image.path);
-      final imagePathPermanently = await savePermanently(image.path);
-      setState(() => this.image = imagePathPermanently);
+      final imagePath = File(image.path);
+
+      //final imagePathPermanently = await savePermanently(image.path);
+      setState(() => this.image = imagePath);
     } on PlatformException catch (e) {
       print("Permission Denied");
     }
@@ -1689,7 +1691,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       backgroundColor: Colors.green,
                                       textColor: Colors.black,
                                       fontSize: 14.0);
-                                  await Navigator.pop(context);
+                                  Navigator.of(this.context);
                                 } else {
                                   await showDialog(
                                     context: context,
@@ -1759,7 +1761,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                 backgroundColor: Colors.green,
                                                 textColor: Colors.black,
                                                 fontSize: 14.0);
-                                            Navigator.pop(context);
+                                            //Navigator.pop(context);
                                           }
                                         },
                                         child: Text('Yes'),

@@ -8,7 +8,7 @@ import 'package:n_tel_care_family_app/login/login_widget.dart';
 import 'package:n_tel_care_family_app/profile/help.dart';
 import 'package:n_tel_care_family_app/seniors_list/senior_list.dart';
 import 'package:http/http.dart' as http;
-import 'package:n_tel_care_family_app/spalsh/spalsh_widget.dart';
+
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';

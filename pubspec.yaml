@@ -47,8 +47,9 @@ dependencies:
   fluttertoast: ^8.0.9 
   flutter_svg: 0.22.0
   better_player: 0.0.82
-  
-
+  persistent_bottom_nav_bar: ^4.0.2
+  custom_navigation_bar: ^0.8.2
+ 
 
 
   # The following adds the Cupertino Icons font to your application.

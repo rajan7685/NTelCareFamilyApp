@@ -27,7 +27,7 @@ class _Verification extends State<verification> {
   final TextEditingController _five = TextEditingController();
   final TextEditingController _six = TextEditingController();
   Timer _timer;
-  int _start = 10;
+  int _start = 30;
   bool showtimer = true;
   @override
   void dispose() {

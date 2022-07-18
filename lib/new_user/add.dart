@@ -1656,7 +1656,7 @@ class _AddWidgetState extends State<Add> {
                                       backgroundColor: Colors.green,
                                       textColor: Colors.black,
                                       fontSize: 14.0);
-                                  await Navigator.pop(context);
+                                  Navigator.pop(context);
                                 } else {
                                   await showDialog(
                                     context: context,
