@@ -18,6 +18,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
+import 'package:email_validator/email_validator.dart';
 
 class Add extends StatefulWidget {
   const Add({Key key}) : super(key: key);
@@ -27,6 +28,7 @@ class Add extends StatefulWidget {
 }
 
 class _AddWidgetState extends State<Add> {
+  final formkey = GlobalKey<FormState>();
   String dropDownValue;
   String dropDownValueGender;
   TextEditingController textController1 = TextEditingController();
@@ -470,9 +472,11 @@ class _AddWidgetState extends State<Add> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          2, 7, 0, 3),
+                                          10, 10, 0, 3),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -500,7 +504,7 @@ class _AddWidgetState extends State<Add> {
                                             children: [
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(10, 0, 0, 0),
+                                                    .fromSTEB(0, 0, 0, 0),
                                                 child: Text(Date,
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -573,6 +577,7 @@ class _AddWidgetState extends State<Add> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Container(
+                            key: formkey,
                             width: 350,
                             decoration: BoxDecoration(
                               color: Color(0xFFEEEEEE),
@@ -623,6 +628,10 @@ class _AddWidgetState extends State<Add> {
                                       fontSize: 16,
                                     ),
                                 keyboardType: TextInputType.emailAddress,
+                                validator: (value) => value != null &&
+                                        !EmailValidator.validate(value)
+                                    ? 'Enter a valid email'
+                                    : null,
                               ),
                             ),
                           ),
@@ -684,7 +693,8 @@ class _AddWidgetState extends State<Add> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                           child: CSCPicker(
                             ///Enable disable state dropdown [OPTIONAL PARAMETER]
                             showStates: true,
@@ -1530,6 +1540,7 @@ class _AddWidgetState extends State<Add> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: FFButtonWidget(
                             onPressed: () async {
+                              final form = formkey.currentState;
                               // await Navigator.push(
                               //  context,
                               // MaterialPageRoute(
@@ -1545,7 +1556,8 @@ class _AddWidgetState extends State<Add> {
                                   textController4.text == "" ||
                                   dropDownValue == "" ||
                                   dropDownValueGender == "" ||
-                                  image == null) {
+                                  image == null ||
+                                  form.validate()) {
                                 Fluttertoast.showToast(
                                     msg: "All fields are necessary to fill",
                                     toastLength: Toast.LENGTH_SHORT,

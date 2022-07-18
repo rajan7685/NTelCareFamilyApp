@@ -17,6 +17,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart' as http;
 
 class EditMemberWidget extends StatefulWidget {
@@ -30,6 +31,7 @@ class EditMemberWidget extends StatefulWidget {
 }
 
 class _EditMemberWidgetState extends State<EditMemberWidget> {
+  final formKey = GlobalKey<FormState>();
   String dropDownValue;
   TextEditingController textController1;
   TextEditingController textController2;
@@ -526,9 +528,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          2, 10, 0, 3),
+                                          10, 10, 0, 3),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             mainAxisSize: MainAxisSize.min,
@@ -556,7 +560,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                             children: [
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(10, 0, 0, 0),
+                                                    .fromSTEB(0, 0, 0, 0),
                                                 child: Text(
                                                     DateFormat('dd-MM-yyyy')
                                                         .format(selectedDate),
@@ -669,6 +673,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Container(
+                            key: formKey,
                             width: 350,
                             decoration: BoxDecoration(
                               color: Color(0xFFEEEEEE),
@@ -719,13 +724,17 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       fontSize: 16,
                                     ),
                                 keyboardType: TextInputType.emailAddress,
+                                validator: (value) => value != null &&
+                                        !EmailValidator.validate(value)
+                                    ? 'Enter a valid email'
+                                    : null,
                               ),
                             ),
                           ),
                         ),
                         Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
+                                EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                             child: CSCPicker(
                               ///Enable disable state dropdown [OPTIONAL PARAMETER]
                               showStates: true,
@@ -1549,6 +1558,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                           child: FFButtonWidget(
                             onPressed: () async {
+                              final form = formKey.currentState;
+
                               // await Navigator.push(
                               //  context,
                               // MaterialPageRoute(
@@ -1559,13 +1570,13 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               if (textController1.text == "" ||
                                   textController2.text == "" ||
                                   textController4.text == "" ||
-                                  textController5.text == "" ||
                                   textController6.text == "" ||
                                   textController7.text == "" ||
                                   dropDownValue == "" ||
                                   countryValue == "" ||
                                   stateValue == "||" ||
-                                  cityValue == "") {
+                                  cityValue == "" ||
+                                  form.validate()) {
                                 Fluttertoast.showToast(
                                     msg: "All fields are necessary to fill",
                                     toastLength: Toast.LENGTH_SHORT,
@@ -1691,7 +1702,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       backgroundColor: Colors.green,
                                       textColor: Colors.black,
                                       fontSize: 14.0);
+<<<<<<< HEAD
                                   Navigator.of(this.context);
+=======
+                                  Navigator.pop(context);
+>>>>>>> 6c19d7a5a73e7c0244f1b65776268a6c2f3a3388
                                 } else {
                                   await showDialog(
                                     context: context,
@@ -1734,6 +1749,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                             ),
                           ),
                         ),
+                        //Delete User
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                           child: FFButtonWidget(
@@ -1767,7 +1783,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         child: Text('Yes'),
                                       ),
                                       TextButton(
-                                        onPressed: () {},
+                                        onPressed: () => Navigator.pop(context),
                                         child: Text('Cancel'),
                                       ),
                                     ],

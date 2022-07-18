@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math';
+import 'package:email_validator/email_validator.dart';
 
 class EditSeniorsWidget extends StatefulWidget {
   dynamic data;
@@ -28,6 +29,7 @@ class EditSeniorsWidget extends StatefulWidget {
 }
 
 class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
+  final formkey = GlobalKey<FormState>();
   String dropDownValue1;
   //TextEditingController textController3;
   TextEditingController textController1;
@@ -496,9 +498,11 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          2, 10, 0, 3),
+                                          10, 10, 0, 3),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             mainAxisSize: MainAxisSize.min,
@@ -526,7 +530,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             children: [
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(10, 0, 0, 0),
+                                                    .fromSTEB(0, 0, 0, 0),
                                                 child: Text(
                                                     DateFormat("yyyy-MM-dd")
                                                         .format(selectedDate),
@@ -774,6 +778,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Container(
+                            key: formkey,
                             width: 350,
                             decoration: BoxDecoration(
                               color: Color(0xFFEEEEEE),
@@ -824,13 +829,17 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       fontSize: 16,
                                     ),
                                 keyboardType: TextInputType.emailAddress,
+                                validator: (value) => value != null &&
+                                        !EmailValidator.validate(value)
+                                    ? 'Enter a valid email'
+                                    : null,
                               ),
                             ),
                           ),
                         ),
                         Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
+                                EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                             child: CSCPicker(
                               ///Enable disable state dropdown [OPTIONAL PARAMETER]
                               showStates: true,
@@ -1336,6 +1345,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 38, 0, 0),
                           child: FFButtonWidget(
                             onPressed: () async {
+                              final form = formkey.currentState;
                               if (textController1.text == "" ||
                                   textController2.text == "" ||
                                   dropDownValueGender == "" ||
@@ -1347,7 +1357,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   textController9.text == "" ||
                                   countryValue == "" ||
                                   stateValue == "||" ||
-                                  cityValue == "") {
+                                  cityValue == "" ||
+                                  form.validate()) {
                                 Fluttertoast.showToast(
                                     msg: "All fields are necessary to fill",
                                     toastLength: Toast.LENGTH_SHORT,

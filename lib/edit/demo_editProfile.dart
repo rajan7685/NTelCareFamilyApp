@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -6,10 +5,13 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 
+<<<<<<< HEAD
 import 'package:n_tel_care_family_app/profile/profile_page.dart';
 import 'package:image_picker/image_picker.dart';
+=======
+>>>>>>> 6c19d7a5a73e7c0244f1b65776268a6c2f3a3388
 import 'package:image_picker/image_picker.dart';
-import '../backend/api_requests/api_calls.dart';
+
 import 'package:http/http.dart' as http;
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -18,7 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:email_validator/email_validator.dart';
 
 class EditCopy2Widget extends StatefulWidget {
   dynamic info;
@@ -29,6 +31,7 @@ class EditCopy2Widget extends StatefulWidget {
 }
 
 class _EditCopy2WidgetState extends State<EditCopy2Widget> {
+  final formKey = GlobalKey<FormState>();
   String dropDownValue;
   String dropDownValueGender;
   TextEditingController textController1;
@@ -92,7 +95,11 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
   Future pickimage(ImageSource source1) async {
     try {
       final image =
+<<<<<<< HEAD
           await ImagePicker().pickImage(source: source1, imageQuality: 20);
+=======
+          await ImagePicker().pickImage(source: source1, imageQuality: 50);
+>>>>>>> 6c19d7a5a73e7c0244f1b65776268a6c2f3a3388
       if (image == Null) {
         return Null;
       }
@@ -542,9 +549,11 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          2, 10, 0, 3),
+                                          10, 10, 0, 3),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -572,7 +581,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                             children: [
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(10, 0, 0, 0),
+                                                    .fromSTEB(0, 0, 0, 0),
                                                 child: Text(
                                                     DateFormat('dd-MM-yyyy')
                                                         .format(selectedDate),
@@ -637,6 +646,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Container(
+                            key: formKey,
                             width: 350,
                             decoration: BoxDecoration(
                               color: Color(0xFFEEEEEE),
@@ -688,6 +698,10 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                       fontSize: 16,
                                     ),
                                 keyboardType: TextInputType.emailAddress,
+                                validator: (value) => value != null &&
+                                        !EmailValidator.validate(value)
+                                    ? 'Enter a valid email'
+                                    : null,
                               ),
                             ),
                           ),
@@ -751,7 +765,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                           child: CSCPicker(
                             ///Enable disable state dropdown [OPTIONAL PARAMETER]
                             showStates: true,
@@ -1527,6 +1542,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                         FFButtonWidget(
                           onPressed: () async {
+                            final form = formKey.currentState;
                             if (textController1.text == "" ||
                                 textController2.text == "" ||
                                 textController3.text == "" ||
@@ -1534,7 +1550,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                 textController6.text == "" ||
                                 textController7.text == "" ||
                                 dropDownValueGender == "" ||
-                                dropDownValue == null) {
+                                dropDownValue == null ||
+                                form.validate()) {
                               Fluttertoast.showToast(
                                   msg: "All fields are necessary to fill",
                                   toastLength: Toast.LENGTH_SHORT,

@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:email_validator/email_validator.dart';
 
 class ProfilePageWidget extends StatefulWidget {
   const ProfilePageWidget({Key key, this.ChatToggle}) : super(key: key);
@@ -82,11 +83,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     fontSize: 20),
                           );
                         } else {
-                          FFAppState().chat =
-                              inf["member"]["permission"]["chat"];
-                          if (FFAppState().chat == false) {
-                            FFAppState().Chattoggle2 = false;
-                          }
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -412,53 +408,57 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 0, 0),
-                                      child: SvgPicture.asset(
-                                        'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
-                                        width: 21,
-                                        height: 21,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
+                              if (FFAppState().chat == true)
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8, 0, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            17, 0, 0, 0),
-                                        child: SwitchListTile(
-                                          value: FFAppState().Chattoggle2,
-                                          onChanged: (bool value) => setState(
-                                              () => FFAppState().Chattoggle2 =
-                                                  value),
-                                          title: Text(
-                                            'Enable Chat',
-                                            style: FlutterFlowTheme.of(context)
-                                                .title3
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: Color(0xFFAFAFAF),
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                          ),
-                                          tileColor: Color(0xFFF5F5F5),
-                                          activeColor: Color(0xFFECECEC),
-                                          activeTrackColor: Color(0xFF00B89F),
-                                          dense: false,
-                                          controlAffinity:
-                                              ListTileControlAffinity.trailing,
+                                            10, 0, 0, 0),
+                                        child: SvgPicture.asset(
+                                          'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
+                                          width: 21,
+                                          height: 21,
+                                          fit: BoxFit.fill,
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  17, 0, 0, 0),
+                                          child: SwitchListTile(
+                                            value: FFAppState().Chattoggle2,
+                                            onChanged: (bool value) => setState(
+                                                () => FFAppState().Chattoggle2 =
+                                                    value),
+                                            title: Text(
+                                              'Enable Chat',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .title3
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color(0xFFAFAFAF),
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                            ),
+                                            tileColor: Color(0xFFF5F5F5),
+                                            activeColor: Color(0xFFECECEC),
+                                            activeTrackColor: Color(0xFF00B89F),
+                                            dense: false,
+                                            controlAffinity:
+                                                ListTileControlAffinity
+                                                    .trailing,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0, 10, 10, 0),
