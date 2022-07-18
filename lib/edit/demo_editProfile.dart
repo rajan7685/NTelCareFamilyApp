@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:email_validator/email_validator.dart';
 
 class EditCopy2Widget extends StatefulWidget {
   dynamic info;
@@ -25,6 +26,7 @@ class EditCopy2Widget extends StatefulWidget {
 }
 
 class _EditCopy2WidgetState extends State<EditCopy2Widget> {
+  final formKey = GlobalKey<FormState>();
   String dropDownValue;
   String dropDownValueGender;
   TextEditingController textController1;
@@ -538,9 +540,11 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          2, 10, 0, 3),
+                                          10, 10, 0, 3),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -568,7 +572,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                             children: [
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(10, 0, 0, 0),
+                                                    .fromSTEB(0, 0, 0, 0),
                                                 child: Text(
                                                     DateFormat('dd-MM-yyyy')
                                                         .format(selectedDate),
@@ -633,6 +637,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Container(
+                            key: formKey,
                             width: 350,
                             decoration: BoxDecoration(
                               color: Color(0xFFEEEEEE),
@@ -684,6 +689,10 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                       fontSize: 16,
                                     ),
                                 keyboardType: TextInputType.emailAddress,
+                                validator: (value) => value != null &&
+                                        !EmailValidator.validate(value)
+                                    ? 'Enter a valid email'
+                                    : null,
                               ),
                             ),
                           ),
@@ -747,7 +756,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
                           child: CSCPicker(
                             ///Enable disable state dropdown [OPTIONAL PARAMETER]
                             showStates: true,
@@ -1523,6 +1533,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                         FFButtonWidget(
                           onPressed: () async {
+                            final form = formKey.currentState;
                             if (textController1.text == "" ||
                                 textController2.text == "" ||
                                 textController3.text == "" ||
@@ -1530,7 +1541,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                 textController6.text == "" ||
                                 textController7.text == "" ||
                                 dropDownValueGender == "" ||
-                                dropDownValue == null) {
+                                dropDownValue == null ||
+                                form.validate()) {
                               Fluttertoast.showToast(
                                   msg: "All fields are necessary to fill",
                                   toastLength: Toast.LENGTH_SHORT,

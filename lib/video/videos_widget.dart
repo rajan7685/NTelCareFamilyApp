@@ -1,15 +1,13 @@
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
-import 'package:n_tel_care_family_app/backend/api_requests/api_manager.dart';
+
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
 import 'package:n_tel_care_family_app/video/video_player.dart';
-import 'package:video_player/video_player.dart';
 
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class VideoClipsWidget extends StatefulWidget {
   const VideoClipsWidget({Key key}) : super(key: key);
@@ -1672,7 +1670,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 20, 3, 0),
+                                                      .fromSTEB(0, 20, 0, 0),
                                                   child: Text(
                                                     'Yesterday',
                                                     style: FlutterFlowTheme.of(
@@ -2513,7 +2511,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 0, 3),
+                                                      .fromSTEB(0, 3, 0, 3),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
