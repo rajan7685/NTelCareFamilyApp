@@ -12,7 +12,7 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'devices/devices_widget.dart';
-import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';

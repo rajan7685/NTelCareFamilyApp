@@ -19,6 +19,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart' as http;
+import 'package:string_extensions/string_extensions.dart';
 
 class EditMemberWidget extends StatefulWidget {
   dynamic data;
@@ -99,6 +100,20 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     final name1 = basename(imagePath);
     final image2 = File('${directory.path}/$name1');
     return File(imagePath).copy(image2.path);
+  }
+
+  void vaildMail() {
+    final bool isVaild = EmailValidator.validate(textController5.text.trim());
+    if (!isVaild) {
+      Fluttertoast.showToast(
+          msg: "Invaild e-mail address",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 5,
+          backgroundColor: Colors.red,
+          textColor: Colors.black,
+          fontSize: 14.0);
+    }
   }
 
   Future pickimage(ImageSource source1) async {
@@ -366,7 +381,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     Expanded(
                                       flex: 8,
                                       child: DropdownButtonFormField<String>(
-                                        value: dropDownValueGender,
+                                        value: dropDownValueGender.capitalize,
                                         items: [
                                           "Male",
                                           "Female",
@@ -724,10 +739,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       fontSize: 16,
                                     ),
                                 keyboardType: TextInputType.emailAddress,
-                                validator: (value) => value != null &&
+                                /* validator: (value) => value != null &&
                                         !EmailValidator.validate(value)
                                     ? 'Enter a valid email'
-                                    : null,
+                                    : null,*/
+                                onEditingComplete: () => vaildMail(),
                               ),
                             ),
                           ),
@@ -1575,8 +1591,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   dropDownValue == "" ||
                                   countryValue == "" ||
                                   stateValue == "||" ||
-                                  cityValue == "" ||
-                                  form.validate()) {
+                                  cityValue == "") {
                                 Fluttertoast.showToast(
                                     msg: "All fields are necessary to fill",
                                     toastLength: Toast.LENGTH_SHORT,
@@ -1625,7 +1640,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
 
                                 var res1 = new http.MultipartRequest(
                                     'POST', Uri.parse(url));
-
+                                print(textController5.text);
                                 res1.headers['Authorization'] =
                                     "Bearer ${FFAppState().Token}";
                                 res1.fields['fname'] = textController1.text;
@@ -1702,11 +1717,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       backgroundColor: Colors.green,
                                       textColor: Colors.black,
                                       fontSize: 14.0);
-<<<<<<< HEAD
-                                  Navigator.of(this.context);
-=======
                                   Navigator.pop(context);
->>>>>>> 6c19d7a5a73e7c0244f1b65776268a6c2f3a3388
                                 } else {
                                   await showDialog(
                                     context: context,

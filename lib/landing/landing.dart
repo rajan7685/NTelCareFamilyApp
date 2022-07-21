@@ -338,6 +338,10 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                       EditSeniorsWidget(
                                                                           data:
                                                                               snapshot.data[index])));
+                                                          setState(() {
+                                                            SList =
+                                                                fetchSList();
+                                                          });
                                                         },
                                                         child: Row(
                                                           mainAxisSize:

@@ -15,18 +15,20 @@ class SpalshWidget extends StatefulWidget {
 
 class _SpalshWidgetState extends State<SpalshWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  String buildNumber = "";
+  String version = "";
   @override
   void initState() {
     // TODO: implement initStae
     super.initState();
     PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
       String appName = packageInfo.appName;
-      print(appName);
+
       String packageName = packageInfo.packageName;
-      String version = packageInfo.version;
+      version = packageInfo.version;
+      print(version);
       FFAppState().buildversion = version;
-      String buildNumber = packageInfo.buildNumber;
+      buildNumber = packageInfo.buildNumber;
       FFAppState().buildNumber = buildNumber;
     });
   }
@@ -141,7 +143,7 @@ class _SpalshWidgetState extends State<SpalshWidget> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 3),
                     child: Text(
-                      Platform.version,
+                      version,
                       textAlign: TextAlign.start,
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Poppins',
@@ -172,7 +174,7 @@ class _SpalshWidgetState extends State<SpalshWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 3),
                         child: Text(
-                          FFAppState().buildNumber,
+                          buildNumber,
                           textAlign: TextAlign.start,
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(

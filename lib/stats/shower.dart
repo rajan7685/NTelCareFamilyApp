@@ -58,12 +58,12 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SvgPicture.asset(
-                      'assets/images/shower.svg',
+                    Image.asset(
+                      'assets/images/corrected_bath.png',
                       width: 220,
                       height: 220,
                       fit: BoxFit.fitWidth,
-                    ),
+                    )
                   ],
                 ),
                 Column(

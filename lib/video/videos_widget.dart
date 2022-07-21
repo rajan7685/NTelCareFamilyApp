@@ -296,6 +296,9 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                     data: snapshot
                                                                             .data[
                                                                         index])));
+                                                    setState(() {
+                                                      SList = fetchSList();
+                                                    });
                                                   },
                                                   child: Row(
                                                     mainAxisSize:

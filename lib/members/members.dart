@@ -386,6 +386,9 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                       data: snapshot
                                                                               .data[
                                                                           index])));
+                                                      setState(() {
+                                                        SList = fetchSList();
+                                                      });
                                                     },
                                                     child: Row(
                                                       mainAxisSize:
@@ -527,6 +530,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                         //       FFAppState().MemberId = snapshot.data[index]["id"];
                                                                         // print(executiveList[
                                                                         //     index]);
+
                                                                         await Navigator
                                                                             .push(
                                                                           context,
@@ -535,6 +539,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                 EditMemberWidget(data: executiveList[index], title: "Edit Executive"),
                                                                           ),
                                                                         );
+                                                                        loadMembersData();
                                                                       },
                                                                       child:
                                                                           Card(

@@ -216,6 +216,9 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                               data: snapshot
                                                                   .data[index]),
                                                     ));
+                                                setState(() {
+                                                  SList = fetchSList();
+                                                });
                                               },
                                               child: Card(
                                                 clipBehavior:

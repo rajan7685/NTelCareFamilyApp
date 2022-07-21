@@ -4,12 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
-
-<<<<<<< HEAD
-import 'package:n_tel_care_family_app/profile/profile_page.dart';
-import 'package:image_picker/image_picker.dart';
-=======
->>>>>>> 6c19d7a5a73e7c0244f1b65776268a6c2f3a3388
+import 'package:string_extensions/string_extensions.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:http/http.dart' as http;
@@ -65,6 +60,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
     textController6 = TextEditingController(text: info["member"]["address"]);
     textController7 = TextEditingController(text: info["member"]["zipcode"]);
     dropDownValueGender = info["member"]["sex"];
+
     cityValue = info["member"]["city"];
     countryValue = info["member"]["country"];
     stateValue = info["member"]["state"];
@@ -92,14 +88,24 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
     return File(imagePath).copy(image2.path);
   }
 
+  void vaildMail() {
+    final bool isVaild = EmailValidator.validate(textController4.text.trim());
+    if (!isVaild) {
+      Fluttertoast.showToast(
+          msg: "Invaild e-mail address",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 5,
+          backgroundColor: Colors.red,
+          textColor: Colors.black,
+          fontSize: 14.0);
+    }
+  }
+
   Future pickimage(ImageSource source1) async {
     try {
       final image =
-<<<<<<< HEAD
-          await ImagePicker().pickImage(source: source1, imageQuality: 20);
-=======
           await ImagePicker().pickImage(source: source1, imageQuality: 50);
->>>>>>> 6c19d7a5a73e7c0244f1b65776268a6c2f3a3388
       if (image == Null) {
         return Null;
       }
@@ -388,7 +394,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                     Expanded(
                                       flex: 8,
                                       child: DropdownButtonFormField<String>(
-                                        value: dropDownValueGender,
+                                        value: dropDownValueGender.capitalize,
                                         items: [
                                           "Male",
                                           "Female",
@@ -698,10 +704,11 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                       fontSize: 16,
                                     ),
                                 keyboardType: TextInputType.emailAddress,
-                                validator: (value) => value != null &&
+                                /* validator: (value) => value != null &&
                                         !EmailValidator.validate(value)
                                     ? 'Enter a valid email'
-                                    : null,
+                                    : null,*/
+                                onEditingComplete: () => vaildMail(),
                               ),
                             ),
                           ),
@@ -1550,8 +1557,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                 textController6.text == "" ||
                                 textController7.text == "" ||
                                 dropDownValueGender == "" ||
-                                dropDownValue == null ||
-                                form.validate()) {
+                                dropDownValue == null) {
                               Fluttertoast.showToast(
                                   msg: "All fields are necessary to fill",
                                   toastLength: Toast.LENGTH_SHORT,

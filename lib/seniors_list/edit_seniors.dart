@@ -19,6 +19,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math';
 import 'package:email_validator/email_validator.dart';
+import 'package:string_extensions/string_extensions.dart';
 
 class EditSeniorsWidget extends StatefulWidget {
   dynamic data;
@@ -84,6 +85,20 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     selectedDate = HttpDate.parse(data["dob"]);
     print(data["dob"]);
     print(DateFormat("yyyy-MM-dd").format(selectedDate));
+  }
+
+  void vaildMail() {
+    final bool isVaild = EmailValidator.validate(textController7.text.trim());
+    if (!isVaild) {
+      Fluttertoast.showToast(
+          msg: "Invaild e-mail address",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 5,
+          backgroundColor: Colors.red,
+          textColor: Colors.black,
+          fontSize: 14.0);
+    }
   }
 
   File image;
@@ -380,7 +395,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     Expanded(
                                       flex: 8,
                                       child: DropdownButtonFormField<String>(
-                                        value: dropDownValueGender,
+                                        value: dropDownValueGender.capitalize,
                                         items: [
                                           "Male",
                                           "Female",
@@ -829,10 +844,11 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       fontSize: 16,
                                     ),
                                 keyboardType: TextInputType.emailAddress,
-                                validator: (value) => value != null &&
+                                /*  validator: (value) => value != null &&
                                         !EmailValidator.validate(value)
                                     ? 'Enter a valid email'
-                                    : null,
+                                    : null,*/
+                                onEditingComplete: () => vaildMail(),
                               ),
                             ),
                           ),
@@ -1357,8 +1373,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   textController9.text == "" ||
                                   countryValue == "" ||
                                   stateValue == "||" ||
-                                  cityValue == "" ||
-                                  form.validate()) {
+                                  cityValue == "") {
                                 Fluttertoast.showToast(
                                     msg: "All fields are necessary to fill",
                                     toastLength: Toast.LENGTH_SHORT,
