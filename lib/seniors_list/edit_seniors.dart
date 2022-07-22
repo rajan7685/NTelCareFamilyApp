@@ -1373,7 +1373,10 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   textController9.text == "" ||
                                   countryValue == "" ||
                                   stateValue == "||" ||
-                                  cityValue == "") {
+                                  cityValue == "" ||
+                                  EmailValidator.validate(
+                                          textController7.text.trim()) ==
+                                      true) {
                                 Fluttertoast.showToast(
                                     msg: "All fields are necessary to fill",
                                     toastLength: Toast.LENGTH_SHORT,

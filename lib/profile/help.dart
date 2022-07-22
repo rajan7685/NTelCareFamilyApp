@@ -78,7 +78,7 @@ class _SpalshWidgetState extends State<SpalshWidget> {
                           alignment: AlignmentDirectional(0, 0),
                           child: InkWell(
                             onTap: () async {
-                              await Navigator.pop(context);
+                              Navigator.pop(context);
                             },
                             child: Icon(
                               Icons.chevron_left_sharp,
