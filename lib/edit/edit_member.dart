@@ -63,6 +63,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   dynamic data;
   String title;
   var profile = null;
+
+  // permission for editing
+  bool _hasPermissionToEdit;
+
   _EditMemberWidgetState(this.data, this.title);
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -86,6 +90,14 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     selectedDate = DateTime.parse(data["dob"]);
     print(data["dob"]);
     print(DateFormat("yyyy-MM-dd").format(selectedDate));
+    if (data['executive'] ?? false) {
+      displayLive = displayChat = displayView = true;
+    } else {
+      displayLive = data["permission"]["live_video"];
+      displayChat = data["permission"]["chat"];
+      displayView = data["permission"]["view_video"];
+    }
+    _hasPermissionToEdit = FFAppState().executive;
   }
 
   var color1 = Color(0xFF00B89F);
@@ -279,6 +291,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 5, 0, 0),
                               child: TextFormField(
+                                enabled: _hasPermissionToEdit,
                                 controller: textController1,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -326,6 +339,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: TextFormField(
+                                enabled: _hasPermissionToEdit,
                                 controller: textController2,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -380,45 +394,48 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   children: [
                                     Expanded(
                                       flex: 8,
-                                      child: DropdownButtonFormField<String>(
-                                        value: dropDownValueGender.capitalize,
-                                        items: [
-                                          "Male",
-                                          "Female",
-                                          "Transgender",
-                                          "Non binary"
-                                        ]
-                                            .map((label) => DropdownMenuItem(
-                                                  child: Text(label),
-                                                  value: label,
-                                                ))
-                                            .toList(),
-                                        onChanged: (value) {
-                                          setState(() =>
-                                              dropDownValueGender = value);
-                                        },
-                                        decoration: InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                          ),
-                                          border: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 2),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          filled: true,
-                                          fillColor: Color(0xFFEEEEEE),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color: Color(0xFF606E87),
+                                      child: IgnorePointer(
+                                        ignoring: !_hasPermissionToEdit,
+                                        child: DropdownButtonFormField<String>(
+                                          value: dropDownValueGender.capitalize,
+                                          items: [
+                                            "Male",
+                                            "Female",
+                                            "Transgender",
+                                            "Non binary"
+                                          ]
+                                              .map((label) => DropdownMenuItem(
+                                                    child: Text(label),
+                                                    value: label,
+                                                  ))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            setState(() =>
+                                                dropDownValueGender = value);
+                                          },
+                                          decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
                                             ),
-                                        hint: Text('Gender'),
+                                            border: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 2),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            filled: true,
+                                            fillColor: Color(0xFFEEEEEE),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFF606E87),
+                                              ),
+                                          hint: Text('Gender'),
+                                        ),
                                       ),
                                     ),
                                   ]
@@ -612,17 +629,20 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                             dateTime = date;
                                           });
                                         });*/
-                                          final DateTime picked =
-                                              await showDatePicker(
-                                                  context: context,
-                                                  initialDate: selectedDate,
-                                                  firstDate: DateTime(1900, 8),
-                                                  lastDate: DateTime.now());
-                                          if (picked != null &&
-                                              picked != selectedDate)
-                                            setState(() {
-                                              selectedDate = picked;
-                                            });
+                                          if (_hasPermissionToEdit) {
+                                            final DateTime picked =
+                                                await showDatePicker(
+                                                    context: context,
+                                                    initialDate: selectedDate,
+                                                    firstDate:
+                                                        DateTime(1900, 8),
+                                                    lastDate: DateTime.now());
+                                            if (picked != null &&
+                                                picked != selectedDate)
+                                              setState(() {
+                                                selectedDate = picked;
+                                              });
+                                          }
                                         },
                                         child: Icon(
                                           Icons.arrow_drop_down_outlined,
@@ -649,6 +669,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: TextFormField(
+                                enabled: _hasPermissionToEdit,
                                 controller: textController4,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -698,6 +719,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: TextFormField(
+                                enabled: _hasPermissionToEdit,
                                 controller: textController5,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -751,95 +773,98 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
-                            child: CSCPicker(
-                              ///Enable disable state dropdown [OPTIONAL PARAMETER]
-                              showStates: true,
+                            child: IgnorePointer(
+                              ignoring: !_hasPermissionToEdit,
+                              child: CSCPicker(
+                                ///Enable disable state dropdown [OPTIONAL PARAMETER]
+                                showStates: true,
 
-                              /// Enable disable city drop down [OPTIONAL PARAMETER]
-                              showCities: true,
+                                /// Enable disable city drop down [OPTIONAL PARAMETER]
+                                showCities: true,
 
-                              ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
-                              flagState: CountryFlag.DISABLE,
-                              layout: Layout.vertical,
+                                ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
+                                flagState: CountryFlag.DISABLE,
+                                layout: Layout.vertical,
 
-                              ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
-                              dropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)),
-                                  color: Color(0xFFEEEEEE),
-                                  border: Border.all(
-                                      color: Color(0xFFEEEEEE), width: 11)),
+                                ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
+                                dropdownDecoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15)),
+                                    color: Color(0xFFEEEEEE),
+                                    border: Border.all(
+                                        color: Color(0xFFEEEEEE), width: 11)),
 
-                              ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
-                              disabledDropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(11)),
-                                  color: Color(0xFFEEEEEE),
-                                  border: Border.all(
-                                      color: Color(0xFFEEEEEE), width: 11)),
+                                ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
+                                disabledDropdownDecoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(11)),
+                                    color: Color(0xFFEEEEEE),
+                                    border: Border.all(
+                                        color: Color(0xFFEEEEEE), width: 11)),
 
-                              ///placeholders for dropdown search field
+                                ///placeholders for dropdown search field
 
-                              stateSearchPlaceholder: "State",
-                              citySearchPlaceholder: "City",
-                              countrySearchPlaceholder: "Country",
+                                stateSearchPlaceholder: "State",
+                                citySearchPlaceholder: "City",
+                                countrySearchPlaceholder: "Country",
 
-                              ///labels for dropdown
+                                ///labels for dropdown
 
-                              stateDropdownLabel: data["state"],
-                              cityDropdownLabel: data["city"],
-                              countryDropdownLabel: data["country"],
+                                stateDropdownLabel: data["state"],
+                                cityDropdownLabel: data["city"],
+                                countryDropdownLabel: data["country"],
 
-                              ///Default Country
-                              //  defaultCountry: data["country"],
+                                ///Default Country
+                                //  defaultCountry: data["country"],
 
-                              ///selected item style [OPTIONAL PARAMETER]
-                              selectedItemStyle: TextStyle(
-                                color: Color(0xFF606E87),
-                                fontSize: 16,
-                              ),
+                                ///selected item style [OPTIONAL PARAMETER]
+                                selectedItemStyle: TextStyle(
+                                  color: Color(0xFF606E87),
+                                  fontSize: 16,
+                                ),
 
-                              ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                              dropdownHeadingStyle: TextStyle(
+                                ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                                dropdownHeadingStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+
+                                ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                                dropdownItemStyle: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                ),
 
-                              ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                              dropdownItemStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
+                                ///Dialog box radius [OPTIONAL PARAMETER]
+                                dropdownDialogRadius: 10.0,
+
+                                ///Search bar radius [OPTIONAL PARAMETER]
+                                searchBarRadius: 10.0,
+
+                                ///triggers once country selected in dropdown
+                                onCountryChanged: (value) {
+                                  setState(() {
+                                    ///store value in country variable
+                                    countryValue = value;
+                                  });
+                                },
+
+                                ///triggers once state selected in dropdown
+                                onStateChanged: (value) {
+                                  setState(() {
+                                    ///store value in state variable
+                                    stateValue = value;
+                                  });
+                                },
+
+                                ///triggers once city selected in dropdown
+                                onCityChanged: (value) {
+                                  setState(() {
+                                    ///store value in city variable
+                                    cityValue = value;
+                                  });
+                                },
                               ),
-
-                              ///Dialog box radius [OPTIONAL PARAMETER]
-                              dropdownDialogRadius: 10.0,
-
-                              ///Search bar radius [OPTIONAL PARAMETER]
-                              searchBarRadius: 10.0,
-
-                              ///triggers once country selected in dropdown
-                              onCountryChanged: (value) {
-                                setState(() {
-                                  ///store value in country variable
-                                  countryValue = value;
-                                });
-                              },
-
-                              ///triggers once state selected in dropdown
-                              onStateChanged: (value) {
-                                setState(() {
-                                  ///store value in state variable
-                                  stateValue = value;
-                                });
-                              },
-
-                              ///triggers once city selected in dropdown
-                              onCityChanged: (value) {
-                                setState(() {
-                                  ///store value in city variable
-                                  cityValue = value;
-                                });
-                              },
                             )
                             /*    DropdownButtonFormField(
                                     decoration: InputDecoration(
@@ -909,6 +934,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       10, 0, 0, 0),
                                   child: TextFormField(
+                                    enabled: _hasPermissionToEdit,
                                     controller: textController6,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -967,6 +993,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       10, 0, 0, 0),
                                   child: TextFormField(
+                                    enabled: _hasPermissionToEdit,
                                     controller: textController7,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -1022,43 +1049,46 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               color: Color(0xFFEEEEEE),
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            child: DropdownButtonFormField(
-                              value: dropDownValue,
-                              items: [
-                                "Son",
-                                "Daughter",
-                                "Grand Son",
-                                "Grand Daugter"
-                              ]
-                                  .map((label) => DropdownMenuItem(
-                                        child: Text(label),
-                                        value: label,
-                                      ))
-                                  .toList(),
-                              onChanged: (value) {
-                                setState(() => dropDownValue = value);
-                              },
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0xFFEEEEEE), width: 2),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.transparent, width: 2),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                filled: true,
-                                fillColor: Color(0xFFEEEEEE),
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Color(0xFF606E87),
+                            child: IgnorePointer(
+                              ignoring: !_hasPermissionToEdit,
+                              child: DropdownButtonFormField(
+                                value: dropDownValue,
+                                items: [
+                                  "Son",
+                                  "Daughter",
+                                  "Grand Son",
+                                  "Grand Daugter"
+                                ]
+                                    .map((label) => DropdownMenuItem(
+                                          child: Text(label),
+                                          value: label,
+                                        ))
+                                    .toList(),
+                                onChanged: (value) {
+                                  setState(() => dropDownValue = value);
+                                },
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color(0xFFEEEEEE), width: 2),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                              hint: Text('Enter relationship'),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.transparent, width: 2),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  filled: true,
+                                  fillColor: Color(0xFFEEEEEE),
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
+                                    ),
+                                hint: Text('Enter relationship'),
+                              ),
                             ),
                           ),
                         ),
@@ -1117,13 +1147,16 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                               Expanded(
                                                 child: InkWell(
                                                   onTap: () async {
-                                                    setState(() {
-                                                      if (display == displayN) {
-                                                        display = displayY;
-                                                      } else {
-                                                        display = displayN;
-                                                      }
-                                                    });
+                                                    if (_hasPermissionToEdit) {
+                                                      setState(() {
+                                                        if (display ==
+                                                            displayN) {
+                                                          display = displayY;
+                                                        } else {
+                                                          display = displayN;
+                                                        }
+                                                      });
+                                                    }
                                                   },
                                                   child: Column(
                                                     mainAxisSize:
@@ -1356,262 +1389,247 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                             controlAffinity: ListTileControlAffinity.leading,
                           ),
                         ),
-                        if (FFAppState().Chattoggle3 ?? true)
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 0, 0, 0),
-                                        child: Text(
-                                          'Permissions',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFFAFAFAF),
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.w300,
-                                              ),
-                                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
+                                      child: Text(
+                                        'Permissions',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              color: Color(0xFFAFAFAF),
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.w300,
+                                            ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15, 25, 15, 55),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF292929),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                            color: color,
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  15, 25, 15, 55),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF292929),
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                          color: displayLive ? color1 : color,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 1, 10, 1),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            if (!data['executive']) {
+                                              setState(() {
+                                                displayLive = !displayLive;
+                                              });
+                                            }
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 0, 2),
+                                                child: Icon(
+                                                  Icons.videocam_outlined,
+                                                  color: Color(0xB254DCC5),
+                                                  size: 22,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(5, 0, 0, 0),
+                                                child: Text(
+                                                  'Live Video',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: displayView
+                                                            ? color1
+                                                            : color,
+                                                        fontSize: 12,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 1, 10, 1),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              setState(() {
-                                                if (color == color1 &&
-                                                    displayLive == displayY) {
-                                                  color = color2;
-                                                  displayLive = displayN;
-                                                } else {
-                                                  color = color1;
-                                                  displayLive = displayY;
-                                                }
-                                              });
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 0, 2),
-                                                  child: Icon(
-                                                    Icons.videocam_outlined,
-                                                    color: Color(0xB254DCC5),
-                                                    size: 22,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
-                                                  child: Text(
-                                                    'Live Video',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
+                                      )),
+                                  Container(
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF292929),
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        color: displayView ? color1 : color,
+                                      ),
+                                    ),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        if (!data['executive']) {
+                                          setState(() {
+                                            displayView = !displayView;
+                                          });
+                                        }
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 1, 10, 1),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/images/2006462_google_media_play_video_icon.svg',
+                                              width: 15,
+                                              color: color1,
+                                              height: 15,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5, 0, 0, 0),
+                                              child: Text(
+                                                'View Video',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'Poppins',
-                                                          color: color,
+                                                          color: colorA,
                                                           fontSize: 12,
                                                         ),
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                        )),
-                                    Container(
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF292929),
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                          color: colorA,
-                                        ),
-                                      ),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          setState(() {
-                                            if (colorA == color1 &&
-                                                displayView == displayY) {
-                                              colorA = color2;
-                                              displayView = displayN;
-                                            } else {
-                                              colorA = color1;
-                                              displayView = displayY;
-                                            }
-                                          });
-                                        },
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 1, 10, 1),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/images/2006462_google_media_play_video_icon.svg',
-                                                width: 15,
-                                                height: 15,
-                                                fit: BoxFit.cover,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(5, 0, 0, 0),
-                                                child: Text(
-                                                  'View Video',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color: colorA,
-                                                        fontSize: 12,
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF292929),
-                                        borderRadius: BorderRadius.circular(5),
-                                        shape: BoxShape.rectangle,
-                                        border: Border.all(
-                                          color: colorB,
-                                        ),
+                                  ),
+                                  Container(
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF292929),
+                                      borderRadius: BorderRadius.circular(5),
+                                      shape: BoxShape.rectangle,
+                                      border: Border.all(
+                                        color: displayChat ? color1 : color,
                                       ),
-                                      alignment: AlignmentDirectional(
-                                          0.1499999999999999, 0),
-                                      child: InkWell(
-                                        onTap: () async {
+                                    ),
+                                    alignment: AlignmentDirectional(
+                                        0.1499999999999999, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        if (!data['executive']) {
                                           setState(() {
-                                            if (colorB == color1 &&
-                                                displayChat == displayY) {
-                                              colorB = color2;
-                                              displayChat = displayN;
-                                            } else {
-                                              colorB = color1;
-                                              displayChat = displayY;
-                                            }
+                                            displayChat = !displayChat;
                                           });
-                                        },
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 1, 10, 1),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              SvgPicture.asset(
-                                                'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
-                                                width: 13,
-                                                fit: BoxFit.cover,
+                                        }
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 1, 10, 1),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
+                                              width: 13,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5, 0, 0, 0),
+                                              child: Text(
+                                                'Chat',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: colorB,
+                                                          fontSize: 12,
+                                                        ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(5, 0, 0, 0),
-                                                child: Text(
-                                                  'Chat',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color: colorB,
-                                                        fontSize: 12,
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    )
-                                  ],
-                                ),
+                                    ),
+                                  )
+                                ],
                               ),
-                            ],
-                          ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              final form = formKey.currentState;
+                            ),
+                          ],
+                        ),
+                        if (_hasPermissionToEdit)
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                final form = formKey.currentState;
 
-                              // await Navigator.push(
-                              //  context,
-                              // MaterialPageRoute(
-                              //  builder: (context) =>
-                              //   NavBarPage(initialPage: 'Landing'),
-                              //  ),
-                              // );
-                              if (textController1.text == "" ||
-                                  textController2.text == "" ||
-                                  textController4.text == "" ||
-                                  textController6.text == "" ||
-                                  textController7.text == "" ||
-                                  dropDownValue == "" ||
-                                  countryValue == "" ||
-                                  stateValue == "||" ||
-                                  cityValue == "") {
-                                Fluttertoast.showToast(
-                                    msg: "All fields are necessary to fill",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 5,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.black,
-                                    fontSize: 14.0);
-                              } else {
-                                print(FFAppState().AccountId);
-                                print(displayLive.toString());
-                                print(displayChat.toString());
-                                print(displayView.toString());
-                                // List<int> imageBytes = image.readAsBytesSync();
-                                // String base64Image = base64Encode(imageBytes);
-                                //BASE64.encode(imageBytes);
+                                // await Navigator.push(
+                                //  context,
+                                // MaterialPageRoute(
+                                //  builder: (context) =>
+                                //   NavBarPage(initialPage: 'Landing'),
+                                //  ),
+                                // );
+                                if (textController1.text == "" ||
+                                    textController2.text == "" ||
+                                    textController4.text == "" ||
+                                    textController6.text == "" ||
+                                    textController7.text == "" ||
+                                    dropDownValue == "" ||
+                                    countryValue == "" ||
+                                    stateValue == "||" ||
+                                    cityValue == "") {
+                                  Fluttertoast.showToast(
+                                      msg: "All fields are necessary to fill",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 5,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.black,
+                                      fontSize: 14.0);
+                                } else {
+                                  print(FFAppState().AccountId);
+                                  print(displayLive.toString());
+                                  print(displayChat.toString());
+                                  print(displayView.toString());
+                                  // List<int> imageBytes = image.readAsBytesSync();
+                                  // String base64Image = base64Encode(imageBytes);
+                                  //BASE64.encode(imageBytes);
 
-                                final String url =
-                                    "http://18.208.148.208:4000/edit/member/${data["id"]}";
-                                /* final res =
+                                  final String url =
+                                      "http://18.208.148.208:4000/edit/member/${data["id"]}";
+                                  /* final res =
                                   await http.post(Uri.parse(url), headers: {
                                 "Authorization": "Bearer ${FFAppState().Token}"
                               }, body: {
@@ -1632,197 +1650,203 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 "view_video": displayView.toString(),
                               });*/
 
-                                //  var stream =
-                                //     new http.ByteStream(image.openRead());
-                                // stream.cast();
+                                  //  var stream =
+                                  //     new http.ByteStream(image.openRead());
+                                  // stream.cast();
 
-                                // var length = await image.length();
+                                  // var length = await image.length();
 
-                                var res1 = new http.MultipartRequest(
-                                    'POST', Uri.parse(url));
-                                print(textController5.text);
-                                res1.headers['Authorization'] =
-                                    "Bearer ${FFAppState().Token}";
-                                res1.fields['fname'] = textController1.text;
-                                res1.fields['lname'] = textController2.text;
-                                res1.fields['gender'] = dropDownValueGender;
-                                res1.fields['mobile'] = textController4.text;
-                                res1.fields['email'] = textController5.text;
-                                res1.fields['address'] = textController6.text;
-                                res1.fields['zipcode'] = textController7.text;
-                                res1.fields['relation'] = dropDownValue;
-                                res1.fields['executive'] =
-                                    FFAppState().Chattoggle5.toString();
-                                res1.fields["dob"] = DateFormat("yyyy-MM-dd")
-                                    .format(selectedDate);
-                                res1.fields["country"] = countryValue;
-                                res1.fields["state"] = stateValue;
-                                res1.fields["city"] = cityValue;
-                                res1.fields['live_video'] =
-                                    displayLive.toString();
-                                res1.fields['chats'] = displayChat.toString();
-                                res1.fields['view_video'] =
-                                    displayView.toString();
+                                  var res1 = new http.MultipartRequest(
+                                      'POST', Uri.parse(url));
+                                  print(textController5.text);
+                                  res1.headers['Authorization'] =
+                                      "Bearer ${FFAppState().Token}";
+                                  res1.fields['fname'] = textController1.text;
+                                  res1.fields['lname'] = textController2.text;
+                                  res1.fields['gender'] = dropDownValueGender;
+                                  res1.fields['mobile'] = textController4.text;
+                                  res1.fields['email'] = textController5.text;
+                                  res1.fields['address'] = textController6.text;
+                                  res1.fields['zipcode'] = textController7.text;
+                                  res1.fields['relation'] = dropDownValue;
+                                  res1.fields['executive'] =
+                                      FFAppState().Chattoggle5.toString();
+                                  res1.fields["dob"] = DateFormat("yyyy-MM-dd")
+                                      .format(selectedDate);
+                                  res1.fields["country"] = countryValue;
+                                  res1.fields["state"] = stateValue;
+                                  res1.fields["city"] = cityValue;
+                                  res1.fields['live_video'] =
+                                      displayLive.toString();
+                                  res1.fields['chats'] = displayChat.toString();
+                                  res1.fields['view_video'] =
+                                      displayView.toString();
 
-                                final http.Response responseData =
-                                    await http.get(Uri.parse(profile));
-                                Uint8List uint8list = responseData.bodyBytes;
-                                var buffer = uint8list.buffer;
-                                ByteData byteData = ByteData.view(buffer);
-                                var tempDir = await getTemporaryDirectory();
-                                File file = await File('${tempDir.path}/img')
-                                    .writeAsBytes(buffer.asUint8List(
-                                        byteData.offsetInBytes,
-                                        byteData.lengthInBytes));
-                                print(file.path);
+                                  final http.Response responseData =
+                                      await http.get(Uri.parse(profile));
+                                  Uint8List uint8list = responseData.bodyBytes;
+                                  var buffer = uint8list.buffer;
+                                  ByteData byteData = ByteData.view(buffer);
+                                  var tempDir = await getTemporaryDirectory();
+                                  File file = await File('${tempDir.path}/img')
+                                      .writeAsBytes(buffer.asUint8List(
+                                          byteData.offsetInBytes,
+                                          byteData.lengthInBytes));
+                                  print(file.path);
 
-                                image == null
-                                    ? res1.files.add(
-                                        await http.MultipartFile.fromPath(
-                                            "profile", file.path))
-                                    : res1.files.add(
-                                        await http.MultipartFile.fromPath(
-                                            "profile", image.path));
+                                  image == null
+                                      ? res1.files.add(
+                                          await http.MultipartFile.fromPath(
+                                              "profile", file.path))
+                                      : res1.files.add(
+                                          await http.MultipartFile.fromPath(
+                                              "profile", image.path));
 
-                                var response = await res1.send();
-                                // ignore: unnecessary_statements
-                                //List<int> imageBytes = image.readAsBytesSync();
-                                // res1.files.add(http.MultipartFile.fromBytes(
-                                // 'profile', imageBytes));
-                                //res1.files.add.(http.MultipartFile.fromPath('profile', image.path));
+                                  var response = await res1.send();
+                                  // ignore: unnecessary_statements
+                                  //List<int> imageBytes = image.readAsBytesSync();
+                                  // res1.files.add(http.MultipartFile.fromBytes(
+                                  // 'profile', imageBytes));
+                                  //res1.files.add.(http.MultipartFile.fromPath('profile', image.path));
 
-                                // final result = jsonDecode(res.body);
-                                // print(data?.jsonBody[0].runtimeType);
+                                  // final result = jsonDecode(res.body);
+                                  // print(data?.jsonBody[0].runtimeType);
 
-                                //if ((getJsonField(
-                                //  (data?.jsonBody ?? ''),
-                                //  r'''$[:].Error''',
-                                //)) ==
-                                // ('Nill'))
+                                  //if ((getJsonField(
+                                  //  (data?.jsonBody ?? ''),
+                                  //  r'''$[:].Error''',
+                                  //)) ==
+                                  // ('Nill'))
 
-                                print("this is the status code");
-                                print(response.statusCode);
-                                final respStr =
-                                    await response.stream.bytesToString();
-                                // final result = jsonDecode(res.body);*/
-                                print(response.statusCode);
-                                if (response.statusCode == 200) {
-                                  print("uploaded");
+                                  print("this is the status code");
+                                  print(response.statusCode);
+                                  final respStr =
+                                      await response.stream.bytesToString();
+                                  // final result = jsonDecode(res.body);*/
+                                  print(response.statusCode);
+                                  if (response.statusCode == 200) {
+                                    print("uploaded");
 
-                                  Fluttertoast.showToast(
-                                      msg: jsonDecode(respStr)["message"],
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIosWeb: 5,
-                                      backgroundColor: Colors.green,
-                                      textColor: Colors.black,
-                                      fontSize: 14.0);
-                                  Navigator.pop(context);
-                                } else {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('Error'),
-                                        content: jsonDecode(respStr)["message"],
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
+                                    Fluttertoast.showToast(
+                                        msg: jsonDecode(respStr)["message"],
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIosWeb: 5,
+                                        backgroundColor: Colors.green,
+                                        textColor: Colors.black,
+                                        fontSize: 14.0);
+                                    Navigator.pop(context);
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: Text('Error'),
+                                          content:
+                                              jsonDecode(respStr)["message"],
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
                                 }
-                              }
-                              // setState(() {});
-                            },
-                            text: 'Save',
-                            options: FFButtonOptions(
-                              width: 350,
-                              height: 40,
-                              color: Color(0xFF00B89F),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
+                                // setState(() {});
+                              },
+                              text: 'Save',
+                              options: FFButtonOptions(
+                                width: 350,
+                                height: 40,
+                                color: Color(0xFF00B89F),
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: 12,
                               ),
-                              borderRadius: 12,
                             ),
                           ),
-                        ),
                         //Delete User
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('Are you sure?'),
-                                    content: Text('Delete the user'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () async {
-                                          apiCallOutput =
-                                              await DeleteUserCall.call();
-                                          print("this is the status code");
-                                          print(apiCallOutput.statusCode);
-                                          if (apiCallOutput.statusCode == 200) {
-                                            Fluttertoast.showToast(
-                                                msg:
-                                                    "Member Deleted Successfully",
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                gravity: ToastGravity.CENTER,
-                                                timeInSecForIosWeb: 5,
-                                                backgroundColor: Colors.green,
-                                                textColor: Colors.black,
-                                                fontSize: 14.0);
-                                            //Navigator.pop(context);
-                                          }
-                                        },
-                                        child: Text('Yes'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text('Cancel'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            text: 'Delete User',
-                            options: FFButtonOptions(
-                              width: 350,
-                              height: 40,
-                              color: FlutterFlowTheme.of(context).alternate,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Color(0xFFDF0808),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                              borderSide: BorderSide(
-                                color: Color(0xFFDF0808),
-                                width: 1,
+                        if (_hasPermissionToEdit)
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Are you sure?'),
+                                      content: Text('Delete the user'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () async {
+                                            apiCallOutput =
+                                                await DeleteUserCall.call();
+                                            print("this is the status code");
+                                            print(apiCallOutput.statusCode);
+                                            if (apiCallOutput.statusCode ==
+                                                200) {
+                                              Fluttertoast.showToast(
+                                                  msg:
+                                                      "Member Deleted Successfully",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 5,
+                                                  backgroundColor: Colors.green,
+                                                  textColor: Colors.black,
+                                                  fontSize: 14.0);
+                                              //Navigator.pop(context);
+                                            }
+                                          },
+                                          child: Text('Yes'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: Text('Cancel'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              text: 'Delete User',
+                              options: FFButtonOptions(
+                                width: 350,
+                                height: 40,
+                                color: FlutterFlowTheme.of(context).alternate,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFFDF0808),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFDF0808),
+                                  width: 1,
+                                ),
+                                borderRadius: 12,
                               ),
-                              borderRadius: 12,
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ],
