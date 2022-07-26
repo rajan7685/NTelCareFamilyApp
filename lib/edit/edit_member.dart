@@ -1441,11 +1441,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                             10, 1, 10, 1),
                                         child: InkWell(
                                           onTap: () async {
-                                            if (!data['executive']) {
-                                              setState(() {
-                                                displayLive = !displayLive;
-                                              });
-                                            }
+                                            // if (!data['executive']) {
+                                            //   setState(() {
+                                            //     displayLive = !displayLive;
+                                            //   });
+                                            // }
                                           },
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -1491,11 +1491,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     ),
                                     child: InkWell(
                                       onTap: () async {
-                                        if (!data['executive']) {
-                                          setState(() {
-                                            displayView = !displayView;
-                                          });
-                                        }
+                                        // if (!data['executive']) {
+                                        //   setState(() {
+                                        //     displayView = !displayView;
+                                        //   });
+                                        // }
                                       },
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1520,7 +1520,9 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'Poppins',
-                                                          color: colorA,
+                                                          color: displayView
+                                                              ? color1
+                                                              : color,
                                                           fontSize: 12,
                                                         ),
                                               ),
@@ -1544,11 +1546,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         0.1499999999999999, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        if (!data['executive']) {
-                                          setState(() {
-                                            displayChat = !displayChat;
-                                          });
-                                        }
+                                        // if (!data['executive']) {
+                                        //   setState(() {
+                                        //     displayChat = !displayChat;
+                                        //   });
+                                        // }
                                       },
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1571,7 +1573,9 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'Poppins',
-                                                          color: colorB,
+                                                          color: displayView
+                                                              ? color1
+                                                              : color,
                                                           fontSize: 12,
                                                         ),
                                               ),
