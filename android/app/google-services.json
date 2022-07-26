@@ -1,49 +1,34 @@
 {
   "project_info": {
-    "project_number": "1042090085269",
-    "project_id": "ntelcare-e7ad9",
-    "storage_bucket": "ntelcare-e7ad9.appspot.com"
+    "project_number": "1093142725892",
+    "project_id": "ntelcareadmin",
+    "storage_bucket": "ntelcareadmin.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1042090085269:android:9b74413c3359a0a30b049c",
+        "mobilesdk_app_id": "1:1093142725892:android:4eda8f51959557a2763c51",
         "android_client_info": {
           "package_name": "com.ntelcare.familyapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1042090085269-ldcv245j82tt81050fjod3re4rit2cl8.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ntelcare.familyapp",
-            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
-          }
-        },
-        {
-          "client_id": "1042090085269-vipg0ocutguhtqh883cicg5rlfu3dmf1.apps.googleusercontent.com",
+          "client_id": "1093142725892-0p9papcprm6fvfgvff1epmp9256j98cm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAu38ZIDRPXBaGkscQjYwuH6yK_T6tI0GI"
+          "current_key": "AIzaSyBShsy8qiSYcf8xfrCt1KFQPUEy2ymw9Nc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1042090085269-vipg0ocutguhtqh883cicg5rlfu3dmf1.apps.googleusercontent.com",
+              "client_id": "1093142725892-0p9papcprm6fvfgvff1epmp9256j98cm.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "1042090085269-skl3u6bed38m34ju6ub5ibja6ke461k1.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.ntelcare.familyapp"
-              }
             }
           ]
         }
