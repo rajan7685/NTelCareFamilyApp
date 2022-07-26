@@ -308,6 +308,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     .bodyText1
                                     .override(
                                       fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
                                       fontSize: 16,
                                     ),
                               ),
@@ -355,6 +356,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     .bodyText1
                                     .override(
                                       fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
                                       fontSize: 16,
                                     ),
                               ),
@@ -678,6 +680,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     .bodyText1
                                     .override(
                                       fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
                                       fontSize: 16,
                                     ),
                                 keyboardType: TextInputType.number,
