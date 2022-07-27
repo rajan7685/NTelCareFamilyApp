@@ -21,15 +21,15 @@ class _SpalshWidgetState extends State<SpalshWidget> {
   void initState() {
     // TODO: implement initStae
     super.initState();
-    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-      String appName = packageInfo.appName;
+    loadPackageInfo();
+  }
 
-      String packageName = packageInfo.packageName;
-      version = packageInfo.version;
-      print(version);
-      FFAppState().buildversion = version;
-      buildNumber = packageInfo.buildNumber;
-      FFAppState().buildNumber = buildNumber;
+  // fixed version details showing after tapping on screen: fixed here (_aniket)
+  Future<void> loadPackageInfo() async {
+    PackageInfo _info = await PackageInfo.fromPlatform();
+    setState(() {
+      buildNumber = _info.buildNumber;
+      version = _info.version;
     });
   }
 

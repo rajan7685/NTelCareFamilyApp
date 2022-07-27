@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1093142725892",
+    "project_id": "ntelcareadmin",
+    "storage_bucket": "ntelcareadmin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093142725892:android:4eda8f51959557a2763c51",
+        "android_client_info": {
+          "package_name": "com.ntelcare.familyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1093142725892-0p9papcprm6fvfgvff1epmp9256j98cm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBShsy8qiSYcf8xfrCt1KFQPUEy2ymw9Nc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1093142725892-0p9papcprm6fvfgvff1epmp9256j98cm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

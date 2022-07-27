@@ -45,28 +45,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   dynamic info;
   var profile = null;
+  bool _isExecutive;
   _EditCopy2WidgetState(this.info);
-
-  @override
-  void initState() {
-    super.initState();
-    print(info["member"]["fname"]);
-    profile = info["member"]["profile"];
-    print(profile);
-    textController1 = TextEditingController(text: info["member"]["fname"]);
-    textController2 = TextEditingController(text: info["member"]["lname"]);
-    textController3 = TextEditingController(text: info["member"]["mobile"]);
-    textController4 = TextEditingController(text: info["member"]["email"]);
-    textController6 = TextEditingController(text: info["member"]["address"]);
-    textController7 = TextEditingController(text: info["member"]["zipcode"]);
-    dropDownValueGender = info["member"]["sex"];
-
-    cityValue = info["member"]["city"];
-    countryValue = info["member"]["country"];
-    stateValue = info["member"]["state"];
-    selectedDate = HttpDate.parse(info["member"]["dob"]);
-    dropDownValue = info["member"]["relation"];
-  }
 
   var color1 = Color(0xFF00B89F);
   var color2 = Color(0xFFD6D6D6);
@@ -81,6 +61,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
   bool displayChat = false;
   bool displayView = false;
   File image;
+
   Future<File> savePermanently(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
     final name1 = basename(imagePath);
@@ -117,6 +98,35 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
       });
     } on PlatformException catch (e) {
       print("Permission Denied");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print(info["member"]["fname"]);
+    profile = info["member"]["profile"];
+    print(profile);
+    textController1 = TextEditingController(text: info["member"]["fname"]);
+    textController2 = TextEditingController(text: info["member"]["lname"]);
+    textController3 = TextEditingController(text: info["member"]["mobile"]);
+    textController4 = TextEditingController(text: info["member"]["email"]);
+    textController6 = TextEditingController(text: info["member"]["address"]);
+    textController7 = TextEditingController(text: info["member"]["zipcode"]);
+    dropDownValueGender = info["member"]["sex"];
+
+    cityValue = info["member"]["city"];
+    countryValue = info["member"]["country"];
+    stateValue = info["member"]["state"];
+    selectedDate = HttpDate.parse(info["member"]["dob"]);
+    dropDownValue = info["member"]["relation"];
+    _isExecutive = FFAppState().executive ?? false;
+    if (_isExecutive) {
+      displayLive = displayChat = displayView = true;
+    } else {
+      displayLive = FFAppState().liveView;
+      displayChat = FFAppState().chat;
+      displayView = FFAppState().viewVideo;
     }
   }
 
@@ -1336,177 +1346,114 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                             controlAffinity: ListTileControlAffinity.leading,
                           ),
                         ),
-                        if (FFAppState().Chattoggle4 ?? true)
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 0, 0, 10),
-                                        child: Text(
-                                          'Permissions',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFFAFAFAF),
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.w300,
-                                              ),
-                                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 10),
+                                      child: Text(
+                                        'Permissions',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              color: Color(0xFFAFAFAF),
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.w300,
+                                            ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15, 5, 15, 30),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF292929),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                            color: color,
-                                          ),
-                                        ),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            setState(() {
-                                              if (color == color1) {
-                                                color = color2;
-                                                displayLive = false;
-                                              } else {
-                                                color = color1;
-                                                displayLive = true;
-                                              }
-                                            });
-                                          },
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    10, 1, 10, 1),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 0, 2),
-                                                  child: Icon(
-                                                    Icons.videocam_outlined,
-                                                    color: Color(0xB254DCC5),
-                                                    size: 22,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
-                                                  child: Text(
-                                                    'Live Video',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: color,
-                                                          fontSize: 12,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )),
-                                    Container(
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF292929),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                            color: colorA,
-                                          ),
-                                        ),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            setState(() {
-                                              if (colorA == color1) {
-                                                colorA = color2;
-                                                displayView = false;
-                                              } else {
-                                                colorA = color1;
-                                                displayView = false;
-                                              }
-                                            });
-                                          },
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    10, 1, 10, 1),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                SvgPicture.asset(
-                                                  'assets/images/2006462_google_media_play_video_icon.svg',
-                                                  width: 15,
-                                                  height: 15,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
-                                                  child: Text(
-                                                    'View Video',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: colorA,
-                                                          fontSize: 12,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )),
-                                    Container(
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(15, 5, 15, 30),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
                                       height: 25,
                                       decoration: BoxDecoration(
                                         color: Color(0xFF292929),
                                         borderRadius: BorderRadius.circular(5),
-                                        shape: BoxShape.rectangle,
                                         border: Border.all(
-                                          color: colorB,
+                                          color: displayLive ? color1 : color2,
                                         ),
                                       ),
-                                      alignment: AlignmentDirectional(
-                                          0.1499999999999999, 0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          if (!_isExecutive) {
+                                            setState(() {
+                                              displayLive = !displayLive;
+                                            });
+                                          }
+                                        },
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 1, 10, 1),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 0, 2),
+                                                child: Icon(
+                                                  Icons.videocam_outlined,
+                                                  color: Color(0xB254DCC5),
+                                                  size: 22,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(5, 0, 0, 0),
+                                                child: Text(
+                                                  'Live Video',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: displayLive
+                                                            ? color1
+                                                            : color2,
+                                                        fontSize: 12,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                  Container(
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF292929),
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                          color: displayView ? color1 : color2,
+                                        ),
+                                      ),
                                       child: InkWell(
                                         onTap: () async {
                                           setState(() {
-                                            if (colorB == color1) {
-                                              colorB = color2;
-                                              displayChat = false;
-                                            } else {
-                                              colorB = color1;
-                                              displayChat = true;
+                                            if (!_isExecutive) {
+                                              setState(() {
+                                                displayView = !displayView;
+                                              });
                                             }
                                           });
                                         },
@@ -1518,21 +1465,25 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               SvgPicture.asset(
-                                                'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
-                                                width: 13,
+                                                'assets/images/2006462_google_media_play_video_icon.svg',
+                                                width: 15,
+                                                height: 15,
+                                                color: color1,
                                                 fit: BoxFit.cover,
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(5, 0, 0, 0),
                                                 child: Text(
-                                                  'Chat',
+                                                  'View Video',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyText1
                                                       .override(
                                                         fontFamily: 'Poppins',
-                                                        color: colorB,
+                                                        color: displayView
+                                                            ? color1
+                                                            : color2,
                                                         fontSize: 12,
                                                       ),
                                                 ),
@@ -1540,13 +1491,67 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                             ],
                                           ),
                                         ),
+                                      )),
+                                  Container(
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF292929),
+                                      borderRadius: BorderRadius.circular(5),
+                                      shape: BoxShape.rectangle,
+                                      border: Border.all(
+                                        color: displayChat ? color1 : color2,
                                       ),
-                                    )
-                                  ],
-                                ),
+                                    ),
+                                    alignment: AlignmentDirectional(
+                                        0.1499999999999999, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        setState(() {
+                                          if (!_isExecutive) {
+                                            setState(() {
+                                              displayChat = !displayChat;
+                                            });
+                                          }
+                                        });
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 1, 10, 1),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
+                                              width: 13,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5, 0, 0, 0),
+                                              child: Text(
+                                                'Chat',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: displayChat
+                                                              ? color1
+                                                              : color2,
+                                                          fontSize: 12,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
                         FFButtonWidget(
                           onPressed: () async {
                             final form = formKey.currentState;
