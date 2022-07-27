@@ -274,6 +274,7 @@ class _AddWidgetState extends State<Add> {
                                     .bodyText1
                                     .override(
                                       fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
                                       fontSize: 16,
                                     ),
                               ),
@@ -329,6 +330,7 @@ class _AddWidgetState extends State<Add> {
                                     .bodyText1
                                     .override(
                                       fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
                                       fontSize: 16,
                                     ),
                               ),
@@ -685,6 +687,7 @@ class _AddWidgetState extends State<Add> {
                                     .bodyText1
                                     .override(
                                       fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
                                       fontSize: 16,
                                     ),
                                 keyboardType: TextInputType.number,
@@ -954,7 +957,7 @@ class _AddWidgetState extends State<Add> {
                                         .bodyText1
                                         .override(
                                           fontFamily: 'Poppins',
-                                          color: Color(0xFF9A9A9A),
+                                          color: Color(0xFF606E87),
                                         ),
                                     hint: Text('Enter relationship'),
                                   ),
@@ -1580,7 +1583,7 @@ class _AddWidgetState extends State<Add> {
                                 /* final res =
                                   await http.post(Uri.parse(url), headers: {
                                 "Authorization": "Bearer ${FFAppState().Token}"
-                              }, body: {
+                               }, body: {
                                 "fname": textController1.text,
                                 "lname": textController2.text,
                                 "email": "hong@gmail.com",
@@ -1596,7 +1599,7 @@ class _AddWidgetState extends State<Add> {
                                 "live_video": true.toString(),
                                 "chats": displayChat.toString(),
                                 "view_video": displayView.toString(),
-                              });*/
+                               });*/
                                 //  print(image.path);
                                 //  var stream =
                                 //     new http.ByteStream(image.openRead());

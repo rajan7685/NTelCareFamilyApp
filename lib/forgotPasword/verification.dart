@@ -263,49 +263,61 @@ class _Verification extends State<verification> {
                             _four.text +
                             _five.text +
                             _six.text;
-                        final String url =
-                            "http://18.208.148.208:4000/verifyotp/member";
-                        final res = await http.post(Uri.parse(url),
-                            body: {"mobile": FFAppState().Mobile, "otp": otpA});
-                        final result = jsonDecode(res.body);
-                        if (res.statusCode == 200) {
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(content: Text(result["message"])),
-                          // );
+                        if (otpA.length < 6) {
                           Fluttertoast.showToast(
-                              msg: result["message"],
+                              msg: "Please Enter 6 digit OTP",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 5,
-                              backgroundColor: Colors.grey,
+                              backgroundColor: Colors.red,
                               textColor: Colors.black,
                               fontSize: 14.0);
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => newPassword(),
-                            ),
-                          );
                         } else {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: Text('Error'),
-                                content: Text(result["message"]),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                          final String url =
+                              "http://18.208.148.208:4000/verifyotp/member";
+                          final res = await http.post(Uri.parse(url), body: {
+                            "mobile": FFAppState().Mobile,
+                            "otp": otpA
+                          });
+                          final result = jsonDecode(res.body);
+                          if (res.statusCode == 200) {
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   SnackBar(content: Text(result["message"])),
+                            // );
+                            Fluttertoast.showToast(
+                                msg: result["message"],
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 5,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.black,
+                                fontSize: 14.0);
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => newPassword(),
+                              ),
+                            );
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Error'),
+                                  content: Text(result["message"]),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
                         }
-
-                        setState(() {});
+                        // setState(() {});
                       },
                       text: 'Verify',
                       options: FFButtonOptions(
