@@ -22,13 +22,14 @@ class StatsWidget extends StatefulWidget {
 }
 
 DateTime dateTime;
-DateTime dateTimeWeek = DateTime.now();
+
 dynamic Hrate;
 bool daily = true;
 bool weekly = false;
 bool monthly = false;
-DateTime _startDate = DateTime.now().subtract(Duration(days: 7));
-DateTime _endDate = DateTime.now();
+DateTime dateTimeWeek = DateTime.now();
+DateTime _startDate = dateTimeWeek.subtract(Duration(days: 7));
+DateTime _endDate = dateTimeWeek;
 DateTimeRange dateRange = DateTimeRange(start: _startDate, end: _endDate);
 
 class _StatsWidgetState extends State<StatsWidget> {
@@ -64,7 +65,7 @@ class _StatsWidgetState extends State<StatsWidget> {
   List<HeartStatWeekMax> hRateMin = [];
   GetHrate getHrate = GetHrate();
   String id;
-  String wDate;
+  String wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
 
   _StatsWidgetState(this.id);
 
@@ -118,6 +119,8 @@ class _StatsWidgetState extends State<StatsWidget> {
   }
 
   void getHeartWeekRate() async {
+    wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
+    print(wDate);
     var response = await getHrate.get(
         'http://18.208.148.208:4000/graph/health_status/heart_rate/weekly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
@@ -390,19 +393,18 @@ class _StatsWidgetState extends State<StatsWidget> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                showDatePicker(
-                                        context: context,
-                                        initialDate: dateTime == null
-                                            ? DateTime.now()
-                                            : dateTime,
-                                        firstDate: DateTime(2001),
-                                        lastDate: DateTime.now())
-                                    .then((date) {
-                                  setState(() {
-                                    dateTime = date;
-                                  });
-                                  getHeartRate();
+                                print(DateFormat('dd-MM-yyyy')
+                                    .format(dateTimeWeek));
+                                dateTimeWeek =
+                                    dateTimeWeek.subtract(Duration(days: 1));
+                                print(DateFormat('dd-MM-yyyy')
+                                    .format(dateTimeWeek));
+                                setState(() {
+                                  _startDate =
+                                      dateTimeWeek.subtract(Duration(days: 7));
+                                  _endDate = dateTimeWeek;
                                 });
+                                getHeartWeekRate();
                               },
                               icon: Icon(
                                 Icons.chevron_left,
@@ -453,17 +455,16 @@ class _StatsWidgetState extends State<StatsWidget> {
                                   )),
                             IconButton(
                               onPressed: () {
-                                showDatePicker(
-                                        context: context,
-                                        initialDate: dateTime == null
-                                            ? DateTime.now()
-                                            : dateTime,
-                                        firstDate: DateTime(2001),
-                                        lastDate: DateTime.now())
-                                    .then((date) {
+                                setState(() {
+                                  dateTimeWeek =
+                                      dateTimeWeek.add(Duration(days: 1));
+
                                   setState(() {
-                                    dateTime = date;
+                                    _startDate = dateTimeWeek
+                                        .subtract(Duration(days: 7));
+                                    _endDate = dateTimeWeek;
                                   });
+                                  getHeartWeekRate();
                                 });
                               },
                               icon: Icon(
