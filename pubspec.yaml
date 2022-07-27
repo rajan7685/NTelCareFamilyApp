@@ -48,6 +48,8 @@ dependencies:
   flutter_svg: 0.22.0
   better_player: 0.0.82
   string_extensions: ^0.6.2
+ 
+ 
   persistent_bottom_nav_bar: ^4.0.2
  
  
@@ -63,6 +65,7 @@ dependencies:
   charts_flutter: ^0.12.0
   month_year_picker: ^0.1.0+3
   email_validator: ^2.0.1
+  
  
   
   
