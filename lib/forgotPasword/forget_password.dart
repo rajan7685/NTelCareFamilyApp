@@ -221,6 +221,7 @@ class _forget_passwordState extends State<forget_password> {
                               EdgeInsetsDirectional.fromSTEB(15, 15, 15, 15),
                           child: FFButtonWidget(
                             onPressed: () async
+
                                 // {
                                 //await Navigator.push(
                                 // context,
@@ -231,53 +232,62 @@ class _forget_passwordState extends State<forget_password> {
                                 // },
 
                                 {
-                              final String url =
-                                  "http://18.208.148.208:4000/forget/member";
-                              final res =
-                                  await http.post(Uri.parse(url), body: {
-                                "mobile": textController1.text,
-                              });
-                              final result = jsonDecode(res.body);
-                              if (res.statusCode == 200) {
-                                FFAppState().Mobile = textController1.text;
-
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                // SnackBar(content: Text(result["message"])),
-                                // );
+                              if (textController1.text == "") {
                                 Fluttertoast.showToast(
-                                    msg: result["message"],
+                                    msg: "Please provide Mobile Number",
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 5,
-                                    backgroundColor: Colors.green,
+                                    backgroundColor: Colors.red,
                                     textColor: Colors.black,
                                     fontSize: 14.0);
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => verification(),
-                                  ),
-                                );
                               } else {
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Error'),
-                                      content: Text(result["message"]),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
+                                final String url =
+                                    "http://18.208.148.208:4000/forget/member";
+                                final res =
+                                    await http.post(Uri.parse(url), body: {
+                                  "mobile": textController1.text,
+                                });
+                                final result = jsonDecode(res.body);
+                                if (res.statusCode == 200) {
+                                  FFAppState().Mobile = textController1.text;
 
-                              setState(() {});
+                                  // ScaffoldMessenger.of(context).showSnackBar(
+                                  // SnackBar(content: Text(result["message"])),
+                                  // );
+                                  Fluttertoast.showToast(
+                                      msg: result["message"],
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 5,
+                                      backgroundColor: Colors.green,
+                                      textColor: Colors.black,
+                                      fontSize: 14.0);
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => verification(),
+                                    ),
+                                  );
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Error'),
+                                        content: Text(result["message"]),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              }
                             },
                             text: 'Send Temporary Password',
                             options: FFButtonOptions(

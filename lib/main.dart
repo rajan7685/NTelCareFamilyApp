@@ -1,5 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
@@ -17,9 +20,28 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+  print('Handling a background message ${message.messageId}');
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   // Initialize FFAppState.
@@ -27,6 +49,15 @@ void main() async {
 
   runApp(MyApp());
 }
+
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'ntelcare', // id
+  'High Importance Notifications', // title
+  'This channel is used for important notifications.', // description
+  importance: Importance.high,
+);
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
@@ -38,6 +69,74 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.instance.getToken().then((newToken) {
+      print("Fcm token");
+      print("hello" + newToken);
+    });
+    var initializationSettingsAndroid =
+        new AndroidInitializationSettings('ic_launcher');
+    var initialzationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettings =
+        InitializationSettings(android: initialzationSettingsAndroid);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+    FirebaseMessaging.onMessage.listen((message) {
+      RemoteNotification notification = message.notification;
+      //  AndroidNotification android = message.notification?.android;
+      // if (notification != null && android != null)
+      if (notification != null) {
+        //  getToken();
+        print(notification.body);
+        print(channel.id);
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channel.description,
+                color: Colors.white,
+
+                // TODO add a proper drawable resource to android, for now using
+                //      one that already exists in example app.
+                icon: "@mipmap/ic_launcher",
+              ),
+            ));
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
+      if (notification != null && android != null) {
+        showDialog(
+            // context: context,
+            builder: (_) {
+          return AlertDialog(
+            title: Text(notification.title),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [Text(notification.body)],
+              ),
+            ),
+          );
+        });
+      }
+    });
+  }
+
+  // String token;
+  // getToken() async {
+  //   token = await FirebaseMessaging.instance.getToken();
+  // }
+
   Locale _locale;
   ThemeMode _themeMode = ThemeMode.system;
 
