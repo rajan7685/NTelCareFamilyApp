@@ -232,9 +232,11 @@ class _forget_passwordState extends State<forget_password> {
                                 // },
 
                                 {
-                              if (textController1.text == "") {
+                              if (textController1.text == "" &&
+                                  textController1.text.length < 10) {
                                 Fluttertoast.showToast(
-                                    msg: "Please provide Mobile Number",
+                                    msg:
+                                        "Please provide 10 digit Mobile Number",
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.CENTER,
                                     timeInSecForIosWeb: 5,
