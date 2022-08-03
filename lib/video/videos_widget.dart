@@ -803,7 +803,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                 )
                                               : Center(
                                                   child: Text(
-                                                    'You do not permission to view this content',
+                                                    'You do not have permission to view this content',
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   ),
@@ -2779,7 +2779,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                 )
                                               : Center(
                                                   child: Text(
-                                                    'You do not permission to view this content',
+                                                    'You do not have permission to view this content',
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   ),
