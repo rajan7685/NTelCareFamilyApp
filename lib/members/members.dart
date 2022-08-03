@@ -29,6 +29,8 @@ class _MembersWidgetState extends State<MembersWidget> {
   int isSelected = 0;
   List<dynamic> executiveList = [];
   List<dynamic> membersList = [];
+  List<dynamic> countries = [];
+
   dynamic executive;
   bool isloading = true;
 
@@ -51,6 +53,7 @@ class _MembersWidgetState extends State<MembersWidget> {
     final ApiCallResponse MList = await MemberList.call();
     print(FFAppState().Token);
     print(MList.statusCode);
+    countries = MList.jsonBody["countries"];
 
     executiveList = (MList.jsonBody["members"] as List)
         .where((element) => element["executive"])
@@ -536,7 +539,11 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                           context,
                                                                           MaterialPageRoute(
                                                                             builder: (context) =>
-                                                                                EditMemberWidget(data: executiveList[index], title: "Edit Executive"),
+                                                                                EditMemberWidget(
+                                                                              data: executiveList[index],
+                                                                              title: "Edit Executive",
+                                                                              countries: countries,
+                                                                            ),
                                                                           ),
                                                                         );
                                                                         loadMembersData();
@@ -728,6 +735,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                         context,
                                                                         MaterialPageRoute(
                                                                           builder: (context) => EditMemberWidget(
+                                                                              countries: countries,
                                                                               data: membersList[index],
                                                                               title: "Edit Members"),
                                                                         ),

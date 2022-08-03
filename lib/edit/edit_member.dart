@@ -23,8 +23,13 @@ import 'package:string_extensions/string_extensions.dart';
 
 class EditMemberWidget extends StatefulWidget {
   dynamic data;
+  List<dynamic> countries;
   String title;
-  EditMemberWidget({Key key, @required this.data, @required this.title})
+  EditMemberWidget(
+      {Key key,
+      @required this.countries,
+      @required this.data,
+      @required this.title})
       : super(key: key);
 
   @override
@@ -49,7 +54,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   bool displayLive = false;
   bool displayChat = false;
   bool displayView = false;
-  String countryValue = "";
+  String countryValue;
   String stateValue = "";
   String cityValue = "";
   String address = "";
@@ -74,7 +79,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   @override
   void initState() {
     super.initState();
-    print(data);
+    print(
+        'countries null ? ${widget.countries.map((e) => e['code']).toList()}');
     textController1 = TextEditingController(text: data["fname"]);
     textController2 = TextEditingController(text: data["lname"]);
     textController4 = TextEditingController(text: data['mobile']);
@@ -84,7 +90,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     profile = data["profile"];
     dropDownValueGender = data["gender"];
     cityValue = data["city"];
-    countryValue = data["country"];
+    countryValue = data["country"] ?? null;
     stateValue = data["state"];
     dropDownValue = data["relation"];
     selectedDate = DateTime.parse(data["dob"]);
@@ -774,127 +780,161 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           ),
                         ),
                         Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
-                            child: IgnorePointer(
-                              ignoring: !_hasPermissionToEdit,
-                              child: CSCPicker(
-                                ///Enable disable state dropdown [OPTIONAL PARAMETER]
-                                showStates: true,
-
-                                /// Enable disable city drop down [OPTIONAL PARAMETER]
-                                showCities: true,
-
-                                ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
-                                flagState: CountryFlag.DISABLE,
-                                layout: Layout.vertical,
-
-                                ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
-                                dropdownDecoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15)),
-                                    color: Color(0xFFEEEEEE),
-                                    border: Border.all(
-                                        color: Color(0xFFEEEEEE), width: 11)),
-
-                                ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
-                                disabledDropdownDecoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(11)),
-                                    color: Color(0xFFEEEEEE),
-                                    border: Border.all(
-                                        color: Color(0xFFEEEEEE), width: 11)),
-
-                                ///placeholders for dropdown search field
-
-                                stateSearchPlaceholder: "State",
-                                citySearchPlaceholder: "City",
-                                countrySearchPlaceholder: "Country",
-
-                                ///labels for dropdown
-
-                                stateDropdownLabel: data["state"],
-                                cityDropdownLabel: data["city"],
-                                countryDropdownLabel: data["country"],
-
-                                ///Default Country
-                                //  defaultCountry: data["country"],
-
-                                ///selected item style [OPTIONAL PARAMETER]
-                                selectedItemStyle: TextStyle(
-                                  color: Color(0xFF606E87),
-                                  fontSize: 16,
-                                ),
-
-                                ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                                dropdownHeadingStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-
-                                ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                                dropdownItemStyle: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                ),
-
-                                ///Dialog box radius [OPTIONAL PARAMETER]
-                                dropdownDialogRadius: 10.0,
-
-                                ///Search bar radius [OPTIONAL PARAMETER]
-                                searchBarRadius: 10.0,
-
-                                ///triggers once country selected in dropdown
-                                onCountryChanged: (value) {
-                                  setState(() {
-                                    ///store value in country variable
-                                    countryValue = value;
-                                  });
-                                },
-
-                                ///triggers once state selected in dropdown
-                                onStateChanged: (value) {
-                                  setState(() {
-                                    ///store value in state variable
-                                    stateValue = value;
-                                  });
-                                },
-
-                                ///triggers once city selected in dropdown
-                                onCityChanged: (value) {
-                                  setState(() {
-                                    ///store value in city variable
-                                    cityValue = value;
-                                  });
-                                },
+                          padding:
+                              const EdgeInsets.only(top: 10, left: 4, right: 4),
+                          child: DropdownButtonFormField<dynamic>(
+                            value: countryValue,
+                            items: widget.countries
+                                .map((label) => DropdownMenuItem(
+                                      child: Text(label['name']),
+                                      value: label['name'],
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() => countryValue = value['name']);
+                            },
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                            )
-                            /*    DropdownButtonFormField(
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 2),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                    ),
-                                    onChanged: (val) =>
-                                        setState(() => dropDownValue1 = val),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          color: Colors.black,
-                                        ),
-                                    hint: Text('USA'),
-                                  ),*/
-
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.transparent, width: 2),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              filled: true,
+                              fillColor: Color(0xFFEEEEEE),
                             ),
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
+                                    ),
+                            hint: Text('Country'),
+                          ),
+                        ),
+                        //  Padding(
+                        //     padding:
+                        //         EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
+                        //     child: IgnorePointer(
+                        //       ignoring: !_hasPermissionToEdit,
+                        //       child: CSCPicker(
+                        //         ///Enable disable state dropdown [OPTIONAL PARAMETER]
+                        //         showStates: true,
+
+                        //         /// Enable disable city drop down [OPTIONAL PARAMETER]
+                        //         showCities: true,
+
+                        //         ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
+                        //         flagState: CountryFlag.DISABLE,
+                        //         layout: Layout.vertical,
+
+                        //         ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
+                        //         dropdownDecoration: BoxDecoration(
+                        //             borderRadius:
+                        //                 BorderRadius.all(Radius.circular(15)),
+                        //             color: Color(0xFFEEEEEE),
+                        //             border: Border.all(
+                        //                 color: Color(0xFFEEEEEE), width: 11)),
+
+                        //         ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
+                        //         disabledDropdownDecoration: BoxDecoration(
+                        //             borderRadius:
+                        //                 BorderRadius.all(Radius.circular(11)),
+                        //             color: Color(0xFFEEEEEE),
+                        //             border: Border.all(
+                        //                 color: Color(0xFFEEEEEE), width: 11)),
+
+                        //         ///placeholders for dropdown search field
+
+                        //         stateSearchPlaceholder: "State",
+                        //         citySearchPlaceholder: "City",
+                        //         countrySearchPlaceholder: "Country",
+
+                        //         ///labels for dropdown
+
+                        //         stateDropdownLabel: data["state"],
+                        //         cityDropdownLabel: data["city"],
+                        //         countryDropdownLabel: data["country"],
+
+                        //         ///Default Country
+                        //         //  defaultCountry: data["country"],
+
+                        //         ///selected item style [OPTIONAL PARAMETER]
+                        //         selectedItemStyle: TextStyle(
+                        //           color: Color(0xFF606E87),
+                        //           fontSize: 16,
+                        //         ),
+
+                        //         ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                        //         dropdownHeadingStyle: TextStyle(
+                        //             color: Colors.black,
+                        //             fontSize: 20,
+                        //             fontWeight: FontWeight.bold),
+
+                        //         ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                        //         dropdownItemStyle: TextStyle(
+                        //           color: Colors.black,
+                        //           fontSize: 20,
+                        //         ),
+
+                        //         ///Dialog box radius [OPTIONAL PARAMETER]
+                        //         dropdownDialogRadius: 10.0,
+
+                        //         ///Search bar radius [OPTIONAL PARAMETER]
+                        //         searchBarRadius: 10.0,
+
+                        //         ///triggers once country selected in dropdown
+                        //         onCountryChanged: (value) {
+                        //           setState(() {
+                        //             ///store value in country variable
+                        //             countryValue = value;
+                        //           });
+                        //         },
+
+                        //         ///triggers once state selected in dropdown
+                        //         onStateChanged: (value) {
+                        //           setState(() {
+                        //             ///store value in state variable
+                        //             stateValue = value;
+                        //           });
+                        //         },
+
+                        //         ///triggers once city selected in dropdown
+                        //         onCityChanged: (value) {
+                        //           setState(() {
+                        //             ///store value in city variable
+                        //             cityValue = value;
+                        //           });
+                        //         },
+                        //       ),
+                        //     )
+                        //     /*    DropdownButtonFormField(
+                        //             decoration: InputDecoration(
+                        //               enabledBorder: OutlineInputBorder(
+                        //                 borderRadius: BorderRadius.circular(10),
+                        //               ),
+                        //               border: OutlineInputBorder(
+                        //                 borderSide: BorderSide(
+                        //                     color: Colors.transparent,
+                        //                     width: 2),
+                        //                 borderRadius: BorderRadius.circular(10),
+                        //               ),
+                        //               filled: true,
+                        //               fillColor: Colors.white,
+                        //             ),
+                        //             onChanged: (val) =>
+                        //                 setState(() => dropDownValue1 = val),
+                        //             style: FlutterFlowTheme.of(context)
+                        //                 .bodyText1
+                        //                 .override(
+                        //                   fontFamily: 'Montserrat',
+                        //                   color: Colors.black,
+                        //                 ),
+                        //             hint: Text('USA'),
+                        //           ),*/
+
+                        //     ),
                         /* Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
