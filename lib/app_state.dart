@@ -57,6 +57,7 @@ class FFAppState {
   bool executive;
   bool liveView;
   bool chat;
+  String appFCMToken;
   bool viewVideo;
 
   String buildversion = " ";

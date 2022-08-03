@@ -131,6 +131,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print("executive : ${FFAppState().executive}");
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
