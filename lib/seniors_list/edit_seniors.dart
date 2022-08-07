@@ -62,6 +62,10 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   dynamic data;
 
   var profile = null;
+
+  // permission for editing
+  bool _hasPermissionToEdit;
+
   _EditSeniorsWidgetState(this.data);
 
   @override
@@ -85,6 +89,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     selectedDate = HttpDate.parse(data["dob"]);
     print(data["dob"]);
     print(DateFormat("yyyy-MM-dd").format(selectedDate));
+    _hasPermissionToEdit = FFAppState().executive;
   }
 
   void vaildMail() {
@@ -266,6 +271,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 5, 0, 0),
                               child: TextFormField(
+                                enabled: _hasPermissionToEdit,
                                 controller: textController1,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -331,6 +337,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: TextFormField(
+                                enabled: _hasPermissionToEdit,
                                 controller: textController2,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -394,45 +401,48 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   children: [
                                     Expanded(
                                       flex: 8,
-                                      child: DropdownButtonFormField<String>(
-                                        value: dropDownValueGender.capitalize,
-                                        items: [
-                                          "Male",
-                                          "Female",
-                                          "Transgender",
-                                          "Non Binary"
-                                        ]
-                                            .map((label) => DropdownMenuItem(
-                                                  child: Text(label),
-                                                  value: label,
-                                                ))
-                                            .toList(),
-                                        onChanged: (value) {
-                                          setState(() =>
-                                              dropDownValueGender = value);
-                                        },
-                                        decoration: InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                          ),
-                                          border: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 2),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          filled: true,
-                                          fillColor: Color(0xFFEEEEEE),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color: Color(0xFF606E87),
+                                      child: IgnorePointer(
+                                        ignoring: !_hasPermissionToEdit,
+                                        child: DropdownButtonFormField<String>(
+                                          value: dropDownValueGender.capitalize,
+                                          items: [
+                                            "Male",
+                                            "Female",
+                                            "Transgender",
+                                            "Non Binary"
+                                          ]
+                                              .map((label) => DropdownMenuItem(
+                                                    child: Text(label),
+                                                    value: label,
+                                                  ))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            setState(() =>
+                                                dropDownValueGender = value);
+                                          },
+                                          decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
                                             ),
-                                        hint: Text('Gender'),
+                                            border: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 2),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            filled: true,
+                                            fillColor: Color(0xFFEEEEEE),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFF606E87),
+                                              ),
+                                          hint: Text('Gender'),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -583,17 +593,20 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                           });
                                         });*/
 
-                                          final DateTime picked =
-                                              await showDatePicker(
-                                                  context: context,
-                                                  initialDate: selectedDate,
-                                                  firstDate: DateTime(1900, 8),
-                                                  lastDate: DateTime.now());
-                                          if (picked != null &&
-                                              picked != selectedDate)
-                                            setState(() {
-                                              selectedDate = picked;
-                                            });
+                                          if (_hasPermissionToEdit) {
+                                            final DateTime picked =
+                                                await showDatePicker(
+                                                    context: context,
+                                                    initialDate: selectedDate,
+                                                    firstDate:
+                                                        DateTime(1900, 8),
+                                                    lastDate: DateTime.now());
+                                            if (picked != null &&
+                                                picked != selectedDate)
+                                              setState(() {
+                                                selectedDate = picked;
+                                              });
+                                          }
                                           /*  Dateselected = DateFormat.yM()
                                               .format(selectedDate);
                                           print(Dateselected);*/
@@ -628,6 +641,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       10, 0, 0, 0),
                                   child: TextFormField(
+                                    enabled: _hasPermissionToEdit,
                                     controller: textController4,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -686,6 +700,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       10, 0, 0, 0),
                                   child: TextFormField(
+                                    enabled: _hasPermissionToEdit,
                                     controller: textController5,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -745,6 +760,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: TextFormField(
+                                enabled: _hasPermissionToEdit,
                                 controller: textController6,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -803,6 +819,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: TextFormField(
+                                enabled: _hasPermissionToEdit,
                                 controller: textController7,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -856,95 +873,98 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                         Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
-                            child: CSCPicker(
-                              ///Enable disable state dropdown [OPTIONAL PARAMETER]
-                              showStates: true,
+                            child: IgnorePointer(
+                              ignoring: !_hasPermissionToEdit,
+                              child: CSCPicker(
+                                ///Enable disable state dropdown [OPTIONAL PARAMETER]
+                                showStates: true,
 
-                              /// Enable disable city drop down [OPTIONAL PARAMETER]
-                              showCities: true,
+                                /// Enable disable city drop down [OPTIONAL PARAMETER]
+                                showCities: true,
 
-                              ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
-                              flagState: CountryFlag.DISABLE,
-                              layout: Layout.vertical,
+                                ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
+                                flagState: CountryFlag.DISABLE,
+                                layout: Layout.vertical,
 
-                              ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
-                              dropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)),
-                                  color: Color(0xFFEEEEEE),
-                                  border: Border.all(
-                                      color: Color(0xFFEEEEEE), width: 11)),
+                                ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
+                                dropdownDecoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15)),
+                                    color: Color(0xFFEEEEEE),
+                                    border: Border.all(
+                                        color: Color(0xFFEEEEEE), width: 11)),
 
-                              ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
-                              disabledDropdownDecoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(11)),
-                                  color: Color(0xFFEEEEEE),
-                                  border: Border.all(
-                                      color: Color(0xFFEEEEEE), width: 11)),
+                                ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
+                                disabledDropdownDecoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(11)),
+                                    color: Color(0xFFEEEEEE),
+                                    border: Border.all(
+                                        color: Color(0xFFEEEEEE), width: 11)),
 
-                              ///placeholders for dropdown search field
+                                ///placeholders for dropdown search field
 
-                              stateSearchPlaceholder: "State",
-                              citySearchPlaceholder: "City",
-                              countrySearchPlaceholder: "Country",
+                                stateSearchPlaceholder: "State",
+                                citySearchPlaceholder: "City",
+                                countrySearchPlaceholder: "Country",
 
-                              ///labels for dropdown
+                                ///labels for dropdown
 
-                              stateDropdownLabel: data["state"],
-                              cityDropdownLabel: data["city"],
-                              countryDropdownLabel: data["country"],
+                                stateDropdownLabel: data["state"],
+                                cityDropdownLabel: data["city"],
+                                countryDropdownLabel: data["country"],
 
-                              ///Default Country
-                              //  defaultCountry: data["country"],
+                                ///Default Country
+                                //  defaultCountry: data["country"],
 
-                              ///selected item style [OPTIONAL PARAMETER]
-                              selectedItemStyle: TextStyle(
-                                color: Color(0xFF606E87),
-                                fontSize: 16,
-                              ),
+                                ///selected item style [OPTIONAL PARAMETER]
+                                selectedItemStyle: TextStyle(
+                                  color: Color(0xFF606E87),
+                                  fontSize: 16,
+                                ),
 
-                              ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                              dropdownHeadingStyle: TextStyle(
+                                ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                                dropdownHeadingStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+
+                                ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                                dropdownItemStyle: TextStyle(
                                   color: Colors.black,
                                   fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                                ),
 
-                              ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                              dropdownItemStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
+                                ///Dialog box radius [OPTIONAL PARAMETER]
+                                dropdownDialogRadius: 10.0,
+
+                                ///Search bar radius [OPTIONAL PARAMETER]
+                                searchBarRadius: 10.0,
+
+                                ///triggers once country selected in dropdown
+                                onCountryChanged: (value) {
+                                  setState(() {
+                                    ///store value in country variable
+                                    countryValue = value;
+                                  });
+                                },
+
+                                ///triggers once state selected in dropdown
+                                onStateChanged: (value) {
+                                  setState(() {
+                                    ///store value in state variable
+                                    stateValue = value;
+                                  });
+                                },
+
+                                ///triggers once city selected in dropdown
+                                onCityChanged: (value) {
+                                  setState(() {
+                                    ///store value in city variable
+                                    cityValue = value;
+                                  });
+                                },
                               ),
-
-                              ///Dialog box radius [OPTIONAL PARAMETER]
-                              dropdownDialogRadius: 10.0,
-
-                              ///Search bar radius [OPTIONAL PARAMETER]
-                              searchBarRadius: 10.0,
-
-                              ///triggers once country selected in dropdown
-                              onCountryChanged: (value) {
-                                setState(() {
-                                  ///store value in country variable
-                                  countryValue = value;
-                                });
-                              },
-
-                              ///triggers once state selected in dropdown
-                              onStateChanged: (value) {
-                                setState(() {
-                                  ///store value in state variable
-                                  stateValue = value;
-                                });
-                              },
-
-                              ///triggers once city selected in dropdown
-                              onCityChanged: (value) {
-                                setState(() {
-                                  ///store value in city variable
-                                  cityValue = value;
-                                });
-                              },
                             )
                             /*    DropdownButtonFormField(
                                     decoration: InputDecoration(
@@ -1014,6 +1034,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       10, 0, 0, 0),
                                   child: TextFormField(
+                                    enabled: _hasPermissionToEdit,
                                     controller: textController8,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -1072,6 +1093,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       10, 0, 0, 0),
                                   child: TextFormField(
+                                    enabled: _hasPermissionToEdit,
                                     controller: textController9,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -1174,13 +1196,16 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                               Expanded(
                                                 child: InkWell(
                                                   onTap: () async {
-                                                    setState(() {
-                                                      if (display == displayN) {
-                                                        display = displayY;
-                                                      } else {
-                                                        display = displayN;
-                                                      }
-                                                    });
+                                                    if (_hasPermissionToEdit) {
+                                                      setState(() {
+                                                        if (display ==
+                                                            displayN) {
+                                                          display = displayY;
+                                                        } else {
+                                                          display = displayN;
+                                                        }
+                                                      });
+                                                    }
                                                   },
                                                   child: Column(
                                                     mainAxisSize:
@@ -1357,174 +1382,176 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                               ),
                             ),
                           ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 38, 0, 0),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              final form = formkey.currentState;
-                              if (textController1.text == "" ||
-                                  textController2.text == "" ||
-                                  dropDownValueGender == "" ||
-                                  textController4.text == "" ||
-                                  textController5.text == "" ||
-                                  textController6.text == "" ||
-                                  textController7.text == "" ||
-                                  textController8.text == "" ||
-                                  textController9.text == "" ||
-                                  countryValue == "" ||
-                                  stateValue == "||" ||
-                                  cityValue == "" ||
-                                  EmailValidator.validate(
-                                          textController7.text.trim()) ==
-                                      true) {
-                                Fluttertoast.showToast(
-                                    msg: "All fields are necessary to fill",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 5,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.black,
-                                    fontSize: 14.0);
-                              } else {
-                                // List<int> imagebytes = image.readAsBytesSync();
-                                // String base64Image = base64Encode(imagebytes);
-                                // print(base64Image);
+                        if (_hasPermissionToEdit)
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 38, 0, 0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                final form = formkey.currentState;
+                                if (textController1.text == "" ||
+                                    textController2.text == "" ||
+                                    dropDownValueGender == "" ||
+                                    textController4.text == "" ||
+                                    textController5.text == "" ||
+                                    textController6.text == "" ||
+                                    textController7.text == "" ||
+                                    textController8.text == "" ||
+                                    textController9.text == "" ||
+                                    countryValue == "" ||
+                                    stateValue == "||" ||
+                                    cityValue == "") {
+                                  Fluttertoast.showToast(
+                                      msg: "All fields are necessary to fill",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 5,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.black,
+                                      fontSize: 14.0);
+                                } else {
+                                  // List<int> imagebytes = image.readAsBytesSync();
+                                  // String base64Image = base64Encode(imagebytes);
+                                  // print(base64Image);
 
-                                final String url =
-                                    "http://18.208.148.208:4000/edit/senior/${FFAppState().SeniorId}";
-                                var res = new http.MultipartRequest(
-                                    'POST', Uri.parse(url));
+                                  final String url =
+                                      "http://18.208.148.208:4000/edit/senior/${FFAppState().SeniorId}";
+                                  var res = new http.MultipartRequest(
+                                      'POST', Uri.parse(url));
 
-                                res.headers['Authorization'] =
-                                    "Bearer ${FFAppState().Token}";
-                                res.fields["senior_id"] = FFAppState().SeniorId;
+                                  res.headers['Authorization'] =
+                                      "Bearer ${FFAppState().Token}";
+                                  res.fields["senior_id"] =
+                                      FFAppState().SeniorId;
 
-                                res.fields["fname"] = textController1.text;
-                                res.fields["lname"] = textController2.text;
-                                res.fields["mobile"] = textController6.text;
-                                res.fields["email"] = textController7.text;
-                                res.fields["gender"] = dropDownValueGender;
-                                res.fields["height"] = textController4.text;
-                                res.fields["weight"] = textController5.text;
-                                res.fields["address"] = textController8.text;
-                                res.fields["zipcode"] = textController9.text;
-                                res.fields["blood_group"] = "o+";
-                                res.fields["age"] = "89";
-                                res.fields["dob"] = DateFormat("yyyy-MM-dd")
-                                    .format(selectedDate);
-                                res.fields["country"] = countryValue;
-                                res.fields["state"] = stateValue;
-                                res.fields["city"] = cityValue;
+                                  res.fields["fname"] = textController1.text;
+                                  res.fields["lname"] = textController2.text;
+                                  res.fields["mobile"] = textController6.text;
+                                  res.fields["email"] = textController7.text;
+                                  res.fields["gender"] = dropDownValueGender;
+                                  res.fields["height"] = textController4.text;
+                                  res.fields["weight"] = textController5.text;
+                                  res.fields["address"] = textController8.text;
+                                  res.fields["zipcode"] = textController9.text;
+                                  res.fields["blood_group"] = "o+";
+                                  res.fields["age"] = "89";
+                                  res.fields["dob"] = DateFormat("yyyy-MM-dd")
+                                      .format(selectedDate);
+                                  res.fields["country"] = countryValue;
+                                  res.fields["state"] = stateValue;
+                                  res.fields["city"] = cityValue;
 
-                                /*profile == null
+                                  /*profile == null
                                   ? res.files.add(
                                       await http.MultipartFile.fromPath(
                                           "profile", image.path))
                                   : res.files.add(http.MultipartFile.fromString(
                                       "profile", profile));*/
 
-                                final http.Response responseData =
-                                    await http.get(Uri.parse(profile));
-                                Uint8List uint8list = responseData.bodyBytes;
-                                var buffer = uint8list.buffer;
-                                ByteData byteData = ByteData.view(buffer);
-                                var tempDir = await getTemporaryDirectory();
-                                File file = await File('${tempDir.path}/img')
-                                    .writeAsBytes(buffer.asUint8List(
-                                        byteData.offsetInBytes,
-                                        byteData.lengthInBytes));
-                                print(file.path);
-                                image == null
-                                    ? res.files.add(
-                                        await http.MultipartFile.fromPath(
-                                            "profile", file.path))
-                                    : res.files.add(
-                                        await http.MultipartFile.fromPath(
-                                            "profile", image.path));
-                                var response = await res.send();
+                                  final http.Response responseData =
+                                      await http.get(Uri.parse(profile));
+                                  Uint8List uint8list = responseData.bodyBytes;
+                                  var buffer = uint8list.buffer;
+                                  ByteData byteData = ByteData.view(buffer);
+                                  var tempDir = await getTemporaryDirectory();
+                                  File file = await File('${tempDir.path}/img')
+                                      .writeAsBytes(buffer.asUint8List(
+                                          byteData.offsetInBytes,
+                                          byteData.lengthInBytes));
+                                  print(file.path);
+                                  image == null
+                                      ? res.files.add(
+                                          await http.MultipartFile.fromPath(
+                                              "profile", file.path))
+                                      : res.files.add(
+                                          await http.MultipartFile.fromPath(
+                                              "profile", image.path));
+                                  var response = await res.send();
 
-                                print(response.statusCode);
-                                final resp =
-                                    await response.stream.bytesToString();
-                                if (response.statusCode == 200) {
-                                  print("uploaded");
-                                  Navigator.pop(context);
-                                  Fluttertoast.showToast(
-                                      msg: "Updated Successfully!",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIosWeb: 5,
-                                      backgroundColor: Colors.green,
-                                      textColor: Colors.black,
-                                      fontSize: 14.0);
-                                } else {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('Error'),
-                                        content: Text("Error"),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
+                                  print(response.statusCode);
+                                  final resp =
+                                      await response.stream.bytesToString();
+                                  if (response.statusCode == 200) {
+                                    print("uploaded");
+                                    Navigator.pop(context);
+                                    Fluttertoast.showToast(
+                                        msg: "Updated Successfully!",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIosWeb: 5,
+                                        backgroundColor: Colors.green,
+                                        textColor: Colors.black,
+                                        fontSize: 14.0);
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: Text('Error'),
+                                          content: Text("Error"),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
                                 }
-                              }
-                            },
-                            text: 'Update',
-                            options: FFButtonOptions(
-                              width: 350,
-                              height: 40,
-                              color: Color(0xFF00B89F),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Montserrat',
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
+                              },
+                              text: 'Update',
+                              options: FFButtonOptions(
+                                width: 350,
+                                height: 40,
+                                color: Color(0xFF00B89F),
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: 12,
                               ),
-                              borderRadius: 12,
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 10),
-                          child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: 'Delete User',
-                            options: FFButtonOptions(
-                              width: 350,
-                              height: 40,
-                              color: FlutterFlowTheme.of(context).alternate,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Montserrat',
-                                    color: Color(0xFFDF0808),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                              borderSide: BorderSide(
-                                color: Color(0xFFDF0808),
-                                width: 1,
+                        if (_hasPermissionToEdit)
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 10),
+                            child: FFButtonWidget(
+                              onPressed: () {
+                                print('Button pressed ...');
+                              },
+                              text: 'Delete User',
+                              options: FFButtonOptions(
+                                width: 350,
+                                height: 40,
+                                color: FlutterFlowTheme.of(context).alternate,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      color: Color(0xFFDF0808),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFDF0808),
+                                  width: 1,
+                                ),
+                                borderRadius: 12,
                               ),
-                              borderRadius: 12,
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ],

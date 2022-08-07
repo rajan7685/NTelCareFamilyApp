@@ -2441,7 +2441,9 @@ class _dashboardState extends State<dashboard> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => OxygenWidget(),
+                              builder: (context) => OxygenWidget(
+                                data: id,
+                              ),
                             ),
                           );
                         },
@@ -2575,7 +2577,9 @@ class _dashboardState extends State<dashboard> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SleepWidget(),
+                            builder: (context) => SleepWidget(
+                              data: id,
+                            ),
                           ),
                         );
                       },
@@ -2687,7 +2691,9 @@ class _dashboardState extends State<dashboard> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => StepWidget(),
+                              builder: (context) => StepWidget(
+                                data: id,
+                              ),
                             ),
                           );
                         },
@@ -2820,7 +2826,9 @@ class _dashboardState extends State<dashboard> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CalorieWidget(),
+                            builder: (context) => CalorieWidget(
+                              data: id,
+                            ),
                           ),
                         );
                       },
@@ -2932,7 +2940,9 @@ class _dashboardState extends State<dashboard> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BloodWidget(),
+                              builder: (context) => BloodWidget(
+                                data: id,
+                              ),
                             ),
                           );
                         },
@@ -3089,7 +3099,7 @@ class _dashboardState extends State<dashboard> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BatteryWidget(),
+                            builder: (context) => BatteryWidget(data: id),
                           ),
                         );
                       },
@@ -3202,7 +3212,9 @@ class _dashboardState extends State<dashboard> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PillWidget(),
+                              builder: (context) => PillWidget(
+                                data: id,
+                              ),
                             ),
                           );
                         },
@@ -3338,7 +3350,9 @@ class _dashboardState extends State<dashboard> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DoorWidget(),
+                            builder: (context) => DoorWidget(
+                              data: id,
+                            ),
                           ),
                         );
                       },
@@ -3450,7 +3464,9 @@ class _dashboardState extends State<dashboard> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ShowerWidget(),
+                              builder: (context) => ShowerWidget(
+                                data: id,
+                              ),
                             ),
                           );
                         },
