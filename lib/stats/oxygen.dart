@@ -886,6 +886,11 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                         fontSize: 8, // size in Pts.
                                         color: charts.MaterialPalette.white),
                                   )),*/
+                                    selectionModels: [
+                                      new charts.SelectionModelConfig(
+                                          type: charts.SelectionModelType.info,
+                                          changedListener: _onSelectionChanged)
+                                    ],
                                     animate: true,
                                     defaultRenderer:
                                         new charts.BarRendererConfig(
@@ -918,6 +923,11 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                           fontSize: 3, // size in Pts.
                                           color: charts.MaterialPalette.white),
                                     )),
+                                    selectionModels: [
+                                      new charts.SelectionModelConfig(
+                                          type: charts.SelectionModelType.info,
+                                          changedListener: _onSelectionChanged)
+                                    ],
                                     animate: true,
                                     defaultRenderer:
                                         new charts.BarRendererConfig(
@@ -950,6 +960,11 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                         fontSize: 3, // size in Pts.
                                         color: charts.MaterialPalette.white),
                                   )),
+                                  selectionModels: [
+                                    new charts.SelectionModelConfig(
+                                        type: charts.SelectionModelType.info,
+                                        changedListener: _onSelectionChanged)
+                                  ],
                                   animate: true,
                                   defaultRenderer: new charts.BarRendererConfig(
                                       groupingType:

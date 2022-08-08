@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -38,6 +39,15 @@ DateTime endDateYear = dateTimeYear;
 DateTimeRange dateRange = DateTimeRange(start: _startDate, end: _endDate);
 
 class _ShowerWidgetState extends State<ShowerWidget> {
+  @override
+  void initState() {
+    super.initState();
+    getStepscount();
+    getStepWeekRate();
+    getStepMonthlyRate();
+    getStepYearlyRate();
+  }
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool checkLimit(DateTime limitDay) {
@@ -82,7 +92,6 @@ class _ShowerWidgetState extends State<ShowerWidget> {
 
   Future<dynamic> Stepcount;
   List<ShowerStat> stepStat = [];
-  GetSteps getSteps = GetSteps();
 
   _ShowerWidgetState(this.id);
 
@@ -102,19 +111,6 @@ class _ShowerWidgetState extends State<ShowerWidget> {
       stepStat = temp;
     });
     print(stepStat);
-  }
-
-  List<charts.Series<ShowerStat, String>> _createSampleDataDaily() {
-    return [
-      new charts.Series<ShowerStat, String>(
-          id: 'daily2',
-          domainFn: (ShowerStat sales, _) => sales.time,
-          measureFn: (ShowerStat sales, _) => sales.value,
-          data: stepStat,
-          colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
-          labelAccessorFn: (ShowerStat sales, _) =>
-              '\$${sales.value.toString()}'),
-    ];
   }
 
   List<charts.Series<StepStatMonth, String>> _createSampleData() {
@@ -165,14 +161,6 @@ class _ShowerWidgetState extends State<ShowerWidget> {
   }
 
 //final List<charts.Series<HeartStatWeekMax, String>> seriesList = _createSampleData();
-  @override
-  void initState() {
-    super.initState();
-    getStepscount();
-    getStepWeekRate();
-    getStepMonthlyRate();
-    getStepYearlyRate();
-  }
 
   String _time;
   Map<String, num> _measures;
@@ -349,7 +337,7 @@ class _ShowerWidgetState extends State<ShowerWidget> {
   }
 
   void getStepYearlyRate() async {
-    wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
+    wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
     print(wDate2);
     var response = await getHrate.get(
         'http://18.208.148.208:4000/graph/health_status/BathRoom/yearly?date=${wDate2}&senior_id=${id}');
@@ -375,99 +363,211 @@ class _ShowerWidgetState extends State<ShowerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Color(0xFF1F252B),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Stack(
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Image.asset(
-                      'assets/images/corrected_bath.png',
-                      width: 220,
-                      height: 220,
-                      fit: BoxFit.fitWidth,
-                    )
-                  ],
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(10, 63, 0, 0),
-                      child: InkWell(
-                        onTap: () async {
-                          await Navigator.pop(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    ModifiedLandingPageWidget(),
-                              ));
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(
-                              Icons.chevron_left_sharp,
-                              color: Color(0xFFAFAFAF),
-                              size: 45,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                          child: Text(
-                            'Shower Sensor',
-                            style:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFFAFAFAF),
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w200,
-                                    ),
+    List<charts.Series<ShowerStat, String>> _createSampleDataDaily() {
+      return [
+        new charts.Series<ShowerStat, String>(
+            id: 'daily2',
+            domainFn: (ShowerStat sales, _) => sales.time,
+            measureFn: (ShowerStat sales, _) => sales.value,
+            data: stepStat,
+            colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
+            labelAccessorFn: (ShowerStat sales, _) =>
+                '\$${sales.value.toString()}'),
+      ];
+    }
+
+    return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      home: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: Color(0xFF1F252B),
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Stack(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Image.asset(
+                        'assets/images/corrected_bath.png',
+                        width: 220,
+                        height: 220,
+                        fit: BoxFit.fitWidth,
+                      )
+                    ],
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 63, 0, 0),
+                        child: InkWell(
+                          onTap: () async {
+                            await Navigator.pop(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ModifiedLandingPageWidget(),
+                                ));
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Icon(
+                                Icons.chevron_left_sharp,
+                                color: Color(0xFFAFAFAF),
+                                size: 45,
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
-                      child: Row(
+                      ),
+                      Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
-                            child: InkWell(
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                            child: Text(
+                              'Shower Sensor',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Montserrat',
+                                    color: Color(0xFFAFAFAF),
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.w200,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                  onTap: () async {
+                                    setState(() {
+                                      color1 = Color(0xFF00B89F);
+                                      color2 = Color(0xFF1A1A1A);
+                                      color3 = Color(0xFF1A1A1A);
+                                      color4 = Color(0xFF1A1A1A);
+                                      daily = true;
+                                      weekly = false;
+                                      monthly = false;
+                                      yearly = false;
+                                    });
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: color1,
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(10),
+                                        bottomRight: Radius.circular(0),
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(0),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 5, 0, 5),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Daily',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFF6D6767),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w200,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            Expanded(
+                                child: InkWell(
+                              onTap: () async {
+                                setState(() {
+                                  color1 = Color(0xFF1A1A1A);
+                                  color2 = Color(0xFF00B89F);
+                                  color3 = Color(0xFF1A1A1A);
+                                  color4 = Color(0xFF1A1A1A);
+                                  weekly = true;
+                                  daily = false;
+                                  monthly = false;
+                                  yearly = false;
+                                  dateTimeWeek = DateTime.now();
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: color2,
+                                  borderRadius: BorderRadius.circular(0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 5, 0, 5),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Weekly',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              color: Color(0xFF6D6767),
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w200,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )),
+                            Expanded(
+                              child: InkWell(
                                 onTap: () async {
                                   setState(() {
-                                    color1 = Color(0xFF00B89F);
+                                    color1 = Color(0xFF1A1A1A);
                                     color2 = Color(0xFF1A1A1A);
-                                    color3 = Color(0xFF1A1A1A);
+                                    color3 = Color(0xFF00B89F);
                                     color4 = Color(0xFF1A1A1A);
-                                    daily = true;
+                                    monthly = true;
+                                    daily = false;
                                     weekly = false;
-                                    monthly = false;
                                     yearly = false;
+                                    dateTimeMonth = DateTime.now();
                                   });
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: color1,
+                                    color: color3,
                                     borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
+                                      bottomLeft: Radius.circular(0),
                                       bottomRight: Radius.circular(0),
-                                      topLeft: Radius.circular(10),
+                                      topLeft: Radius.circular(0),
                                       topRight: Radius.circular(0),
                                     ),
                                   ),
@@ -480,7 +580,7 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Daily',
+                                          'Monthly',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -493,312 +593,88 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                       ],
                                     ),
                                   ),
-                                )),
-                          ),
-                          Expanded(
-                              child: InkWell(
-                            onTap: () async {
-                              setState(() {
-                                color1 = Color(0xFF1A1A1A);
-                                color2 = Color(0xFF00B89F);
-                                color3 = Color(0xFF1A1A1A);
-                                color4 = Color(0xFF1A1A1A);
-                                weekly = true;
-                                daily = false;
-                                monthly = false;
-                                yearly = false;
-                                dateTimeWeek = DateTime.now();
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: color2,
-                                borderRadius: BorderRadius.circular(0),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Weekly',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF6D6767),
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w200,
-                                          ),
-                                    ),
-                                  ],
                                 ),
                               ),
                             ),
-                          )),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  color1 = Color(0xFF1A1A1A);
-                                  color2 = Color(0xFF1A1A1A);
-                                  color3 = Color(0xFF00B89F);
-                                  color4 = Color(0xFF1A1A1A);
-                                  monthly = true;
-                                  daily = false;
-                                  weekly = false;
-                                  yearly = false;
-                                  dateTimeMonth = DateTime.now();
-                                });
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: color3,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(0),
-                                    bottomRight: Radius.circular(0),
-                                    topLeft: Radius.circular(0),
-                                    topRight: Radius.circular(0),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 5, 0, 5),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Monthly',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFF6D6767),
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w200,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  color1 = Color(0xFF1A1A1A);
-                                  color2 = Color(0xFF1A1A1A);
-                                  color3 = Color(0xFF1A1A1A);
-                                  color4 = Color(0xFF00B89F);
-                                  monthly = false;
-                                  daily = false;
-                                  weekly = false;
-                                  yearly = true;
-                                  dateTimeYear = DateTime.now();
-                                });
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: color4,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(0),
-                                    bottomRight: Radius.circular(10),
-                                    topLeft: Radius.circular(0),
-                                    topRight: Radius.circular(10),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 5, 0, 5),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Yearly',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFF6D6767),
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w200,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    // if (daily == true)
-                    //   Daily()
-                    // else if (monthly == true)
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              print(DateFormat('dd-MM-yyyy')
-                                  .format(dateTimeWeek));
-
-                              print(DateFormat('dd-MM-yyyy')
-                                  .format(dateTimeWeek));
-                              if (daily) {
-                                setState(() {
-                                  dateTime =
-                                      dateTime.subtract(Duration(days: 1));
-                                  getStepscount();
-                                });
-                              }
-                              if (weekly == true) {
-                                dateTimeWeek =
-                                    dateTimeWeek.subtract(Duration(days: 1));
-                                setState(() {
-                                  _startDate =
-                                      dateTimeWeek.subtract(Duration(days: 7));
-                                  _endDate = dateTimeWeek;
-                                });
-
-                                getStepWeekRate();
-                              } else if (monthly == true) {
-                                dateTimeMonth =
-                                    dateTimeMonth.subtract(Duration(days: 30));
-                                setState(() {
-                                  startDateMonth = startDateMonth
-                                      .subtract(Duration(days: 30));
-                                  endDateMonth = dateTimeMonth;
-                                });
-                                getStepMonthlyRate();
-                              } else if (yearly == true) {
-                                dateTimeYear =
-                                    dateTimeYear.subtract(Duration(days: 365));
-                                setState(() {
-                                  startDateYear = startDateYear
-                                      .subtract(Duration(days: 365));
-                                  endDateYear = dateTimeYear;
-                                });
-                                getStepYearlyRate();
-                              }
-                            },
-                            icon: Icon(
-                              Icons.chevron_left,
-                              color: Color(0xFFAFAFAF),
-                              size: 32,
-                            ),
-                          ),
-                          if (daily ?? true)
                             Expanded(
-                              child: Text(
-                                dateTime == null
-                                    ? DateFormat('dd-MM-yyyy')
-                                        .format(DateTime.now())
-                                    : DateFormat('dd-MM-yyyy').format(dateTime),
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFFAFAFAF),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w300,
+                              child: InkWell(
+                                onTap: () async {
+                                  setState(() {
+                                    color1 = Color(0xFF1A1A1A);
+                                    color2 = Color(0xFF1A1A1A);
+                                    color3 = Color(0xFF1A1A1A);
+                                    color4 = Color(0xFF00B89F);
+                                    monthly = false;
+                                    daily = false;
+                                    weekly = false;
+                                    yearly = true;
+                                    dateTimeYear = DateTime.now();
+                                  });
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: color4,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(0),
+                                      bottomRight: Radius.circular(10),
+                                      topLeft: Radius.circular(0),
+                                      topRight: Radius.circular(10),
                                     ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 5, 0, 5),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Yearly',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Montserrat',
+                                                color: Color(0xFF6D6767),
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w200,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          if (weekly == true)
-                            Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    5, 10, 5, 10),
-                                child: InkWell(
-                                  onTap: () async {
-                                    await displayDateRangePicker(context);
-                                  },
-                                  child: Text(
-                                    '${DateFormat('d / MM / y').format(_startDate)} - ${DateFormat('d / MM / y').format(_endDate)}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFFAFAFAF),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                        ),
+                            )
+                          ],
+                        ),
+                      ),
+                      // if (daily == true)
+                      //   Daily()
+                      // else if (monthly == true)
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                print(DateFormat('dd-MM-yyyy')
+                                    .format(dateTimeWeek));
 
-                                    //style: kWhite20RegularTextStyle,
-                                  ),
-                                )),
-                          if (monthly == true)
-                            Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    5, 10, 5, 10),
-                                child: InkWell(
-                                  onTap: () async {
-                                    await displayDateRangePicker(context);
-                                  },
-                                  child: Text(
-                                    '${DateFormat('d / MM / y').format(startDateMonth)} - ${DateFormat('d / MM / y').format(endDateMonth)}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFFAFAFAF),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                        ),
-
-                                    //style: kWhite20RegularTextStyle,
-                                  ),
-                                )),
-                          if (yearly == true)
-                            Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    5, 10, 5, 10),
-                                child: InkWell(
-                                  onTap: () async {
-                                    await displayDateRangePicker(context);
-                                  },
-                                  child: Text(
-                                    '${DateFormat('d / MM / y').format(startDateYear)} - ${DateFormat('d / MM / y').format(endDateYear)}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFFAFAFAF),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                        ),
-
-                                    //style: kWhite20RegularTextStyle,
-                                  ),
-                                )),
-                          IconButton(
-                            onPressed: () {
-                              if (daily) {
-                                setState(() {
-                                  if ((DateFormat('dd-MM-yyyy')
-                                          .format(dateTime)) !=
-                                      dateToday) {
-                                    dateTime = dateTime.add(Duration(days: 1));
+                                print(DateFormat('dd-MM-yyyy')
+                                    .format(dateTimeWeek));
+                                if (daily) {
+                                  setState(() {
+                                    dateTime =
+                                        dateTime.subtract(Duration(days: 1));
                                     getStepscount();
-                                  }
-                                });
-                              } else if (weekly == true) {
-                                if ((DateFormat('dd-MM-yyyy')
-                                        .format(dateTimeWeek)) !=
-                                    dateToday) {
+                                  });
+                                }
+                                if (weekly == true) {
                                   dateTimeWeek =
-                                      dateTimeWeek.add(Duration(days: 1));
+                                      dateTimeWeek.subtract(Duration(days: 1));
                                   setState(() {
                                     _startDate = dateTimeWeek
                                         .subtract(Duration(days: 7));
@@ -806,26 +682,18 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                   });
 
                                   getStepWeekRate();
-                                }
-                              } else if (monthly == true) {
-                                if ((DateFormat('dd-MM-yyyy')
-                                        .format(dateTimeMonth)) !=
-                                    dateToday) {
-                                  dateTimeMonth =
-                                      dateTimeMonth.add(Duration(days: 30));
+                                } else if (monthly == true) {
+                                  dateTimeMonth = dateTimeMonth
+                                      .subtract(Duration(days: 30));
                                   setState(() {
                                     startDateMonth = startDateMonth
                                         .subtract(Duration(days: 30));
                                     endDateMonth = dateTimeMonth;
                                   });
                                   getStepMonthlyRate();
-                                }
-                              } else if (yearly == true) {
-                                if ((DateFormat('dd-MM-yyyy')
-                                        .format(dateTimeMonth)) !=
-                                    dateToday) {
-                                  dateTimeYear =
-                                      dateTimeYear.add(Duration(days: 365));
+                                } else if (yearly == true) {
+                                  dateTimeYear = dateTimeYear
+                                      .subtract(Duration(days: 365));
                                   setState(() {
                                     startDateYear = startDateYear
                                         .subtract(Duration(days: 365));
@@ -833,84 +701,193 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                   });
                                   getStepYearlyRate();
                                 }
-                              }
-                            },
-                            icon: Icon(
-                              Icons.chevron_right,
-                              color: Color(0xFFAFAFAF),
-                              size: 32,
+                              },
+                              icon: Icon(
+                                Icons.chevron_left,
+                                color: Color(0xFFAFAFAF),
+                                size: 32,
+                              ),
+                            ),
+                            if (daily ?? true)
+                              Expanded(
+                                child: Text(
+                                  dateTime == null
+                                      ? DateFormat('dd-MM-yyyy')
+                                          .format(DateTime.now())
+                                      : DateFormat('dd-MM-yyyy')
+                                          .format(dateTime),
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFFAFAFAF),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                ),
+                              ),
+                            if (weekly == true)
+                              Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5, 10, 5, 10),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await displayDateRangePicker(context);
+                                    },
+                                    child: Text(
+                                      '${DateFormat('d / MM / y').format(_startDate)} - ${DateFormat('d / MM / y').format(_endDate)}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFAFAFAF),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+
+                                      //style: kWhite20RegularTextStyle,
+                                    ),
+                                  )),
+                            if (monthly == true)
+                              Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5, 10, 5, 10),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await displayDateRangePicker(context);
+                                    },
+                                    child: Text(
+                                      '${DateFormat('d / MM / y').format(startDateMonth)} - ${DateFormat('d / MM / y').format(endDateMonth)}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFAFAFAF),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+
+                                      //style: kWhite20RegularTextStyle,
+                                    ),
+                                  )),
+                            if (yearly == true)
+                              Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5, 10, 5, 10),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await displayDateRangePicker(context);
+                                    },
+                                    child: Text(
+                                      '${DateFormat('d / MM / y').format(startDateYear)} - ${DateFormat('d / MM / y').format(endDateYear)}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFAFAFAF),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+
+                                      //style: kWhite20RegularTextStyle,
+                                    ),
+                                  )),
+                            IconButton(
+                              onPressed: () {
+                                if (daily) {
+                                  setState(() {
+                                    if ((DateFormat('dd-MM-yyyy')
+                                            .format(dateTime)) !=
+                                        dateToday) {
+                                      dateTime =
+                                          dateTime.add(Duration(days: 1));
+                                      getStepscount();
+                                    }
+                                  });
+                                } else if (weekly == true) {
+                                  if ((DateFormat('dd-MM-yyyy')
+                                          .format(dateTimeWeek)) !=
+                                      dateToday) {
+                                    dateTimeWeek =
+                                        dateTimeWeek.add(Duration(days: 1));
+                                    setState(() {
+                                      _startDate = dateTimeWeek
+                                          .subtract(Duration(days: 7));
+                                      _endDate = dateTimeWeek;
+                                    });
+
+                                    getStepWeekRate();
+                                  }
+                                } else if (monthly == true) {
+                                  if ((DateFormat('dd-MM-yyyy')
+                                          .format(dateTimeMonth)) !=
+                                      dateToday) {
+                                    dateTimeMonth =
+                                        dateTimeMonth.add(Duration(days: 30));
+                                    setState(() {
+                                      startDateMonth = startDateMonth
+                                          .subtract(Duration(days: 30));
+                                      endDateMonth = dateTimeMonth;
+                                    });
+                                    getStepMonthlyRate();
+                                  }
+                                } else if (yearly == true) {
+                                  if ((DateFormat('dd-MM-yyyy')
+                                          .format(dateTimeMonth)) !=
+                                      dateToday) {
+                                    dateTimeYear =
+                                        dateTimeYear.add(Duration(days: 365));
+                                    setState(() {
+                                      startDateYear = startDateYear
+                                          .subtract(Duration(days: 365));
+                                      endDateYear = dateTimeYear;
+                                    });
+                                    getStepYearlyRate();
+                                  }
+                                }
+                              },
+                              icon: Icon(
+                                Icons.chevron_right,
+                                color: Color(0xFFAFAFAF),
+                                size: 32,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                            child: Text(
+                              'Opened',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Montserrat',
+                                    color: Color(0xFFAFAFAF),
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.w200,
+                                  ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
+                      if (daily == true)
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                          child: Text(
-                            'Opened',
-                            style:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFFAFAFAF),
-                                      fontSize: 35,
-                                      fontWeight: FontWeight.w200,
-                                    ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (daily == true)
-                      Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                          child: Container(
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.height / 3,
-                            decoration: BoxDecoration(
-                                color: Color(0xFF272E36),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: charts.BarChart(
-                              _createSampleDataDaily(),
-                              domainAxis: new charts.OrdinalAxisSpec(
-                                  renderSpec: new charts.SmallTickRendererSpec(
-                                labelStyle: new charts.TextStyleSpec(
-                                    fontSize: 6, // size in Pts.
-                                    color: charts.MaterialPalette.white),
-                              )),
-
-                              // domainAxis: charts.OrdinalAxisSpec(
-                              //     renderSpec: charts.SmallTickRendererSpec(
-                              //         labelStyle: new charts.TextStyleSpec(
-                              //             color: charts.MaterialPalette.white))),
-                            ),
-                          )
-                          // Image.asset(
-                          //   'assets/images/heartRate.png',
-                          //   width: 400,
-                          //   height: 400,
-                          //   fit: BoxFit.fill,
-                          // ),
-                          ),
-                    if (weekly == true && daily == false)
-                      Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                          child: Container(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                            child: Container(
                               width: double.infinity,
                               height: MediaQuery.of(context).size.height / 3,
                               decoration: BoxDecoration(
                                   color: Color(0xFF272E36),
                                   borderRadius: BorderRadius.circular(10)),
                               child: charts.BarChart(
-                                _createSampleData(),
-                                selectionModels: [
-                                  new charts.SelectionModelConfig(
-                                      type: charts.SelectionModelType.info,
-                                      changedListener: _onSelectionChanged1)
-                                ],
+                                _createSampleDataDaily(),
                                 domainAxis: new charts.OrdinalAxisSpec(
                                     renderSpec:
                                         new charts.SmallTickRendererSpec(
@@ -918,7 +895,35 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                       fontSize: 6, // size in Pts.
                                       color: charts.MaterialPalette.white),
                                 )),
-                                /*  primaryMeasureAxis:
+                              ),
+                            )
+                            // Image.asset(
+                            //   'assets/images/heartRate.png',
+                            //   width: 400,
+                            //   height: 400,
+                            //   fit: BoxFit.fill,
+                            // ),
+                            ),
+                      if (weekly == true && daily == false)
+                        Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                            child: Container(
+                                width: double.infinity,
+                                height: MediaQuery.of(context).size.height / 3,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF272E36),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: charts.BarChart(
+                                  _createSampleData(),
+                                  domainAxis: new charts.OrdinalAxisSpec(
+                                      renderSpec:
+                                          new charts.SmallTickRendererSpec(
+                                    labelStyle: new charts.TextStyleSpec(
+                                        fontSize: 6, // size in Pts.
+                                        color: charts.MaterialPalette.white),
+                                  )),
+                                  /*  primaryMeasureAxis:
                                       new charts.NumericAxisSpec(
                                           renderSpec:
                                               new charts.GridlineRendererSpec(
@@ -926,51 +931,51 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                         fontSize: 8, // size in Pts.
                                         color: charts.MaterialPalette.white),
                                   )),*/
-                                animate: true,
-                                defaultRenderer: new charts.BarRendererConfig(
-                                    groupingType:
-                                        charts.BarGroupingType.stacked,
-                                    strokeWidthPx: 0.5,
-                                    maxBarWidthPx: 10),
-                              )
-                              //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
-                              )),
-                    if (monthly == true && weekly == false && daily == false)
-                      Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                          child: Container(
-                              width: double.infinity,
-                              height: MediaQuery.of(context).size.height / 3,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF272E36),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: charts.BarChart(
-                                _createSampleDataMonth(),
-                                selectionModels: [
-                                  new charts.SelectionModelConfig(
-                                      type: charts.SelectionModelType.info,
-                                      changedListener: _onSelectionChanged1)
-                                ],
-                                domainAxis: new charts.OrdinalAxisSpec(
-                                    renderSpec:
-                                        new charts.SmallTickRendererSpec(
-                                  labelStyle: new charts.TextStyleSpec(
-                                      fontSize: 3, // size in Pts.
-                                      color: charts.MaterialPalette.white),
+                                  animate: true,
+                                  defaultRenderer: new charts.BarRendererConfig(
+                                      groupingType:
+                                          charts.BarGroupingType.stacked,
+                                      strokeWidthPx: 0.5,
+                                      maxBarWidthPx: 10),
+                                )
+                                //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
                                 )),
-                                animate: true,
-                              )
-                              //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
-                              )),
-                    if (weekly == false &&
-                        daily == false &&
-                        monthly == false &&
-                        yearly == true)
-                      Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                          child: Container(
+                      if (weekly == false && daily == false && monthly == true)
+                        Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                            child: Container(
+                                width: double.infinity,
+                                height: MediaQuery.of(context).size.height / 3,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF272E36),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: charts.BarChart(
+                                  _createSampleDataMonth(),
+                                  domainAxis: new charts.OrdinalAxisSpec(
+                                      renderSpec:
+                                          new charts.SmallTickRendererSpec(
+                                    labelStyle: new charts.TextStyleSpec(
+                                        fontSize: 3, // size in Pts.
+                                        color: charts.MaterialPalette.white),
+                                  )),
+                                  animate: true,
+                                  defaultRenderer: new charts.BarRendererConfig(
+                                      groupingType:
+                                          charts.BarGroupingType.stacked,
+                                      strokeWidthPx: 0.5,
+                                      maxBarWidthPx: 10),
+                                )
+                                //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
+                                )),
+                      if (weekly == false &&
+                          daily == false &&
+                          monthly == false &&
+                          yearly == true)
+                        Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                            child: Container(
                               width: double.infinity,
                               height: MediaQuery.of(context).size.height / 3,
                               decoration: BoxDecoration(
@@ -978,11 +983,6 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: charts.BarChart(
                                 _createSampleDataYear(),
-                                selectionModels: [
-                                  new charts.SelectionModelConfig(
-                                      type: charts.SelectionModelType.info,
-                                      changedListener: _onSelectionChanged)
-                                ],
                                 domainAxis: new charts.OrdinalAxisSpec(
                                     renderSpec:
                                         new charts.SmallTickRendererSpec(
@@ -996,14 +996,14 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                         charts.BarGroupingType.stacked,
                                     strokeWidthPx: 0.5,
                                     maxBarWidthPx: 10),
-                              )
-                              //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
-                              ))
-                  ],
-                ),
-              ],
-            ),
-          ],
+                              ),
+                            ))
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -1049,7 +1049,7 @@ List<StepStatMonth> StepStatWeekFromJson(List<dynamic> rate) {
 class ShowerStatMax {
   final String day;
   final int Stat;
-  final double avg;
+  final int avg;
   final int max;
   final int min;
 
