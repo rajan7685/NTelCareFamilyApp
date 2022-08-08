@@ -16,7 +16,7 @@ import 'dart:async';
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -45,11 +45,44 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     });
   }
 
+  Future<void> _checkNetworkConnectivity() async {
+    ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    print(connectivityResult.name);
+    print(connectivityResult.name);
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+    } else {
+      await showDialog(
+        context: context,
+        builder: (alertDialogContext) {
+          return AlertDialog(
+            title: Text('Error'),
+            backgroundColor: Colors.red,
+            content: Text(
+                'You are not connected to internet. Please connect to a wifi or turn on your mobile network.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(alertDialogContext),
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    _checkNetworkConnectivity();
     _loadSeniorsListData(init: true);
-    // SList = fetchSList();
   }
 
   Future<void> _loadSeniorsListData({bool init = false}) async {
@@ -78,18 +111,6 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     setState(() {
       _isDashboardDataLoading = false;
     });
-
-    //FFAppState().heart_rate = data["watch_status"]["heart_rate"];
-    // FFAppState().blood_oxygen = data["watch_status"]["blood_oxygen"];
-    // FFAppState().Sleep = data["watch_status"]["sleep"];
-    // FFAppState().Steps = data["watch_status"]["step"];
-    // FFAppState().Calories = data["watch_status"]["calories"];
-    // FFAppState().blood_dia = data["watch_status"]["blood_pressure"]["dia"];
-    // FFAppState().blood_sys = data["watch_status"]["blood_pressure"]["sys"];
-    // FFAppState().battery_level = data["watch_status"]["battery_level"];
-    // FFAppState().Pill_box = data["sensors_status"]["sos"]["bool"];
-    // FFAppState().door = data["sensors_status"]["door"]["bool"];
-    // FFAppState().shower = data["sensors_status"]["bath"]["bool"];
   }
 
   @override
