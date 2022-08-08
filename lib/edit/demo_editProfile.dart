@@ -1298,9 +1298,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(10, 8, 0, 0),
                                 child: SwitchListTile(
-                                  value: FFAppState().Chattoggle4,
-                                  onChanged: (bool value) => setState(
-                                      () => FFAppState().Chattoggle4 = value),
+                                  value: FFAppState().executive,
+                                  onChanged: (bool value) {},
                                   title: Text(
                                     'Executive Members',
                                     style: FlutterFlowTheme.of(context)
@@ -1395,11 +1394,11 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                       ),
                                       child: InkWell(
                                         onTap: () async {
-                                          if (!_isExecutive) {
+                                          /*if (!_isExecutive) {
                                             setState(() {
                                               displayLive = !displayLive;
                                             });
-                                          }
+                                          }*/
                                         },
                                         child: Padding(
                                           padding:
@@ -1449,13 +1448,13 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                       ),
                                       child: InkWell(
                                         onTap: () async {
-                                          setState(() {
+                                          /*setState(() {
                                             if (!_isExecutive) {
                                               setState(() {
                                                 displayView = !displayView;
                                               });
                                             }
-                                          });
+                                          });*/
                                         },
                                         child: Padding(
                                           padding:
@@ -1506,13 +1505,13 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                         0.1499999999999999, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        setState(() {
+                                        /*setState(() {
                                           if (!_isExecutive) {
                                             setState(() {
                                               displayChat = !displayChat;
                                             });
                                           }
-                                        });
+                                        });*/
                                       },
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1552,60 +1551,64 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                             ),
                           ],
                         ),
-                        FFButtonWidget(
-                          onPressed: () async {
-                            final form = formKey.currentState;
-                            if (textController1.text == "" ||
-                                textController2.text == "" ||
-                                textController3.text == "" ||
-                                textController4.text == "" ||
-                                textController6.text == "" ||
-                                textController7.text == "" ||
-                                dropDownValueGender == "" ||
-                                dropDownValue == null) {
-                              Fluttertoast.showToast(
-                                  msg: "All fields are necessary to fill",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.CENTER,
-                                  timeInSecForIosWeb: 5,
-                                  backgroundColor: Colors.red,
-                                  textColor: Colors.black,
-                                  fontSize: 14.0);
-                            } else {
-                              // List<int> imagebytes = image.readAsBytesSync();
-                              // String base64Image = base64Encode(imagebytes);
-                              // print(base64Image);
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 30),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              final form = formKey.currentState;
+                              if (textController1.text == "" ||
+                                  textController2.text == "" ||
+                                  textController3.text == "" ||
+                                  textController4.text == "" ||
+                                  textController6.text == "" ||
+                                  textController7.text == "" ||
+                                  dropDownValueGender == "" ||
+                                  dropDownValue == null) {
+                                Fluttertoast.showToast(
+                                    msg: "All fields are necessary to fill",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 5,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.black,
+                                    fontSize: 14.0);
+                              } else {
+                                // List<int> imagebytes = image.readAsBytesSync();
+                                // String base64Image = base64Encode(imagebytes);
+                                // print(base64Image);
 
-                              final String url =
-                                  "http://18.208.148.208:4000/edit/profile/member";
-                              var res = new http.MultipartRequest(
-                                  'POST', Uri.parse(url));
+                                final String url =
+                                    "http://18.208.148.208:4000/edit/profile/member";
+                                var res = new http.MultipartRequest(
+                                    'POST', Uri.parse(url));
 
-                              res.headers['Authorization'] =
-                                  "Bearer ${FFAppState().Token}";
+                                res.headers['Authorization'] =
+                                    "Bearer ${FFAppState().Token}";
 
-                              res.fields["fname"] = textController1.text;
-                              res.fields["lname"] = textController2.text;
-                              res.fields["mobile"] = textController3.text;
-                              res.fields["email"] = textController4.text;
-                              res.fields["relation"] = dropDownValue;
-                              res.fields["address"] = textController6.text;
-                              res.fields["zipcode"] = textController7.text;
-                              res.fields["live_video"] = displayLive.toString();
-                              res.fields["chat"] = displayChat.toString();
-                              res.fields["view_video"] = displayView.toString();
-                              res.fields["executive"] =
-                                  FFAppState().Chattoggle4.toString();
-                              res.fields["country"] = countryValue;
-                              ;
-                              res.fields["state"] = stateValue;
-                              res.fields["city"] = cityValue;
-                              res.fields["gender"] = dropDownValueGender;
-                              res.fields["dob"] =
-                                  DateFormat("yyyy-MM-dd").format(selectedDate);
-                              res.fields["age"] = "68";
+                                res.fields["fname"] = textController1.text;
+                                res.fields["lname"] = textController2.text;
+                                res.fields["mobile"] = textController3.text;
+                                res.fields["email"] = textController4.text;
+                                res.fields["relation"] = dropDownValue;
+                                res.fields["address"] = textController6.text;
+                                res.fields["zipcode"] = textController7.text;
+                                res.fields["live_video"] =
+                                    displayLive.toString();
+                                res.fields["chat"] = displayChat.toString();
+                                res.fields["view_video"] =
+                                    displayView.toString();
+                                res.fields["executive"] =
+                                    FFAppState().Chattoggle4.toString();
+                                res.fields["country"] = countryValue;
+                                ;
+                                res.fields["state"] = stateValue;
+                                res.fields["city"] = cityValue;
+                                res.fields["gender"] = dropDownValueGender;
+                                res.fields["dob"] = DateFormat("yyyy-MM-dd")
+                                    .format(selectedDate);
+                                res.fields["age"] = "68";
 
-                              /*  profile == null
+                                /*  profile == null
                                 ? res.files.add(
                                     await http.MultipartFile.fromPath(
                                         "profile", image.path))
@@ -1613,102 +1616,77 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                     "profile", profile));
 */
 
-                              final http.Response responseData =
-                                  await http.get(Uri.parse(profile));
-                              Uint8List uint8list = responseData.bodyBytes;
-                              var buffer = uint8list.buffer;
-                              ByteData byteData = ByteData.view(buffer);
-                              var tempDir = await getTemporaryDirectory();
-                              File file = await File('${tempDir.path}/img')
-                                  .writeAsBytes(buffer.asUint8List(
-                                      byteData.offsetInBytes,
-                                      byteData.lengthInBytes));
-                              print(file.path);
-                              // File imageFile = File(profile.toString());
-                              image == null
-                                  ? res.files.add(
-                                      await http.MultipartFile.fromPath(
-                                          "profile", file.path))
-                                  : res.files.add(
-                                      await http.MultipartFile.fromPath(
-                                          "profile", image.path));
-                              var response = await res.send();
+                                final http.Response responseData =
+                                    await http.get(Uri.parse(profile));
+                                Uint8List uint8list = responseData.bodyBytes;
+                                var buffer = uint8list.buffer;
+                                ByteData byteData = ByteData.view(buffer);
+                                var tempDir = await getTemporaryDirectory();
+                                File file = await File('${tempDir.path}/img')
+                                    .writeAsBytes(buffer.asUint8List(
+                                        byteData.offsetInBytes,
+                                        byteData.lengthInBytes));
+                                print(file.path);
+                                // File imageFile = File(profile.toString());
+                                image == null
+                                    ? res.files.add(
+                                        await http.MultipartFile.fromPath(
+                                            "profile", file.path))
+                                    : res.files.add(
+                                        await http.MultipartFile.fromPath(
+                                            "profile", image.path));
+                                var response = await res.send();
 
-                              print(response.statusCode);
-                              final resp =
-                                  await response.stream.bytesToString();
-                              if (response.statusCode == 200) {
-                                print("uploaded");
+                                print(response.statusCode);
+                                final resp =
+                                    await response.stream.bytesToString();
+                                if (response.statusCode == 200) {
+                                  print("uploaded");
 
-                                Fluttertoast.showToast(
-                                    msg: "Updated Successfully",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 5,
-                                    backgroundColor: Colors.green,
-                                    textColor: Colors.black,
-                                    fontSize: 14.0);
-                              } else {
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Error'),
-                                      content: Text("Error"),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
+                                  Fluttertoast.showToast(
+                                      msg: "Updated Successfully",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 5,
+                                      backgroundColor: Colors.green,
+                                      textColor: Colors.black,
+                                      fontSize: 14.0);
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Error'),
+                                        content: Text("Error"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
                               }
-                            }
-                          },
-                          text: 'Save',
-                          options: FFButtonOptions(
-                            width: 350,
-                            height: 50,
-                            color: Color(0xFF00B89F),
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                            borderRadius: 12,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                          child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
                             },
-                            text: 'Delete User',
+                            text: 'Save',
                             options: FFButtonOptions(
                               width: 350,
                               height: 50,
-                              color: FlutterFlowTheme.of(context).alternate,
+                              color: Color(0xFF00B89F),
                               textStyle: FlutterFlowTheme.of(context)
                                   .subtitle2
                                   .override(
                                     fontFamily: 'Poppins',
-                                    color: Color(0xFFDF0808),
+                                    color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
                                   ),
                               borderSide: BorderSide(
-                                color: Color(0xFFDF0808),
-                                width: 1,
+                                color: Colors.transparent,
+                                width: 10,
                               ),
                               borderRadius: 12,
                             ),
