@@ -1385,7 +1385,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                         if (_hasPermissionToEdit)
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 38, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 30),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 final form = formkey.currentState;
@@ -1517,35 +1517,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     ),
                                 borderSide: BorderSide(
                                   color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: 12,
-                              ),
-                            ),
-                          ),
-                        if (_hasPermissionToEdit)
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 10),
-                            child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
-                              },
-                              text: 'Delete User',
-                              options: FFButtonOptions(
-                                width: 350,
-                                height: 40,
-                                color: FlutterFlowTheme.of(context).alternate,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFFDF0808),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDF0808),
                                   width: 1,
                                 ),
                                 borderRadius: 12,
