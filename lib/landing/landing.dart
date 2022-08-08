@@ -3816,8 +3816,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (FFAppState().Chattoggle2 &&
-                                FFAppState().executive)
+                            if (FFAppState().Chattoggle2 && FFAppState().chat)
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),

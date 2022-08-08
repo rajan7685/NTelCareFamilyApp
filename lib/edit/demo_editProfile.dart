@@ -160,12 +160,6 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                             child: InkWell(
                               onTap: () async {
                                 Navigator.pop(context);
-                                // await Navigator.push(
-                                //  context,
-                                //  MaterialPageRoute(
-                                //   builder: (context) => ProfilePageWidget(),
-                                //  ),
-                                //);
                               },
                               child: Icon(
                                 Icons.chevron_left_sharp,
