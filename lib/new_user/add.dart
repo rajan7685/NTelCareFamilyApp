@@ -71,6 +71,20 @@ class _AddWidgetState extends State<Add> {
     return File(imagePath).copy(image2.path);
   }
 
+  void vaildMail() {
+    final bool isVaild = EmailValidator.validate(textController5.text.trim());
+    if (!isVaild) {
+      Fluttertoast.showToast(
+          msg: "Invaild e-mail address",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 5,
+          backgroundColor: Colors.red,
+          textColor: Colors.black,
+          fontSize: 14.0);
+    }
+  }
+
   Future pickimage(ImageSource source1) async {
     try {
       final image = await ImagePicker().pickImage(source: source1);
@@ -629,6 +643,7 @@ class _AddWidgetState extends State<Add> {
                                       color: Color(0xFF606E87),
                                       fontSize: 16,
                                     ),
+                                onEditingComplete: () => vaildMail(),
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) => value != null &&
                                         !EmailValidator.validate(value)
@@ -1276,8 +1291,16 @@ class _AddWidgetState extends State<Add> {
                                     EdgeInsetsDirectional.fromSTEB(10, 8, 0, 0),
                                 child: SwitchListTile(
                                   value: FFAppState().Chattoggle5,
-                                  onChanged: (bool value) => setState(
-                                      () => FFAppState().Chattoggle5 = value),
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      FFAppState().Chattoggle5 = value;
+                                      if (FFAppState().Chattoggle5) {
+                                        displayLive = true;
+                                        displayChat = true;
+                                        displayView = true;
+                                      }
+                                    });
+                                  },
                                   title: Text(
                                     'Executive Members',
                                     style: FlutterFlowTheme.of(context)
@@ -1535,10 +1558,9 @@ class _AddWidgetState extends State<Add> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 30),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              final form = formkey.currentState;
                               // await Navigator.push(
                               //  context,
                               // MaterialPageRoute(
@@ -1546,36 +1568,36 @@ class _AddWidgetState extends State<Add> {
                               //   NavBarPage(initialPage: 'Landing'),
                               //  ),
                               // );
-                              if (textController1.text == "" ||
-                                  textController2.text == "" ||
-                                  textController5.text == "" ||
-                                  textController6.text == "" ||
-                                  textController7.text == "" ||
-                                  textController4.text == "" ||
-                                  dropDownValue == "" ||
-                                  dropDownValueGender == "" ||
-                                  image == null ||
-                                  form.validate()) {
-                                Fluttertoast.showToast(
-                                    msg: "All fields are necessary to fill",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 5,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.black,
-                                    fontSize: 14.0);
-                              } else {
-                                print(FFAppState().AccountId);
-                                print(displayLive.toString());
-                                print(displayChat.toString());
-                                print(displayView.toString());
-                                // List<int> imageBytes = image.readAsBytesSync();
-                                // String base64Image = base64Encode(imageBytes);
-                                //BASE64.encode(imageBytes);
+                              if (FFAppState().executive) {
+                                if (textController1.text == "" ||
+                                    textController2.text == "" ||
+                                    textController5.text == "" ||
+                                    textController6.text == "" ||
+                                    textController7.text == "" ||
+                                    textController4.text == "" ||
+                                    dropDownValue == "" ||
+                                    dropDownValueGender == "" ||
+                                    image == null) {
+                                  Fluttertoast.showToast(
+                                      msg: "All fields are necessary to fill",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 5,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.black,
+                                      fontSize: 14.0);
+                                } else {
+                                  print(FFAppState().AccountId);
+                                  print(displayLive.toString());
+                                  print(displayChat.toString());
+                                  print(displayView.toString());
+                                  // List<int> imageBytes = image.readAsBytesSync();
+                                  // String base64Image = base64Encode(imageBytes);
+                                  //BASE64.encode(imageBytes);
 
-                                final String url =
-                                    "http://18.208.148.208:4000/add/member";
-                                /* final res =
+                                  final String url =
+                                      "http://18.208.148.208:4000/add/member";
+                                  /* final res =
                                   await http.post(Uri.parse(url), headers: {
                                 "Authorization": "Bearer ${FFAppState().Token}"
                                }, body: {
@@ -1595,103 +1617,115 @@ class _AddWidgetState extends State<Add> {
                                 "chats": displayChat.toString(),
                                 "view_video": displayView.toString(),
                                });*/
-                                //  print(image.path);
-                                //  var stream =
-                                //     new http.ByteStream(image.openRead());
-                                // stream.cast();
+                                  //  print(image.path);
+                                  //  var stream =
+                                  //     new http.ByteStream(image.openRead());
+                                  // stream.cast();
 
-                                // var length = await image.length();
+                                  // var length = await image.length();
 
-                                var res1 = new http.MultipartRequest(
-                                    'POST', Uri.parse(url));
+                                  var res1 = new http.MultipartRequest(
+                                      'POST', Uri.parse(url));
 
-                                res1.headers['Authorization'] =
-                                    "Bearer ${FFAppState().Token}";
-                                res1.fields['fname'] = textController1.text;
-                                res1.fields['lname'] = textController2.text;
-                                res1.fields['email'] = textController5.text;
-                                res1.fields['mobile'] = textController4.text;
-                                res1.fields['relation'] = dropDownValue;
-                                res1.fields['executive'] =
-                                    FFAppState().Chattoggle5.toString();
-                                res1.fields['m_acc_id'] =
-                                    FFAppState().AccountId;
+                                  res1.headers['Authorization'] =
+                                      "Bearer ${FFAppState().Token}";
+                                  res1.fields['fname'] = textController1.text;
+                                  res1.fields['lname'] = textController2.text;
+                                  res1.fields['email'] = textController5.text;
+                                  res1.fields['mobile'] = textController4.text;
+                                  res1.fields['relation'] = dropDownValue;
+                                  res1.fields['executive'] =
+                                      FFAppState().Chattoggle5.toString();
+                                  res1.fields['m_acc_id'] =
+                                      FFAppState().AccountId;
 
-                                res1.fields['gender'] = dropDownValueGender;
-                                res1.fields['address'] = textController6.text;
-                                res1.fields['zipcode'] = textController7.text;
-                                res1.files.add(
-                                    await http.MultipartFile.fromPath(
-                                        "profile", image.path));
-                                res1.fields['live_video'] =
-                                    displayLive.toString();
-                                res1.fields['chats'] = displayChat.toString();
-                                res1.fields['view_video'] =
-                                    displayView.toString();
-                                res1.fields["country"] = countryValue;
-                                res1.fields["state"] = stateValue;
-                                res1.fields["city"] = cityValue;
-                                res1.fields["dob"] = DateFormat("yyyy-MM-dd")
-                                    .format(selectedDate);
-                                // ignore: unnecessary_statements
-                                //List<int> imageBytes = image.readAsBytesSync();
-                                // res1.files.add(http.MultipartFile.fromBytes(
-                                // 'profile', imageBytes));
-                                //res1.files.add.(http.MultipartFile.fromPath('profile', image.path));
+                                  res1.fields['gender'] = dropDownValueGender;
+                                  res1.fields['address'] = textController6.text;
+                                  res1.fields['zipcode'] = textController7.text;
+                                  res1.files.add(
+                                      await http.MultipartFile.fromPath(
+                                          "profile", image.path));
+                                  res1.fields['live_video'] =
+                                      displayLive.toString();
+                                  res1.fields['chats'] = displayChat.toString();
+                                  res1.fields['view_video'] =
+                                      displayView.toString();
+                                  res1.fields["country"] = countryValue;
+                                  res1.fields["state"] = stateValue;
+                                  res1.fields["city"] = cityValue;
+                                  res1.fields["dob"] = DateFormat("yyyy-MM-dd")
+                                      .format(selectedDate);
+                                  // ignore: unnecessary_statements
+                                  //List<int> imageBytes = image.readAsBytesSync();
+                                  // res1.files.add(http.MultipartFile.fromBytes(
+                                  // 'profile', imageBytes));
+                                  //res1.files.add.(http.MultipartFile.fromPath('profile', image.path));
 
-                                var response = await res1.send();
-                                // final result = jsonDecode(res.body);
-                                // print(data?.jsonBody[0].runtimeType);
+                                  var response = await res1.send();
+                                  // final result = jsonDecode(res.body);
+                                  // print(data?.jsonBody[0].runtimeType);
 
-                                //if ((getJsonField(
-                                //  (data?.jsonBody ?? ''),
-                                //  r'''$[:].Error''',
-                                //)) ==
-                                // ('Nill'))
+                                  //if ((getJsonField(
+                                  //  (data?.jsonBody ?? ''),
+                                  //  r'''$[:].Error''',
+                                  //)) ==
+                                  // ('Nill'))
 
-                                print("this is the status code");
-                                print(response.statusCode);
-                                final respStr =
-                                    await response.stream.bytesToString();
-                                // final result = jsonDecode(res.body);*/
-                                print(response.statusCode);
-                                if (response.statusCode == 200) {
-                                  print("uploaded");
+                                  print("this is the status code");
+                                  print(response.statusCode);
+                                  final respStr =
+                                      await response.stream.bytesToString();
+                                  // final result = jsonDecode(res.body);*/
+                                  print(response.statusCode);
+                                  if (response.statusCode == 200) {
+                                    print("uploaded");
 
-                                  Fluttertoast.showToast(
-                                      msg: jsonDecode(respStr)["message"],
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIosWeb: 5,
-                                      backgroundColor: Colors.green,
-                                      textColor: Colors.black,
-                                      fontSize: 14.0);
-                                  Navigator.pop(context);
-                                } else {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('Error'),
-                                        content: jsonDecode(respStr)["message"],
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
+                                    Fluttertoast.showToast(
+                                        msg: jsonDecode(respStr)["message"],
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIosWeb: 5,
+                                        backgroundColor: Colors.green,
+                                        textColor: Colors.black,
+                                        fontSize: 14.0);
+                                    Navigator.pop(context);
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: Text('Error'),
+                                          content: Text(
+                                              jsonDecode(respStr)["message"]),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
                                 }
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg:
+                                        "You are not permitted to add the members",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 5,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.black,
+                                    fontSize: 14.0);
                               }
                               // setState(() {});
                             },
                             text: 'Save',
                             options: FFButtonOptions(
                               width: 350,
-                              height: 40,
+                              height: 50,
                               color: Color(0xFF00B89F),
                               textStyle: FlutterFlowTheme.of(context)
                                   .subtitle2
@@ -1703,34 +1737,7 @@ class _AddWidgetState extends State<Add> {
                                   ),
                               borderSide: BorderSide(
                                 color: Colors.transparent,
-                                width: 1,
-                              ),
-                              borderRadius: 12,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 30),
-                          child: FFButtonWidget(
-                            onPressed: () {
-                              print("on pressesd");
-                            },
-                            text: 'Delete User',
-                            options: FFButtonOptions(
-                              width: 350,
-                              height: 40,
-                              color: FlutterFlowTheme.of(context).alternate,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Color(0xFFDF0808),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                              borderSide: BorderSide(
-                                color: Color(0xFFDF0808),
-                                width: 1,
+                                width: 10,
                               ),
                               borderRadius: 12,
                             ),
