@@ -111,8 +111,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           ),
                                         )),
                                   ),
-                                  if (snapshot.data["member"]["executive"] =
-                                      true)
+                                  if (snapshot.data["member"]["executive"])
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:

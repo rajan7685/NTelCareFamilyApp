@@ -129,6 +129,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
       displayView = FFAppState().viewVideo;
     }
   }
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -1298,9 +1299,10 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(10, 8, 0, 0),
                                 child: SwitchListTile(
-                                  value: FFAppState().Chattoggle4,
-                                  onChanged: (bool value) => setState(
-                                      () => FFAppState().Chattoggle4 = value),
+                                  value: _isExecutive,
+                                  onChanged: (bool value) {
+                                    //
+                                  },
                                   title: Text(
                                     'Executive Members',
                                     style: FlutterFlowTheme.of(context)
