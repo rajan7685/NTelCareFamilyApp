@@ -575,7 +575,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                         shape: BoxShape.circle,
                                                                                       ),
                                                                                       child: Image.network(
-                                                                                        executiveList[index]["profile"],
+                                                                                        executiveList[index]["profile"] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                                                         fit: BoxFit.cover,
                                                                                       ),
                                                                                     ),
@@ -766,7 +766,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                       shape: BoxShape.circle,
                                                                                     ),
                                                                                     child: Image.network(
-                                                                                      membersList[index]["profile"],
+                                                                                      membersList[index]["profile"] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                                                       fit: BoxFit.cover,
                                                                                     ),
                                                                                   ),
@@ -874,7 +874,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (FFAppState().Chattoggle2 ?? true)
+                            if (FFAppState().Chattoggle2 &&
+                                FFAppState().executive)
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),

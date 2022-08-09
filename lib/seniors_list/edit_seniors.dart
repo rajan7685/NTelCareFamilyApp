@@ -866,6 +866,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     ? 'Enter a valid email'
                                     : null,*/
                                 onEditingComplete: () => vaildMail(),
+                                onChanged: (v) => vaildMail(),
+                                //validator: (value) => vaildMail(),
+                                onFieldSubmitted: (value) => vaildMail(),
                               ),
                             ),
                           ),
@@ -1163,7 +1166,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       if (image == null)
                                         ClipOval(
                                             child: Image.network(
-                                          profile,
+                                          profile ??
+                                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                           width: 100,
                                           height: 100,
                                           fit: BoxFit.cover,
@@ -1385,7 +1389,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                         if (_hasPermissionToEdit)
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 38, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 30),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 final form = formkey.currentState;
@@ -1517,35 +1521,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     ),
                                 borderSide: BorderSide(
                                   color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: 12,
-                              ),
-                            ),
-                          ),
-                        if (_hasPermissionToEdit)
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 10),
-                            child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
-                              },
-                              text: 'Delete User',
-                              options: FFButtonOptions(
-                                width: 350,
-                                height: 40,
-                                color: FlutterFlowTheme.of(context).alternate,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFFDF0808),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDF0808),
                                   width: 1,
                                 ),
                                 borderRadius: 12,

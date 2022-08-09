@@ -262,9 +262,10 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                                 child: Image
                                                                     .network(
                                                                   snapshot.data[
-                                                                          index]
-                                                                      [
-                                                                      "profile"],
+                                                                              index]
+                                                                          [
+                                                                          "profile"] ??
+                                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                                   fit: BoxFit
                                                                       .fill,
                                                                 ),
@@ -347,7 +348,7 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                                       Text(
                                                                         inf[index]
                                                                             [
-                                                                            "id"],
+                                                                            "mobile"],
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(

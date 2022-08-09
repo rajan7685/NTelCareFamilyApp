@@ -3387,7 +3387,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                           .max,
                                                                   children: [
                                                                     Text(
-                                                                      'SOS',
+                                                                      'Pill Box',
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyText1
@@ -3837,7 +3837,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (FFAppState().Chattoggle2 ?? true)
+                            if (FFAppState().Chattoggle2 &&
+                                FFAppState().executive)
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
