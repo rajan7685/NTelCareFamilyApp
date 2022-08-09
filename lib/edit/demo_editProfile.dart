@@ -160,6 +160,12 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                             child: InkWell(
                               onTap: () async {
                                 Navigator.pop(context);
+                                // await Navigator.push(
+                                //  context,
+                                //  MaterialPageRoute(
+                                //   builder: (context) => ProfilePageWidget(),
+                                //  ),
+                                //);
                               },
                               child: Icon(
                                 Icons.chevron_left_sharp,
@@ -1293,7 +1299,12 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                     EdgeInsetsDirectional.fromSTEB(10, 8, 0, 0),
                                 child: SwitchListTile(
                                   value: FFAppState().executive,
-                                  onChanged: (bool value) {},
+                                  onChanged: (bool value) {
+                                    if (FFAppState().executive) {
+                                      setState(() =>
+                                          FFAppState().Chattoggle5 = value);
+                                    }
+                                  },
                                   title: Text(
                                     'Executive Members',
                                     style: FlutterFlowTheme.of(context)
