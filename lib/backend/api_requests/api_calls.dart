@@ -12,7 +12,7 @@ class LoginCall {
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'Login',
-      apiUrl: 'http://18.208.148.208:4000/login/member',
+      apiUrl: 'https://netlcare-admin-api.regamicompass.com/login/member',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -25,7 +25,7 @@ class DeleteUserCall {
   static Future<ApiCallResponse> call() {
     return ApiManager.instance.makeApiCall(
       callName: 'DeleteUser',
-      apiUrl: 'http://18.208.148.208:4000/delete/member/',
+      apiUrl: 'https://netlcare-admin-api.regamicompass.com/delete/member/',
       callType: ApiCallType.DELETE,
       headers: {'Authorization': 'Bearer ${FFAppState().Token}'},
       params: {"member_id": FFAppState().MemberId},
@@ -41,7 +41,7 @@ class CameraLIstCall {
     return ApiManager.instance.makeApiCall(
       callName: 'CameraLIst',
       apiUrl:
-          'http://demo.ntelcare.com/MobiPortal/Cameras.aspx?Token=${token}&OSType=I',
+          'https://netlcare-admin-api.regamicompass.com/MobiPortal/Cameras.aspx?Token=${token}&OSType=I',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -60,7 +60,7 @@ class UserAddCall {
     return ApiManager.instance.makeApiCall(
       callName: 'UserAdd',
       apiUrl:
-          'http://demo.ntelcare.com/MobiPortal/UserAdd.aspx?Token=${token}&FirstName=${firstName}&LastName=${lastName}&Email=${email}',
+          'https://netlcare-admin-api.regamicompass.com/MobiPortal/UserAdd.aspx?Token=${token}&FirstName=${firstName}&LastName=${lastName}&Email=${email}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -80,7 +80,7 @@ class UserEditCall {
     return ApiManager.instance.makeApiCall(
       callName: 'UserEdit',
       apiUrl:
-          'http://demo.ntelcare.com/MobiPortal/UserEdit.aspx?Token=${token}&UserID=${userId}FirstName=${firstName}&LastName=${lastName}&Email=${email}',
+          'https://netlcare-admin-api.regamicompass.com/MobiPortal/UserEdit.aspx?Token=${token}&UserID=${userId}FirstName=${firstName}&LastName=${lastName}&Email=${email}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -125,7 +125,7 @@ class SeniorsList {
   static Future<dynamic> call() {
     return ApiManager.instance.makeApiCall(
       callName: 'SeniorList',
-      apiUrl: 'http://18.208.148.208:4000/get/seniors/member',
+      apiUrl: 'https://netlcare-admin-api.regamicompass.com/get/seniors/member',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${FFAppState().Token}',
@@ -140,7 +140,7 @@ class GetProfile {
   static Future<dynamic> call() {
     return ApiManager.instance.makeApiCall(
       callName: 'getProfile',
-      apiUrl: 'http://18.208.148.208:4000/get/profile/member',
+      apiUrl: 'https://netlcare-admin-api.regamicompass.com/get/profile/member',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${FFAppState().Token}',
@@ -172,7 +172,7 @@ class DashBoardStat {
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'DashBoardStat',
-      apiUrl: 'http://18.208.148.208:4000/dashboard/${id}',
+      apiUrl: 'https://netlcare-admin-api.regamicompass.com/dashboard/${id}',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${FFAppState().Token}',

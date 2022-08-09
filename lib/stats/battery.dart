@@ -166,7 +166,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     print(id);
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/?senior_id=${id}&date=${date}');
+        'https://netlcare-admin-api.regamicompass.com/graph/health_status/?senior_id=${id}&date=${date}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -185,7 +185,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/battery/weekly?date=${wDate}&senior_id=${id}');
+        'https://netlcare-admin-api.regamicompass.com/graph/health_status/battery/weekly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -279,7 +279,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/battery/monthly?date=${wDate1}&senior_id=${id}');
+        'https://netlcare-admin-api.regamicompass.com/graph/health_status/battery/monthly?date=${wDate1}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -299,7 +299,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/battery/yearly?date=${wDate2}&senior_id=${id}');
+        'https://netlcare-admin-api.regamicompass.com/graph/health_status/battery/yearly?date=${wDate2}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);

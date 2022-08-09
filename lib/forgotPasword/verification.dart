@@ -183,7 +183,7 @@ class _Verification extends State<verification> {
                         child: InkWell(
                           onTap: () async {
                             final String url =
-                                "http://18.208.148.208:4000/forget/member";
+                                "https://netlcare-admin-api.regamicompass.com/forget/member";
                             final res = await http.post(Uri.parse(url), body: {
                               "mobile": FFAppState().Mobile,
                             });
@@ -274,7 +274,7 @@ class _Verification extends State<verification> {
                               fontSize: 14.0);
                         } else {
                           final String url =
-                              "http://18.208.148.208:4000/verifyotp/member";
+                              "https://netlcare-admin-api.regamicompass.com/verifyotp/member";
                           final res = await http.post(Uri.parse(url), body: {
                             "mobile": FFAppState().Mobile,
                             "otp": otpA

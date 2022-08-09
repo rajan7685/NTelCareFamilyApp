@@ -41,8 +41,8 @@ class _CalorieWidgetState extends State<CalorieWidget> {
   }
 
   void getCalori() async {
-    var response = await getCalories
-        .get('http://18.208.148.208:4000/graph/health_status/?senior_id=${id}');
+    var response = await getCalories.get(
+        'https://netlcare-admin-api.regamicompass.com/graph/health_status/?senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);

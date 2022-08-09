@@ -1649,7 +1649,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   // print(base64Image);
 
                                   final String url =
-                                      "http://18.208.148.208:4000/edit/profile/member";
+                                      "https://netlcare-admin-api.regamicompass.com/edit/profile/member";
                                   var res = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
 

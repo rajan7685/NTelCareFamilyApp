@@ -42,8 +42,8 @@ class _StatsWidgetState extends State<StatsWidget> {
   }
 
   void getHeartRate() async {
-    var response = await getHrate
-        .get('http://18.208.148.208:4000/graph/health_status/?senior_id=${id}');
+    var response = await getHrate.get(
+        'https://netlcare-admin-api.regamicompass.com/graph/health_status/?senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);

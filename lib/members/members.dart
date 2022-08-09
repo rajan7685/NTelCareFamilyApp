@@ -68,7 +68,7 @@ class _MembersWidgetState extends State<MembersWidget> {
   Future<dynamic> MemberList() {
     return ApiManager.instance.makeApiCall(
       callName: 'MemberList',
-      apiUrl: 'http://18.208.148.208:4000/get/members/member',
+      apiUrl: 'https://netlcare-admin-api.regamicompass.com/get/members/member',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${FFAppState().Token}',
