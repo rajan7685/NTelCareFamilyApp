@@ -347,7 +347,7 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                                       Text(
                                                                         inf[index]
                                                                             [
-                                                                            "id"],
+                                                                            "mobile"],
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(
