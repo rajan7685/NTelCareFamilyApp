@@ -1634,7 +1634,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   //BASE64.encode(imageBytes);
 
                                   final String url =
-                                      "http://18.208.148.208:4000/edit/member/${data["id"]}";
+                                      "https://netlcare-admin-api.regamicompass.com/edit/member/${data["id"]}";
                                   /* final res =
                                   await http.post(Uri.parse(url), headers: {
                                 "Authorization": "Bearer ${FFAppState().Token}"

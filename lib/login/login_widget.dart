@@ -246,7 +246,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           // );
 
                           final String url =
-                              "http://18.208.148.208:4000/login/member";
+                              "https://netlcare-admin-api.regamicompass.com/login/member";
                           final res = await http.post(Uri.parse(url), body: {
                             "mobile": textController1.text,
                             "password": textController2.text

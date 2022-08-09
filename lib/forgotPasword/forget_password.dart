@@ -243,7 +243,7 @@ class _forget_passwordState extends State<forget_password> {
                                     fontSize: 14.0);
                               } else {
                                 final String url =
-                                    "http://18.208.148.208:4000/forget/member";
+                                    "https://netlcare-admin-api.regamicompass.com/forget/member";
                                 final res =
                                     await http.post(Uri.parse(url), body: {
                                   "mobile": textController1.text,

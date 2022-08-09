@@ -1419,7 +1419,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   // print(base64Image);
 
                                   final String url =
-                                      "http://18.208.148.208:4000/edit/senior/${FFAppState().SeniorId}";
+                                      "https://netlcare-admin-api.regamicompass.com/edit/senior/${FFAppState().SeniorId}";
                                   var res = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
 

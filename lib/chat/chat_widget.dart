@@ -29,7 +29,8 @@ class _ChatWidgetState extends State<ChatWidget> {
       setState(() {
         _isChatDataLoading = true;
       });
-    String uri = 'http://18.208.148.208:4000/get_chats/member';
+    String uri =
+        'https://netlcare-admin-api.regamicompass.com/get_chats/member';
     final res = await http.get(Uri.parse(uri),
         headers: {"Authorization": "Bearer ${FFAppState().Token}"});
     Map<String, dynamic> _responseJson = jsonDecode(res.body);
@@ -44,7 +45,8 @@ class _ChatWidgetState extends State<ChatWidget> {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Please enter something to send')));
     }
-    String uri = 'http://18.208.148.208:4000/send_chat/member';
+    String uri =
+        'https://netlcare-admin-api.regamicompass.com/send_chat/member';
     // final res = await http.get(Uri.parse(uri),
     //     headers: {"Authorization": "Bearer ${FFAppState().Token}"});
     // Map<String, dynamic> _responseJson = jsonDecode(res.body);

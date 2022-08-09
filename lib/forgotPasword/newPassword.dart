@@ -237,7 +237,7 @@ class _newPasswordState extends State<newPassword> {
                                   fontSize: 14.0);
                             } else {
                               final String url =
-                                  "http://18.208.148.208:4000/reset/member";
+                                  "https://netlcare-admin-api.regamicompass.com/reset/member";
                               final res =
                                   await http.post(Uri.parse(url), body: {
                                 "mobile": FFAppState().Mobile,

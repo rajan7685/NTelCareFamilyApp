@@ -103,9 +103,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             shape: BoxShape.circle,
                                             image: DecorationImage(
                                               fit: BoxFit.fill,
-                                              image: Image.network(
-                                                      snapshot.data["member"]
-                                                          ["profile"])
+                                              image: Image.network(snapshot
+                                                              .data["member"]
+                                                          ["profile"] ??
+                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU")
                                                   .image,
                                             ),
                                           ),

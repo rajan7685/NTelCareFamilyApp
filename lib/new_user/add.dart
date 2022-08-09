@@ -1597,7 +1597,7 @@ class _AddWidgetState extends State<Add> {
                                   //BASE64.encode(imageBytes);
 
                                   final String url =
-                                      "http://18.208.148.208:4000/add/member";
+                                      "https://netlcare-admin-api.regamicompass.com/add/member";
                                   /* final res =
                                   await http.post(Uri.parse(url), headers: {
                                 "Authorization": "Bearer ${FFAppState().Token}"
