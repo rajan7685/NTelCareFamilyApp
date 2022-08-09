@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:n_tel_care_family_app/forgotPasword/forget_password.dart';
 import 'package:n_tel_care_family_app/model/loginmodel.dart';
 import '../backend/api_requests/api_calls.dart';
@@ -25,12 +26,46 @@ class _LoginWidgetState extends State<LoginWidget> {
   bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  Future<void> _checkNetworkConnectivity() async {
+    ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    print(connectivityResult.name);
+    print(connectivityResult.name);
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+    } else {
+      await showDialog(
+        context: context,
+        builder: (alertDialogContext) {
+          return AlertDialog(
+            title: Text('Error'),
+            backgroundColor: Colors.red,
+            content: Text(
+                'You are not connected to internet. Please connect to a wifi or turn on your mobile network.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(alertDialogContext),
+                child: Text(
+                  'Ok',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     textController1 = TextEditingController();
     textController2 = TextEditingController();
     passwordVisibility = false;
+    _checkNetworkConnectivity();
   }
 
   @override
