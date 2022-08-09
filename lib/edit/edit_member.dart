@@ -82,6 +82,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     textController6 = TextEditingController(text: data["address"]);
     textController7 = TextEditingController(text: data["zipcode"]);
     profile = data["profile"];
+    if (profile == null) {
+      profile =
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU";
+    }
     dropDownValueGender = data["gender"];
     cityValue = data["city"];
     countryValue = data["country"];
@@ -139,6 +143,9 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
 
       //final imagePathPermanently = await savePermanently(image.path);
       setState(() => this.image = imagePath);
+      setState(() {
+        display = false;
+      });
     } on PlatformException catch (e) {
       print("Permission Denied");
     }
@@ -722,54 +729,54 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: TextFormField(
-                                enabled: _hasPermissionToEdit,
-                                controller: textController5,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Email\n',
-                                  labelStyle: FlutterFlowTheme.of(context)
+                                  enabled: _hasPermissionToEdit,
+                                  controller: textController5,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Email\n',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xFF9A9A9A),
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
                                         fontSize: 16,
-                                        fontWeight: FontWeight.w300,
                                       ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF606E87),
-                                      fontSize: 16,
-                                    ),
-                                keyboardType: TextInputType.emailAddress,
-                                /* validator: (value) => value != null &&
+                                  keyboardType: TextInputType.emailAddress,
+                                  /* validator: (value) => value != null &&
                                         !EmailValidator.validate(value)
                                     ? 'Enter a valid email'
                                     : null,*/
-                                onEditingComplete: () => vaildMail(),
-                              ),
+                                  onEditingComplete: () => vaildMail(),
+                                  onChanged: (v) => vaildMail()),
                             ),
                           ),
                         ),
@@ -1117,7 +1124,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       if (image == null)
                                         ClipOval(
                                             child: Image.network(
-                                          profile,
+                                          profile ??
+                                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                           width: 100,
                                           height: 100,
                                           fit: BoxFit.cover,
@@ -1599,15 +1607,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                final form = formKey.currentState;
-
-                                // await Navigator.push(
-                                //  context,
-                                // MaterialPageRoute(
-                                //  builder: (context) =>
-                                //   NavBarPage(initialPage: 'Landing'),
-                                //  ),
-                                // );
                                 if (textController1.text == "" ||
                                     textController2.text == "" ||
                                     textController4.text == "" ||
@@ -1615,7 +1614,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     textController7.text == "" ||
                                     dropDownValue == "" ||
                                     countryValue == "" ||
-                                    stateValue == "||" ||
+                                    stateValue == "" ||
                                     cityValue == "") {
                                   Fluttertoast.showToast(
                                       msg: "All fields are necessary to fill",
@@ -1749,8 +1748,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       builder: (alertDialogContext) {
                                         return AlertDialog(
                                           title: Text('Error'),
-                                          content:
-                                              jsonDecode(respStr)["message"],
+                                          content: Text(
+                                              jsonDecode(respStr)["message"]),
                                           actions: [
                                             TextButton(
                                               onPressed: () => Navigator.pop(
@@ -1818,7 +1817,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                   backgroundColor: Colors.green,
                                                   textColor: Colors.black,
                                                   fontSize: 14.0);
-                                              //Navigator.pop(context);
+
+                                              Navigator.pop(context);
                                             }
                                           },
                                           child: Text('Yes'),

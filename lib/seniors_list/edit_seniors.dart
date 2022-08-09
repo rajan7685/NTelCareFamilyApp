@@ -866,6 +866,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     ? 'Enter a valid email'
                                     : null,*/
                                 onEditingComplete: () => vaildMail(),
+                                onChanged: (v) => vaildMail(),
+                                //validator: (value) => vaildMail(),
+                                onFieldSubmitted: (value) => vaildMail(),
                               ),
                             ),
                           ),
@@ -1163,7 +1166,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       if (image == null)
                                         ClipOval(
                                             child: Image.network(
-                                          profile,
+                                          profile ??
+                                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                           width: 100,
                                           height: 100,
                                           fit: BoxFit.cover,
