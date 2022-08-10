@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -166,7 +167,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     print(id);
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
     var response = await getHrate.get(
-        'https://netlcare-admin-api.regamicompass.com/graph/health_status/?senior_id=${id}&date=${date}');
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -185,7 +186,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'https://netlcare-admin-api.regamicompass.com/graph/health_status/battery/weekly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/battery/weekly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -279,7 +280,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate);
     var response = await getHrate.get(
-        'https://netlcare-admin-api.regamicompass.com/graph/health_status/battery/monthly?date=${wDate1}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/battery/monthly?date=${wDate1}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -299,7 +300,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
     print(wDate2);
     var response = await getHrate.get(
-        'https://netlcare-admin-api.regamicompass.com/graph/health_status/battery/yearly?date=${wDate2}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/battery/yearly?date=${wDate2}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);

@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:path_provider/path_provider.dart';
@@ -1634,7 +1635,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   //BASE64.encode(imageBytes);
 
                                   final String url =
-                                      "https://netlcare-admin-api.regamicompass.com/edit/member/${data["id"]}";
+                                      "${ApiService.domain}/edit/member/${data["id"]}";
                                   /* final res =
                                   await http.post(Uri.parse(url), headers: {
                                 "Authorization": "Bearer ${FFAppState().Token}"

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:n_tel_care_family_app/app_state.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/flutter_flow/flutter_flow_theme.dart';
 import 'package:n_tel_care_family_app/flutter_flow/flutter_flow_widgets.dart';
@@ -183,7 +184,7 @@ class _Verification extends State<verification> {
                         child: InkWell(
                           onTap: () async {
                             final String url =
-                                "https://netlcare-admin-api.regamicompass.com/forget/member";
+                                "${ApiService.domain}/forget/member";
                             final res = await http.post(Uri.parse(url), body: {
                               "mobile": FFAppState().Mobile,
                             });
@@ -274,7 +275,7 @@ class _Verification extends State<verification> {
                               fontSize: 14.0);
                         } else {
                           final String url =
-                              "https://netlcare-admin-api.regamicompass.com/verifyotp/member";
+                              "${ApiService.domain}/verifyotp/member";
                           final res = await http.post(Uri.parse(url), body: {
                             "mobile": FFAppState().Mobile,
                             "otp": otpA

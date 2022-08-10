@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/forgotPasword/forget_password.dart';
 import 'package:n_tel_care_family_app/model/loginmodel.dart';
 import '../backend/api_requests/api_calls.dart';
@@ -246,7 +247,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           // );
 
                           final String url =
-                              "https://netlcare-admin-api.regamicompass.com/login/member";
+                              "${ApiService.domain}/login/member";
                           final res = await http.post(Uri.parse(url), body: {
                             "mobile": textController1.text,
                             "password": textController2.text
