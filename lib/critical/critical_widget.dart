@@ -1049,7 +1049,7 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                     ),
                   ],
                 ),
-                if (FFAppState().chat && FFAppState().Chattoggle2 ?? true)
+                if (FFAppState().chat && FFAppState().Chattoggle2)
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 30),
                     child: Column(

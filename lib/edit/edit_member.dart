@@ -1662,6 +1662,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   // stream.cast();
 
                                   // var length = await image.length();
+                                  print("excecuitive" +
+                                      FFAppState()
+                                          .Chattoggle3
+                                          .toString()
+                                          .capitalize);
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
@@ -1676,8 +1681,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields['address'] = textController6.text;
                                   res1.fields['zipcode'] = textController7.text;
                                   res1.fields['relation'] = dropDownValue;
-                                  res1.fields['executive'] =
-                                      FFAppState().Chattoggle.toString();
+                                  res1.fields['executive'] = FFAppState()
+                                      .Chattoggle3
+                                      .toString()
+                                      .capitalize;
                                   res1.fields["dob"] = DateFormat("yyyy-MM-dd")
                                       .format(selectedDate);
                                   res1.fields["country"] = countryValue;
@@ -1803,9 +1810,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         TextButton(
                                           onPressed: () async {
                                             apiCallOutput =
-                                                await DeleteUserCall.call();
+                                                await DeleteUserCall.call(
+                                                    memberId: data["id"]);
                                             print("this is the status code");
                                             print(apiCallOutput.statusCode);
+                                            print(FFAppState().MemberId);
                                             if (apiCallOutput.statusCode ==
                                                 200) {
                                               Fluttertoast.showToast(
@@ -1819,6 +1828,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                   textColor: Colors.black,
                                                   fontSize: 14.0);
 
+                                              Navigator.pop(context);
                                               Navigator.pop(context);
                                             }
                                           },
