@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 
 import '../../flutter_flow/flutter_flow_util.dart';
@@ -24,13 +25,13 @@ class LoginCall {
 }
 
 class DeleteUserCall {
-  static Future<ApiCallResponse> call() {
+  static Future<ApiCallResponse> call({@required String memberId}) {
     return ApiManager.instance.makeApiCall(
       callName: 'DeleteUser',
       apiUrl: '${ApiService.domain}/delete/member/',
       callType: ApiCallType.DELETE,
       headers: {'Authorization': 'Bearer ${FFAppState().Token}'},
-      params: {"member_id": FFAppState().MemberId},
+      params: {"member_id": memberId},
       returnBody: true,
     );
   }

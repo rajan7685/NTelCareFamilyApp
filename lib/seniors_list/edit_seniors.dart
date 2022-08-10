@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -82,6 +83,10 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     textController8 = TextEditingController(text: data['address']);
     textController9 = TextEditingController(text: data["zipcode"]);
     profile = data["profile"];
+    if (profile == null) {
+      profile =
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU";
+    }
     FFAppState().SeniorId = data["id"];
 
     cityValue = data["city"];
@@ -125,6 +130,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
       final imagePath = File(image.path);
       // final imagePathPermanently = await savePermanently(image.path);
       setState(() => this.image = imagePath);
+      setState(() {
+        display = false;
+      });
     } on PlatformException catch (e) {
       print("Permission Denied");
     }
@@ -1455,6 +1463,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
 
                                   final http.Response responseData =
                                       await http.get(Uri.parse(profile));
+                                  print(res.fields);
                                   Uint8List uint8list = responseData.bodyBytes;
                                   var buffer = uint8list.buffer;
                                   ByteData byteData = ByteData.view(buffer);
@@ -1464,13 +1473,18 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                           byteData.offsetInBytes,
                                           byteData.lengthInBytes));
                                   print(file.path);
-                                  image == null
+                                  /*image == null
                                       ? res.files.add(
                                           await http.MultipartFile.fromPath(
                                               "profile", file.path))
                                       : res.files.add(
                                           await http.MultipartFile.fromPath(
-                                              "profile", image.path));
+                                              "profile", image.path));*/
+                                  if (image != null) {
+                                    res.files.add(
+                                        await http.MultipartFile.fromPath(
+                                            "profile", image.path));
+                                  }
                                   var response = await res.send();
 
                                   print(response.statusCode);
@@ -1493,7 +1507,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       builder: (alertDialogContext) {
                                         return AlertDialog(
                                           title: Text('Error'),
-                                          content: Text("Error"),
+                                          content:
+                                              Text(jsonDecode(resp)["message"]),
                                           actions: [
                                             TextButton(
                                               onPressed: () => Navigator.pop(

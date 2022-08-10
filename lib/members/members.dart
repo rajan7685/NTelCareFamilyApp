@@ -44,12 +44,18 @@ class _MembersWidgetState extends State<MembersWidget> {
     // TODO: implement initState
     super.initState();
     //MList = fetchList();
-    loadMembersData();
+    loadMembersData(init: true);
     SList = fetchSList();
   }
 
-  void loadMembersData() async {
+  void loadMembersData({bool init = false}) async {
+    if (!init) {
+      setState(() {
+        isloading = true;
+      });
+    }
     final ApiCallResponse MList = await MemberList.call();
+
     print(FFAppState().Token);
     print(MList.statusCode);
 
@@ -132,6 +138,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                           builder: (context) => Add(),
                                         ),
                                       );
+                                      loadMembersData();
                                     },
                                     child: Icon(
                                       Icons.add_circle_outline,
@@ -280,7 +287,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                       : Colors.black,
                                                 ),
                                                 child: Image.network(
-                                                  inf[index]["profile"],
+                                                  inf[index]["profile"] ??
+                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -733,6 +741,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                               title: "Edit Members"),
                                                                         ),
                                                                       );
+                                                                      loadMembersData();
                                                                     },
                                                                     child: Card(
                                                                       clipBehavior:

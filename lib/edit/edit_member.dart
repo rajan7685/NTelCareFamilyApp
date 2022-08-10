@@ -1453,11 +1453,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                             10, 1, 10, 1),
                                         child: InkWell(
                                           onTap: () async {
-                                            // if (!data['executive']) {
-                                            //   setState(() {
-                                            //     displayLive = !displayLive;
-                                            //   });
-                                            // }
+                                            if (!data['executive']) {
+                                              setState(() {
+                                                displayLive = !displayLive;
+                                              });
+                                            }
                                           },
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -1503,11 +1503,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     ),
                                     child: InkWell(
                                       onTap: () async {
-                                        // if (!data['executive']) {
-                                        //   setState(() {
-                                        //     displayView = !displayView;
-                                        //   });
-                                        // }
+                                        if (!data['executive']) {
+                                          setState(() {
+                                            displayView = !displayView;
+                                          });
+                                        }
                                       },
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1558,11 +1558,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         0.1499999999999999, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        // if (!data['executive']) {
-                                        //   setState(() {
-                                        //     displayChat = !displayChat;
-                                        //   });
-                                        // }
+                                        if (!data['executive']) {
+                                          setState(() {
+                                            displayChat = !displayChat;
+                                          });
+                                        }
                                       },
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1662,6 +1662,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   // stream.cast();
 
                                   // var length = await image.length();
+                                  print("excecuitive" +
+                                      FFAppState()
+                                          .Chattoggle3
+                                          .toString()
+                                          .capitalize);
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
@@ -1676,8 +1681,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields['address'] = textController6.text;
                                   res1.fields['zipcode'] = textController7.text;
                                   res1.fields['relation'] = dropDownValue;
-                                  res1.fields['executive'] =
-                                      FFAppState().Chattoggle5.toString();
+                                  res1.fields['excetive'] = FFAppState()
+                                      .Chattoggle3
+                                      .toString()
+                                      .capitalize;
                                   res1.fields["dob"] = DateFormat("yyyy-MM-dd")
                                       .format(selectedDate);
                                   res1.fields["country"] = countryValue;
@@ -1688,7 +1695,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields['chats'] = displayChat.toString();
                                   res1.fields['view_video'] =
                                       displayView.toString();
-
+                                  print(res1.fields);
                                   final http.Response responseData =
                                       await http.get(Uri.parse(profile));
                                   Uint8List uint8list = responseData.bodyBytes;
@@ -1803,9 +1810,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         TextButton(
                                           onPressed: () async {
                                             apiCallOutput =
-                                                await DeleteUserCall.call();
+                                                await DeleteUserCall.call(
+                                                    memberId: data["id"]);
                                             print("this is the status code");
                                             print(apiCallOutput.statusCode);
+                                            print(FFAppState().MemberId);
                                             if (apiCallOutput.statusCode ==
                                                 200) {
                                               Fluttertoast.showToast(
@@ -1819,6 +1828,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                   textColor: Colors.black,
                                                   fontSize: 14.0);
 
+                                              Navigator.pop(context);
                                               Navigator.pop(context);
                                             }
                                           },
