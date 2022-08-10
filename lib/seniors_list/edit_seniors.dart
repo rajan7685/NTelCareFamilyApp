@@ -1463,6 +1463,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
 
                                   final http.Response responseData =
                                       await http.get(Uri.parse(profile));
+                                  print(res.fields);
                                   Uint8List uint8list = responseData.bodyBytes;
                                   var buffer = uint8list.buffer;
                                   ByteData byteData = ByteData.view(buffer);
@@ -1472,13 +1473,18 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                           byteData.offsetInBytes,
                                           byteData.lengthInBytes));
                                   print(file.path);
-                                  image == null
+                                  /*image == null
                                       ? res.files.add(
                                           await http.MultipartFile.fromPath(
                                               "profile", file.path))
                                       : res.files.add(
                                           await http.MultipartFile.fromPath(
-                                              "profile", image.path));
+                                              "profile", image.path));*/
+                                  if (image != null) {
+                                    res.files.add(
+                                        await http.MultipartFile.fromPath(
+                                            "profile", image.path));
+                                  }
                                   var response = await res.send();
 
                                   print(response.statusCode);

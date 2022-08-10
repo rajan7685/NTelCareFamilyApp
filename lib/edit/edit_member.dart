@@ -1681,7 +1681,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields['address'] = textController6.text;
                                   res1.fields['zipcode'] = textController7.text;
                                   res1.fields['relation'] = dropDownValue;
-                                  res1.fields['executive'] = FFAppState()
+                                  res1.fields['excetive'] = FFAppState()
                                       .Chattoggle3
                                       .toString()
                                       .capitalize;
@@ -1695,7 +1695,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields['chats'] = displayChat.toString();
                                   res1.fields['view_video'] =
                                       displayView.toString();
-
+                                  print(res1.fields);
                                   final http.Response responseData =
                                       await http.get(Uri.parse(profile));
                                   Uint8List uint8list = responseData.bodyBytes;
