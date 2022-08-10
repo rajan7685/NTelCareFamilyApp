@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:http/http.dart' as http;
@@ -29,8 +30,7 @@ class _ChatWidgetState extends State<ChatWidget> {
       setState(() {
         _isChatDataLoading = true;
       });
-    String uri =
-        'https://netlcare-admin-api.regamicompass.com/get_chats/member';
+    String uri = '${ApiService.domain}/get_chats/member';
     final res = await http.get(Uri.parse(uri),
         headers: {"Authorization": "Bearer ${FFAppState().Token}"});
     Map<String, dynamic> _responseJson = jsonDecode(res.body);
@@ -45,8 +45,7 @@ class _ChatWidgetState extends State<ChatWidget> {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Please enter something to send')));
     }
-    String uri =
-        'https://netlcare-admin-api.regamicompass.com/send_chat/member';
+    String uri = '${ApiService.domain}/send_chat/member';
     // final res = await http.get(Uri.parse(uri),
     //     headers: {"Authorization": "Bearer ${FFAppState().Token}"});
     // Map<String, dynamic> _responseJson = jsonDecode(res.body);

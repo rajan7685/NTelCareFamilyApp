@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -34,8 +35,8 @@ class _StepWidgetState extends State<StepWidget> {
   }
 
   void getStepscount() async {
-    var response = await getSteps.get(
-        'https://netlcare-admin-api.regamicompass.com/graph/health_status/?senior_id=${id}');
+    var response = await getSteps
+        .get('${ApiService.domain}/graph/health_status/?senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);

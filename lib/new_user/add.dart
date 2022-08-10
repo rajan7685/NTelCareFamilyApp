@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:path_provider/path_provider.dart';
@@ -1597,7 +1598,7 @@ class _AddWidgetState extends State<Add> {
                                   //BASE64.encode(imageBytes);
 
                                   final String url =
-                                      "https://netlcare-admin-api.regamicompass.com/add/member";
+                                      "${ApiService.domain}/add/member";
                                   /* final res =
                                   await http.post(Uri.parse(url), headers: {
                                 "Authorization": "Bearer ${FFAppState().Token}"
