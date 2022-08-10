@@ -644,12 +644,8 @@ class _AddWidgetState extends State<Add> {
                                       fontSize: 16,
                                     ),
                                 onEditingComplete: () => vaildMail(),
-                                onChanged: (v) => vaildMail(),
+                                // onChanged: (v) => vaildMail(),
                                 keyboardType: TextInputType.emailAddress,
-                                validator: (value) => value != null &&
-                                        !EmailValidator.validate(value)
-                                    ? 'Enter a valid email'
-                                    : null,
                               ),
                             ),
                           ),

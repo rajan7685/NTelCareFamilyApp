@@ -1452,11 +1452,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                             10, 1, 10, 1),
                                         child: InkWell(
                                           onTap: () async {
-                                            // if (!data['executive']) {
-                                            //   setState(() {
-                                            //     displayLive = !displayLive;
-                                            //   });
-                                            // }
+                                            if (!data['executive']) {
+                                              setState(() {
+                                                displayLive = !displayLive;
+                                              });
+                                            }
                                           },
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -1502,11 +1502,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     ),
                                     child: InkWell(
                                       onTap: () async {
-                                        // if (!data['executive']) {
-                                        //   setState(() {
-                                        //     displayView = !displayView;
-                                        //   });
-                                        // }
+                                        if (!data['executive']) {
+                                          setState(() {
+                                            displayView = !displayView;
+                                          });
+                                        }
                                       },
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1557,11 +1557,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         0.1499999999999999, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        // if (!data['executive']) {
-                                        //   setState(() {
-                                        //     displayChat = !displayChat;
-                                        //   });
-                                        // }
+                                        if (!data['executive']) {
+                                          setState(() {
+                                            displayChat = !displayChat;
+                                          });
+                                        }
                                       },
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1676,7 +1676,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields['zipcode'] = textController7.text;
                                   res1.fields['relation'] = dropDownValue;
                                   res1.fields['executive'] =
-                                      FFAppState().Chattoggle5.toString();
+                                      FFAppState().Chattoggle.toString();
                                   res1.fields["dob"] = DateFormat("yyyy-MM-dd")
                                       .format(selectedDate);
                                   res1.fields["country"] = countryValue;
