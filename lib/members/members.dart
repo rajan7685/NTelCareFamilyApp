@@ -1,5 +1,6 @@
 // ignore_for_file: missing_return
 
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_manager.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
@@ -68,7 +69,7 @@ class _MembersWidgetState extends State<MembersWidget> {
   Future<dynamic> MemberList() {
     return ApiManager.instance.makeApiCall(
       callName: 'MemberList',
-      apiUrl: 'https://netlcare-admin-api.regamicompass.com/get/members/member',
+      apiUrl: '${ApiService.domain}/get/members/member',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${FFAppState().Token}',

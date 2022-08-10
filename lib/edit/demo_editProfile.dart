@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
@@ -1649,7 +1650,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   // print(base64Image);
 
                                   final String url =
-                                      "https://netlcare-admin-api.regamicompass.com/edit/profile/member";
+                                      "${ApiService.domain}/edit/profile/member";
                                   var res = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
 

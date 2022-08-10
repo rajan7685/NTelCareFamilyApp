@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/seniors_list/senior_list.dart';
@@ -1419,7 +1420,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   // print(base64Image);
 
                                   final String url =
-                                      "https://netlcare-admin-api.regamicompass.com/edit/senior/${FFAppState().SeniorId}";
+                                      "${ApiService.domain}/edit/senior/${FFAppState().SeniorId}";
                                   var res = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
 

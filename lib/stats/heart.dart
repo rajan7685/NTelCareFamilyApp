@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -42,8 +43,8 @@ class _StatsWidgetState extends State<StatsWidget> {
   }
 
   void getHeartRate() async {
-    var response = await getHrate.get(
-        'https://netlcare-admin-api.regamicompass.com/graph/health_status/?senior_id=${id}');
+    var response = await getHrate
+        .get('${ApiService.domain}/graph/health_status/?senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
