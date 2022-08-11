@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
+
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -160,8 +163,9 @@ class _StepWidgetState extends State<StepWidget> {
 
   void getStepscount() async {
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
-    var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/?senior_id=${id}&date=${date}');
+    var response = await getHrate
+        .get('${ApiService.domain}/graph/health_status/?senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -320,7 +324,7 @@ class _StepWidgetState extends State<StepWidget> {
       return [
         new charts.Series<StepsStat, String>(
             id: 'daily_step',
-            domainFn: (StepsStat sales, _) => sales.time,
+            domainFn: (StepsStat sales, _) => sales.time.toString(),
             measureFn: (StepsStat sales, _) => sales.value,
             data: stepStat,
             colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
@@ -1007,7 +1011,7 @@ class StepsStat {
     this.value,
   });
 
-  String time;
+  int time;
   int value;
 
   factory StepsStat.fromJson(Map<String, dynamic> json) => StepsStat(

@@ -367,7 +367,7 @@ class _ShowerWidgetState extends State<ShowerWidget> {
       return [
         new charts.Series<ShowerStat, String>(
             id: 'daily2',
-            domainFn: (ShowerStat sales, _) => sales.time,
+            domainFn: (ShowerStat sales, _) => sales.time.toString(),
             measureFn: (ShowerStat sales, _) => sales.value,
             data: stepStat,
             colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
@@ -1081,7 +1081,7 @@ class ShowerStat {
     this.value,
   });
 
-  String time;
+  int time;
   int value;
 
   factory ShowerStat.fromJson(Map<String, dynamic> json) => ShowerStat(

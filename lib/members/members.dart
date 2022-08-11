@@ -1,5 +1,6 @@
 // ignore_for_file: missing_return
 
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_manager.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
@@ -43,12 +44,18 @@ class _MembersWidgetState extends State<MembersWidget> {
     // TODO: implement initState
     super.initState();
     //MList = fetchList();
-    loadMembersData();
+    loadMembersData(init: true);
     SList = fetchSList();
   }
 
-  void loadMembersData() async {
+  void loadMembersData({bool init = false}) async {
+    if (!init) {
+      setState(() {
+        isloading = true;
+      });
+    }
     final ApiCallResponse MList = await MemberList.call();
+
     print(FFAppState().Token);
     print(MList.statusCode);
 
@@ -68,7 +75,7 @@ class _MembersWidgetState extends State<MembersWidget> {
   Future<dynamic> MemberList() {
     return ApiManager.instance.makeApiCall(
       callName: 'MemberList',
-      apiUrl: 'http://18.208.148.208:4000/get/members/member',
+      apiUrl: '${ApiService.domain}/get/members/member',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${FFAppState().Token}',
@@ -131,6 +138,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                           builder: (context) => Add(),
                                         ),
                                       );
+                                      loadMembersData();
                                     },
                                     child: Icon(
                                       Icons.add_circle_outline,
@@ -279,7 +287,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                       : Colors.black,
                                                 ),
                                                 child: Image.network(
-                                                  inf[index]["profile"],
+                                                  inf[index]["profile"] ??
+                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -575,7 +584,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                         shape: BoxShape.circle,
                                                                                       ),
                                                                                       child: Image.network(
-                                                                                        executiveList[index]["profile"],
+                                                                                        executiveList[index]["profile"] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                                                         fit: BoxFit.cover,
                                                                                       ),
                                                                                     ),
@@ -732,6 +741,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                               title: "Edit Members"),
                                                                         ),
                                                                       );
+                                                                      loadMembersData();
                                                                     },
                                                                     child: Card(
                                                                       clipBehavior:
@@ -766,7 +776,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                       shape: BoxShape.circle,
                                                                                     ),
                                                                                     child: Image.network(
-                                                                                      membersList[index]["profile"],
+                                                                                      membersList[index]["profile"] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                                                       fit: BoxFit.cover,
                                                                                     ),
                                                                                   ),
@@ -874,7 +884,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (FFAppState().Chattoggle2 ?? true)
+                            if (FFAppState().Chattoggle2 &&
+                                FFAppState().executive)
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),

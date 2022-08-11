@@ -1,6 +1,11 @@
 import 'dart:convert';
+import 'dart:core';
+import 'dart:core';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
+
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -42,6 +47,12 @@ class _BatteryWidgetState extends State<BatteryWidget> {
   @override
   void initState() {
     super.initState();
+
+    daily = true;
+    weekly = false;
+    monthly = false;
+    yearly = false;
+
     getHeartRate();
     getBatteryWeekRate();
     getBatteryMonthlyRate();
@@ -90,6 +101,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
   String wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
 
   Future<dynamic> Stepcount;
+
   // List<StepsStat> stepStat = [];
 
   _BatteryWidgetState(this.id);
@@ -192,7 +204,8 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     print(id);
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/?senior_id=${id}&date=${date}');
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -211,7 +224,8 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/battery/weekly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/battery/weekly?date=${wDate}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -305,7 +319,8 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/battery/monthly?date=${wDate1}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/battery/monthly?date=${wDate1}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -325,7 +340,8 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/battery/yearly?date=${wDate2}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/battery/yearly?date=${wDate2}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -353,7 +369,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
       return [
         new charts.Series<batteryStat, String>(
             id: 'max_battery',
-            domainFn: (batteryStat sales, _) => sales.time,
+            domainFn: (batteryStat sales, _) => sales.time.toString(),
             measureFn: (batteryStat sales, _) => sales.value,
             data: hRate,
             colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
@@ -639,6 +655,70 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                       //   Daily()
                       // else if (monthly == true)
                       Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  print(DateFormat('dd-MM-yyyy')
+                                      .format(dateTimeWeek));
+
+                                  print(DateFormat('dd-MM-yyyy')
+                                      .format(dateTimeWeek));
+                                  if (daily) {
+                                    setState(() {
+                                      dateTime =
+                                          dateTime.subtract(Duration(days: 1));
+                                      getHeartRate();
+                                    });
+                                  }
+
+                                  if (weekly == true) {
+                                    dateTimeWeek = dateTimeWeek
+                                        .subtract(Duration(days: 1));
+                                    setState(() {
+                                      _startDate = dateTimeWeek
+                                          .subtract(Duration(days: 7));
+                                      _endDate = dateTimeWeek;
+                                    });
+
+                                    getBatteryWeekRate();
+                                  } else if (monthly == true) {
+                                    dateTimeMonth = dateTimeMonth
+                                        .subtract(Duration(days: 30));
+                                    setState(() {
+                                      startDateMonth = startDateMonth
+                                          .subtract(Duration(days: 30));
+                                      endDateMonth = dateTimeMonth;
+                                    });
+                                    getBatteryMonthlyRate();
+                                  } else if (yearly == true) {
+                                    dateTimeYear = dateTimeYear
+                                        .subtract(Duration(days: 365));
+                                    setState(() {
+                                      startDateYear = startDateYear
+                                          .subtract(Duration(days: 365));
+                                      endDateYear = dateTimeYear;
+                                    });
+                                    getBatteryYearlyRate();
+                                  }
+                                },
+                                icon: Icon(
+                                  Icons.chevron_left,
+                                  color: Color(0xFFAFAFAF),
+                                  size: 32,
+                                ),
+                              ),
+                            ],
+                          )),
+
+                      // if (daily == true)
+                      //   Daily()
+                      // else if (monthly == true)
+
+                      Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -890,14 +970,6 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                         fontSize: 6, // size in Pts.
                                         color: charts.MaterialPalette.white),
                                   )),
-                                  /*  primaryMeasureAxis:
-                                      new charts.NumericAxisSpec(
-                                          renderSpec:
-                                              new charts.GridlineRendererSpec(
-                                    labelStyle: new charts.TextStyleSpec(
-                                        fontSize: 8, // size in Pts.
-                                        color: charts.MaterialPalette.white),
-                                  )),*/
                                   selectionModels: [
                                     new charts.SelectionModelConfig(
                                         type: charts.SelectionModelType.info,
@@ -1040,7 +1112,7 @@ class batteryStat {
     this.value,
   });
 
-  String time;
+  int time;
   int value;
 
   factory batteryStat.fromJson(Map<String, dynamic> json) => batteryStat(

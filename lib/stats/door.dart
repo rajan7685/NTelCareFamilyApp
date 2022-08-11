@@ -371,7 +371,7 @@ class _DoorWidgetState extends State<DoorWidget> {
       return [
         new charts.Series<StepsStat, String>(
             id: 'daily4',
-            domainFn: (StepsStat sales, _) => sales.time,
+            domainFn: (StepsStat sales, _) => sales.time.toString(),
             measureFn: (StepsStat sales, _) => sales.value,
             data: stepStat,
             colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
@@ -1096,7 +1096,7 @@ class StepsStat {
     this.value,
   });
 
-  String time;
+  int time;
   int value;
 
   factory StepsStat.fromJson(Map<String, dynamic> json) => StepsStat(

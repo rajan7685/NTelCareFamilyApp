@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -44,6 +45,7 @@ class _BloodWidgetState extends State<BloodWidget> {
   var color1 = Color(0xFF00B89F);
   var color2 = Color(0xFF1A1A1A);
   var color3 = Color(0xFF1A1A1A);
+  var color4 = Color(0xFF1A1A1A);
   DateTime dateTime;
 
   _BloodWidgetState(String data);
@@ -86,6 +88,79 @@ class _BloodWidgetState extends State<BloodWidget> {
   String wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
   String wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
   String wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
+  String _time;
+  Map<String, num> _measures;
+  _onSelectionChanged(charts.SelectionModel model) {
+    final selectedDatum = model.selectedDatum;
+    _BloodWidgetState(this.id);
+
+    String time;
+    final measures = <String, num>{};
+
+    // We get the model that updated with a list of [SeriesDatum] which is
+    // simply a pair of series & datum.
+    //
+    // Walk the selection updating the measures map, storing off the sales and
+    // series name for each selection point.
+    if (selectedDatum.isNotEmpty) {
+      time = selectedDatum.first.datum.day;
+      selectedDatum.forEach((charts.SeriesDatum datumPair) {
+        measures[datumPair.series.displayName] = datumPair.datum.Stat;
+        print(datumPair.datum.Stat);
+        print(datumPair.datum.avg);
+        print(datumPair.datum.max);
+        print(datumPair.datum.min);
+        Dialog errorDialog = Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+          insetPadding: EdgeInsets.symmetric(horizontal: 120),
+
+          //this right here
+          child: Container(
+            height: 80.0,
+            width: 100.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(1.0),
+                  child: Text(
+                    'Maximum :' + datumPair.datum.max.toString(),
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(1.0),
+                  child: Text(
+                    'Minimum :' + datumPair.datum.min.toString(),
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(1.0),
+                  child: Text(
+                    'Average :' + datumPair.datum.avg.toString(),
+                    style: TextStyle(color: Colors.red),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+
+        showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (BuildContext context) => errorDialog);
+      });
+    }
+
+    // Request a build.
+    setState(() {
+      _time = time;
+      _measures = measures;
+    });
+  }
 
   List<charts.Series<HeartStatWeekMax, String>> _createSampleData() {
     return [
@@ -163,16 +238,19 @@ class _BloodWidgetState extends State<BloodWidget> {
   }
 
   void getHeartRate() async {
-    var response = await getHrate
-        .get('http://18.208.148.208:4000/graph/health_status/?senior_id=${id}');
+    String date = DateFormat('yyyy-MM-dd').format(dateTime);
+
+    var response = await getHrate.get(
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["health_status"]["heart_rate"].runtimeType);
+    print(rate["health_status"][0]["heart_rate"].runtimeType);
 
     List<HeartStat> temp =
-        heartStatFromJson(rate["health_status"]["heart_rate"]);
+        heartStatFromJson(rate["health_status"][0]["heart_rate"]);
     setState(() {
       hRate = temp;
     });
@@ -325,7 +403,7 @@ class _BloodWidgetState extends State<BloodWidget> {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(50, 25, 50, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -337,9 +415,11 @@ class _BloodWidgetState extends State<BloodWidget> {
                                       color1 = Color(0xFF00B89F);
                                       color2 = Color(0xFF1A1A1A);
                                       color3 = Color(0xFF1A1A1A);
+                                      color4 = Color(0xFF1A1A1A);
                                       daily = true;
                                       weekly = false;
                                       monthly = false;
+                                      yearly = false;
                                     });
                                   },
                                   child: Container(
@@ -383,9 +463,11 @@ class _BloodWidgetState extends State<BloodWidget> {
                                   color1 = Color(0xFF1A1A1A);
                                   color2 = Color(0xFF00B89F);
                                   color3 = Color(0xFF1A1A1A);
+                                  color4 = Color(0xFF1A1A1A);
                                   weekly = true;
                                   daily = false;
                                   monthly = false;
+                                  yearly = false;
                                   dateTimeWeek = DateTime.now();
                                 });
                               },
@@ -424,9 +506,11 @@ class _BloodWidgetState extends State<BloodWidget> {
                                     color1 = Color(0xFF1A1A1A);
                                     color2 = Color(0xFF1A1A1A);
                                     color3 = Color(0xFF00B89F);
+                                    color4 = Color(0xFF1A1A1A);
                                     monthly = true;
                                     daily = false;
                                     weekly = false;
+                                    yearly = false;
                                     dateTimeMonth = DateTime.now();
                                   });
                                 },
@@ -435,9 +519,9 @@ class _BloodWidgetState extends State<BloodWidget> {
                                     color: color3,
                                     borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(0),
-                                      bottomRight: Radius.circular(10),
+                                      bottomRight: Radius.circular(0),
                                       topLeft: Radius.circular(0),
-                                      topRight: Radius.circular(10),
+                                      topRight: Radius.circular(0),
                                     ),
                                   ),
                                   child: Padding(
@@ -471,7 +555,8 @@ class _BloodWidgetState extends State<BloodWidget> {
                                   setState(() {
                                     color1 = Color(0xFF1A1A1A);
                                     color2 = Color(0xFF1A1A1A);
-                                    color3 = Color(0xFF00B89F);
+                                    color3 = Color(0xFF1A1A1A);
+                                    color4 = Color(0xFF00B89F);
                                     monthly = false;
                                     daily = false;
                                     weekly = false;
@@ -481,7 +566,7 @@ class _BloodWidgetState extends State<BloodWidget> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: color3,
+                                    color: color4,
                                     borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(0),
                                       bottomRight: Radius.circular(10),
@@ -530,7 +615,13 @@ class _BloodWidgetState extends State<BloodWidget> {
 
                                 print(DateFormat('dd-MM-yyyy')
                                     .format(dateTimeWeek));
-
+                                if (daily) {
+                                  setState(() {
+                                    dateTime =
+                                        dateTime.subtract(Duration(days: 1));
+                                    getHeartRate();
+                                  });
+                                }
                                 if (weekly == true) {
                                   dateTimeWeek =
                                       dateTimeWeek.subtract(Duration(days: 1));
@@ -570,11 +661,7 @@ class _BloodWidgetState extends State<BloodWidget> {
                             if (daily ?? true)
                               Expanded(
                                 child: Text(
-                                  dateTime == null
-                                      ? DateFormat('dd-MM-yyyy')
-                                          .format(DateTime.now())
-                                      : DateFormat('dd-MM-yyyy')
-                                          .format(dateTime),
+                                  DateFormat('dd-MM-yyyy').format(dateTime),
                                   textAlign: TextAlign.center,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
@@ -659,35 +746,56 @@ class _BloodWidgetState extends State<BloodWidget> {
 
                                 print(DateFormat('dd-MM-yyyy')
                                     .format(dateTimeWeek));
-
-                                if (weekly == true) {
-                                  dateTimeWeek =
-                                      dateTimeWeek.add(Duration(days: 1));
+                                if (daily) {
                                   setState(() {
-                                    _startDate = dateTimeWeek
-                                        .subtract(Duration(days: 7));
-                                    _endDate = dateTimeWeek;
+                                    if ((DateFormat('dd-MM-yyyy')
+                                            .format(dateTime)) !=
+                                        dateToday) {
+                                      dateTime =
+                                          dateTime.add(Duration(days: 1));
+                                      getHeartRate();
+                                    }
                                   });
+                                } else if (weekly == true) {
+                                  if ((DateFormat('dd-MM-yyyy')
+                                          .format(dateTimeWeek)) !=
+                                      dateToday) {
+                                    dateTimeWeek =
+                                        dateTimeWeek.add(Duration(days: 1));
+                                    setState(() {
+                                      _startDate = dateTimeWeek
+                                          .subtract(Duration(days: 7));
+                                      _endDate = dateTimeWeek;
+                                    });
 
-                                  getHeartWeekRate();
+                                    getHeartWeekRate();
+                                  }
                                 } else if (monthly == true) {
-                                  dateTimeMonth =
-                                      dateTimeMonth.add(Duration(days: 30));
-                                  setState(() {
-                                    startDateMonth = startDateMonth
-                                        .subtract(Duration(days: 30));
-                                    endDateMonth = dateTimeMonth;
-                                  });
-                                  getHeartMonthlyRate();
+                                  if ((DateFormat('dd-MM-yyyy')
+                                          .format(dateTimeMonth)) !=
+                                      dateToday) {
+                                    dateTimeMonth =
+                                        dateTimeMonth.add(Duration(days: 30));
+                                    setState(() {
+                                      startDateMonth = startDateMonth
+                                          .subtract(Duration(days: 30));
+                                      endDateMonth = dateTimeMonth;
+                                    });
+                                    getHeartMonthlyRate();
+                                  }
                                 } else if (yearly == true) {
-                                  dateTimeMonth =
-                                      dateTimeYear.add(Duration(days: 365));
-                                  setState(() {
-                                    startDateYear = startDateYear
-                                        .subtract(Duration(days: 365));
-                                    endDateYear = dateTimeYear;
-                                  });
-                                  getHeartYearlyRate();
+                                  if ((DateFormat('dd-MM-yyyy')
+                                          .format(dateTimeMonth)) !=
+                                      dateToday) {
+                                    dateTimeYear =
+                                        dateTimeYear.add(Duration(days: 365));
+                                    setState(() {
+                                      startDateYear = startDateYear
+                                          .subtract(Duration(days: 365));
+                                      endDateYear = dateTimeYear;
+                                    });
+                                    getHeartYearlyRate();
+                                  }
                                 }
                               },
                               icon: Icon(
@@ -721,12 +829,6 @@ class _BloodWidgetState extends State<BloodWidget> {
                                           fontSize: 8, // size in Pts.
                                           color: charts.MaterialPalette.white),
                                     )),
-                                primaryMeasureAxis: new charts.NumericAxisSpec(
-                                    renderSpec: new charts.GridlineRendererSpec(
-                                  labelStyle: new charts.TextStyleSpec(
-                                      fontSize: 8, // size in Pts.
-                                      color: charts.MaterialPalette.white),
-                                )),
 
                                 // domainAxis: charts.OrdinalAxisSpec(
                                 //     renderSpec: charts.SmallTickRendererSpec(
@@ -753,6 +855,21 @@ class _BloodWidgetState extends State<BloodWidget> {
                                     borderRadius: BorderRadius.circular(10)),
                                 child: charts.BarChart(
                                   _createSampleData(),
+                                  /* selectionModels: [
+                                    charts.SelectionModelConfig(changedListener:
+                                        (charts.SelectionModel model) {
+                                      if (model.hasDatumSelection)
+                                        print(model.selectedSeries[0].measureFn(
+                                            model.selectedDatum[0].index));
+                                      print(model.selectedSeries[0].domainFn(
+                                          model.selectedDatum[1].index));
+                                    })
+                                  ],*/
+                                  selectionModels: [
+                                    new charts.SelectionModelConfig(
+                                        type: charts.SelectionModelType.info,
+                                        changedListener: _onSelectionChanged)
+                                  ],
                                   domainAxis: new charts.OrdinalAxisSpec(
                                       renderSpec:
                                           new charts.SmallTickRendererSpec(
@@ -768,6 +885,7 @@ class _BloodWidgetState extends State<BloodWidget> {
                                         fontSize: 8, // size in Pts.
                                         color: charts.MaterialPalette.white),
                                   )),*/
+
                                   animate: true,
                                   defaultRenderer: new charts.BarRendererConfig(
                                       groupingType:
@@ -789,6 +907,11 @@ class _BloodWidgetState extends State<BloodWidget> {
                                     borderRadius: BorderRadius.circular(10)),
                                 child: charts.BarChart(
                                   _createSampleDataMonth(),
+                                  selectionModels: [
+                                    new charts.SelectionModelConfig(
+                                        type: charts.SelectionModelType.info,
+                                        changedListener: _onSelectionChanged)
+                                  ],
                                   domainAxis: new charts.OrdinalAxisSpec(
                                       renderSpec:
                                           new charts.SmallTickRendererSpec(
@@ -820,6 +943,11 @@ class _BloodWidgetState extends State<BloodWidget> {
                                     borderRadius: BorderRadius.circular(10)),
                                 child: charts.BarChart(
                                   _createSampleDataYear(),
+                                  selectionModels: [
+                                    new charts.SelectionModelConfig(
+                                        type: charts.SelectionModelType.info,
+                                        changedListener: _onSelectionChanged)
+                                  ],
                                   domainAxis: new charts.OrdinalAxisSpec(
                                       renderSpec:
                                           new charts.SmallTickRendererSpec(
@@ -860,7 +988,8 @@ List<HeartStatWeekMax> heartStatWeekMaxFromJson(List<dynamic> rate) {
   List<HeartStatWeekMax> heart = [];
 
   rate.forEach((element) {
-    heart.add(HeartStatWeekMax(element["date"], element["max_min"]));
+    heart.add(HeartStatWeekMax(element["date"], element["max_min"],
+        element["avg"], element["max"], element["min"]));
   });
   return heart;
 }
@@ -869,10 +998,13 @@ List<HeartStatWeekMax> heartStatWeekMinFromJson(List<dynamic> rate) {
   List<HeartStatWeekMax> heart = [];
 
   rate.forEach((element) {
-    heart.add(HeartStatWeekMax(element["date"], element["min"]));
+    heart.add(HeartStatWeekMax(element["date"], element["min"], element["avg"],
+        element["max"], element["min"]));
   });
   return heart;
 }
+
+// List<HeartStat>.from(json.decode(str).map((x) => HeartStat.fromJson(x)));
 
 String heartStatToJson(List<HeartStat> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -880,8 +1012,11 @@ String heartStatToJson(List<HeartStat> data) =>
 class HeartStatWeekMax {
   final String day;
   final int Stat;
+  final int avg;
+  final int max;
+  final int min;
 
-  HeartStatWeekMax(this.day, this.Stat);
+  HeartStatWeekMax(this.day, this.Stat, this.avg, this.max, this.min);
 }
 
 class HeartStat {
@@ -894,7 +1029,7 @@ class HeartStat {
   int value;
 
   factory HeartStat.fromJson(Map<String, dynamic> json) => HeartStat(
-        time: int.parse(json["time"]),
+        time: json["time"],
         value: json["value"],
       );
 
@@ -902,12 +1037,4 @@ class HeartStat {
         "time": time,
         "value": value,
       };
-}
-
-class BloodStat {
-  final String Time;
-  final int Stat;
-  final Color line;
-
-  BloodStat(this.Time, this.Stat, this.line);
 }

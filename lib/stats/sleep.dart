@@ -117,7 +117,7 @@ class _SleepWidgetState extends State<SleepWidget> {
     return [
       new charts.Series<SleepsStat, String>(
           id: 'daily4',
-          domainFn: (SleepsStat sales, _) => sales.time,
+          domainFn: (SleepsStat sales, _) => sales.time.toString(),
           measureFn: (SleepsStat sales, _) => sales.value,
           data: stepStat,
           colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
@@ -380,7 +380,7 @@ class _SleepWidgetState extends State<SleepWidget> {
       return [
         new charts.Series<SleepsStat, String>(
             id: 'daily4',
-            domainFn: (SleepsStat sales, _) => sales.time,
+            domainFn: (SleepsStat sales, _) => sales.time.toString(),
             measureFn: (SleepsStat sales, _) => sales.value,
             data: stepStat,
             colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
@@ -1086,7 +1086,7 @@ class SleepsStat {
     this.value,
   });
 
-  String time;
+  int time;
   int value;
 
   factory SleepsStat.fromJson(Map<String, dynamic> json) => SleepsStat(

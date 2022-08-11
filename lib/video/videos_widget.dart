@@ -194,7 +194,8 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                     : Colors.black,
                                               ),
                                               child: Image.network(
-                                                inf[index]["profile"],
+                                                inf[index]["profile"] ??
+                                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -2811,7 +2812,8 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (FFAppState().Chattoggle2 ?? true)
+                          if (FFAppState().Chattoggle2 &&
+                              FFAppState().executive)
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),

@@ -103,16 +103,16 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             shape: BoxShape.circle,
                                             image: DecorationImage(
                                               fit: BoxFit.fill,
-                                              image: Image.network(
-                                                      snapshot.data["member"]
-                                                          ["profile"])
+                                              image: Image.network(snapshot
+                                                              .data["member"]
+                                                          ["profile"] ??
+                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU")
                                                   .image,
                                             ),
                                           ),
                                         )),
                                   ),
-                                  if (snapshot.data["member"]["executive"] =
-                                      true)
+                                  if (snapshot.data["member"]["executive"])
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -408,7 +408,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              if (FFAppState().chat == true)
+                              if (FFAppState().executive ?? true)
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       8, 0, 0, 0),
@@ -509,6 +509,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             EditCopy2Widget(info: inf),
                                       ),
                                     );
+                                    setState(() {
+                                      SList = fetchSList();
+                                    });
                                   },
                                   child: ListTile(
                                     leading: FaIcon(
@@ -754,7 +757,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (FFAppState().Chattoggle2 ?? true)
+                              if (FFAppState().Chattoggle2 &&
+                                  FFAppState().executive)
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 10, 15, 0),
@@ -874,6 +878,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
 
   Future fetchSList() async {
     final ApiCallResponse SList = await GetProfile.call();
+
     print(SList.statusCode);
     print(SList.jsonBody);
     return SList.jsonBody;

@@ -1,6 +1,7 @@
 //import 'package:n_tel_care_family_app/model/loginmodel.dart';
 import 'dart:convert';
 
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/forgotPasword/verification.dart';
 import 'package:n_tel_care_family_app/login/login_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -243,7 +244,7 @@ class _forget_passwordState extends State<forget_password> {
                                     fontSize: 14.0);
                               } else {
                                 final String url =
-                                    "http://18.208.148.208:4000/forget/member";
+                                    "${ApiService.domain}/forget/member";
                                 final res =
                                     await http.post(Uri.parse(url), body: {
                                   "mobile": textController1.text,

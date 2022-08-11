@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
+
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -164,7 +167,8 @@ class _OxygenWidgetState extends State<OxygenWidget> {
     print(id);
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/?senior_id=${id}&date=${date}');
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -183,7 +187,8 @@ class _OxygenWidgetState extends State<OxygenWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/blood_oxygen/weekly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/blood_oxygen/weekly?date=${wDate}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -205,7 +210,8 @@ class _OxygenWidgetState extends State<OxygenWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/blood_oxygen/monthly?date=${wDate1}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/blood_oxygen/monthly?date=${wDate1}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -300,7 +306,8 @@ class _OxygenWidgetState extends State<OxygenWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/blood_oxygen/yearly?date=${wDate2}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/blood_oxygen/yearly?date=${wDate2}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -338,7 +345,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
       return [
         new charts.Series<OxygenStat, String>(
             id: 'max1',
-            domainFn: (OxygenStat sales, _) => sales.time,
+            domainFn: (OxygenStat sales, _) => sales.time.toString(),
             measureFn: (OxygenStat sales, _) => sales.value,
             data: hRate,
             colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
@@ -626,6 +633,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                         // if (daily == true)
                         //   Daily()
                         // else if (monthly == true)
+
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
                           child: Row(
@@ -1033,7 +1041,7 @@ class OxygenStat {
     this.value,
   });
 
-  String time;
+  int time;
   int value;
 
   factory OxygenStat.fromJson(Map<String, dynamic> json) => OxygenStat(

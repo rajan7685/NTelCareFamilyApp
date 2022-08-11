@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -166,9 +167,13 @@ class _StatsWidgetState extends State<StatsWidget> {
 
 //final List<charts.Series<HeartStatWeekMax, String>> seriesList = _createSampleData();
   void getHeartRate() async {
+    print(id);
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
+    print(
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/?senior_id=${id}&date=${date}');
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -848,7 +853,6 @@ class _StatsWidgetState extends State<StatsWidget> {
                                           fontSize: 8, // size in Pts.
                                           color: charts.MaterialPalette.white),
                                     )),
-                                
 
                                 // domainAxis: charts.OrdinalAxisSpec(
                                 //     renderSpec: charts.SmallTickRendererSpec(
@@ -1242,7 +1246,7 @@ class HeartStat {
   int value;
 
   factory HeartStat.fromJson(Map<String, dynamic> json) => HeartStat(
-        time: int.parse(json["time"]),
+        time: json["time"],
         value: json["value"],
       );
 

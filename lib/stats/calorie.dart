@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
+
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -335,7 +338,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
 
   /* void getCalori() async {
     var response = await getCalories
-        .get('http://18.208.148.208:4000/graph/health_status/?senior_id=${id}');
+        .get('${ApiService.domain}/graph/health_status/?senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -353,7 +356,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
     return [
       new charts.Series<HeartStat, String>(
           id: 'daily',
-          domainFn: (HeartStat sales, _) => sales.time,
+          domainFn: (HeartStat sales, _) => sales.time.toString(),
           measureFn: (HeartStat sales, _) => sales.value,
           data: hRate,
           colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
@@ -1061,7 +1064,7 @@ class HeartStat {
     this.value,
   });
 
-  String time;
+  int time;
   int value;
 
   factory HeartStat.fromJson(Map<String, dynamic> json) => HeartStat(

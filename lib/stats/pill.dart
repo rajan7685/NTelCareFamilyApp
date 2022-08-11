@@ -370,7 +370,7 @@ class _PillWidgetState extends State<PillWidget> {
       return [
         new charts.Series<PillboxStat, String>(
             id: 'daily1',
-            domainFn: (PillboxStat sales, _) => sales.time,
+            domainFn: (PillboxStat sales, _) => sales.time.toString(),
             measureFn: (PillboxStat sales, _) => sales.value,
             data: stepStat,
             colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
@@ -1083,7 +1083,7 @@ class PillboxStat {
     this.value,
   });
 
-  String time;
+  int time;
   int value;
 
   factory PillboxStat.fromJson(Map<String, dynamic> json) => PillboxStat(
