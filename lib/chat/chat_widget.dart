@@ -1,6 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:dio/dio.dart';
-
+import 'package:open_file/open_file.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_manager.dart';
@@ -9,6 +10,7 @@ import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:http/http.dart' as http;
 // import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 
@@ -61,6 +63,18 @@ class _ChatWidgetState extends State<ChatWidget> {
     }
   }
 
+  Future<void> _downloadFile({String fileUrl}) async {
+    //
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('File is neing downloaded')));
+    Directory _dir = await getApplicationDocumentsDirectory();
+    String _timeStamp = DateTime.now().millisecond.toString();
+    String _fileName = fileUrl.split('/').last;
+    await Dio().download(fileUrl, '${_dir.path}/$_timeStamp $_fileName');
+    await OpenFile.open('${_dir.path}/$_timeStamp $_fileName');
+    // print('${_dir.path}/$_timeStamp $_fileName');
+  }
+
   Future<void> _sendMessage() async {
     if (_chatController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -68,7 +82,6 @@ class _ChatWidgetState extends State<ChatWidget> {
       return;
     }
     String uri = '${ApiService.domain}/send_chat/member';
-    await _pickFile();
     var formData = FormData.fromMap({
       'message': _chatController.text,
       // 'document': null
@@ -82,6 +95,7 @@ class _ChatWidgetState extends State<ChatWidget> {
           options: Options(
               headers: {"Authorization": "Bearer ${FFAppState().Token}"}));
       _chatController.text = '';
+      _image = null;
       _loadMessages();
     } catch (e) {
       print('error ${e.toString()}');
@@ -102,18 +116,12 @@ class _ChatWidgetState extends State<ChatWidget> {
   }
 
   Widget chatWidget(int index, {@required bool me}) {
-    String datetime = _chats[index]['date_time'];
-    // print(datetime.split(' ')[4].substring(0, 5));
-    print('name ${_chats[index]['by']}');
-
-    print('name $_accHolderName');
+    print(_chats[index]['profile']);
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(!me ? 10 : 0, 20, me ? 10 : 0, 0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: _chats[index]['by'] == _accHolderName
-            ? MainAxisAlignment.end
-            : MainAxisAlignment.start,
+        mainAxisAlignment: me ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
@@ -126,6 +134,7 @@ class _ChatWidgetState extends State<ChatWidget> {
               ),
               child: Image.network(
                 _chats[index]['profile'],
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -138,25 +147,48 @@ class _ChatWidgetState extends State<ChatWidget> {
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF209A1F),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(0),
-                          bottomRight: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
+                    child: InkWell(
+                      onTap: () {
+                        if (_chats[index]['document'] != null)
+                          _downloadFile(fileUrl: _chats[index]['document']);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFF209A1F),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(0),
+                            bottomRight: _chats[index]['document'] == null
+                                ? Radius.circular(10)
+                                : Radius.circular(0),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
                         ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(12, 7, 12, 7),
-                        child: Text(
-                          _chats[index]['message'],
-                          style:
-                              FlutterFlowTheme.of(context).bodyText1.override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                  ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(12, 7, 12, 7),
+                          child: Row(
+                            children: [
+                              if (_chats[index]['document'] != null)
+                                Icon(
+                                  Icons.file_download,
+                                  size: 13,
+                                  color: Colors.white,
+                                ),
+                              if (_chats[index]['document'] != null)
+                                SizedBox(
+                                  width: 6,
+                                ),
+                              Text(
+                                _chats[index]['message'],
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.white,
+                                    ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -333,8 +365,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 physics: BouncingScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: _chats.length,
-                                itemBuilder: (_, int index) =>
-                                    chatWidget(index, me: index % 2 == 0),
+                                itemBuilder: (_, int index) => chatWidget(index,
+                                    me: _chats[index]['by'] == _accHolderName),
                               ),
                       ),
                     ),
@@ -349,6 +381,17 @@ class _ChatWidgetState extends State<ChatWidget> {
                               controller: _chatController,
                               obscureText: false,
                               decoration: InputDecoration(
+                                prefix: InkWell(
+                                  onTap: _pickFile,
+                                  child: Transform.rotate(
+                                    angle: 45,
+                                    child: Icon(
+                                      Icons.attach_file,
+                                      size: 25,
+                                      color: Color(0xFF209A1F),
+                                    ),
+                                  ),
+                                ),
                                 suffix: InkWell(
                                   onTap: _sendMessage,
                                   child: Image.asset(
