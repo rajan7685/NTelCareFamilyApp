@@ -43,6 +43,25 @@ DateTime endDateYear = dateTimeYear;
 DateTimeRange dateRange = DateTimeRange(start: _startDate, end: _endDate);
 
 class _OxygenWidgetState extends State<OxygenWidget> {
+  @override
+  void initState() {
+    super.initState();
+    daily = true;
+    weekly = false;
+    monthly = false;
+    yearly = false;
+    print(id);
+    getOxygenRate();
+    getOxygenWeekRate();
+    getOxygenMonthlyRate();
+    getOxygenYearlyRate();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   DateTimeRange dateRange = DateTimeRange(start: _startDate, end: _endDate);
 
   bool checkLimit(DateTime limitDay) {
@@ -147,19 +166,6 @@ class _OxygenWidgetState extends State<OxygenWidget> {
           labelAccessorFn: (OxygenStatWeekMax sales, _) =>
               '\$${sales.Stat.toString()}'),
     ];
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    print(id);
-    getOxygenRate();
-    getOxygenWeekRate();
-    getOxygenMonthlyRate();
-    getOxygenYearlyRate();
-    // SList = fetchSList();
-    // int versionCode = BuildConfig.VERSION_CODE;
-    // HeartStatus = fetchStat();
   }
 
 //final List<charts.Series<HeartStatWeekMax, String>> seriesList = _createSampleData();
@@ -325,35 +331,26 @@ class _OxygenWidgetState extends State<OxygenWidget> {
     });
   }
 
-/*  Future<List<dynamic>> fetchSList() async {
-    String wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
-    print(wDate);
-    final ApiCallResponse SList = await GetHeartWeek.call(id: id, date: wDate);
-    print(SList.statusCode);
-    print(SList.jsonBody);
-    return SList.jsonBody;
-  }*/
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var color1 = Color(0xFF00B89F);
   var color2 = Color(0xFF1A1A1A);
   var color3 = Color(0xFF1A1A1A);
   var color4 = Color(0xFF1A1A1A);
+  List<charts.Series<OxygenStat, String>> _createSampleDataDaily() {
+    return [
+      new charts.Series<OxygenStat, String>(
+          id: 'max1',
+          domainFn: (OxygenStat sales, _) => sales.time.toString(),
+          measureFn: (OxygenStat sales, _) => sales.value,
+          data: hRate,
+          colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
+          labelAccessorFn: (OxygenStat sales, _) =>
+              '\$${sales.value.toString()}')
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<OxygenStat, String>> _createSampleDataDaily() {
-      return [
-        new charts.Series<OxygenStat, String>(
-            id: 'max1',
-            domainFn: (OxygenStat sales, _) => sales.time.toString(),
-            measureFn: (OxygenStat sales, _) => sales.value,
-            data: hRate,
-            colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
-            labelAccessorFn: (OxygenStat sales, _) =>
-                '\$${sales.value.toString()}')
-      ];
-    }
-
     return MaterialApp(
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
@@ -446,6 +443,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                         weekly = false;
                                         monthly = false;
                                         yearly = false;
+                                        getOxygenRate();
                                       });
                                     },
                                     child: Container(
@@ -496,6 +494,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                     monthly = false;
                                     yearly = false;
                                     dateTimeWeek = DateTime.now();
+                                    getOxygenWeekRate();
                                   });
                                 },
                                 child: Container(
@@ -540,6 +539,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                       weekly = false;
                                       yearly = false;
                                       dateTimeMonth = DateTime.now();
+                                      getOxygenMonthlyRate();
                                     });
                                   },
                                   child: Container(
@@ -590,6 +590,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                       weekly = false;
                                       yearly = true;
                                       dateTimeYear = DateTime.now();
+                                      getOxygenYearlyRate();
                                     });
                                   },
                                   child: Container(
@@ -690,7 +691,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                   size: 32,
                                 ),
                               ),
-                              if (daily ?? true)
+                              if (daily == true)
                                 Expanded(
                                   child: Text(
                                     dateTime == null

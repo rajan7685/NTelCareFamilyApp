@@ -17,7 +17,7 @@ class BloodWidget extends StatefulWidget {
   BloodWidget({Key key, @required this.data}) : super(key: key);
 
   @override
-  _BloodWidgetState createState() => _BloodWidgetState(data);
+  _BloodWidgetState createState() => _BloodWidgetState();
 }
 
 DateTime dateTime = DateTime.now();
@@ -46,9 +46,8 @@ class _BloodWidgetState extends State<BloodWidget> {
   var color2 = Color(0xFF1A1A1A);
   var color3 = Color(0xFF1A1A1A);
   var color4 = Color(0xFF1A1A1A);
-  DateTime dateTime;
 
-  _BloodWidgetState(String data);
+  // _BloodWidgetState(this.data);
   bool checkLimit(DateTime limitDay) {
     if (limitDay.isBefore(_startDate)) {
       return false;
@@ -77,12 +76,18 @@ class _BloodWidgetState extends State<BloodWidget> {
   Future<List<dynamic>> SList;
 
   List<HeartStat> hRate = [];
-  List<HeartStatWeekMax> hRateMax = [];
-  List<HeartStatWeekMax> hRateMin = [];
-  List<HeartStatWeekMax> hRateMaxMon = [];
-  List<HeartStatWeekMax> hRateMinMon = [];
-  List<HeartStatWeekMax> hRateMinYr = [];
-  List<HeartStatWeekMax> hRateMaxYr = [];
+  List<HeartStatWeekMax> hRateMaxDia = [];
+  List<HeartStatWeekMax> hRateMinDia = [];
+  List<HeartStatWeekMax> hRateMaxMonDia = [];
+  List<HeartStatWeekMax> hRateMinMonDia = [];
+  List<HeartStatWeekMax> hRateMinYrDia = [];
+  List<HeartStatWeekMax> hRateMaxYrDia = [];
+  List<HeartStatWeekMax> hRateMaxSys = [];
+  List<HeartStatWeekMax> hRateMinSys = [];
+  List<HeartStatWeekMax> hRateMaxMonSys = [];
+  List<HeartStatWeekMax> hRateMinMonSys = [];
+  List<HeartStatWeekMax> hRateMinYrSys = [];
+  List<HeartStatWeekMax> hRateMaxYrSys = [];
   GetHrate getHrate = GetHrate();
   String id;
   String wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
@@ -92,7 +97,6 @@ class _BloodWidgetState extends State<BloodWidget> {
   Map<String, num> _measures;
   _onSelectionChanged(charts.SelectionModel model) {
     final selectedDatum = model.selectedDatum;
-    _BloodWidgetState(this.id);
 
     String time;
     final measures = <String, num>{};
@@ -168,7 +172,7 @@ class _BloodWidgetState extends State<BloodWidget> {
           id: 'max',
           domainFn: (HeartStatWeekMax sales, _) => sales.day,
           measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
-          data: hRateMax,
+          data: hRateMaxDia,
           colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
           labelAccessorFn: (HeartStatWeekMax sales, _) =>
               '\$${sales.Stat.toString()}'),
@@ -176,7 +180,7 @@ class _BloodWidgetState extends State<BloodWidget> {
           id: 'min',
           domainFn: (HeartStatWeekMax sales, _) => sales.day,
           measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
-          data: hRateMin,
+          data: hRateMinDia,
           colorFn: (_, __) => charts.Color.fromHex(code: "#272E36"),
           labelAccessorFn: (HeartStatWeekMax sales, _) =>
               '\$${sales.Stat.toString()}'),
@@ -189,7 +193,7 @@ class _BloodWidgetState extends State<BloodWidget> {
           id: 'max',
           domainFn: (HeartStatWeekMax sales, _) => sales.day,
           measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
-          data: hRateMaxMon,
+          data: hRateMaxMonDia,
           colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
           labelAccessorFn: (HeartStatWeekMax sales, _) =>
               '\$${sales.Stat.toString()}'),
@@ -197,7 +201,7 @@ class _BloodWidgetState extends State<BloodWidget> {
           id: 'min',
           domainFn: (HeartStatWeekMax sales, _) => sales.day,
           measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
-          data: hRateMinMon,
+          data: hRateMinMonDia,
           colorFn: (_, __) => charts.Color.fromHex(code: "#272E36"),
           labelAccessorFn: (HeartStatWeekMax sales, _) =>
               '\$${sales.Stat.toString()}'),
@@ -210,7 +214,7 @@ class _BloodWidgetState extends State<BloodWidget> {
           id: 'max',
           domainFn: (HeartStatWeekMax sales, _) => sales.day,
           measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
-          data: hRateMaxYr,
+          data: hRateMaxYrDia,
           colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
           labelAccessorFn: (HeartStatWeekMax sales, _) =>
               '\$${sales.Stat.toString()}'),
@@ -218,7 +222,70 @@ class _BloodWidgetState extends State<BloodWidget> {
           id: 'min',
           domainFn: (HeartStatWeekMax sales, _) => sales.day,
           measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
-          data: hRateMinYr,
+          data: hRateMinYrDia,
+          colorFn: (_, __) => charts.Color.fromHex(code: "#272E36"),
+          labelAccessorFn: (HeartStatWeekMax sales, _) =>
+              '\$${sales.Stat.toString()}'),
+    ];
+  }
+
+  List<charts.Series<HeartStatWeekMax, String>> _createSampleData1() {
+    return [
+      new charts.Series<HeartStatWeekMax, String>(
+          id: 'max',
+          domainFn: (HeartStatWeekMax sales, _) => sales.day,
+          measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
+          data: hRateMaxSys,
+          colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
+          labelAccessorFn: (HeartStatWeekMax sales, _) =>
+              '\$${sales.Stat.toString()}'),
+      new charts.Series<HeartStatWeekMax, String>(
+          id: 'min',
+          domainFn: (HeartStatWeekMax sales, _) => sales.day,
+          measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
+          data: hRateMinSys,
+          colorFn: (_, __) => charts.Color.fromHex(code: "#272E36"),
+          labelAccessorFn: (HeartStatWeekMax sales, _) =>
+              '\$${sales.Stat.toString()}'),
+    ];
+  }
+
+  List<charts.Series<HeartStatWeekMax, String>> _createSampleDataMonth1() {
+    return [
+      new charts.Series<HeartStatWeekMax, String>(
+          id: 'max',
+          domainFn: (HeartStatWeekMax sales, _) => sales.day,
+          measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
+          data: hRateMaxMonSys,
+          colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
+          labelAccessorFn: (HeartStatWeekMax sales, _) =>
+              '\$${sales.Stat.toString()}'),
+      new charts.Series<HeartStatWeekMax, String>(
+          id: 'min',
+          domainFn: (HeartStatWeekMax sales, _) => sales.day,
+          measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
+          data: hRateMinMonSys,
+          colorFn: (_, __) => charts.Color.fromHex(code: "#272E36"),
+          labelAccessorFn: (HeartStatWeekMax sales, _) =>
+              '\$${sales.Stat.toString()}'),
+    ];
+  }
+
+  List<charts.Series<HeartStatWeekMax, String>> _createSampleDataYear1() {
+    return [
+      new charts.Series<HeartStatWeekMax, String>(
+          id: 'max',
+          domainFn: (HeartStatWeekMax sales, _) => sales.day,
+          measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
+          data: hRateMaxYrSys,
+          colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
+          labelAccessorFn: (HeartStatWeekMax sales, _) =>
+              '\$${sales.Stat.toString()}'),
+      new charts.Series<HeartStatWeekMax, String>(
+          id: 'min',
+          domainFn: (HeartStatWeekMax sales, _) => sales.day,
+          measureFn: (HeartStatWeekMax sales, _) => sales.Stat,
+          data: hRateMinYrSys,
           colorFn: (_, __) => charts.Color.fromHex(code: "#272E36"),
           labelAccessorFn: (HeartStatWeekMax sales, _) =>
               '\$${sales.Stat.toString()}'),
@@ -228,10 +295,13 @@ class _BloodWidgetState extends State<BloodWidget> {
   @override
   void initState() {
     super.initState();
+
     getHeartRate();
     getHeartWeekRate();
     getHeartMonthlyRate();
     getHeartYearlyRate();
+    print(widget.data);
+
     // SList = fetchSList();
     // int versionCode = BuildConfig.VERSION_CODE;
     // HeartStatus = fetchStat();
@@ -241,16 +311,16 @@ class _BloodWidgetState extends State<BloodWidget> {
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
 
     var response = await getHrate.get(
-        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
+        '${ApiService.domain}/graph/health_status/?senior_id=${widget.data}&date=${date}');
 
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["health_status"][0]["heart_rate"].runtimeType);
+    print(rate["health_status"][0]["blood_pressure"].runtimeType);
 
     List<HeartStat> temp =
-        heartStatFromJson(rate["health_status"][0]["heart_rate"]);
+        heartStatFromJson(rate["health_status"][0]["blood_pressure"]);
     setState(() {
       hRate = temp;
     });
@@ -261,19 +331,32 @@ class _BloodWidgetState extends State<BloodWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/heart_rate/weekly?date=${wDate}&senior_id=${id}');
+        'http://18.208.148.208:4000/graph/health_status/blood_pressure/weekly?date=${wDate}&senior_id=${widget.data}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["heart_rate"]);
-    List<HeartStatWeekMax> temp = heartStatWeekMaxFromJson(rate["heart_rate"]);
+
+    List<HeartStatWeekMax> temp =
+        heartStatWeekMaxDiaFromJson(rate["blood_pressure"]);
     setState(() {
-      hRateMax = temp;
+      hRateMaxDia = temp;
     });
-    List<HeartStatWeekMax> temp1 = heartStatWeekMinFromJson(rate["heart_rate"]);
+    List<HeartStatWeekMax> temp2 =
+        heartStatWeekMinDiaFromJson(rate["blood_pressure"]);
     setState(() {
-      hRateMin = temp1;
+      hRateMinDia = temp2;
+    });
+    List<HeartStatWeekMax> temp3 =
+        heartStatWeekMaxSysFromJson(rate["blood_pressure"]);
+    setState(() {
+      hRateMaxSys = temp3;
+    });
+
+    List<HeartStatWeekMax> temp1 =
+        heartStatWeekMinSysFromJson(rate["blood_pressure"]);
+    setState(() {
+      hRateMinSys = temp1;
     });
   }
 
@@ -281,19 +364,31 @@ class _BloodWidgetState extends State<BloodWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/heart_rate/monthly?date=${wDate}&senior_id=${id}');
+        'http://18.208.148.208:4000/graph/health_status/blood_pressure/monthly?date=${wDate}&senior_id=${widget.data}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["heart_rate"]);
-    List<HeartStatWeekMax> temp = heartStatWeekMaxFromJson(rate["heart_rate"]);
+
+    List<HeartStatWeekMax> temp =
+        heartStatWeekMaxDiaFromJson(rate["blood_pressure"]);
     setState(() {
-      hRateMaxMon = temp;
+      hRateMaxMonDia = temp;
     });
-    List<HeartStatWeekMax> temp1 = heartStatWeekMinFromJson(rate["heart_rate"]);
+    List<HeartStatWeekMax> temp1 =
+        heartStatWeekMinDiaFromJson(rate["blood_pressure"]);
     setState(() {
-      hRateMinMon = temp1;
+      hRateMinMonDia = temp1;
+    });
+    List<HeartStatWeekMax> temp2 =
+        heartStatWeekMaxSysFromJson(rate["blood_pressure"]);
+    setState(() {
+      hRateMaxMonSys = temp2;
+    });
+    List<HeartStatWeekMax> temp3 =
+        heartStatWeekMinSysFromJson(rate["blood_pressure"]);
+    setState(() {
+      hRateMinMonSys = temp3;
     });
   }
 
@@ -301,20 +396,33 @@ class _BloodWidgetState extends State<BloodWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/heart_rate/yearly?date=${wDate}&senior_id=${id}');
+        'http://18.208.148.208:4000/graph/health_status/blood_pressure/yearly?date=${wDate}&senior_id=${widget.data}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["heart_rate"]);
-    List<HeartStatWeekMax> temp = heartStatWeekMaxFromJson(rate["heart_rate"]);
+
+    List<HeartStatWeekMax> temp =
+        heartStatWeekMaxDiaFromJson(rate["blood_pressure"]);
     setState(() {
-      hRateMaxYr = temp;
+      hRateMaxYrDia = temp;
     });
-    List<HeartStatWeekMax> temp1 = heartStatWeekMinFromJson(rate["heart_rate"]);
+    List<HeartStatWeekMax> temp1 =
+        heartStatWeekMinDiaFromJson(rate["blood_pressure"]);
     setState(() {
-      hRateMinYr = temp1;
+      hRateMinYrDia = temp1;
     });
+    List<HeartStatWeekMax> temp2 =
+        heartStatWeekMaxSysFromJson(rate["blood_pressure"]);
+    setState(() {
+      hRateMinYrSys = temp2;
+    });
+    List<HeartStatWeekMax> temp3 =
+        heartStatWeekMinSysFromJson(rate["blood_pressure"]);
+    setState(() {
+      hRateMinYrSys = temp3;
+    });
+    print("day is ${hRateMaxYrSys[0].day}");
   }
 
   @override
@@ -339,96 +447,192 @@ class _BloodWidgetState extends State<BloodWidget> {
         backgroundColor: Color(0xFF1F252B),
         body: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Stack(
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/blood.svg',
-                        width: 220,
-                        height: 220,
-                        fit: BoxFit.fitWidth,
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 63, 0, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            await Navigator.pop(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ModifiedLandingPageWidget(),
-                                ));
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Icon(
-                                Icons.chevron_left_sharp,
-                                color: Color(0xFFAFAFAF),
-                                size: 45,
-                              ),
-                            ],
-                          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Stack(
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/blood.svg',
+                          width: 220,
+                          height: 220,
+                          fit: BoxFit.fitWidth,
                         ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                            child: Text(
-                              'Blood-Pressure',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Montserrat',
-                                    color: Color(0xFFAFAFAF),
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.w200,
-                                  ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 63, 0, 0),
+                          child: InkWell(
+                            onTap: () async {
+                              await Navigator.pop(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ModifiedLandingPageWidget(),
+                                  ));
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Icon(
+                                  Icons.chevron_left_sharp,
+                                  color: Color(0xFFAFAFAF),
+                                  size: 45,
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
-                        child: Row(
+                        ),
+                        Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Expanded(
-                              child: InkWell(
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                              child: Text(
+                                'Blood-Pressure',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      color: Color(0xFFAFAFAF),
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.w200,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        color1 = Color(0xFF00B89F);
+                                        color2 = Color(0xFF1A1A1A);
+                                        color3 = Color(0xFF1A1A1A);
+                                        color4 = Color(0xFF1A1A1A);
+                                        daily = true;
+                                        weekly = false;
+                                        monthly = false;
+                                        yearly = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: color1,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(0),
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(0),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 5, 0, 5),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Daily',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color(0xFF6D6767),
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w200,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )),
+                              ),
+                              Expanded(
+                                  child: InkWell(
+                                onTap: () async {
+                                  setState(() {
+                                    color1 = Color(0xFF1A1A1A);
+                                    color2 = Color(0xFF00B89F);
+                                    color3 = Color(0xFF1A1A1A);
+                                    color4 = Color(0xFF1A1A1A);
+                                    weekly = true;
+                                    daily = false;
+                                    monthly = false;
+                                    yearly = false;
+                                    dateTimeWeek = DateTime.now();
+                                  });
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: color2,
+                                    borderRadius: BorderRadius.circular(0),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 5, 0, 5),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Weekly',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Montserrat',
+                                                color: Color(0xFF6D6767),
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w200,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )),
+                              Expanded(
+                                child: InkWell(
                                   onTap: () async {
                                     setState(() {
-                                      color1 = Color(0xFF00B89F);
+                                      color1 = Color(0xFF1A1A1A);
                                       color2 = Color(0xFF1A1A1A);
-                                      color3 = Color(0xFF1A1A1A);
+                                      color3 = Color(0xFF00B89F);
                                       color4 = Color(0xFF1A1A1A);
-                                      daily = true;
+                                      monthly = true;
+                                      daily = false;
                                       weekly = false;
-                                      monthly = false;
                                       yearly = false;
+                                      dateTimeMonth = DateTime.now();
                                     });
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: color1,
+                                      color: color3,
                                       borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10),
+                                        bottomLeft: Radius.circular(0),
                                         bottomRight: Radius.circular(0),
-                                        topLeft: Radius.circular(10),
+                                        topLeft: Radius.circular(0),
                                         topRight: Radius.circular(0),
                                       ),
                                     ),
@@ -441,7 +645,7 @@ class _BloodWidgetState extends State<BloodWidget> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Daily',
+                                            'Monthly',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1
                                                 .override(
@@ -454,314 +658,85 @@ class _BloodWidgetState extends State<BloodWidget> {
                                         ],
                                       ),
                                     ),
-                                  )),
-                            ),
-                            Expanded(
-                                child: InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  color1 = Color(0xFF1A1A1A);
-                                  color2 = Color(0xFF00B89F);
-                                  color3 = Color(0xFF1A1A1A);
-                                  color4 = Color(0xFF1A1A1A);
-                                  weekly = true;
-                                  daily = false;
-                                  monthly = false;
-                                  yearly = false;
-                                  dateTimeWeek = DateTime.now();
-                                });
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: color2,
-                                  borderRadius: BorderRadius.circular(0),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 5, 0, 5),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Weekly',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFF6D6767),
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w200,
-                                            ),
-                                      ),
-                                    ],
                                   ),
                                 ),
                               ),
-                            )),
-                            Expanded(
-                              child: InkWell(
-                                onTap: () async {
-                                  setState(() {
-                                    color1 = Color(0xFF1A1A1A);
-                                    color2 = Color(0xFF1A1A1A);
-                                    color3 = Color(0xFF00B89F);
-                                    color4 = Color(0xFF1A1A1A);
-                                    monthly = true;
-                                    daily = false;
-                                    weekly = false;
-                                    yearly = false;
-                                    dateTimeMonth = DateTime.now();
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: color3,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(0),
-                                      bottomRight: Radius.circular(0),
-                                      topLeft: Radius.circular(0),
-                                      topRight: Radius.circular(0),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 5, 0, 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Monthly',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFF6D6767),
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w200,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: InkWell(
-                                onTap: () async {
-                                  setState(() {
-                                    color1 = Color(0xFF1A1A1A);
-                                    color2 = Color(0xFF1A1A1A);
-                                    color3 = Color(0xFF1A1A1A);
-                                    color4 = Color(0xFF00B89F);
-                                    monthly = false;
-                                    daily = false;
-                                    weekly = false;
-                                    yearly = true;
-                                    dateTimeYear = DateTime.now();
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: color4,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(0),
-                                      bottomRight: Radius.circular(10),
-                                      topLeft: Radius.circular(0),
-                                      topRight: Radius.circular(10),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 5, 0, 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Yearly',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFF6D6767),
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w200,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                print(DateFormat('dd-MM-yyyy')
-                                    .format(dateTimeWeek));
-
-                                print(DateFormat('dd-MM-yyyy')
-                                    .format(dateTimeWeek));
-                                if (daily) {
-                                  setState(() {
-                                    dateTime =
-                                        dateTime.subtract(Duration(days: 1));
-                                    getHeartRate();
-                                  });
-                                }
-                                if (weekly == true) {
-                                  dateTimeWeek =
-                                      dateTimeWeek.subtract(Duration(days: 1));
-                                  setState(() {
-                                    _startDate = dateTimeWeek
-                                        .subtract(Duration(days: 7));
-                                    _endDate = dateTimeWeek;
-                                  });
-
-                                  getHeartWeekRate();
-                                } else if (monthly == true) {
-                                  dateTimeMonth = dateTimeMonth
-                                      .subtract(Duration(days: 30));
-                                  setState(() {
-                                    startDateMonth = startDateMonth
-                                        .subtract(Duration(days: 30));
-                                    endDateMonth = dateTimeMonth;
-                                  });
-                                  getHeartMonthlyRate();
-                                } else if (yearly == true) {
-                                  dateTimeYear = dateTimeYear
-                                      .subtract(Duration(days: 365));
-                                  setState(() {
-                                    startDateYear = startDateYear
-                                        .subtract(Duration(days: 365));
-                                    endDateYear = dateTimeYear;
-                                  });
-                                  getHeartYearlyRate();
-                                }
-                              },
-                              icon: Icon(
-                                Icons.chevron_left,
-                                color: Color(0xFFAFAFAF),
-                                size: 32,
-                              ),
-                            ),
-                            if (daily ?? true)
                               Expanded(
-                                child: Text(
-                                  DateFormat('dd-MM-yyyy').format(dateTime),
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFFAFAFAF),
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w300,
+                                child: InkWell(
+                                  onTap: () async {
+                                    setState(() {
+                                      color1 = Color(0xFF1A1A1A);
+                                      color2 = Color(0xFF1A1A1A);
+                                      color3 = Color(0xFF1A1A1A);
+                                      color4 = Color(0xFF00B89F);
+                                      monthly = false;
+                                      daily = false;
+                                      weekly = false;
+                                      yearly = true;
+                                      dateTimeYear = DateTime.now();
+                                    });
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: color4,
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(0),
+                                        bottomRight: Radius.circular(10),
+                                        topLeft: Radius.circular(0),
+                                        topRight: Radius.circular(10),
                                       ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 5, 0, 5),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Yearly',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Montserrat',
+                                                  color: Color(0xFF6D6767),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w200,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            if (weekly == true)
-                              Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 10, 5, 10),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await displayDateRangePicker(context);
-                                    },
-                                    child: Text(
-                                      '${DateFormat('d / MM / y').format(_startDate)} - ${DateFormat('d / MM / y').format(_endDate)}',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFFAFAFAF),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  print(DateFormat('dd-MM-yyyy')
+                                      .format(dateTimeWeek));
 
-                                      //style: kWhite20RegularTextStyle,
-                                    ),
-                                  )),
-                            if (monthly == true)
-                              Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 10, 5, 10),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await displayDateRangePicker(context);
-                                    },
-                                    child: Text(
-                                      '${DateFormat('d / MM / y').format(startDateMonth)} - ${DateFormat('d / MM / y').format(endDateMonth)}',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFFAFAFAF),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-
-                                      //style: kWhite20RegularTextStyle,
-                                    ),
-                                  )),
-                            if (yearly == true)
-                              Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 10, 5, 10),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await displayDateRangePicker(context);
-                                    },
-                                    child: Text(
-                                      '${DateFormat('d / MM / y').format(startDateYear)} - ${DateFormat('d / MM / y').format(endDateYear)}',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFFAFAFAF),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-
-                                      //style: kWhite20RegularTextStyle,
-                                    ),
-                                  )),
-                            IconButton(
-                              onPressed: () {
-                                print(DateFormat('dd-MM-yyyy')
-                                    .format(dateTimeWeek));
-
-                                print(DateFormat('dd-MM-yyyy')
-                                    .format(dateTimeWeek));
-                                if (daily) {
-                                  setState(() {
-                                    if ((DateFormat('dd-MM-yyyy')
-                                            .format(dateTime)) !=
-                                        dateToday) {
+                                  print(DateFormat('dd-MM-yyyy')
+                                      .format(dateTimeWeek));
+                                  if (daily) {
+                                    setState(() {
                                       dateTime =
-                                          dateTime.add(Duration(days: 1));
+                                          dateTime.subtract(Duration(days: 1));
                                       getHeartRate();
-                                    }
-                                  });
-                                } else if (weekly == true) {
-                                  if ((DateFormat('dd-MM-yyyy')
-                                          .format(dateTimeWeek)) !=
-                                      dateToday) {
-                                    dateTimeWeek =
-                                        dateTimeWeek.add(Duration(days: 1));
+                                    });
+                                  }
+                                  if (weekly == true) {
+                                    dateTimeWeek = dateTimeWeek
+                                        .subtract(Duration(days: 1));
                                     setState(() {
                                       _startDate = dateTimeWeek
                                           .subtract(Duration(days: 7));
@@ -769,26 +744,18 @@ class _BloodWidgetState extends State<BloodWidget> {
                                     });
 
                                     getHeartWeekRate();
-                                  }
-                                } else if (monthly == true) {
-                                  if ((DateFormat('dd-MM-yyyy')
-                                          .format(dateTimeMonth)) !=
-                                      dateToday) {
-                                    dateTimeMonth =
-                                        dateTimeMonth.add(Duration(days: 30));
+                                  } else if (monthly == true) {
+                                    dateTimeMonth = dateTimeMonth
+                                        .subtract(Duration(days: 30));
                                     setState(() {
                                       startDateMonth = startDateMonth
                                           .subtract(Duration(days: 30));
                                       endDateMonth = dateTimeMonth;
                                     });
                                     getHeartMonthlyRate();
-                                  }
-                                } else if (yearly == true) {
-                                  if ((DateFormat('dd-MM-yyyy')
-                                          .format(dateTimeMonth)) !=
-                                      dateToday) {
-                                    dateTimeYear =
-                                        dateTimeYear.add(Duration(days: 365));
+                                  } else if (yearly == true) {
+                                    dateTimeYear = dateTimeYear
+                                        .subtract(Duration(days: 365));
                                     setState(() {
                                       startDateYear = startDateYear
                                           .subtract(Duration(days: 365));
@@ -796,179 +763,507 @@ class _BloodWidgetState extends State<BloodWidget> {
                                     });
                                     getHeartYearlyRate();
                                   }
-                                }
-                              },
-                              icon: Icon(
-                                Icons.chevron_right,
-                                color: Color(0xFFAFAFAF),
-                                size: 32,
+                                },
+                                icon: Icon(
+                                  Icons.chevron_left,
+                                  color: Color(0xFFAFAFAF),
+                                  size: 32,
+                                ),
                               ),
-                            ),
-                          ],
+                              if (daily ?? true)
+                                Expanded(
+                                  child: Text(
+                                    DateFormat('dd-MM-yyyy').format(dateTime),
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFFAFAFAF),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                  ),
+                                ),
+                              if (weekly == true)
+                                Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 10, 5, 10),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await displayDateRangePicker(context);
+                                      },
+                                      child: Text(
+                                        '${DateFormat('d / MM / y').format(_startDate)} - ${DateFormat('d / MM / y').format(_endDate)}',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFFAFAFAF),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+
+                                        //style: kWhite20RegularTextStyle,
+                                      ),
+                                    )),
+                              if (monthly == true)
+                                Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 10, 5, 10),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await displayDateRangePicker(context);
+                                      },
+                                      child: Text(
+                                        '${DateFormat('d / MM / y').format(startDateMonth)} - ${DateFormat('d / MM / y').format(endDateMonth)}',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFFAFAFAF),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+
+                                        //style: kWhite20RegularTextStyle,
+                                      ),
+                                    )),
+                              if (yearly == true)
+                                Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 10, 5, 10),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await displayDateRangePicker(context);
+                                      },
+                                      child: Text(
+                                        '${DateFormat('d / MM / y').format(startDateYear)} - ${DateFormat('d / MM / y').format(endDateYear)}',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFFAFAFAF),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+
+                                        //style: kWhite20RegularTextStyle,
+                                      ),
+                                    )),
+                              IconButton(
+                                onPressed: () {
+                                  print(DateFormat('dd-MM-yyyy')
+                                      .format(dateTimeWeek));
+
+                                  print(DateFormat('dd-MM-yyyy')
+                                      .format(dateTimeWeek));
+                                  if (daily) {
+                                    setState(() {
+                                      if ((DateFormat('dd-MM-yyyy')
+                                              .format(dateTime)) !=
+                                          dateToday) {
+                                        dateTime =
+                                            dateTime.add(Duration(days: 1));
+                                        getHeartRate();
+                                      }
+                                    });
+                                  } else if (weekly == true) {
+                                    if ((DateFormat('dd-MM-yyyy')
+                                            .format(dateTimeWeek)) !=
+                                        dateToday) {
+                                      dateTimeWeek =
+                                          dateTimeWeek.add(Duration(days: 1));
+                                      setState(() {
+                                        _startDate = dateTimeWeek
+                                            .subtract(Duration(days: 7));
+                                        _endDate = dateTimeWeek;
+                                      });
+
+                                      getHeartWeekRate();
+                                    }
+                                  } else if (monthly == true) {
+                                    if ((DateFormat('dd-MM-yyyy')
+                                            .format(dateTimeMonth)) !=
+                                        dateToday) {
+                                      dateTimeMonth =
+                                          dateTimeMonth.add(Duration(days: 30));
+                                      setState(() {
+                                        startDateMonth = startDateMonth
+                                            .subtract(Duration(days: 30));
+                                        endDateMonth = dateTimeMonth;
+                                      });
+                                      getHeartMonthlyRate();
+                                    }
+                                  } else if (yearly == true) {
+                                    if ((DateFormat('dd-MM-yyyy')
+                                            .format(dateTimeMonth)) !=
+                                        dateToday) {
+                                      dateTimeYear =
+                                          dateTimeYear.add(Duration(days: 365));
+                                      setState(() {
+                                        startDateYear = startDateYear
+                                            .subtract(Duration(days: 365));
+                                        endDateYear = dateTimeYear;
+                                      });
+                                      getHeartYearlyRate();
+                                    }
+                                  }
+                                },
+                                icon: Icon(
+                                  Icons.chevron_right,
+                                  color: Color(0xFFAFAFAF),
+                                  size: 32,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      if (daily == true)
-                        Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                            child: Container(
-                              width: double.infinity,
-                              height: MediaQuery.of(context).size.height / 3,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF272E36),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: charts.LineChart(
-                                heart,
-                                domainAxis: new charts.NumericAxisSpec(
-                                    tickProviderSpec:
-                                        charts.BasicNumericTickProviderSpec(
-                                            zeroBound: false),
-                                    renderSpec:
-                                        new charts.SmallTickRendererSpec(
+                        if (daily != true)
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                                child: Text(
+                                  'Dia',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFFAFAFAF),
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        if (daily == true)
+                          Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                              child: Container(
+                                width: double.infinity,
+                                height: MediaQuery.of(context).size.height / 3,
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF272E36),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: charts.LineChart(
+                                  heart,
+                                  domainAxis: new charts.NumericAxisSpec(
+                                      tickProviderSpec:
+                                          charts.BasicNumericTickProviderSpec(
+                                              zeroBound: false),
+                                      renderSpec:
+                                          new charts.SmallTickRendererSpec(
+                                        labelStyle: new charts.TextStyleSpec(
+                                            fontSize: 8, // size in Pts.
+                                            color:
+                                                charts.MaterialPalette.white),
+                                      )),
+
+                                  // domainAxis: charts.OrdinalAxisSpec(
+                                  //     renderSpec: charts.SmallTickRendererSpec(
+                                  //         labelStyle: new charts.TextStyleSpec(
+                                  //             color: charts.MaterialPalette.white))),
+                                ),
+                              )
+                              // Image.asset(
+                              //   'assets/images/heartRate.png',
+                              //   width: 400,
+                              //   height: 400,
+                              //   fit: BoxFit.fill,
+                              // ),
+                              ),
+                        if (weekly == true && daily == false)
+                          Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                              child: Container(
+                                  width: double.infinity,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFF272E36),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: charts.BarChart(
+                                    _createSampleData(),
+                                    /* selectionModels: [
+                                      charts.SelectionModelConfig(changedListener:
+                                          (charts.SelectionModel model) {
+                                        if (model.hasDatumSelection)
+                                          print(model.selectedSeries[0].measureFn(
+                                              model.selectedDatum[0].index));
+                                        print(model.selectedSeries[0].domainFn(
+                                            model.selectedDatum[1].index));
+                                      })
+                                    ],*/
+                                    selectionModels: [
+                                      new charts.SelectionModelConfig(
+                                          type: charts.SelectionModelType.info,
+                                          changedListener: _onSelectionChanged)
+                                    ],
+                                    domainAxis: new charts.OrdinalAxisSpec(
+                                        renderSpec:
+                                            new charts.SmallTickRendererSpec(
+                                      labelStyle: new charts.TextStyleSpec(
+                                          fontSize: 6, // size in Pts.
+                                          color: charts.MaterialPalette.white),
+                                    )),
+                                    /*  primaryMeasureAxis:
+                                        new charts.NumericAxisSpec(
+                                            renderSpec:
+                                                new charts.GridlineRendererSpec(
                                       labelStyle: new charts.TextStyleSpec(
                                           fontSize: 8, // size in Pts.
                                           color: charts.MaterialPalette.white),
+                                    )),*/
+
+                                    animate: true,
+                                    defaultRenderer:
+                                        new charts.BarRendererConfig(
+                                            groupingType:
+                                                charts.BarGroupingType.stacked,
+                                            strokeWidthPx: 0.5,
+                                            maxBarWidthPx: 10),
+                                  )
+                                  //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
+                                  )),
+                        if (weekly == false &&
+                            daily == false &&
+                            monthly == true)
+                          Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                              child: Container(
+                                  width: double.infinity,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFF272E36),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: charts.BarChart(
+                                    _createSampleDataMonth(),
+                                    selectionModels: [
+                                      new charts.SelectionModelConfig(
+                                          type: charts.SelectionModelType.info,
+                                          changedListener: _onSelectionChanged)
+                                    ],
+                                    domainAxis: new charts.OrdinalAxisSpec(
+                                        renderSpec:
+                                            new charts.SmallTickRendererSpec(
+                                      labelStyle: new charts.TextStyleSpec(
+                                          fontSize: 3, // size in Pts.
+                                          color: charts.MaterialPalette.white),
                                     )),
-
-                                // domainAxis: charts.OrdinalAxisSpec(
-                                //     renderSpec: charts.SmallTickRendererSpec(
-                                //         labelStyle: new charts.TextStyleSpec(
-                                //             color: charts.MaterialPalette.white))),
+                                    animate: true,
+                                    defaultRenderer:
+                                        new charts.BarRendererConfig(
+                                            groupingType:
+                                                charts.BarGroupingType.stacked,
+                                            strokeWidthPx: 0.5,
+                                            maxBarWidthPx: 10),
+                                  )
+                                  //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
+                                  )),
+                        if (weekly == false &&
+                            daily == false &&
+                            monthly == false &&
+                            yearly == true)
+                          Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                              child: Container(
+                                  width: double.infinity,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFF272E36),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: charts.BarChart(
+                                    _createSampleDataYear(),
+                                    selectionModels: [
+                                      new charts.SelectionModelConfig(
+                                          type: charts.SelectionModelType.info,
+                                          changedListener: _onSelectionChanged)
+                                    ],
+                                    domainAxis: new charts.OrdinalAxisSpec(
+                                        renderSpec:
+                                            new charts.SmallTickRendererSpec(
+                                      labelStyle: new charts.TextStyleSpec(
+                                          fontSize: 3, // size in Pts.
+                                          color: charts.MaterialPalette.white),
+                                    )),
+                                    animate: true,
+                                    defaultRenderer:
+                                        new charts.BarRendererConfig(
+                                            groupingType:
+                                                charts.BarGroupingType.stacked,
+                                            strokeWidthPx: 0.5,
+                                            maxBarWidthPx: 10),
+                                  )
+                                  //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
+                                  )),
+                        if (daily != true)
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                                child: Text(
+                                  'Sys',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFFAFAFAF),
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                ),
                               ),
-                            )
-                            // Image.asset(
-                            //   'assets/images/heartRate.png',
-                            //   width: 400,
-                            //   height: 400,
-                            //   fit: BoxFit.fill,
-                            // ),
-                            ),
-                      if (weekly == true && daily == false)
-                        Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                            child: Container(
-                                width: double.infinity,
-                                height: MediaQuery.of(context).size.height / 3,
-                                decoration: BoxDecoration(
-                                    color: Color(0xFF272E36),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: charts.BarChart(
-                                  _createSampleData(),
-                                  /* selectionModels: [
-                                    charts.SelectionModelConfig(changedListener:
-                                        (charts.SelectionModel model) {
-                                      if (model.hasDatumSelection)
-                                        print(model.selectedSeries[0].measureFn(
-                                            model.selectedDatum[0].index));
-                                      print(model.selectedSeries[0].domainFn(
-                                          model.selectedDatum[1].index));
-                                    })
-                                  ],*/
-                                  selectionModels: [
-                                    new charts.SelectionModelConfig(
-                                        type: charts.SelectionModelType.info,
-                                        changedListener: _onSelectionChanged)
-                                  ],
-                                  domainAxis: new charts.OrdinalAxisSpec(
-                                      renderSpec:
-                                          new charts.SmallTickRendererSpec(
-                                    labelStyle: new charts.TextStyleSpec(
-                                        fontSize: 6, // size in Pts.
-                                        color: charts.MaterialPalette.white),
-                                  )),
-                                  /*  primaryMeasureAxis:
-                                      new charts.NumericAxisSpec(
-                                          renderSpec:
-                                              new charts.GridlineRendererSpec(
-                                    labelStyle: new charts.TextStyleSpec(
-                                        fontSize: 8, // size in Pts.
-                                        color: charts.MaterialPalette.white),
-                                  )),*/
+                            ],
+                          ),
+                        if (weekly == true && daily == false)
+                          Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10, 10, 10, 10),
+                              child: Container(
+                                  width: double.infinity,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFF272E36),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: charts.BarChart(
+                                    _createSampleData1(),
+                                    /* selectionModels: [
+                                      charts.SelectionModelConfig(changedListener:
+                                          (charts.SelectionModel model) {
+                                        if (model.hasDatumSelection)
+                                          print(model.selectedSeries[0].measureFn(
+                                              model.selectedDatum[0].index));
+                                        print(model.selectedSeries[0].domainFn(
+                                            model.selectedDatum[1].index));
+                                      })
+                                    ],*/
+                                    selectionModels: [
+                                      new charts.SelectionModelConfig(
+                                          type: charts.SelectionModelType.info,
+                                          changedListener: _onSelectionChanged)
+                                    ],
+                                    domainAxis: new charts.OrdinalAxisSpec(
+                                        renderSpec:
+                                            new charts.SmallTickRendererSpec(
+                                      labelStyle: new charts.TextStyleSpec(
+                                          fontSize: 6, // size in Pts.
+                                          color: charts.MaterialPalette.white),
+                                    )),
+                                    /*  primaryMeasureAxis:
+                                        new charts.NumericAxisSpec(
+                                            renderSpec:
+                                                new charts.GridlineRendererSpec(
+                                      labelStyle: new charts.TextStyleSpec(
+                                          fontSize: 8, // size in Pts.
+                                          color: charts.MaterialPalette.white),
+                                    )),*/
 
-                                  animate: true,
-                                  defaultRenderer: new charts.BarRendererConfig(
-                                      groupingType:
-                                          charts.BarGroupingType.stacked,
-                                      strokeWidthPx: 0.5,
-                                      maxBarWidthPx: 10),
-                                )
-                                //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
-                                )),
-                      if (weekly == false && daily == false && monthly == true)
-                        Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                            child: Container(
-                                width: double.infinity,
-                                height: MediaQuery.of(context).size.height / 3,
-                                decoration: BoxDecoration(
-                                    color: Color(0xFF272E36),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: charts.BarChart(
-                                  _createSampleDataMonth(),
-                                  selectionModels: [
-                                    new charts.SelectionModelConfig(
-                                        type: charts.SelectionModelType.info,
-                                        changedListener: _onSelectionChanged)
-                                  ],
-                                  domainAxis: new charts.OrdinalAxisSpec(
-                                      renderSpec:
-                                          new charts.SmallTickRendererSpec(
-                                    labelStyle: new charts.TextStyleSpec(
-                                        fontSize: 3, // size in Pts.
-                                        color: charts.MaterialPalette.white),
+                                    animate: true,
+                                    defaultRenderer:
+                                        new charts.BarRendererConfig(
+                                            groupingType:
+                                                charts.BarGroupingType.stacked,
+                                            strokeWidthPx: 0.5,
+                                            maxBarWidthPx: 10),
+                                  )
+                                  //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
                                   )),
-                                  animate: true,
-                                  defaultRenderer: new charts.BarRendererConfig(
-                                      groupingType:
-                                          charts.BarGroupingType.stacked,
-                                      strokeWidthPx: 0.5,
-                                      maxBarWidthPx: 10),
-                                )
-                                //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
-                                )),
-                      if (weekly == false &&
-                          daily == false &&
-                          monthly == false &&
-                          yearly == true)
-                        Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                            child: Container(
-                                width: double.infinity,
-                                height: MediaQuery.of(context).size.height / 3,
-                                decoration: BoxDecoration(
-                                    color: Color(0xFF272E36),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: charts.BarChart(
-                                  _createSampleDataYear(),
-                                  selectionModels: [
-                                    new charts.SelectionModelConfig(
-                                        type: charts.SelectionModelType.info,
-                                        changedListener: _onSelectionChanged)
-                                  ],
-                                  domainAxis: new charts.OrdinalAxisSpec(
-                                      renderSpec:
-                                          new charts.SmallTickRendererSpec(
-                                    labelStyle: new charts.TextStyleSpec(
-                                        fontSize: 3, // size in Pts.
-                                        color: charts.MaterialPalette.white),
+                        if (weekly == false &&
+                            daily == false &&
+                            monthly == true)
+                          Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10, 10, 10, 10),
+                              child: Container(
+                                  width: double.infinity,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFF272E36),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: charts.BarChart(
+                                    _createSampleDataMonth1(),
+                                    selectionModels: [
+                                      new charts.SelectionModelConfig(
+                                          type: charts.SelectionModelType.info,
+                                          changedListener: _onSelectionChanged)
+                                    ],
+                                    domainAxis: new charts.OrdinalAxisSpec(
+                                        renderSpec:
+                                            new charts.SmallTickRendererSpec(
+                                      labelStyle: new charts.TextStyleSpec(
+                                          fontSize: 3, // size in Pts.
+                                          color: charts.MaterialPalette.white),
+                                    )),
+                                    animate: true,
+                                    defaultRenderer:
+                                        new charts.BarRendererConfig(
+                                            groupingType:
+                                                charts.BarGroupingType.stacked,
+                                            strokeWidthPx: 0.5,
+                                            maxBarWidthPx: 10),
+                                  )
+                                  //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
                                   )),
-                                  animate: true,
-                                  defaultRenderer: new charts.BarRendererConfig(
-                                      groupingType:
-                                          charts.BarGroupingType.stacked,
-                                      strokeWidthPx: 0.5,
-                                      maxBarWidthPx: 10),
-                                )
-                                //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
-                                )),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+                        if (weekly == false &&
+                            daily == false &&
+                            monthly == false &&
+                            yearly == true)
+                          Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10, 10, 10, 10),
+                              child: Container(
+                                  width: double.infinity,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFF272E36),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: charts.BarChart(
+                                    _createSampleDataYear1(),
+                                    selectionModels: [
+                                      new charts.SelectionModelConfig(
+                                          type: charts.SelectionModelType.info,
+                                          changedListener: _onSelectionChanged)
+                                    ],
+                                    domainAxis: new charts.OrdinalAxisSpec(
+                                        renderSpec:
+                                            new charts.SmallTickRendererSpec(
+                                      labelStyle: new charts.TextStyleSpec(
+                                          fontSize: 3, // size in Pts.
+                                          color: charts.MaterialPalette.white),
+                                    )),
+                                    animate: true,
+                                    defaultRenderer:
+                                        new charts.BarRendererConfig(
+                                            groupingType:
+                                                charts.BarGroupingType.stacked,
+                                            strokeWidthPx: 0.5,
+                                            maxBarWidthPx: 10),
+                                  )
+                                  //barGroupingType:  charts.BarGroupingType.stacked, strokeWidthPx: 2.0)),
+                                  )),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -984,22 +1279,42 @@ List<HeartStat> heartStatFromJson(List<dynamic> rate) {
   return heart;
 }
 
-List<HeartStatWeekMax> heartStatWeekMaxFromJson(List<dynamic> rate) {
+List<HeartStatWeekMax> heartStatWeekMaxDiaFromJson(List<dynamic> rate) {
   List<HeartStatWeekMax> heart = [];
 
   rate.forEach((element) {
-    heart.add(HeartStatWeekMax(element["date"], element["max_min"],
-        element["avg"], element["max"], element["min"]));
+    heart.add(HeartStatWeekMax(element["date"], element["max_min_dia"],
+        element["avg_dia"], element["max_dia"], element["min_dia"]));
   });
   return heart;
 }
 
-List<HeartStatWeekMax> heartStatWeekMinFromJson(List<dynamic> rate) {
+List<HeartStatWeekMax> heartStatWeekMinDiaFromJson(List<dynamic> rate) {
   List<HeartStatWeekMax> heart = [];
 
   rate.forEach((element) {
-    heart.add(HeartStatWeekMax(element["date"], element["min"], element["avg"],
-        element["max"], element["min"]));
+    heart.add(HeartStatWeekMax(element["date"], element["min_dia"],
+        element["avg_dia"], element["max_dia"], element["min_dia"]));
+  });
+  return heart;
+}
+
+List<HeartStatWeekMax> heartStatWeekMaxSysFromJson(List<dynamic> rate) {
+  List<HeartStatWeekMax> heart = [];
+
+  rate.forEach((element) {
+    heart.add(HeartStatWeekMax(element["date"], element["max_min_sys"],
+        element["avg_sys"], element["max_sys"], element["min_sys"]));
+  });
+  return heart;
+}
+
+List<HeartStatWeekMax> heartStatWeekMinSysFromJson(List<dynamic> rate) {
+  List<HeartStatWeekMax> heart = [];
+
+  rate.forEach((element) {
+    heart.add(HeartStatWeekMax(element["date"], element["min_sys"],
+        element["avg_sys"], element["max_sys"], element["min_sys"]));
   });
   return heart;
 }
