@@ -1,10 +1,14 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
 
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
+import 'package:n_tel_care_family_app/backend/api_requests/api_manager.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:http/http.dart' as http;
-
+// import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 
@@ -24,6 +28,9 @@ class _ChatWidgetState extends State<ChatWidget> {
   TextEditingController _chatController;
   List<dynamic> _chats;
   bool _isChatDataLoading = true;
+  XFile _image;
+  String _accHolderName = '';
+  // FilePickerResult;
 
   Future<void> _loadMessages({bool init = false}) async {
     if (!init)
@@ -34,22 +41,57 @@ class _ChatWidgetState extends State<ChatWidget> {
     final res = await http.get(Uri.parse(uri),
         headers: {"Authorization": "Bearer ${FFAppState().Token}"});
     Map<String, dynamic> _responseJson = jsonDecode(res.body);
+    final ApiCallResponse profileInfo = await GetProfile.call();
+    _accHolderName =
+        '${profileInfo.jsonBody['member']['fname']} ${profileInfo.jsonBody['member']['lname']}';
+    // print('profile ${profileInfo.jsonBody}');
     setState(() {
       _chats = _responseJson['chats'];
       _isChatDataLoading = false;
     });
   }
 
+  Future<void> _pickFile() async {
+    final ImagePicker _picker = ImagePicker();
+    // Pick an image
+    final XFile image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      _image = image;
+    }
+  }
+
   Future<void> _sendMessage() async {
     if (_chatController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Please enter something to send')));
+      return;
     }
     String uri = '${ApiService.domain}/send_chat/member';
-    // final res = await http.get(Uri.parse(uri),
+    await _pickFile();
+    var formData = FormData.fromMap({
+      'message': _chatController.text,
+      // 'document': null
+      'document': _image == null
+          ? null
+          : await MultipartFile.fromFile(_image.path, filename: _image.name)
+    });
+    try {
+      Response response = await Dio().post(uri,
+          data: formData,
+          options: Options(
+              headers: {"Authorization": "Bearer ${FFAppState().Token}"}));
+      _chatController.text = '';
+      _loadMessages();
+    } catch (e) {
+      print('error ${e.toString()}');
+    }
+    // "Bearer ${FFAppState().Token}"
+    // final res = await http.post(Uri.parse(uri),
+    //     body: {"message": _chatController.text, "document": null},
     //     headers: {"Authorization": "Bearer ${FFAppState().Token}"});
     // Map<String, dynamic> _responseJson = jsonDecode(res.body);
-    print(_chatController.text);
+    // print(res.body);
   }
 
   @override
@@ -61,12 +103,17 @@ class _ChatWidgetState extends State<ChatWidget> {
 
   Widget chatWidget(int index, {@required bool me}) {
     String datetime = _chats[index]['date_time'];
-    print(datetime.split(' ')[4].substring(0, 5));
+    // print(datetime.split(' ')[4].substring(0, 5));
+    print('name ${_chats[index]['by']}');
+
+    print('name $_accHolderName');
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(!me ? 10 : 0, 20, me ? 10 : 0, 0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: me ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: _chats[index]['by'] == _accHolderName
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         children: [
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
@@ -78,7 +125,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                 shape: BoxShape.circle,
               ),
               child: Image.network(
-                'https://picsum.photos/seed/726/600',
+                _chats[index]['profile'],
               ),
             ),
           ),
@@ -123,9 +170,9 @@ class _ChatWidgetState extends State<ChatWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    // DateFormat('hh:mm a').format(
-                    //     DateTime.parse(_chats[index]['date_time']).toLocal()),
-                    'aa',
+                    DateFormat('hh:mm a').format(
+                        DateTime.parse(_chats[index]['date_time']).toLocal()),
+                    // _chats[index]['date_time'],
                     style: FlutterFlowTheme.of(context).bodyText1.override(
                           fontFamily: 'Poppins',
                           color: Color(0xFFE5E5E5),
