@@ -169,7 +169,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
     print(id);
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/?senior_id=${id}&date=${date}');
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -188,7 +188,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/calories/weekly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/calories/weekly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -208,7 +208,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/calories/monthly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/calories/monthly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -227,6 +227,8 @@ class _CalorieWidgetState extends State<CalorieWidget> {
   String _time;
   Map<String, num> _measures;
   _onSelectionChanged(charts.SelectionModel model) {
+    Key selection = GlobalKey();
+
     final selectedDatum = model.selectedDatum;
 
     String time;
@@ -252,6 +254,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
 
           //this right here
           child: Container(
+            key: selection,
             height: 80.0,
             width: 100.0,
             child: Column(
@@ -301,7 +304,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/calories/yearly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/calories/yearly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -508,6 +511,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
                                   monthly = false;
                                   yearly = false;
                                   dateTimeWeek = DateTime.now();
+                                  getHeartRate();
                                 });
                               },
                               child: Container(
@@ -551,6 +555,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
                                     weekly = false;
                                     yearly = false;
                                     dateTimeMonth = DateTime.now();
+                                    getHeartMonthlyRate();
                                   });
                                 },
                                 child: Container(
@@ -601,6 +606,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
                                     weekly = false;
                                     yearly = true;
                                     dateTimeYear = DateTime.now();
+                                    getHeartYearlyRate();
                                   });
                                 },
                                 child: Container(
@@ -896,14 +902,6 @@ class _CalorieWidgetState extends State<CalorieWidget> {
                                         fontSize: 6, // size in Pts.
                                         color: charts.MaterialPalette.white),
                                   )),
-                                  /*  primaryMeasureAxis:
-                                      new charts.NumericAxisSpec(
-                                          renderSpec:
-                                              new charts.GridlineRendererSpec(
-                                    labelStyle: new charts.TextStyleSpec(
-                                        fontSize: 8, // size in Pts.
-                                        color: charts.MaterialPalette.white),
-                                  )),*/
                                   animate: true,
                                   defaultRenderer: new charts.BarRendererConfig(
                                       groupingType:

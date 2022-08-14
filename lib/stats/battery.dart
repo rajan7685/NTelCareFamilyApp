@@ -86,7 +86,6 @@ class _BatteryWidgetState extends State<BatteryWidget> {
   Future<dynamic> HeartStatus;
   Future<List<dynamic>> SList;
 
-  //List<HeartStat> hRate = [];
   List<batteryStat> hRate = [];
   List<batteryStatMax> stepMax = [];
   List<batteryStatMax> stepMin = [];
@@ -99,8 +98,6 @@ class _BatteryWidgetState extends State<BatteryWidget> {
   String wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
   String wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
   String wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
-
-  Future<dynamic> Stepcount;
 
   // List<StepsStat> stepStat = [];
 
@@ -365,18 +362,15 @@ class _BatteryWidgetState extends State<BatteryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<batteryStat, String>> _createSampleDataDaily() {
-      return [
-        new charts.Series<batteryStat, String>(
-            id: 'max_battery',
-            domainFn: (batteryStat sales, _) => sales.time.toString(),
-            measureFn: (batteryStat sales, _) => sales.value,
-            data: hRate,
-            colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
-            labelAccessorFn: (batteryStat sales, _) =>
-                '\$${sales.value.toString()}')
-      ];
-    }
+    List<charts.Series<batteryStat, int>> heart = [
+      charts.Series(
+          data: hRate,
+          id: "Heart Rate",
+          domainFn: (batteryStat pops, _) => pops.time,
+          measureFn: (batteryStat pops, _) => pops.value,
+          colorFn: (batteryStat pops, _) =>
+              charts.ColorUtil.fromDartColor(Colors.red))
+    ];
 
     return MaterialApp(
       localizationsDelegates: [
@@ -469,6 +463,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                       weekly = false;
                                       monthly = false;
                                       yearly = false;
+                                      getHeartRate();
                                     });
                                   },
                                   child: Container(
@@ -561,6 +556,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                     weekly = false;
                                     yearly = false;
                                     dateTimeMonth = DateTime.now();
+                                    getBatteryMonthlyRate();
                                   });
                                 },
                                 child: Container(
@@ -611,6 +607,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                     weekly = false;
                                     yearly = true;
                                     dateTimeYear = DateTime.now();
+                                    getBatteryYearlyRate();
                                   });
                                 },
                                 child: Container(
@@ -651,10 +648,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                           ],
                         ),
                       ),
-                      // if (daily == true)
-                      //   Daily()
-                      // else if (monthly == true)
-                      Padding(
+                      /* Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -712,12 +706,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                 ),
                               ),
                             ],
-                          )),
-
-                      // if (daily == true)
-                      //   Daily()
-                      // else if (monthly == true)
-
+                          )),*/
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
                         child: Row(
@@ -933,15 +922,23 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                               decoration: BoxDecoration(
                                   color: Color(0xFF272E36),
                                   borderRadius: BorderRadius.circular(10)),
-                              child: charts.BarChart(
-                                _createSampleDataDaily(),
-                                domainAxis: new charts.OrdinalAxisSpec(
+                              child: charts.LineChart(
+                                heart,
+                                domainAxis: new charts.NumericAxisSpec(
+                                    tickProviderSpec:
+                                        charts.BasicNumericTickProviderSpec(
+                                            zeroBound: false),
                                     renderSpec:
                                         new charts.SmallTickRendererSpec(
-                                  labelStyle: new charts.TextStyleSpec(
-                                      fontSize: 6, // size in Pts.
-                                      color: charts.MaterialPalette.white),
-                                )),
+                                      labelStyle: new charts.TextStyleSpec(
+                                          fontSize: 8, // size in Pts.
+                                          color: charts.MaterialPalette.white),
+                                    )),
+
+                                // domainAxis: charts.OrdinalAxisSpec(
+                                //     renderSpec: charts.SmallTickRendererSpec(
+                                //         labelStyle: new charts.TextStyleSpec(
+                                //             color: charts.MaterialPalette.white))),
                               ),
                             )
                             // Image.asset(

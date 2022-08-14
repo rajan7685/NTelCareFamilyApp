@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -98,7 +99,7 @@ class _ShowerWidgetState extends State<ShowerWidget> {
   void getStepscount() async {
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/?senior_id=${id}&date=${date}');
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -308,7 +309,7 @@ class _ShowerWidgetState extends State<ShowerWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/BathRoom/weekly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/BathRoom/weekly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -324,7 +325,7 @@ class _ShowerWidgetState extends State<ShowerWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
 
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/BathRoom/monthly?date=${wDate1}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/BathRoom/monthly?date=${wDate1}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -340,7 +341,7 @@ class _ShowerWidgetState extends State<ShowerWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/BathRoom/yearly?date=${wDate2}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/BathRoom/yearly?date=${wDate2}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);

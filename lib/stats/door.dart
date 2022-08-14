@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -101,7 +102,7 @@ class _DoorWidgetState extends State<DoorWidget> {
   void getStepscount() async {
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/?senior_id=${id}&date=${date}');
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -168,7 +169,7 @@ class _DoorWidgetState extends State<DoorWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/Door/weekly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/Door/weekly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -184,7 +185,7 @@ class _DoorWidgetState extends State<DoorWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate1);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/Door/monthly?date=${wDate1}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/Door/monthly?date=${wDate1}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -343,7 +344,7 @@ class _DoorWidgetState extends State<DoorWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/Door/yearly?date=${wDate2}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/Door/yearly?date=${wDate2}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -1067,10 +1068,10 @@ List<StepsStat> stepsStatFromJson(List<dynamic> rate) {
   List<StepsStat> step = [];
   rate.forEach((element) {
     int k;
-    if (element["bool"] == true) {
+    if (element["value"] == true) {
       k = 100;
     } else {
-      k = 10;
+      k = 0;
     }
     step.add(StepsStat(time: element["time"], value: k));
   });

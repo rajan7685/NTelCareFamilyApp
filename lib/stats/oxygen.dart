@@ -336,21 +336,18 @@ class _OxygenWidgetState extends State<OxygenWidget> {
   var color2 = Color(0xFF1A1A1A);
   var color3 = Color(0xFF1A1A1A);
   var color4 = Color(0xFF1A1A1A);
-  List<charts.Series<OxygenStat, String>> _createSampleDataDaily() {
-    return [
-      new charts.Series<OxygenStat, String>(
-          id: 'max1',
-          domainFn: (OxygenStat sales, _) => sales.time.toString(),
-          measureFn: (OxygenStat sales, _) => sales.value,
-          data: hRate,
-          colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
-          labelAccessorFn: (OxygenStat sales, _) =>
-              '\$${sales.value.toString()}')
-    ];
-  }
 
   @override
   Widget build(BuildContext context) {
+    List<charts.Series<OxygenStat, int>> heart = [
+      charts.Series(
+          data: hRate,
+          id: "Heart Rate",
+          domainFn: (OxygenStat pops, _) => pops.time,
+          measureFn: (OxygenStat pops, _) => pops.value,
+          colorFn: (OxygenStat pops, _) =>
+              charts.ColorUtil.fromDartColor(Colors.red))
+    ];
     return MaterialApp(
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
@@ -849,15 +846,24 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                 decoration: BoxDecoration(
                                     color: Color(0xFF272E36),
                                     borderRadius: BorderRadius.circular(10)),
-                                child: charts.BarChart(
-                                  _createSampleDataDaily(),
-                                  domainAxis: new charts.OrdinalAxisSpec(
+                                child: charts.LineChart(
+                                  heart,
+                                  domainAxis: new charts.NumericAxisSpec(
+                                      tickProviderSpec:
+                                          charts.BasicNumericTickProviderSpec(
+                                              zeroBound: false),
                                       renderSpec:
                                           new charts.SmallTickRendererSpec(
-                                    labelStyle: new charts.TextStyleSpec(
-                                        fontSize: 6, // size in Pts.
-                                        color: charts.MaterialPalette.white),
-                                  )),
+                                        labelStyle: new charts.TextStyleSpec(
+                                            fontSize: 8, // size in Pts.
+                                            color:
+                                                charts.MaterialPalette.white),
+                                      )),
+
+                                  // domainAxis: charts.OrdinalAxisSpec(
+                                  //     renderSpec: charts.SmallTickRendererSpec(
+                                  //         labelStyle: new charts.TextStyleSpec(
+                                  //             color: charts.MaterialPalette.white))),
                                 ),
                               )
                               // Image.asset(

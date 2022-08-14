@@ -45,6 +45,11 @@ class _StepWidgetState extends State<StepWidget> {
   @override
   void initState() {
     super.initState();
+    daily = true;
+    weekly = false;
+    monthly = false;
+    yearly = false;
+
     getStepscount();
     getStepWeekRate();
     getStepMonthlyRate();
@@ -80,7 +85,6 @@ class _StepWidgetState extends State<StepWidget> {
   Future<dynamic> HeartStatus;
   Future<List<dynamic>> SList;
 
-  //List<StepsStat> hRate = [];
   List<StepStatMax> stepMax = [];
   List<StepStatMax> stepMin = [];
   List<StepStatMax> stepMaxMon = [];
@@ -93,7 +97,6 @@ class _StepWidgetState extends State<StepWidget> {
   String wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
   String wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
 
-  Future<dynamic> Stepcount;
   List<StepsStat> stepStat = [];
 
   _StepWidgetState(this.id);
@@ -163,8 +166,8 @@ class _StepWidgetState extends State<StepWidget> {
 
   void getStepscount() async {
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
-    var response = await getHrate
-        .get('${ApiService.domain}/graph/health_status/?senior_id=${id}');
+    var response = await getHrate.get(
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
 
     print(response.statusCode);
     print(response.body.runtimeType);
@@ -182,7 +185,7 @@ class _StepWidgetState extends State<StepWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/steps/weekly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/steps/weekly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -202,7 +205,7 @@ class _StepWidgetState extends State<StepWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/steps/monthly?date=${wDate1}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/steps/monthly?date=${wDate1}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -295,7 +298,7 @@ class _StepWidgetState extends State<StepWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/steps/yearly?date=${wDate2}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/steps/yearly?date=${wDate2}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -317,22 +320,20 @@ class _StepWidgetState extends State<StepWidget> {
   var color2 = Color(0xFF1A1A1A);
   var color3 = Color(0xFF1A1A1A);
   var color4 = Color(0xFF1A1A1A);
+  List<charts.Series<StepsStat, String>> _createSampleDataDaily() {
+    return [
+      new charts.Series<StepsStat, String>(
+        id: 'daily_step',
+        domainFn: (StepsStat sales, _) => sales.time.toString(),
+        measureFn: (StepsStat sales, _) => sales.value,
+        data: stepStat,
+        colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<StepsStat, String>> _createSampleDataDaily() {
-      return [
-        new charts.Series<StepsStat, String>(
-            id: 'daily_step',
-            domainFn: (StepsStat sales, _) => sales.time.toString(),
-            measureFn: (StepsStat sales, _) => sales.value,
-            data: stepStat,
-            colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
-            labelAccessorFn: (StepsStat sales, _) =>
-                '\$${sales.value.toString()}'),
-      ];
-    }
-
     return MaterialApp(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -424,6 +425,7 @@ class _StepWidgetState extends State<StepWidget> {
                                       weekly = false;
                                       monthly = false;
                                       yearly = false;
+                                      getStepscount();
                                     });
                                   },
                                   child: Container(
@@ -473,6 +475,7 @@ class _StepWidgetState extends State<StepWidget> {
                                   monthly = false;
                                   yearly = false;
                                   dateTimeWeek = DateTime.now();
+                                  getStepWeekRate();
                                 });
                               },
                               child: Container(
@@ -516,6 +519,7 @@ class _StepWidgetState extends State<StepWidget> {
                                     weekly = false;
                                     yearly = false;
                                     dateTimeMonth = DateTime.now();
+                                    getStepMonthlyRate();
                                   });
                                 },
                                 child: Container(
@@ -566,6 +570,7 @@ class _StepWidgetState extends State<StepWidget> {
                                     weekly = false;
                                     yearly = true;
                                     dateTimeYear = DateTime.now();
+                                    getStepYearlyRate();
                                   });
                                 },
                                 child: Container(
@@ -665,7 +670,7 @@ class _StepWidgetState extends State<StepWidget> {
                                 size: 32,
                               ),
                             ),
-                            if (daily ?? true)
+                            if (daily == true)
                               Expanded(
                                 child: Text(
                                   dateTime == null
@@ -815,9 +820,9 @@ class _StepWidgetState extends State<StepWidget> {
                       ),
                       if (daily == true)
                         Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
-                            child: Container(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
+                          child: Container(
                               width: double.infinity,
                               height: MediaQuery.of(context).size.height / 3,
                               decoration: BoxDecoration(
@@ -832,15 +837,8 @@ class _StepWidgetState extends State<StepWidget> {
                                       fontSize: 6, // size in Pts.
                                       color: charts.MaterialPalette.white),
                                 )),
-                              ),
-                            )
-                            // Image.asset(
-                            //   'assets/images/heartRate.png',
-                            //   width: 400,
-                            //   height: 400,
-                            //   fit: BoxFit.fill,
-                            // ),
-                            ),
+                              )),
+                        ),
                       if (weekly == true && daily == false)
                         Padding(
                             padding:
@@ -860,11 +858,11 @@ class _StepWidgetState extends State<StepWidget> {
                                         fontSize: 6, // size in Pts.
                                         color: charts.MaterialPalette.white),
                                   )),
-                                  selectionModels: [
+                                  /* selectionModels: [
                                     new charts.SelectionModelConfig(
                                         type: charts.SelectionModelType.info,
                                         changedListener: _onSelectionChanged)
-                                  ],
+                                  ],*/
                                   /*  primaryMeasureAxis:
                                       new charts.NumericAxisSpec(
                                           renderSpec:
@@ -901,11 +899,11 @@ class _StepWidgetState extends State<StepWidget> {
                                         fontSize: 3, // size in Pts.
                                         color: charts.MaterialPalette.white),
                                   )),
-                                  selectionModels: [
+                                  /*  selectionModels: [
                                     new charts.SelectionModelConfig(
                                         type: charts.SelectionModelType.info,
                                         changedListener: _onSelectionChanged)
-                                  ],
+                                  ],*/
                                   animate: true,
                                   defaultRenderer: new charts.BarRendererConfig(
                                       groupingType:
@@ -937,11 +935,11 @@ class _StepWidgetState extends State<StepWidget> {
                                       fontSize: 3, // size in Pts.
                                       color: charts.MaterialPalette.white),
                                 )),
-                                selectionModels: [
+                                /* selectionModels: [
                                   new charts.SelectionModelConfig(
                                       type: charts.SelectionModelType.info,
                                       changedListener: _onSelectionChanged)
-                                ],
+                                ],*/
                                 animate: true,
                                 defaultRenderer: new charts.BarRendererConfig(
                                     groupingType:

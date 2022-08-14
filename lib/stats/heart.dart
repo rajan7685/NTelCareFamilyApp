@@ -192,7 +192,7 @@ class _StatsWidgetState extends State<StatsWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/heart_rate/weekly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/heart_rate/weekly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -212,7 +212,7 @@ class _StatsWidgetState extends State<StatsWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/heart_rate/monthly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/heart_rate/monthly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -305,7 +305,7 @@ class _StatsWidgetState extends State<StatsWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/heart_rate/yearly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/heart_rate/yearly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);

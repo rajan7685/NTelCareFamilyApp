@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -98,7 +99,7 @@ class _SleepWidgetState extends State<SleepWidget> {
   void getStepscount() async {
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/?senior_id=${id}&date=${date}');
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -111,19 +112,6 @@ class _SleepWidgetState extends State<SleepWidget> {
       stepStat = temp;
     });
     print(stepStat);
-  }
-
-  List<charts.Series<SleepsStat, String>> _createSampleDataDaily() {
-    return [
-      new charts.Series<SleepsStat, String>(
-          id: 'daily4',
-          domainFn: (SleepsStat sales, _) => sales.time.toString(),
-          measureFn: (SleepsStat sales, _) => sales.value,
-          data: stepStat,
-          colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
-          labelAccessorFn: (SleepsStat sales, _) =>
-              '\$${sales.value.toString()}'),
-    ];
   }
 
   List<charts.Series<StepStatMonth, String>> _createSampleData() {
@@ -179,7 +167,7 @@ class _SleepWidgetState extends State<SleepWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/sleep/weekly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/sleep/weekly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -195,7 +183,7 @@ class _SleepWidgetState extends State<SleepWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/sleep/monthly?date=${wDate1}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/sleep/monthly?date=${wDate1}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -353,7 +341,7 @@ class _SleepWidgetState extends State<SleepWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/sleep/yearly?date=${wDate2}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/sleep/yearly?date=${wDate2}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -721,7 +709,7 @@ class _SleepWidgetState extends State<SleepWidget> {
                                 size: 32,
                               ),
                             ),
-                            if (daily ?? true)
+                            if (daily == true)
                               Expanded(
                                 child: Text(
                                   dateTime == null
@@ -924,11 +912,11 @@ class _SleepWidgetState extends State<SleepWidget> {
                                         fontSize: 8, // size in Pts.
                                         color: charts.MaterialPalette.white),
                                   )),*/
-                                  selectionModels: [
+                                  /* selectionModels: [
                                     new charts.SelectionModelConfig(
                                         type: charts.SelectionModelType.info,
                                         changedListener: _onSelectionChanged1)
-                                  ],
+                                  ],*/
                                   animate: true,
                                   defaultRenderer: new charts.BarRendererConfig(
                                       groupingType:
@@ -957,11 +945,11 @@ class _SleepWidgetState extends State<SleepWidget> {
                                         fontSize: 3, // size in Pts.
                                         color: charts.MaterialPalette.white),
                                   )),
-                                  selectionModels: [
+                                  /* selectionModels: [
                                     new charts.SelectionModelConfig(
                                         type: charts.SelectionModelType.info,
                                         changedListener: _onSelectionChanged1)
-                                  ],
+                                  ],*/
                                   animate: true,
                                   defaultRenderer: new charts.BarRendererConfig(
                                       groupingType:
@@ -993,11 +981,11 @@ class _SleepWidgetState extends State<SleepWidget> {
                                       fontSize: 3, // size in Pts.
                                       color: charts.MaterialPalette.white),
                                 )),
-                                selectionModels: [
+                                /* selectionModels: [
                                   new charts.SelectionModelConfig(
                                       type: charts.SelectionModelType.info,
                                       changedListener: _onSelectionChanged)
-                                ],
+                                ],*/
                                 animate: true,
                                 defaultRenderer: new charts.BarRendererConfig(
                                     groupingType:
@@ -1022,7 +1010,8 @@ List<SleepStatMax> SleepStatWeekMinFromJson(List<dynamic> rate) {
   List<SleepStatMax> heart = [];
 
   rate.forEach((element) {
-    heart.add(SleepStatMax(element["date"], element["min"]));
+    heart.add(SleepStatMax(element["date"], element["min"], element["avg"],
+        element["max"], element["min"]));
   });
   return heart;
 }
@@ -1031,16 +1020,8 @@ List<SleepStatMax> SleepStatWeekMaxFromJson(List<dynamic> rate) {
   List<SleepStatMax> heart = [];
 
   rate.forEach((element) {
-    heart.add(SleepStatMax(element["date"], element["max_min"]));
-  });
-  return heart;
-}
-
-List<SleepStatMax> SleepStatWeekFromJson(List<dynamic> rate) {
-  List<SleepStatMax> heart = [];
-
-  rate.forEach((element) {
-    heart.add(SleepStatMax(element["date"], element["value"]));
+    heart.add(SleepStatMax(element["date"], element["max_min"], element["avg"],
+        element["max"], element["min"]));
   });
   return heart;
 }
@@ -1064,8 +1045,11 @@ List<StepStatMonth> StepStatWeekFromJson(List<dynamic> rate) {
 class SleepStatMax {
   final String day;
   final int Stat;
+  final int avg;
+  final int max;
+  final int min;
 
-  SleepStatMax(this.day, this.Stat);
+  SleepStatMax(this.day, this.Stat, this.avg, this.max, this.min);
 }
 
 List<SleepsStat> SleepStatFromJson(List<dynamic> rate) {

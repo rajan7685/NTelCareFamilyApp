@@ -331,7 +331,7 @@ class _BloodWidgetState extends State<BloodWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/blood_pressure/weekly?date=${wDate}&senior_id=${widget.data}');
+        '${ApiService.domain}/graph/health_status/blood_pressure/weekly?date=${wDate}&senior_id=${widget.data}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -364,7 +364,7 @@ class _BloodWidgetState extends State<BloodWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/blood_pressure/monthly?date=${wDate}&senior_id=${widget.data}');
+        '${ApiService.domain}/graph/health_status/blood_pressure/monthly?date=${wDate}&senior_id=${widget.data}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -396,7 +396,7 @@ class _BloodWidgetState extends State<BloodWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/blood_pressure/yearly?date=${wDate}&senior_id=${widget.data}');
+        '${ApiService.domain}/graph/health_status/blood_pressure/yearly?date=${wDate}&senior_id=${widget.data}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
