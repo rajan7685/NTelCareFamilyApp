@@ -58,7 +58,7 @@ class FFAppState {
   bool liveView;
   bool chat;
   bool viewVideo;
-  List<String> relation = [];
+  List<dynamic> relation = [];
   String buildversion = " ";
   String buildNumber = " ";
   // bool _Chattoggle2 = false;

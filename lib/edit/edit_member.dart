@@ -1070,12 +1070,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               ignoring: !_hasPermissionToEdit,
                               child: DropdownButtonFormField(
                                 value: dropDownValue,
-                                items: [
-                                  "Son",
-                                  "Daughter",
-                                  "Grand Son",
-                                  "Grand Daugter"
-                                ]
+                                items: FFAppState()
+                                    .relation
                                     .map((label) => DropdownMenuItem(
                                           child: Text(label),
                                           value: label,
