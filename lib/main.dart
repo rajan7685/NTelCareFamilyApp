@@ -26,13 +26,15 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
+  await Firebase.initializeApp()
+      .then((FirebaseApp value) => print('Firebase Service init $value.'));
   print('Handling a background message ${message.messageId}');
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp()
+      .then((FirebaseApp value) => print('Firebase Service init $value.'));
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin
@@ -72,13 +74,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Future<void> _getFCMToken() async {
+    String fcmToken = await FirebaseMessaging.instance.getToken();
+    print('FCM Token : $fcmToken');
+  }
+
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.instance.getToken().then((newToken) {
-      print("Fcm token");
-      print("hello" + newToken);
-    });
+    _getFCMToken();
+    // FirebaseMessaging.instance.getToken().then((newToken) {
+    //   print("Fcm token");
+    //   print("hello" + newToken);
+    // });
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('ic_launcher');
     var initialzationSettingsAndroid =
@@ -119,18 +127,18 @@ class _MyAppState extends State<MyApp> {
       AndroidNotification android = message.notification?.android;
       if (notification != null && android != null) {
         showDialog(
-            // context: context,
+            context: context,
             builder: (_) {
-          return AlertDialog(
-            title: Text(notification.title),
-            content: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text(notification.body)],
-              ),
-            ),
-          );
-        });
+              return AlertDialog(
+                title: Text(notification.title),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(notification.body)],
+                  ),
+                ),
+              );
+            });
       }
     });
   }
