@@ -90,7 +90,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                       builder: (context, snapshot) {
                         inf = snapshot.data;
 
-                        //  print(snapshot.data['message']);
+                        print(FFAppState().relation);
                         if (!snapshot.hasData) {
                           return Text(
                             "Loading",
@@ -102,6 +102,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     fontSize: 20),
                           );
                         } else {
+                          FFAppState().relation = snapshot.data["relation"];
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -910,7 +911,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
     final ApiCallResponse SList = await GetProfile.call();
 
     print(SList.statusCode);
-    print(SList.jsonBody);
+    //print(SList["relation"]);
+
     return SList.jsonBody;
   }
 }

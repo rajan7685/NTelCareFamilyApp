@@ -95,7 +95,13 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     selectedDate = DateTime.parse(data["dob"]);
     print(data["dob"]);
     print(DateFormat("yyyy-MM-dd").format(selectedDate));
-    if (data['executive'] ?? false) {
+    print(" executive ::${data['executive']}");
+    print(" live video::${data["permission"]["live_video"]}");
+    print(" chat ::${data["permission"]["chat"]}");
+    print(" view video ::${data["permission"]["view_video"]}");
+    FFAppState().Chattoggle3 = data['executive'];
+
+    if (data['executive'] == true) {
       displayLive = displayChat = displayView = true;
     } else {
       displayLive = data["permission"]["live_video"];
@@ -1064,12 +1070,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               ignoring: !_hasPermissionToEdit,
                               child: DropdownButtonFormField(
                                 value: dropDownValue,
-                                items: [
-                                  "Son",
-                                  "Daughter",
-                                  "Grand Son",
-                                  "Grand Daugter"
-                                ]
+                                items: FFAppState()
+                                    .relation
                                     .map((label) => DropdownMenuItem(
                                           child: Text(label),
                                           value: label,
@@ -1354,8 +1356,18 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     EdgeInsetsDirectional.fromSTEB(10, 8, 0, 0),
                                 child: SwitchListTile(
                                   value: FFAppState().Chattoggle3,
-                                  onChanged: (bool value) => setState(
-                                      () => FFAppState().Chattoggle3 = value),
+                                  onChanged: (bool value) => setState(() {
+                                    FFAppState().Chattoggle3 = value;
+                                    if (FFAppState().Chattoggle3 == false) {
+                                      displayChat = false;
+                                      displayLive = false;
+                                      displayView = false;
+                                    } else {
+                                      displayChat = true;
+                                      displayLive = true;
+                                      displayView = true;
+                                    }
+                                  }),
                                   title: Text(
                                     'Executive Members',
                                     style: FlutterFlowTheme.of(context)
@@ -1453,7 +1465,15 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                             10, 1, 10, 1),
                                         child: InkWell(
                                           onTap: () async {
-                                            if (!data['executive']) {
+                                            if (FFAppState().Chattoggle3 ==
+                                                true) {
+                                              setState(() {
+                                                // displayLive = !displayLive;
+                                                // displayChat = true;
+                                                displayLive = true;
+                                                // displayView = true;
+                                              });
+                                            } else {
                                               setState(() {
                                                 displayLive = !displayLive;
                                               });
@@ -1481,7 +1501,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                       .bodyText1
                                                       .override(
                                                         fontFamily: 'Poppins',
-                                                        color: displayView
+                                                        color: displayLive
                                                             ? color1
                                                             : color,
                                                         fontSize: 12,
@@ -1503,7 +1523,14 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     ),
                                     child: InkWell(
                                       onTap: () async {
-                                        if (!data['executive']) {
+                                        if (FFAppState().Chattoggle3 == true) {
+                                          setState(() {
+                                            // displayLive = !displayLive;
+                                            // displayChat = true;
+                                            displayView = true;
+                                            // displayView = true;
+                                          });
+                                        } else {
                                           setState(() {
                                             displayView = !displayView;
                                           });
@@ -1558,7 +1585,14 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         0.1499999999999999, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        if (!data['executive']) {
+                                        if (FFAppState().Chattoggle3 == true) {
+                                          setState(() {
+                                            // displayLive = !displayLive;
+                                            // displayChat = true;
+                                            displayChat = true;
+                                            // displayView = true;
+                                          });
+                                        } else {
                                           setState(() {
                                             displayChat = !displayChat;
                                           });
@@ -1585,7 +1619,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'Poppins',
-                                                          color: displayView
+                                                          color: displayChat
                                                               ? color1
                                                               : color,
                                                           fontSize: 12,
@@ -1667,6 +1701,13 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                           .Chattoggle3
                                           .toString()
                                           .capitalize);
+                                  //    print(" executive ::${data['executive']}");
+                                  print(" live video:: " +
+                                      displayLive.toString());
+                                  print(
+                                      "live video:: " + displayChat.toString());
+                                  print(" view video ::" +
+                                      displayView.toString());
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
@@ -1681,7 +1722,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields['address'] = textController6.text;
                                   res1.fields['zipcode'] = textController7.text;
                                   res1.fields['relation'] = dropDownValue;
-                                  res1.fields['excetive'] = FFAppState()
+                                  res1.fields['executive'] = FFAppState()
                                       .Chattoggle3
                                       .toString()
                                       .capitalize;
@@ -1691,10 +1732,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields["state"] = stateValue;
                                   res1.fields["city"] = cityValue;
                                   res1.fields['live_video'] =
-                                      displayLive.toString();
-                                  res1.fields['chats'] = displayChat.toString();
+                                      displayLive.toString().capitalize;
+                                  res1.fields['chats'] =
+                                      displayChat.toString().capitalize;
                                   res1.fields['view_video'] =
-                                      displayView.toString();
+                                      displayView.toString().capitalize;
                                   print(res1.fields);
                                   final http.Response responseData =
                                       await http.get(Uri.parse(profile));

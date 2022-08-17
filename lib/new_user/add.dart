@@ -937,14 +937,10 @@ class _AddWidgetState extends State<Add> {
                               children: [
                                 Expanded(
                                   flex: 8,
-                                  child: DropdownButtonFormField<String>(
+                                  child: DropdownButtonFormField(
                                     value: dropDownValue,
-                                    items: [
-                                      "Son",
-                                      "Daughter",
-                                      "Grand Son",
-                                      "Grand Daugter"
-                                    ]
+                                    items: FFAppState()
+                                        .relation
                                         .map((label) => DropdownMenuItem(
                                               child: Text(label),
                                               value: label,

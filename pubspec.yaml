@@ -51,6 +51,8 @@ dependencies:
   flutter_svg: 0.22.0
   better_player: 0.0.82
   string_extensions: ^0.6.2
+ 
+ 
   persistent_bottom_nav_bar: ^4.0.2
   firebase_messaging: ^10.0.1
   flutter_local_notifications: ^6.0.0

@@ -32,6 +32,8 @@ class _MembersWidgetState extends State<MembersWidget> {
   int isSelected = 0;
   List<dynamic> executiveList = [];
   List<dynamic> membersList = [];
+  List<dynamic> relation = [];
+
   dynamic executive;
   bool isloading = true;
 
@@ -79,6 +81,8 @@ class _MembersWidgetState extends State<MembersWidget> {
         .where((element) => element["executive"])
         .toList();
 
+    relation = MList.jsonBody["relation"] as List;
+    FFAppState().relation = relation;
     membersList = (MList.jsonBody["members"] as List)
         .where((element) => !element["executive"])
         .toList();
