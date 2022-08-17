@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/components/custom_toast.dart';
 import 'package:n_tel_care_family_app/forgotPasword/forget_password.dart';
 import 'package:n_tel_care_family_app/model/loginmodel.dart';
 import '../backend/api_requests/api_calls.dart';
@@ -12,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import '../main.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key key}) : super(key: key);
@@ -37,25 +37,10 @@ class _LoginWidgetState extends State<LoginWidget> {
     } else if (connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a wifi network.
     } else {
-      await showDialog(
-        context: context,
-        builder: (alertDialogContext) {
-          return AlertDialog(
-            title: Text('Error'),
-            backgroundColor: Colors.red,
-            content: Text(
-                'You are not connected to internet. Please connect to a wifi or turn on your mobile network.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(alertDialogContext),
-                child: Text(
-                  'Ok',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
-          );
-        },
+      Toast.showToast(
+        context,
+        type: ToastType.Error,
+        message: 'You are not connected to internet.',
       );
     }
   }
@@ -276,32 +261,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                             FFAppState().chat = data["permission"]["chat"];
                             print(FFAppState().chat);
                             print(FFAppState().executive);
-
                             print(FFAppState().Token);
-                            /* LoginModel loginModel =
-                                LoginModel.fromJsonData(data.jsonBody[0]);
-                            FFAppState().IsUserLogin = loginModel.IsUserLogin;
-                            FFAppState().IsLiveView = loginModel.IsLiveView;
-                            FFAppState().Error = loginModel.Error;
-                            FFAppState().Email = loginModel.Email;
-                            FFAppState().Token = loginModel.Token;
-                            FFAppState().UserId = loginModel.UserId;
-                            FFAppState().AccountId = loginModel.AccountId;
-                            FFAppState().RoleId = loginModel.RoleId;
-                            FFAppState().First_Name = loginModel.FirstName;
-                            FFAppState().Last_Name = loginModel.LastName;
-                            FFAppState().Profile_Picture =
-                                loginModel.ProfilePicture;
-
-                            print(loginModel.FirstName);*/
-                            Fluttertoast.showToast(
-                                msg: result["message"],
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 5,
-                                backgroundColor: Colors.green,
-                                textColor: Colors.black,
-                                fontSize: 14.0);
+                            Toast.showToast(context,
+                                type: ToastType.Success,
+                                message: result["message"]);
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -311,49 +274,25 @@ class _LoginWidgetState extends State<LoginWidget> {
                             );
                           } else if (textController1.text == "" &&
                               textController2.text == "") {
-                            Fluttertoast.showToast(
-                                msg: "Enter the mobile number & password",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 5,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.black,
-                                fontSize: 14.0);
+                            Toast.showToast(context,
+                                type: ToastType.Error,
+                                message:
+                                    "Enter the mobile number and password");
                           } else if (textController1.text == "") {
-                            Fluttertoast.showToast(
-                                msg: "Enter the mobile number",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 5,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.black,
-                                fontSize: 14.0);
+                            Toast.showToast(context,
+                                type: ToastType.Error,
+                                message: "Enter the mobile number");
                           } else if (textController2.text == "") {
-                            Fluttertoast.showToast(
-                                msg: "Enter the password",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 5,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.black,
-                                fontSize: 14.0);
+                            Toast.showToast(
+                              context,
+                              type: ToastType.Error,
+                              message: "Enter the password",
+                            );
                           } else {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Error'),
-                                  backgroundColor: Colors.red,
-                                  content: Text(result["message"]),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
+                            Toast.showToast(
+                              context,
+                              type: ToastType.Error,
+                              message: result["message"],
                             );
                           }
 

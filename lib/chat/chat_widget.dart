@@ -1,10 +1,16 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:open_file/open_file.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
+import 'package:n_tel_care_family_app/backend/api_requests/api_manager.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:http/http.dart' as http;
-
+// import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 
@@ -24,6 +30,9 @@ class _ChatWidgetState extends State<ChatWidget> {
   TextEditingController _chatController;
   List<dynamic> _chats;
   bool _isChatDataLoading = true;
+  XFile _image;
+  String _accHolderName = '';
+  // FilePickerResult;
 
   Future<void> _loadMessages({bool init = false}) async {
     if (!init)
@@ -34,22 +43,69 @@ class _ChatWidgetState extends State<ChatWidget> {
     final res = await http.get(Uri.parse(uri),
         headers: {"Authorization": "Bearer ${FFAppState().Token}"});
     Map<String, dynamic> _responseJson = jsonDecode(res.body);
+    final ApiCallResponse profileInfo = await GetProfile.call();
+    _accHolderName =
+        '${profileInfo.jsonBody['member']['fname']} ${profileInfo.jsonBody['member']['lname']}';
+    // print('profile ${profileInfo.jsonBody}');
     setState(() {
       _chats = _responseJson['chats'];
       _isChatDataLoading = false;
     });
   }
 
+  // Future<void> _pickFile() async {
+  //   final ImagePicker _picker = ImagePicker();
+  //   // Pick an image
+  //   final XFile image = await _picker.pickImage(source: ImageSource.gallery);
+
+  //   if (image != null) {
+  //     _image = image;
+  //   }
+  // }
+
+  // Future<void> _downloadFile({String fileUrl}) async {
+  //   //
+  //   ScaffoldMessenger.of(context)
+  //       .showSnackBar(SnackBar(content: Text('File is being downloaded')));
+  //   Directory _dir = await getApplicationDocumentsDirectory();
+  //   String _timeStamp = DateTime.now().millisecond.toString();
+  //   String _fileName = fileUrl.split('/').last;
+  //   await Dio().download(fileUrl, '${_dir.path}/$_timeStamp $_fileName');
+  //   await OpenFile.open('${_dir.path}/$_timeStamp $_fileName');
+  //   // print('${_dir.path}/$_timeStamp $_fileName');
+  // }
+
   Future<void> _sendMessage() async {
     if (_chatController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Please enter something to send')));
+      return;
     }
     String uri = '${ApiService.domain}/send_chat/member';
-    // final res = await http.get(Uri.parse(uri),
+    var formData = FormData.fromMap({
+      'message': _chatController.text,
+      // 'document': null
+      'document': _image == null
+          ? null
+          : await MultipartFile.fromFile(_image.path, filename: _image.name)
+    });
+    try {
+      Response response = await Dio().post(uri,
+          data: formData,
+          options: Options(
+              headers: {"Authorization": "Bearer ${FFAppState().Token}"}));
+      _chatController.text = '';
+      _image = null;
+      _loadMessages();
+    } catch (e) {
+      print('error ${e.toString()}');
+    }
+    // "Bearer ${FFAppState().Token}"
+    // final res = await http.post(Uri.parse(uri),
+    //     body: {"message": _chatController.text, "document": null},
     //     headers: {"Authorization": "Bearer ${FFAppState().Token}"});
     // Map<String, dynamic> _responseJson = jsonDecode(res.body);
-    print(_chatController.text);
+    // print(res.body);
   }
 
   @override
@@ -60,8 +116,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   }
 
   Widget chatWidget(int index, {@required bool me}) {
-    String datetime = _chats[index]['date_time'];
-    print(datetime.split(' ')[4].substring(0, 5));
+    print(_chats[index]['profile']);
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(!me ? 10 : 0, 20, me ? 10 : 0, 0),
       child: Row(
@@ -78,7 +133,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                 shape: BoxShape.circle,
               ),
               child: Image.network(
-                'https://picsum.photos/seed/726/600',
+                _chats[index]['profile'],
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -91,25 +147,48 @@ class _ChatWidgetState extends State<ChatWidget> {
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF209A1F),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(0),
-                          bottomRight: Radius.circular(10),
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
+                    child: InkWell(
+                      onTap: () {
+                        // if (_chats[index]['document'] != null)
+                        //   _downloadFile(fileUrl: _chats[index]['document']);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFF209A1F),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(0),
+                            bottomRight: _chats[index]['document'] == null
+                                ? Radius.circular(10)
+                                : Radius.circular(0),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
                         ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(12, 7, 12, 7),
-                        child: Text(
-                          _chats[index]['message'],
-                          style:
-                              FlutterFlowTheme.of(context).bodyText1.override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                  ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(12, 7, 12, 7),
+                          child: Row(
+                            children: [
+                              // if (_chats[index]['document'] != null)
+                              //   Icon(
+                              //     Icons.file_download,
+                              //     size: 13,
+                              //     color: Colors.white,
+                              //   ),
+                              // if (_chats[index]['document'] != null)
+                              //   SizedBox(
+                              //     width: 6,
+                              //   ),
+                              Text(
+                                _chats[index]['message'],
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.white,
+                                    ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -123,9 +202,9 @@ class _ChatWidgetState extends State<ChatWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    // DateFormat('hh:mm a').format(
-                    //     DateTime.parse(_chats[index]['date_time']).toLocal()),
-                    'aa',
+                    DateFormat('hh:mm a').format(
+                        DateTime.parse(_chats[index]['date_time']).toLocal()),
+                    // _chats[index]['date_time'],
                     style: FlutterFlowTheme.of(context).bodyText1.override(
                           fontFamily: 'Poppins',
                           color: Color(0xFFE5E5E5),
@@ -286,28 +365,43 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 physics: BouncingScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: _chats.length,
-                                itemBuilder: (_, int index) =>
-                                    chatWidget(index, me: index % 2 == 0),
+                                itemBuilder: (_, int index) => chatWidget(index,
+                                    me: _chats[index]['by'] == _accHolderName),
                               ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * .95,
                             child: TextFormField(
+                              textAlignVertical: TextAlignVertical.center,
                               maxLines: 1,
                               controller: _chatController,
                               obscureText: false,
                               decoration: InputDecoration(
+                                isCollapsed: true,
+                                // prefix: InkWell(
+                                //   // onTap: _pickFile,
+                                //   child: Transform.rotate(
+                                //     angle: 45,
+                                //     child: Icon(
+                                //       Icons.attach_file,
+                                //       size: 25,
+                                //       color: Color(0xFF209A1F),
+                                //     ),
+                                //   ),
+                                // ),
                                 suffix: InkWell(
                                   onTap: _sendMessage,
                                   child: Image.asset(
                                     'assets/images/7830587_send_email_icon.png',
-                                    width: 25,
-                                    height: 25,
+                                    width: 20,
+                                    height: 20,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                                 isDense: true,
@@ -317,6 +411,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 contentPadding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 8),
                                 filled: true,
+
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
