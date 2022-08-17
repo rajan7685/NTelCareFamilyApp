@@ -1,4 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
+import 'package:n_tel_care_family_app/components/custom_toast.dart';
 
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
@@ -29,11 +31,27 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
     });
   }
 
+  Future<void> _checkNetworkConnectivity() async {
+    ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    print(connectivityResult.name);
+    print(connectivityResult.name);
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+    } else {
+      Toast.showToast(context,
+          message: 'You are not connected to internet.', type: ToastType.Error);
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     SList = fetchSList();
+    _checkNetworkConnectivity();
     _hasPermissionToViewVideo = FFAppState().viewVideo ?? false;
     _hasPermissionToViewLiveVideo = FFAppState().liveView ?? false;
   }

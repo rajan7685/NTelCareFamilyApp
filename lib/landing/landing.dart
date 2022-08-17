@@ -1,5 +1,6 @@
 import 'package:flutter/rendering.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
+import 'package:n_tel_care_family_app/components/custom_toast.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/stats/battery.dart';
 import 'package:n_tel_care_family_app/stats/blood_pressure.dart';
@@ -55,26 +56,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     } else if (connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a wifi network.
     } else {
-      await showDialog(
-        context: context,
-        builder: (alertDialogContext) {
-          return AlertDialog(
-            title: Text('Error'),
-            backgroundColor: Colors.red,
-            content: Text(
-                'You are not connected to internet. Please connect to a wifi or turn on your mobile network.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(alertDialogContext),
-                child: Text(
-                  'Ok',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
-          );
-        },
-      );
+      Toast.showToast(context,
+          message: 'You are not connected to internet.', type: ToastType.Error);
     }
   }
 

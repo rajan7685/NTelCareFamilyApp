@@ -1,8 +1,10 @@
 // ignore_for_file: missing_return
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_manager.dart';
+import 'package:n_tel_care_family_app/components/custom_toast.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/edit/edit_executive.dart';
 import 'package:n_tel_care_family_app/edit/edit_member.dart';
@@ -39,11 +41,25 @@ class _MembersWidgetState extends State<MembersWidget> {
     });
   }
 
+  Future<void> _checkNetworkConnectivity() async {
+    ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    print(connectivityResult.name);
+    print(connectivityResult.name);
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+    } else {
+      Toast.showToast(context,
+          message: 'You are not connected to internet.', type: ToastType.Error);
+    }
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //MList = fetchList();
+    _checkNetworkConnectivity();
     loadMembersData(init: true);
     SList = fetchSList();
   }
@@ -648,9 +664,20 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                               ),
                                                                                             ],
                                                                                           ),
+                                                                                          SizedBox(
+                                                                                            height: 6,
+                                                                                          ),
                                                                                           Row(
                                                                                             mainAxisSize: MainAxisSize.max,
                                                                                             children: [
+                                                                                              Icon(
+                                                                                                Icons.mail_outline,
+                                                                                                color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                size: 12,
+                                                                                              ),
+                                                                                              SizedBox(
+                                                                                                width: 6,
+                                                                                              ),
                                                                                               Text(
                                                                                                 executiveList[index]["email"],
                                                                                                 style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -662,9 +689,20 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                               ),
                                                                                             ],
                                                                                           ),
+                                                                                          SizedBox(
+                                                                                            height: 2,
+                                                                                          ),
                                                                                           Row(
                                                                                             mainAxisSize: MainAxisSize.max,
                                                                                             children: [
+                                                                                              Icon(
+                                                                                                Icons.phone_outlined,
+                                                                                                color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                size: 12,
+                                                                                              ),
+                                                                                              SizedBox(
+                                                                                                width: 6,
+                                                                                              ),
                                                                                               Text(
                                                                                                 executiveList[index]["mobile"],
                                                                                                 style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -808,9 +846,20 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                             ),
                                                                                           ],
                                                                                         ),
+                                                                                        SizedBox(
+                                                                                          height: 6,
+                                                                                        ),
                                                                                         Row(
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           children: [
+                                                                                            Icon(
+                                                                                              Icons.mail_outline,
+                                                                                              color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                              size: 12,
+                                                                                            ),
+                                                                                            SizedBox(
+                                                                                              width: 6,
+                                                                                            ),
                                                                                             Text(
                                                                                               membersList[index]["email"],
                                                                                               style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -822,9 +871,20 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                             ),
                                                                                           ],
                                                                                         ),
+                                                                                        SizedBox(
+                                                                                          height: 2,
+                                                                                        ),
                                                                                         Row(
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           children: [
+                                                                                            Icon(
+                                                                                              Icons.phone_outlined,
+                                                                                              color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                              size: 12,
+                                                                                            ),
+                                                                                            SizedBox(
+                                                                                              width: 6,
+                                                                                            ),
                                                                                             Text(
                                                                                               membersList[index]["mobile"],
                                                                                               style: FlutterFlowTheme.of(context).bodyText1.override(

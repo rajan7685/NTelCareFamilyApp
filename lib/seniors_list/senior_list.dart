@@ -24,7 +24,6 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SList = fetchSList();
   }
@@ -320,11 +319,26 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                                       ),
                                                                     ],
                                                                   ),
+                                                                  SizedBox(
+                                                                    height: 6,
+                                                                  ),
                                                                   Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .mail_outline,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .tertiaryColor,
+                                                                        size:
+                                                                            12,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            6,
+                                                                      ),
                                                                       Text(
                                                                         inf[index]
                                                                             [
@@ -340,11 +354,26 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                                       ),
                                                                     ],
                                                                   ),
+                                                                  SizedBox(
+                                                                    height: 2,
+                                                                  ),
                                                                   Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .phone_outlined,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .tertiaryColor,
+                                                                        size:
+                                                                            12,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            6,
+                                                                      ),
                                                                       Text(
                                                                         inf[index]
                                                                             [
