@@ -91,7 +91,14 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     final ApiCallResponse _data = await DashBoardStat.call(id: seniorId);
     // print('data: ${_data.jsonBody["dashboard"]}');
     dashboardData = _data.jsonBody["dashboard"];
-    print("dashboardData $dashboardData");
+    // print("dashboardData $dashboardData");
+    // print(
+    //     "PillBox data ${dashboardData["sensors_status"]["pillbox"].runtimeType}");
+
+    // print("PillBox data type ${dashboardData["sensors_status"]["pillbox"]}");
+
+    // print("PillBox data ${dashboardData["sensors_status"]["pillbox"]["bool"]}");
+
     setState(() {
       _isDashboardDataLoading = false;
     });
@@ -3404,10 +3411,12 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                 children: [
                                                                   Text(
                                                                     dashboardData["sensors_status"]["pillbox"]
-                                                                            [
-                                                                            "bool"]
-                                                                        ? "Opened"
-                                                                        : "Closed",
+                                                                            .toString()
+                                                                            .isEmpty
+                                                                        ? "Closed"
+                                                                        : (dashboardData["sensors_status"]["pillbox"]["bool"]
+                                                                            ? "Opened"
+                                                                            : "Closed"),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -3572,9 +3581,16 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               dashboardData["sensors_status"]
                                                                           [
                                                                           "door"]
-                                                                      ["bool"]
-                                                                  ? "Opened"
-                                                                  : "Closed",
+                                                                      .toString()
+                                                                      .isEmpty
+                                                                  ? "Closed"
+                                                                  : (dashboardData["sensors_status"]
+                                                                              [
+                                                                              "door"]
+                                                                          [
+                                                                          "bool"]
+                                                                      ? "Opened"
+                                                                      : "Closed"),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
