@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:path_provider/path_provider.dart';
@@ -92,6 +93,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     textController9 = TextEditingController();
 
     profile = data["profile"];
+    if (profile == null) {
+      profile =
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU";
+    }
     dropDownValueGender = data["gender"];
     cityValue = data["city"];
     countryValue = data["country"] ?? null;
@@ -100,7 +105,13 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     selectedDate = DateTime.parse(data["dob"]);
     print(data["dob"]);
     print(DateFormat("yyyy-MM-dd").format(selectedDate));
-    if (data['executive'] ?? false) {
+    print(" executive ::${data['executive']}");
+    print(" live video::${data["permission"]["live_video"]}");
+    print(" chat ::${data["permission"]["chat"]}");
+    print(" view video ::${data["permission"]["view_video"]}");
+    FFAppState().Chattoggle3 = data['executive'];
+
+    if (data['executive'] == true) {
       displayLive = displayChat = displayView = true;
     } else {
       displayLive = data["permission"]["live_video"];
@@ -150,6 +161,9 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
 
       //final imagePathPermanently = await savePermanently(image.path);
       setState(() => this.image = imagePath);
+      setState(() {
+        display = false;
+      });
     } on PlatformException catch (e) {
       print("Permission Denied");
     }
@@ -164,9 +178,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     );
     print(res.body);
     placesData = jsonDecode(res.body);
+    print(placesData);
     setState(() {
       textController8.text = placesData['data']['state_name'];
       textController9.text = placesData['data']['county_name'];
+
       textController6.text =
           '${placesData['data']['community_name']}, ${placesData['data']['county_name']}';
     });
@@ -438,7 +454,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                             "Male",
                                             "Female",
                                             "Transgender",
-                                            "Non binary"
                                           ]
                                               .map((label) => DropdownMenuItem(
                                                     child: Text(label),
@@ -756,54 +771,54 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                               child: TextFormField(
-                                enabled: _hasPermissionToEdit,
-                                controller: textController5,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Email\n',
-                                  labelStyle: FlutterFlowTheme.of(context)
+                                  enabled: _hasPermissionToEdit,
+                                  controller: textController5,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Email\n',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xFF9A9A9A),
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
                                         fontSize: 16,
-                                        fontWeight: FontWeight.w300,
                                       ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF606E87),
-                                      fontSize: 16,
-                                    ),
-                                keyboardType: TextInputType.emailAddress,
-                                /* validator: (value) => value != null &&
+                                  keyboardType: TextInputType.emailAddress,
+                                  /* validator: (value) => value != null &&
                                         !EmailValidator.validate(value)
                                     ? 'Enter a valid email'
                                     : null,*/
-                                onEditingComplete: () => vaildMail(),
-                              ),
+                                  onEditingComplete: () => vaildMail(),
+                                  onChanged: (v) => vaildMail()),
                             ),
                           ),
                         ),
@@ -1116,12 +1131,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               ignoring: !_hasPermissionToEdit,
                               child: DropdownButtonFormField(
                                 value: dropDownValue,
-                                items: [
-                                  "Son",
-                                  "Daughter",
-                                  "Grand Son",
-                                  "Grand Daugter"
-                                ]
+                                items: FFAppState()
+                                    .relation
                                     .map((label) => DropdownMenuItem(
                                           child: Text(label),
                                           value: label,
@@ -1177,7 +1188,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       if (image == null)
                                         ClipOval(
                                             child: Image.network(
-                                          profile,
+                                          profile ??
+                                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                           width: 100,
                                           height: 100,
                                           fit: BoxFit.cover,
@@ -1405,8 +1417,18 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     EdgeInsetsDirectional.fromSTEB(10, 8, 0, 0),
                                 child: SwitchListTile(
                                   value: FFAppState().Chattoggle3,
-                                  onChanged: (bool value) => setState(
-                                      () => FFAppState().Chattoggle3 = value),
+                                  onChanged: (bool value) => setState(() {
+                                    FFAppState().Chattoggle3 = value;
+                                    if (FFAppState().Chattoggle3 == false) {
+                                      displayChat = false;
+                                      displayLive = false;
+                                      displayView = false;
+                                    } else {
+                                      displayChat = true;
+                                      displayLive = true;
+                                      displayView = true;
+                                    }
+                                  }),
                                   title: Text(
                                     'Executive Members',
                                     style: FlutterFlowTheme.of(context)
@@ -1504,11 +1526,19 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                             10, 1, 10, 1),
                                         child: InkWell(
                                           onTap: () async {
-                                            // if (!data['executive']) {
-                                            //   setState(() {
-                                            //     displayLive = !displayLive;
-                                            //   });
-                                            // }
+                                            if (FFAppState().Chattoggle3 ==
+                                                true) {
+                                              setState(() {
+                                                // displayLive = !displayLive;
+                                                // displayChat = true;
+                                                displayLive = true;
+                                                // displayView = true;
+                                              });
+                                            } else {
+                                              setState(() {
+                                                displayLive = !displayLive;
+                                              });
+                                            }
                                           },
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -1532,7 +1562,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                       .bodyText1
                                                       .override(
                                                         fontFamily: 'Poppins',
-                                                        color: displayView
+                                                        color: displayLive
                                                             ? color1
                                                             : color,
                                                         fontSize: 12,
@@ -1554,11 +1584,18 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     ),
                                     child: InkWell(
                                       onTap: () async {
-                                        // if (!data['executive']) {
-                                        //   setState(() {
-                                        //     displayView = !displayView;
-                                        //   });
-                                        // }
+                                        if (FFAppState().Chattoggle3 == true) {
+                                          setState(() {
+                                            // displayLive = !displayLive;
+                                            // displayChat = true;
+                                            displayView = true;
+                                            // displayView = true;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            displayView = !displayView;
+                                          });
+                                        }
                                       },
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1609,11 +1646,18 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         0.1499999999999999, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        // if (!data['executive']) {
-                                        //   setState(() {
-                                        //     displayChat = !displayChat;
-                                        //   });
-                                        // }
+                                        if (FFAppState().Chattoggle3 == true) {
+                                          setState(() {
+                                            // displayLive = !displayLive;
+                                            // displayChat = true;
+                                            displayChat = true;
+                                            // displayView = true;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            displayChat = !displayChat;
+                                          });
+                                        }
                                       },
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1636,7 +1680,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'Poppins',
-                                                          color: displayView
+                                                          color: displayChat
                                                               ? color1
                                                               : color,
                                                           fontSize: 12,
@@ -1659,15 +1703,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                final form = formKey.currentState;
-
-                                // await Navigator.push(
-                                //  context,
-                                // MaterialPageRoute(
-                                //  builder: (context) =>
-                                //   NavBarPage(initialPage: 'Landing'),
-                                //  ),
-                                // );
                                 if (textController1.text == "" ||
                                     textController2.text == "" ||
                                     textController4.text == "" ||
@@ -1675,7 +1710,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     textController7.text == "" ||
                                     dropDownValue == "" ||
                                     countryValue == "" ||
-                                    stateValue == "||" ||
+                                    stateValue == "" ||
                                     cityValue == "") {
                                   Fluttertoast.showToast(
                                       msg: "All fields are necessary to fill",
@@ -1695,7 +1730,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   //BASE64.encode(imageBytes);
 
                                   final String url =
-                                      "http://18.208.148.208:4000/edit/member/${data["id"]}";
+                                      "${ApiService.domain}/edit/member/${data["id"]}";
                                   /* final res =
                                   await http.post(Uri.parse(url), headers: {
                                 "Authorization": "Bearer ${FFAppState().Token}"
@@ -1722,6 +1757,18 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   // stream.cast();
 
                                   // var length = await image.length();
+                                  print("excecuitive" +
+                                      FFAppState()
+                                          .Chattoggle3
+                                          .toString()
+                                          .capitalize);
+                                  //    print(" executive ::${data['executive']}");
+                                  print(" live video:: " +
+                                      displayLive.toString());
+                                  print(
+                                      "live video:: " + displayChat.toString());
+                                  print(" view video ::" +
+                                      displayView.toString());
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
@@ -1736,19 +1783,22 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields['address'] = textController6.text;
                                   res1.fields['zipcode'] = textController7.text;
                                   res1.fields['relation'] = dropDownValue;
-                                  res1.fields['executive'] =
-                                      FFAppState().Chattoggle5.toString();
+                                  res1.fields['executive'] = FFAppState()
+                                      .Chattoggle3
+                                      .toString()
+                                      .capitalize;
                                   res1.fields["dob"] = DateFormat("yyyy-MM-dd")
                                       .format(selectedDate);
                                   res1.fields["country"] = countryValue;
                                   res1.fields["state"] = stateValue;
                                   res1.fields["city"] = cityValue;
                                   res1.fields['live_video'] =
-                                      displayLive.toString();
-                                  res1.fields['chats'] = displayChat.toString();
+                                      displayLive.toString().capitalize;
+                                  res1.fields['chats'] =
+                                      displayChat.toString().capitalize;
                                   res1.fields['view_video'] =
-                                      displayView.toString();
-
+                                      displayView.toString().capitalize;
+                                  print(res1.fields);
                                   final http.Response responseData =
                                       await http.get(Uri.parse(profile));
                                   Uint8List uint8list = responseData.bodyBytes;
@@ -1809,8 +1859,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       builder: (alertDialogContext) {
                                         return AlertDialog(
                                           title: Text('Error'),
-                                          content:
-                                              jsonDecode(respStr)["message"],
+                                          content: Text(
+                                              jsonDecode(respStr)["message"]),
                                           actions: [
                                             TextButton(
                                               onPressed: () => Navigator.pop(
@@ -1863,9 +1913,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         TextButton(
                                           onPressed: () async {
                                             apiCallOutput =
-                                                await DeleteUserCall.call();
+                                                await DeleteUserCall.call(
+                                                    memberId: data["id"]);
                                             print("this is the status code");
                                             print(apiCallOutput.statusCode);
+                                            print(FFAppState().MemberId);
                                             if (apiCallOutput.statusCode ==
                                                 200) {
                                               Fluttertoast.showToast(
@@ -1878,7 +1930,9 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                   backgroundColor: Colors.green,
                                                   textColor: Colors.black,
                                                   fontSize: 14.0);
-                                              //Navigator.pop(context);
+
+                                              Navigator.pop(context);
+                                              Navigator.pop(context);
                                             }
                                           },
                                           child: Text('Yes'),

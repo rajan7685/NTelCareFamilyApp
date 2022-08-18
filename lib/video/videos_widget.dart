@@ -1,4 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
+import 'package:n_tel_care_family_app/components/custom_toast.dart';
 
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
@@ -29,11 +31,27 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
     });
   }
 
+  Future<void> _checkNetworkConnectivity() async {
+    ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    print(connectivityResult.name);
+    print(connectivityResult.name);
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+    } else {
+      Toast.showToast(context,
+          message: 'You are not connected to internet.', type: ToastType.Error);
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     SList = fetchSList();
+    _checkNetworkConnectivity();
     _hasPermissionToViewVideo = FFAppState().viewVideo ?? false;
     _hasPermissionToViewLiveVideo = FFAppState().liveView ?? false;
   }
@@ -194,7 +212,8 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                     : Colors.black,
                                               ),
                                               child: Image.network(
-                                                inf[index]["profile"],
+                                                inf[index]["profile"] ??
+                                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -803,7 +822,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                 )
                                               : Center(
                                                   child: Text(
-                                                    'You do not permission to view this content',
+                                                    'You do not have permission to view this content',
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   ),
@@ -2779,7 +2798,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                 )
                                               : Center(
                                                   child: Text(
-                                                    'You do not permission to view this content',
+                                                    'You do not have permission to view this content',
                                                     style: TextStyle(
                                                         color: Colors.white),
                                                   ),
@@ -2811,7 +2830,8 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (FFAppState().Chattoggle2 ?? true)
+                          if (FFAppState().Chattoggle2 &&
+                              FFAppState().executive)
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),

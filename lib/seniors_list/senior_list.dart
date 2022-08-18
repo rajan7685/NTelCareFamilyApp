@@ -24,7 +24,6 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SList = fetchSList();
   }
@@ -262,9 +261,10 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                                 child: Image
                                                                     .network(
                                                                   snapshot.data[
-                                                                          index]
-                                                                      [
-                                                                      "profile"],
+                                                                              index]
+                                                                          [
+                                                                          "profile"] ??
+                                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                                   fit: BoxFit
                                                                       .fill,
                                                                 ),
@@ -319,11 +319,26 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                                       ),
                                                                     ],
                                                                   ),
+                                                                  SizedBox(
+                                                                    height: 6,
+                                                                  ),
                                                                   Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .mail_outline,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .tertiaryColor,
+                                                                        size:
+                                                                            12,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            6,
+                                                                      ),
                                                                       Text(
                                                                         inf[index]
                                                                             [
@@ -339,15 +354,30 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                                       ),
                                                                     ],
                                                                   ),
+                                                                  SizedBox(
+                                                                    height: 2,
+                                                                  ),
                                                                   Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .phone_outlined,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .tertiaryColor,
+                                                                        size:
+                                                                            12,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            6,
+                                                                      ),
                                                                       Text(
                                                                         inf[index]
                                                                             [
-                                                                            "id"],
+                                                                            "mobile"],
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(

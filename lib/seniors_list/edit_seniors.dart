@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/seniors_list/senior_list.dart';
@@ -81,6 +83,10 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     textController8 = TextEditingController(text: data['address']);
     textController9 = TextEditingController(text: data["zipcode"]);
     profile = data["profile"];
+    if (profile == null) {
+      profile =
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU";
+    }
     FFAppState().SeniorId = data["id"];
 
     cityValue = data["city"];
@@ -124,6 +130,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
       final imagePath = File(image.path);
       // final imagePathPermanently = await savePermanently(image.path);
       setState(() => this.image = imagePath);
+      setState(() {
+        display = false;
+      });
     } on PlatformException catch (e) {
       print("Permission Denied");
     }
@@ -867,6 +876,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     ? 'Enter a valid email'
                                     : null,*/
                                 onEditingComplete: () => vaildMail(),
+                                onChanged: (v) => vaildMail(),
+                                //validator: (value) => vaildMail(),
+                                onFieldSubmitted: (value) => vaildMail(),
                               ),
                             ),
                           ),
@@ -1164,7 +1176,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       if (image == null)
                                         ClipOval(
                                             child: Image.network(
-                                          profile,
+                                          profile ??
+                                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                           width: 100,
                                           height: 100,
                                           fit: BoxFit.cover,
@@ -1386,7 +1399,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                         if (_hasPermissionToEdit)
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 38, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 30),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 final form = formkey.currentState;
@@ -1416,7 +1429,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   // print(base64Image);
 
                                   final String url =
-                                      "http://18.208.148.208:4000/edit/senior/${FFAppState().SeniorId}";
+                                      "${ApiService.domain}/edit/senior/${FFAppState().SeniorId}";
                                   var res = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
 
@@ -1451,6 +1464,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
 
                                   final http.Response responseData =
                                       await http.get(Uri.parse(profile));
+                                  print(res.fields);
                                   Uint8List uint8list = responseData.bodyBytes;
                                   var buffer = uint8list.buffer;
                                   ByteData byteData = ByteData.view(buffer);
@@ -1460,13 +1474,18 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                           byteData.offsetInBytes,
                                           byteData.lengthInBytes));
                                   print(file.path);
-                                  image == null
+                                  /*image == null
                                       ? res.files.add(
                                           await http.MultipartFile.fromPath(
                                               "profile", file.path))
                                       : res.files.add(
                                           await http.MultipartFile.fromPath(
-                                              "profile", image.path));
+                                              "profile", image.path));*/
+                                  if (image != null) {
+                                    res.files.add(
+                                        await http.MultipartFile.fromPath(
+                                            "profile", image.path));
+                                  }
                                   var response = await res.send();
 
                                   print(response.statusCode);
@@ -1489,7 +1508,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       builder: (alertDialogContext) {
                                         return AlertDialog(
                                           title: Text('Error'),
-                                          content: Text("Error"),
+                                          content:
+                                              Text(jsonDecode(resp)["message"]),
                                           actions: [
                                             TextButton(
                                               onPressed: () => Navigator.pop(
@@ -1518,35 +1538,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     ),
                                 borderSide: BorderSide(
                                   color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: 12,
-                              ),
-                            ),
-                          ),
-                        if (_hasPermissionToEdit)
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 10),
-                            child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
-                              },
-                              text: 'Delete User',
-                              options: FFButtonOptions(
-                                width: 350,
-                                height: 40,
-                                color: FlutterFlowTheme.of(context).alternate,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
-                                      fontFamily: 'Montserrat',
-                                      color: Color(0xFFDF0808),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDF0808),
                                   width: 1,
                                 ),
                                 borderRadius: 12,

@@ -1,7 +1,10 @@
 // ignore_for_file: missing_return
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_manager.dart';
+import 'package:n_tel_care_family_app/components/custom_toast.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/edit/edit_executive.dart';
 import 'package:n_tel_care_family_app/edit/edit_member.dart';
@@ -29,7 +32,10 @@ class _MembersWidgetState extends State<MembersWidget> {
   int isSelected = 0;
   List<dynamic> executiveList = [];
   List<dynamic> membersList = [];
+
   List<dynamic> countries = [];
+
+  List<dynamic> relation = [];
 
   dynamic executive;
   bool isloading = true;
@@ -40,17 +46,37 @@ class _MembersWidgetState extends State<MembersWidget> {
     });
   }
 
+  Future<void> _checkNetworkConnectivity() async {
+    ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    print(connectivityResult.name);
+    print(connectivityResult.name);
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+    } else {
+      Toast.showToast(context,
+          message: 'You are not connected to internet.', type: ToastType.Error);
+    }
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //MList = fetchList();
-    loadMembersData();
+    _checkNetworkConnectivity();
+    loadMembersData(init: true);
     SList = fetchSList();
   }
 
-  void loadMembersData() async {
+  void loadMembersData({bool init = false}) async {
+    if (!init) {
+      setState(() {
+        isloading = true;
+      });
+    }
     final ApiCallResponse MList = await MemberList.call();
+
     print(FFAppState().Token);
     print(MList.statusCode);
     countries = MList.jsonBody["countries"];
@@ -59,6 +85,8 @@ class _MembersWidgetState extends State<MembersWidget> {
         .where((element) => element["executive"])
         .toList();
 
+    relation = MList.jsonBody["relation"] as List;
+    FFAppState().relation = relation;
     membersList = (MList.jsonBody["members"] as List)
         .where((element) => !element["executive"])
         .toList();
@@ -71,7 +99,7 @@ class _MembersWidgetState extends State<MembersWidget> {
   Future<dynamic> MemberList() {
     return ApiManager.instance.makeApiCall(
       callName: 'MemberList',
-      apiUrl: 'http://18.208.148.208:4000/get/members/member',
+      apiUrl: '${ApiService.domain}/get/members/member',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${FFAppState().Token}',
@@ -131,9 +159,11 @@ class _MembersWidgetState extends State<MembersWidget> {
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Add(),
+                                          builder: (context) =>
+                                              Add(countries: countries),
                                         ),
                                       );
+                                      loadMembersData();
                                     },
                                     child: Icon(
                                       Icons.add_circle_outline,
@@ -282,7 +312,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                       : Colors.black,
                                                 ),
                                                 child: Image.network(
-                                                  inf[index]["profile"],
+                                                  inf[index]["profile"] ??
+                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -582,7 +613,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                         shape: BoxShape.circle,
                                                                                       ),
                                                                                       child: Image.network(
-                                                                                        executiveList[index]["profile"],
+                                                                                        executiveList[index]["profile"] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                                                         fit: BoxFit.cover,
                                                                                       ),
                                                                                     ),
@@ -646,9 +677,20 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                               ),
                                                                                             ],
                                                                                           ),
+                                                                                          SizedBox(
+                                                                                            height: 6,
+                                                                                          ),
                                                                                           Row(
                                                                                             mainAxisSize: MainAxisSize.max,
                                                                                             children: [
+                                                                                              Icon(
+                                                                                                Icons.mail_outline,
+                                                                                                color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                size: 12,
+                                                                                              ),
+                                                                                              SizedBox(
+                                                                                                width: 6,
+                                                                                              ),
                                                                                               Text(
                                                                                                 executiveList[index]["email"],
                                                                                                 style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -660,9 +702,20 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                               ),
                                                                                             ],
                                                                                           ),
+                                                                                          SizedBox(
+                                                                                            height: 2,
+                                                                                          ),
                                                                                           Row(
                                                                                             mainAxisSize: MainAxisSize.max,
                                                                                             children: [
+                                                                                              Icon(
+                                                                                                Icons.phone_outlined,
+                                                                                                color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                size: 12,
+                                                                                              ),
+                                                                                              SizedBox(
+                                                                                                width: 6,
+                                                                                              ),
                                                                                               Text(
                                                                                                 executiveList[index]["mobile"],
                                                                                                 style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -740,6 +793,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                               title: "Edit Members"),
                                                                         ),
                                                                       );
+                                                                      loadMembersData();
                                                                     },
                                                                     child: Card(
                                                                       clipBehavior:
@@ -774,7 +828,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                       shape: BoxShape.circle,
                                                                                     ),
                                                                                     child: Image.network(
-                                                                                      membersList[index]["profile"],
+                                                                                      membersList[index]["profile"] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                                                       fit: BoxFit.cover,
                                                                                     ),
                                                                                   ),
@@ -806,9 +860,20 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                             ),
                                                                                           ],
                                                                                         ),
+                                                                                        SizedBox(
+                                                                                          height: 6,
+                                                                                        ),
                                                                                         Row(
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           children: [
+                                                                                            Icon(
+                                                                                              Icons.mail_outline,
+                                                                                              color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                              size: 12,
+                                                                                            ),
+                                                                                            SizedBox(
+                                                                                              width: 6,
+                                                                                            ),
                                                                                             Text(
                                                                                               membersList[index]["email"],
                                                                                               style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -820,9 +885,20 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                             ),
                                                                                           ],
                                                                                         ),
+                                                                                        SizedBox(
+                                                                                          height: 2,
+                                                                                        ),
                                                                                         Row(
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           children: [
+                                                                                            Icon(
+                                                                                              Icons.phone_outlined,
+                                                                                              color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                              size: 12,
+                                                                                            ),
+                                                                                            SizedBox(
+                                                                                              width: 6,
+                                                                                            ),
                                                                                             Text(
                                                                                               membersList[index]["mobile"],
                                                                                               style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -882,7 +958,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (FFAppState().Chattoggle2 ?? true)
+                            if (FFAppState().Chattoggle2 &&
+                                FFAppState().executive)
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),

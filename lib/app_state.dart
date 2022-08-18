@@ -59,7 +59,7 @@ class FFAppState {
   bool chat;
   String appFCMToken;
   bool viewVideo;
-
+  List<dynamic> relation = [];
   String buildversion = " ";
   String buildNumber = " ";
   // bool _Chattoggle2 = false;
@@ -88,7 +88,14 @@ class FFAppState {
   bool get Chattoggle5 => _Chattoggle5;
   set Chattoggle5(bool _value) {
     _Chattoggle5 = _value;
-    prefs.setBool('ff_Chattoggle4', _value);
+    prefs.setBool('ff_Chattoggle5', _value);
+  }
+
+  bool _executiveToggleProfile = false;
+  bool get executiveToggleProfile => _executiveToggleProfile;
+  set executiveToggleProfile(bool _value) {
+    _executiveToggleProfile = _value;
+    prefs.setBool('ff_executiveToggleProfile', _value);
   }
 }
 
