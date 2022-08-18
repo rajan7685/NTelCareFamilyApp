@@ -196,6 +196,22 @@ class GetHrate {
   }
 }
 
+class GetHeartWeek {
+  static Future<dynamic> call({String id = '', String date = ''}) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getHeartWeekStatus',
+      apiUrl:
+          'http://18.208.148.208:4000/graph/health_status/heart_rate/weekly?date=${date}&senior_id=${id}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${FFAppState().Token}',
+      },
+      // params: {"senior_id": id, "date": date},
+      returnBody: true,
+    );
+  }
+}
+
 class GetSteps {
   Future<http.Response> get(String endpoint) async {
     var url = Uri.parse(endpoint);

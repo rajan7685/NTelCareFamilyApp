@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
+
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -41,6 +43,25 @@ DateTime endDateYear = dateTimeYear;
 DateTimeRange dateRange = DateTimeRange(start: _startDate, end: _endDate);
 
 class _OxygenWidgetState extends State<OxygenWidget> {
+  @override
+  void initState() {
+    super.initState();
+    daily = true;
+    weekly = false;
+    monthly = false;
+    yearly = false;
+    print(id);
+    getOxygenRate();
+    getOxygenWeekRate();
+    getOxygenMonthlyRate();
+    getOxygenYearlyRate();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   DateTimeRange dateRange = DateTimeRange(start: _startDate, end: _endDate);
 
   bool checkLimit(DateTime limitDay) {
@@ -147,25 +168,13 @@ class _OxygenWidgetState extends State<OxygenWidget> {
     ];
   }
 
-  @override
-  void initState() {
-    super.initState();
-    print(id);
-    getOxygenRate();
-    getOxygenWeekRate();
-    getOxygenMonthlyRate();
-    getOxygenYearlyRate();
-    // SList = fetchSList();
-    // int versionCode = BuildConfig.VERSION_CODE;
-    // HeartStatus = fetchStat();
-  }
-
 //final List<charts.Series<HeartStatWeekMax, String>> seriesList = _createSampleData();
   void getOxygenRate() async {
     print(id);
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
     var response = await getHrate.get(
         '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -185,6 +194,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
     print(wDate);
     var response = await getHrate.get(
         '${ApiService.domain}/graph/health_status/blood_oxygen/weekly?date=${wDate}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -207,6 +217,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
     print(wDate);
     var response = await getHrate.get(
         '${ApiService.domain}/graph/health_status/blood_oxygen/monthly?date=${wDate1}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -302,6 +313,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
     print(wDate2);
     var response = await getHrate.get(
         '${ApiService.domain}/graph/health_status/blood_oxygen/yearly?date=${wDate2}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -319,35 +331,23 @@ class _OxygenWidgetState extends State<OxygenWidget> {
     });
   }
 
-/*  Future<List<dynamic>> fetchSList() async {
-    String wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
-    print(wDate);
-    final ApiCallResponse SList = await GetHeartWeek.call(id: id, date: wDate);
-    print(SList.statusCode);
-    print(SList.jsonBody);
-    return SList.jsonBody;
-  }*/
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var color1 = Color(0xFF00B89F);
   var color2 = Color(0xFF1A1A1A);
   var color3 = Color(0xFF1A1A1A);
   var color4 = Color(0xFF1A1A1A);
+
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<OxygenStat, String>> _createSampleDataDaily() {
-      return [
-        new charts.Series<OxygenStat, String>(
-            id: 'max1',
-            domainFn: (OxygenStat sales, _) => sales.time,
-            measureFn: (OxygenStat sales, _) => sales.value,
-            data: hRate,
-            colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
-            labelAccessorFn: (OxygenStat sales, _) =>
-                '\$${sales.value.toString()}')
-      ];
-    }
-
+    List<charts.Series<OxygenStat, int>> heart = [
+      charts.Series(
+          data: hRate,
+          id: "Heart Rate",
+          domainFn: (OxygenStat pops, _) => pops.time,
+          measureFn: (OxygenStat pops, _) => pops.value,
+          colorFn: (OxygenStat pops, _) =>
+              charts.ColorUtil.fromDartColor(Colors.red))
+    ];
     return MaterialApp(
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
@@ -440,6 +440,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                         weekly = false;
                                         monthly = false;
                                         yearly = false;
+                                        getOxygenRate();
                                       });
                                     },
                                     child: Container(
@@ -490,6 +491,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                     monthly = false;
                                     yearly = false;
                                     dateTimeWeek = DateTime.now();
+                                    getOxygenWeekRate();
                                   });
                                 },
                                 child: Container(
@@ -534,6 +536,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                       weekly = false;
                                       yearly = false;
                                       dateTimeMonth = DateTime.now();
+                                      getOxygenMonthlyRate();
                                     });
                                   },
                                   child: Container(
@@ -584,6 +587,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                       weekly = false;
                                       yearly = true;
                                       dateTimeYear = DateTime.now();
+                                      getOxygenYearlyRate();
                                     });
                                   },
                                   child: Container(
@@ -684,7 +688,7 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                   size: 32,
                                 ),
                               ),
-                              if (daily ?? true)
+                              if (daily == true)
                                 Expanded(
                                   child: Text(
                                     dateTime == null
@@ -842,15 +846,24 @@ class _OxygenWidgetState extends State<OxygenWidget> {
                                 decoration: BoxDecoration(
                                     color: Color(0xFF272E36),
                                     borderRadius: BorderRadius.circular(10)),
-                                child: charts.BarChart(
-                                  _createSampleDataDaily(),
-                                  domainAxis: new charts.OrdinalAxisSpec(
+                                child: charts.LineChart(
+                                  heart,
+                                  domainAxis: new charts.NumericAxisSpec(
+                                      tickProviderSpec:
+                                          charts.BasicNumericTickProviderSpec(
+                                              zeroBound: false),
                                       renderSpec:
                                           new charts.SmallTickRendererSpec(
-                                    labelStyle: new charts.TextStyleSpec(
-                                        fontSize: 6, // size in Pts.
-                                        color: charts.MaterialPalette.white),
-                                  )),
+                                        labelStyle: new charts.TextStyleSpec(
+                                            fontSize: 8, // size in Pts.
+                                            color:
+                                                charts.MaterialPalette.white),
+                                      )),
+
+                                  // domainAxis: charts.OrdinalAxisSpec(
+                                  //     renderSpec: charts.SmallTickRendererSpec(
+                                  //         labelStyle: new charts.TextStyleSpec(
+                                  //             color: charts.MaterialPalette.white))),
                                 ),
                               )
                               // Image.asset(
@@ -1035,7 +1048,7 @@ class OxygenStat {
     this.value,
   });
 
-  String time;
+  int time;
   int value;
 
   factory OxygenStat.fromJson(Map<String, dynamic> json) => OxygenStat(

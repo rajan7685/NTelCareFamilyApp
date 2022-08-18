@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
+import 'package:n_tel_care_family_app/components/custom_toast.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/custom_code/widgets/custom_message.dart';
 import 'package:n_tel_care_family_app/edit/demo_editProfile.dart';
@@ -31,10 +33,27 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
   dynamic inf;
+
+  Future<void> _checkNetworkConnectivity() async {
+    ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    print(connectivityResult.name);
+    print(connectivityResult.name);
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+    } else {
+      Toast.showToast(context,
+          message: 'You are not connected to internet.', type: ToastType.Error);
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _checkNetworkConnectivity();
     SList = fetchSList();
   }
 
@@ -71,7 +90,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                       builder: (context, snapshot) {
                         inf = snapshot.data;
 
-                        //  print(snapshot.data['message']);
+                        print(FFAppState().relation);
                         if (!snapshot.hasData) {
                           return Text(
                             "Loading",
@@ -83,6 +102,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     fontSize: 20),
                           );
                         } else {
+                          FFAppState().relation = snapshot.data["relation"];
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -279,10 +299,12 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 5, 0, 0),
                                       child: Text(
-                                        snapshot.data["member"]["age"]
-                                                .toString() +
-                                            "," +
-                                            snapshot.data["member"]["sex"],
+                                        // snapshot.data["member"]["age"]
+                                        //         .toString() +
+                                        //     "," +
+                                        //     snapshot.data["member"]["sex"]
+                                        // ,
+                                        'Age ${snapshot.data["member"]["age"]}, ${snapshot.data["member"]["sex"]}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
                                             .override(
@@ -304,11 +326,14 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         .tertiaryColor,
                                     size: 15,
                                   ),
+                                  SizedBox(
+                                    width: 6,
+                                  ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.08, 0.71),
+                                    // alignment: AlignmentDirectional(0.08, 0.71),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 5, 0, 0),
+                                          0, 0, 0, 0),
                                       child: Text(
                                         snapshot.data["member"]["email"],
                                         style: FlutterFlowTheme.of(context)
@@ -336,6 +361,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .tertiaryColor,
                                       size: 15,
+                                    ),
+                                    SizedBox(
+                                      width: 6,
                                     ),
                                     Align(
                                       alignment:
@@ -367,6 +395,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .tertiaryColor,
                                       size: 15,
+                                    ),
+                                    SizedBox(
+                                      width: 6,
                                     ),
                                     Align(
                                       alignment:
@@ -880,7 +911,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
     final ApiCallResponse SList = await GetProfile.call();
 
     print(SList.statusCode);
-    print(SList.jsonBody);
+    //print(SList["relation"]);
+
     return SList.jsonBody;
   }
 }

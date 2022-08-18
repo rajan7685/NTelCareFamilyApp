@@ -1,5 +1,5 @@
 class ApiService {
-  static final bool _debug = false;
+  static final bool _debug = true;
 
   static final String _productionUrl =
       'https://netlcare-admin-api.regamicompass.com';

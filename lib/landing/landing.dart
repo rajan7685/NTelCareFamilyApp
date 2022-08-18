@@ -1,5 +1,6 @@
 import 'package:flutter/rendering.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
+import 'package:n_tel_care_family_app/components/custom_toast.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/stats/battery.dart';
 import 'package:n_tel_care_family_app/stats/blood_pressure.dart';
@@ -55,26 +56,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     } else if (connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a wifi network.
     } else {
-      await showDialog(
-        context: context,
-        builder: (alertDialogContext) {
-          return AlertDialog(
-            title: Text('Error'),
-            backgroundColor: Colors.red,
-            content: Text(
-                'You are not connected to internet. Please connect to a wifi or turn on your mobile network.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(alertDialogContext),
-                child: Text(
-                  'Ok',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
-          );
-        },
-      );
+      Toast.showToast(context,
+          message: 'You are not connected to internet.', type: ToastType.Error);
     }
   }
 
@@ -108,6 +91,14 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     final ApiCallResponse _data = await DashBoardStat.call(id: seniorId);
     // print('data: ${_data.jsonBody["dashboard"]}');
     dashboardData = _data.jsonBody["dashboard"];
+    // print("dashboardData $dashboardData");
+    // print(
+    //     "PillBox data ${dashboardData["sensors_status"]["pillbox"].runtimeType}");
+
+    // print("PillBox data type ${dashboardData["sensors_status"]["pillbox"]}");
+
+    // print("PillBox data ${dashboardData["sensors_status"]["pillbox"]["bool"]}");
+
     setState(() {
       _isDashboardDataLoading = false;
     });
@@ -2192,7 +2183,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     StatsWidget(
-                                                  data: 'id',
+                                                  data: dashboardData["senior"]
+                                                      ["id"],
                                                 ),
                                               ),
                                             );
@@ -2343,7 +2335,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      OxygenWidget(),
+                                                      OxygenWidget(
+                                                          data: dashboardData[
+                                                              "senior"]["id"]),
                                                 ),
                                               );
                                             },
@@ -2514,7 +2508,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    SleepWidget(),
+                                                    SleepWidget(
+                                                        data: dashboardData[
+                                                            "senior"]["id"]),
                                               ),
                                             );
                                           },
@@ -2574,11 +2570,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               MainAxisSize.max,
                                                           children: [
                                                             Text(
-                                                              FFAppState().Sleep !=
-                                                                      "sleep"
-                                                                  ? FFAppState()
-                                                                      .Sleep
-                                                                  : "0",
+                                                              dashboardData[
+                                                                      "watch_status"]
+                                                                  ["sleep"],
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
@@ -2667,7 +2661,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      StepWidget(),
+                                                      StepWidget(
+                                                          data: dashboardData[
+                                                              "senior"]["id"]),
                                                 ),
                                               );
                                             },
@@ -2735,11 +2731,10 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    FFAppState().Steps !=
-                                                                            "step"
-                                                                        ? FFAppState()
-                                                                            .Steps
-                                                                        : "0",
+                                                                    dashboardData[
+                                                                            "watch_status"]
+                                                                        [
+                                                                        "step"],
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -2839,7 +2834,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    CalorieWidget(),
+                                                    CalorieWidget(
+                                                        data: dashboardData[
+                                                            "senior"]["id"]),
                                               ),
                                             );
                                           },
@@ -2899,11 +2896,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               MainAxisSize.max,
                                                           children: [
                                                             Text(
-                                                              FFAppState().Calories !=
-                                                                      "calorie"
-                                                                  ? FFAppState()
-                                                                      .Calories
-                                                                  : "0",
+                                                              dashboardData[
+                                                                      "watch_status"]
+                                                                  ["calories"],
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
@@ -2992,7 +2987,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      BloodWidget(),
+                                                      BloodWidget(
+                                                          data: dashboardData[
+                                                              "senior"]["id"]),
                                                 ),
                                               );
                                             },
@@ -3060,11 +3057,10 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    "SYS: " +
-                                                                        (FFAppState().blood_sys !=
-                                                                                "sys"
-                                                                            ? FFAppState().blood_sys
-                                                                            : "0"),
+                                                                    dashboardData["watch_status"]
+                                                                            [
+                                                                            "blood_pressure"]
+                                                                        ["sys"],
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -3088,10 +3084,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                 children: [
                                                                   Text(
                                                                     "DIA: " +
-                                                                        (FFAppState().blood_dia !=
-                                                                                "dia"
-                                                                            ? FFAppState().blood_dia
-                                                                            : "0"),
+                                                                        dashboardData["watch_status"]["blood_pressure"]
+                                                                            [
+                                                                            "dia"],
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -3191,7 +3186,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    BatteryWidget(),
+                                                    BatteryWidget(
+                                                        data: dashboardData[
+                                                            "senior"]["id"]),
                                               ),
                                             );
                                           },
@@ -3251,11 +3248,10 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               MainAxisSize.max,
                                                           children: [
                                                             Text(
-                                                              FFAppState().battery_level !=
-                                                                      "battery"
-                                                                  ? FFAppState()
-                                                                      .battery_level
-                                                                  : "0",
+                                                              dashboardData[
+                                                                      "watch_status"]
+                                                                  [
+                                                                  "battery_level"],
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
@@ -3344,7 +3340,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      PillWidget(),
+                                                      PillWidget(
+                                                          data: dashboardData[
+                                                              "senior"]["id"]),
                                                 ),
                                               );
                                             },
@@ -3412,10 +3410,13 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    FFAppState().Pill_box.toString() !=
-                                                                            "true"
-                                                                        ? "Not Active"
-                                                                        : "Active",
+                                                                    dashboardData["sensors_status"]["pillbox"]
+                                                                            .toString()
+                                                                            .isEmpty
+                                                                        ? "Closed"
+                                                                        : (dashboardData["sensors_status"]["pillbox"]["bool"]
+                                                                            ? "Opened"
+                                                                            : "Closed"),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -3515,7 +3516,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    DoorWidget(),
+                                                    DoorWidget(
+                                                        data: dashboardData[
+                                                            "senior"]["id"]),
                                               ),
                                             );
                                           },
@@ -3575,12 +3578,19 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               MainAxisSize.max,
                                                           children: [
                                                             Text(
-                                                              FFAppState()
-                                                                          .door
-                                                                          .toString() !=
-                                                                      "true"
+                                                              dashboardData["sensors_status"]
+                                                                          [
+                                                                          "door"]
+                                                                      .toString()
+                                                                      .isEmpty
                                                                   ? "Closed"
-                                                                  : "Open",
+                                                                  : (dashboardData["sensors_status"]
+                                                                              [
+                                                                              "door"]
+                                                                          [
+                                                                          "bool"]
+                                                                      ? "Opened"
+                                                                      : "Closed"),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
@@ -3669,7 +3679,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ShowerWidget(),
+                                                      ShowerWidget(
+                                                          data: dashboardData[
+                                                              "senior"]["id"]),
                                                 ),
                                               );
                                             },
@@ -3737,8 +3749,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    FFAppState().shower.toString() !=
-                                                                            "true"
+                                                                    dashboardData["sensors_status"]["shower"]
+                                                                            .toString()
+                                                                            .isEmpty
                                                                         ? "Not Bathed"
                                                                         : "Bathed",
                                                                     style: FlutterFlowTheme.of(
@@ -4136,7 +4149,9 @@ class _dashboardState extends State<dashboard> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => OxygenWidget(),
+                              builder: (context) => OxygenWidget(
+                                data: id,
+                              ),
                             ),
                           );
                         },
@@ -4270,7 +4285,9 @@ class _dashboardState extends State<dashboard> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SleepWidget(),
+                            builder: (context) => SleepWidget(
+                              data: id,
+                            ),
                           ),
                         );
                       },
@@ -4382,7 +4399,9 @@ class _dashboardState extends State<dashboard> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => StepWidget(),
+                              builder: (context) => StepWidget(
+                                data: id,
+                              ),
                             ),
                           );
                         },
@@ -4515,7 +4534,9 @@ class _dashboardState extends State<dashboard> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CalorieWidget(),
+                            builder: (context) => CalorieWidget(
+                              data: id,
+                            ),
                           ),
                         );
                       },
@@ -4627,7 +4648,9 @@ class _dashboardState extends State<dashboard> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BloodWidget(),
+                              builder: (context) => BloodWidget(
+                                data: id,
+                              ),
                             ),
                           );
                         },
@@ -4784,7 +4807,7 @@ class _dashboardState extends State<dashboard> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BatteryWidget(),
+                            builder: (context) => BatteryWidget(data: id),
                           ),
                         );
                       },
@@ -4897,7 +4920,9 @@ class _dashboardState extends State<dashboard> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PillWidget(),
+                              builder: (context) => PillWidget(
+                                data: id,
+                              ),
                             ),
                           );
                         },
@@ -5033,7 +5058,9 @@ class _dashboardState extends State<dashboard> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DoorWidget(),
+                            builder: (context) => DoorWidget(
+                              data: id,
+                            ),
                           ),
                         );
                       },
@@ -5145,7 +5172,9 @@ class _dashboardState extends State<dashboard> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ShowerWidget(),
+                              builder: (context) => ShowerWidget(
+                                data: id,
+                              ),
                             ),
                           );
                         },
