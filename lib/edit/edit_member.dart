@@ -89,9 +89,12 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     textController5 = TextEditingController(text: data['email']);
     textController6 = TextEditingController(text: data["address"]);
     textController7 = TextEditingController(text: data["zipcode"]);
-    textController8 = TextEditingController();
-    textController9 = TextEditingController();
+    textController8 = TextEditingController(text: data["state"]);
+    textController9 = TextEditingController(text: data["city"]);
+    countryCode = data['ccode'];
+    print("country code ${countryCode}");
 
+    print(" edit member ${widget.countries}");
     profile = data["profile"];
     if (profile == null) {
       profile =
@@ -99,7 +102,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     }
     dropDownValueGender = data["gender"];
     cityValue = data["city"];
-    countryValue = data["country"] ?? null;
+    //countryValue = data["country"] ?? null;
     stateValue = data["state"];
     dropDownValue = data["relation"];
     selectedDate = DateTime.parse(data["dob"]);
@@ -848,9 +851,15 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                               ))
                                           .toList(),
                                       onChanged: (value) {
+                                        String abc = widget.countries
+                                            .firstWhere((element) =>
+                                                element['code'] ==
+                                                value)['name'];
+                                        print("value of country" + abc);
                                         setState(() {
-                                          print(value);
+                                          print(" value of country : ${value}");
                                           countryCode = value;
+                                          countryValue = abc;
                                         });
                                       },
                                       decoration: InputDecoration(
@@ -1722,6 +1731,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       fontSize: 14.0);
                                 } else {
                                   print(FFAppState().AccountId);
+                                  print("country val ${countryValue}");
                                   print(displayLive.toString());
                                   print(displayChat.toString());
                                   print(displayView.toString());

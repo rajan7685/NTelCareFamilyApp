@@ -44,6 +44,9 @@ class _AddWidgetState extends State<Add> {
   TextEditingController textController9 = TextEditingController();
 
   dynamic placesData;
+  List<dynamic> relationOptions = [];
+  String relationCode;
+  String relationName;
   bool switchListTileValue;
   bool checkboxListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -62,6 +65,8 @@ class _AddWidgetState extends State<Add> {
   @override
   void initState() {
     super.initState();
+    print("countries add ${widget.countries}");
+    _loadRelation();
   }
 
   bool display = false;
@@ -107,6 +112,19 @@ class _AddWidgetState extends State<Add> {
     } on PlatformException catch (e) {
       print("Permission Denied");
     }
+  }
+
+  Future<void> _loadRelation() async {
+    String uri = 'http://18.208.148.208:4000/admin/relations';
+    final res = await http.get(
+      Uri.parse(uri),
+      headers: {"Authorization": "Bearer ${FFAppState().Token}"},
+    );
+    // print(res.body);
+    setState(() {
+      relationOptions = jsonDecode(res.body)['data'];
+      print(" relation option ${relationOptions}");
+    });
   }
 
   Future<void> _loadAddress() async {
@@ -749,45 +767,49 @@ class _AddWidgetState extends State<Add> {
                               children: [
                                 Expanded(
                                   flex: 8,
-                                  child: IgnorePointer(
-                                    child: DropdownButtonFormField<dynamic>(
-                                      isExpanded: true,
-                                      value: countryCode,
-                                      items: widget.countries
-                                          .map((label) => DropdownMenuItem(
-                                                child: Text(label['name']),
-                                                value: label['code'],
-                                              ))
-                                          .toList(),
-                                      onChanged: (value) {
+                                  child: DropdownButtonFormField<dynamic>(
+                                    isExpanded: true,
+                                    value: countryCode,
+                                    items: widget.countries
+                                        .map((label) => DropdownMenuItem(
+                                              child: Text(label['name']),
+                                              value: label['code'],
+                                            ))
+                                        .toList(),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        print(value);
+                                        String abc = widget.countries
+                                            .firstWhere((element) =>
+                                                element['code'] ==
+                                                value)['name'];
                                         setState(() {
-                                          print(value);
+                                          print(" value of country : ${value}");
                                           countryCode = value;
+                                          countryValue = abc;
                                         });
-                                      },
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        filled: true,
-                                        fillColor: Color(0xFFEEEEEE),
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFF606E87),
-                                          ),
-                                      hint: Text('Country'),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 2),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      filled: true,
+                                      fillColor: Color(0xFFEEEEEE),
                                     ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF606E87),
+                                        ),
+                                    hint: Text('Country'),
                                   ),
                                 ),
                               ],
@@ -864,49 +886,50 @@ class _AddWidgetState extends State<Add> {
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                              child: TextFormField(
-                                enabled: false,
-                                controller: textController8,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'State',
-                                  labelStyle: FlutterFlowTheme.of(context)
+                              child: IgnorePointer(
+                                child: TextFormField(
+                                  controller: textController8,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'State',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xFF9A9A9A),
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
                                         fontSize: 16,
-                                        fontWeight: FontWeight.w300,
                                       ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
+                                  keyboardType: TextInputType.number,
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF606E87),
-                                      fontSize: 16,
-                                    ),
-                                keyboardType: TextInputType.number,
                               ),
                             ),
                           ),
@@ -922,48 +945,50 @@ class _AddWidgetState extends State<Add> {
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                              child: TextFormField(
-                                controller: textController9,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'City',
-                                  labelStyle: FlutterFlowTheme.of(context)
+                              child: IgnorePointer(
+                                child: TextFormField(
+                                  controller: textController9,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'City',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xFF9A9A9A),
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
                                         fontSize: 16,
-                                        fontWeight: FontWeight.w300,
                                       ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
+                                  keyboardType: TextInputType.streetAddress,
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF606E87),
-                                      fontSize: 16,
-                                    ),
-                                keyboardType: TextInputType.streetAddress,
                               ),
                             ),
                           ),
@@ -979,48 +1004,50 @@ class _AddWidgetState extends State<Add> {
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                              child: TextFormField(
-                                controller: textController6,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Address',
-                                  labelStyle: FlutterFlowTheme.of(context)
+                              child: IgnorePointer(
+                                child: TextFormField(
+                                  controller: textController6,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Address',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
-                                        fontFamily: 'Montserrat',
-                                        color: Color(0xFF9A9A9A),
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
                                         fontSize: 16,
-                                        fontWeight: FontWeight.w300,
                                       ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
+                                  keyboardType: TextInputType.streetAddress,
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF606E87),
-                                      fontSize: 16,
-                                    ),
-                                keyboardType: TextInputType.streetAddress,
                               ),
                             ),
                           ),
@@ -1040,15 +1067,14 @@ class _AddWidgetState extends State<Add> {
                                   flex: 8,
                                   child: DropdownButtonFormField(
                                     value: dropDownValue,
-                                    items: FFAppState()
-                                        .relation
+                                    items: relationOptions
                                         .map((label) => DropdownMenuItem(
-                                              child: Text(label),
-                                              value: label,
+                                              child: Text(label['name']),
+                                              value: label['id'],
                                             ))
                                         .toList(),
                                     onChanged: (value) {
-                                      setState(() => dropDownValue = value);
+                                      setState(() => relationCode = value);
                                     },
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
@@ -1663,7 +1689,7 @@ class _AddWidgetState extends State<Add> {
                               //   NavBarPage(initialPage: 'Landing'),
                               //  ),
                               // );
-                              if (FFAppState().executive) {
+                              if (!FFAppState().executive) {
                                 if (textController1.text == "" ||
                                     textController2.text == "" ||
                                     textController5.text == "" ||
@@ -1718,6 +1744,8 @@ class _AddWidgetState extends State<Add> {
                                   // stream.cast();
 
                                   // var length = await image.length();
+                                  print("country add ${countryValue}");
+                                  print("relation ${dropDownValue}");
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
@@ -1728,7 +1756,7 @@ class _AddWidgetState extends State<Add> {
                                   res1.fields['lname'] = textController2.text;
                                   res1.fields['email'] = textController5.text;
                                   res1.fields['mobile'] = textController4.text;
-                                  res1.fields['relation'] = dropDownValue;
+                                  res1.fields['relation'] = relationCode;
                                   res1.fields['executive'] =
                                       FFAppState().Chattoggle5.toString();
                                   res1.fields['m_acc_id'] =
@@ -1746,8 +1774,8 @@ class _AddWidgetState extends State<Add> {
                                   res1.fields['view_video'] =
                                       displayView.toString();
                                   res1.fields["country"] = countryValue;
-                                  res1.fields["state"] = stateValue;
-                                  res1.fields["city"] = cityValue;
+                                  res1.fields["state"] = textController8.text;
+                                  res1.fields["city"] = textController9.text;
                                   res1.fields["dob"] = DateFormat("yyyy-MM-dd")
                                       .format(selectedDate);
                                   // ignore: unnecessary_statements
