@@ -32,6 +32,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   bool switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
+  List<dynamic> countries = [];
   dynamic inf;
 
   Future<void> _checkNetworkConnectivity() async {
@@ -103,6 +104,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                           );
                         } else {
                           FFAppState().relation = snapshot.data["relation"];
+                          countries = snapshot.data["countiries"];
+                          //print("snap shot countries : ${}");
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -536,8 +539,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            EditCopy2Widget(info: inf),
+                                        builder: (context) => EditCopy2Widget(
+                                            info: inf, countries: countries),
                                       ),
                                     );
                                     setState(() {

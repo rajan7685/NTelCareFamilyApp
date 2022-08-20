@@ -80,6 +80,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     FirebaseMessaging.instance.getToken().then((newToken) {
       print("Fcm token");
+      FFAppState().appFCMToken = newToken;
       print("hello" + newToken);
     });
     var initializationSettingsAndroid =
