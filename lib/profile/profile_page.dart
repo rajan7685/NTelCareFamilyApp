@@ -104,7 +104,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                           );
                         } else {
                           FFAppState().relation = snapshot.data["relation"];
-                          countries = snapshot.data["countiries"];
+                          countries = snapshot.data["countries"];
                           //print("snap shot countries : ${}");
                           return Column(
                             mainAxisSize: MainAxisSize.max,
