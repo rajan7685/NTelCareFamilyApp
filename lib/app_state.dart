@@ -21,6 +21,7 @@ class FFAppState {
 
   String id = "";
   String hear;
+  String FCM; // stores the fcm token for current device
   String AccessToken = '';
   String RefreshToken = '';
   String LoginMessage = '';
