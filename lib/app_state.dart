@@ -58,6 +58,7 @@ class FFAppState {
   bool executive;
   bool liveView;
   bool chat;
+  String appFCMToken;
   bool viewVideo;
   List<dynamic> relation = [];
   String buildversion = " ";

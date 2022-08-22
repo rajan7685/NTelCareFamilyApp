@@ -22,7 +22,8 @@ import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
 
 class Add extends StatefulWidget {
-  const Add({Key key}) : super(key: key);
+  List<dynamic> countries;
+  Add({Key key, @required this.countries}) : super(key: key);
 
   @override
   _AddWidgetState createState() => _AddWidgetState();
@@ -39,6 +40,13 @@ class _AddWidgetState extends State<Add> {
   TextEditingController textController5 = TextEditingController();
   TextEditingController textController6 = TextEditingController();
   TextEditingController textController7 = TextEditingController();
+  TextEditingController textController8 = TextEditingController();
+  TextEditingController textController9 = TextEditingController();
+
+  dynamic placesData;
+  List<dynamic> relationOptions = [];
+  String relationCode;
+  String relationName;
   bool switchListTileValue;
   bool checkboxListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -50,12 +58,15 @@ class _AddWidgetState extends State<Add> {
   String countryValue = "";
   String stateValue = "";
   String cityValue = "";
+  String countryCode;
   DateTime dateTime;
   String Date = "Select";
   DateTime selectedDate = DateTime.now();
   @override
   void initState() {
     super.initState();
+    print("countries add ${widget.countries}");
+    _loadRelation();
   }
 
   bool display = false;
@@ -101,6 +112,41 @@ class _AddWidgetState extends State<Add> {
     } on PlatformException catch (e) {
       print("Permission Denied");
     }
+  }
+
+  Future<void> _loadRelation() async {
+    String uri = 'http://18.208.148.208:4000/admin/relations';
+    final res = await http.get(
+      Uri.parse(uri),
+      headers: {"Authorization": "Bearer ${FFAppState().Token}"},
+    );
+    // print(res.body);
+    setState(() {
+      relationOptions = jsonDecode(res.body)['data'];
+      print(" relation option ${relationOptions}");
+    });
+  }
+
+  Future<void> _loadAddress() async {
+    String uri =
+        'http://18.208.148.208:4000/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
+    final res = await http.get(
+      Uri.parse(uri),
+      headers: {"Authorization": "Bearer ${FFAppState().Token}"},
+    );
+    print(res.body);
+    placesData = jsonDecode(res.body);
+    setState(() {
+      textController8.text = placesData['data']['state_name'];
+      textController9.text = placesData['data']['county_name'];
+      textController6.text =
+          '${placesData['data']['community_name']}, ${placesData['data']['county_name']}';
+    });
+    dynamic countryValue = widget.countries.singleWhere((element) =>
+        element['code'] == placesData['data']['country_code'])['name'];
+    cityValue = placesData['data']['county_name'];
+    stateValue = placesData['data']['state_name'];
+    print('country $countryValue city $cityValue state $stateValue');
   }
 
   @override
@@ -377,7 +423,6 @@ class _AddWidgetState extends State<Add> {
                                           "Male",
                                           "Female",
                                           "Transgender",
-                                          "Non binary"
                                         ]
                                             .map((label) => DropdownMenuItem(
                                                   child: Text(label),
@@ -709,220 +754,303 @@ class _AddWidgetState extends State<Add> {
                           ),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
-                          child: CSCPicker(
-                            ///Enable disable state dropdown [OPTIONAL PARAMETER]
-                            showStates: true,
-
-                            /// Enable disable city drop down [OPTIONAL PARAMETER]
-                            showCities: true,
-
-                            ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
-                            flagState: CountryFlag.DISABLE,
-                            layout: Layout.vertical,
-
-                            ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
-                            dropdownDecoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
-                                color: Color(0xFFEEEEEE),
-                                border: Border.all(
-                                    color: Color(0xFFEEEEEE), width: 11)),
-
-                            ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
-                            disabledDropdownDecoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(11)),
-                                color: Color(0xFFEEEEEE),
-                                border: Border.all(
-                                    color: Color(0xFFEEEEEE), width: 11)),
-
-                            ///placeholders for dropdown search field
-
-                            stateSearchPlaceholder: "State",
-                            citySearchPlaceholder: "City",
-                            countrySearchPlaceholder: "Country",
-
-                            ///labels for dropdown
-
-                            stateDropdownLabel: "State",
-                            cityDropdownLabel: "City",
-                            countryDropdownLabel: "Country",
-
-                            ///Default Country
-                            //  defaultCountry: data["country"],
-
-                            ///selected item style [OPTIONAL PARAMETER]
-                            selectedItemStyle: TextStyle(
-                              color: Color(0xFF606E87),
-                              fontSize: 16,
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          child: Container(
+                            width: double.maxFinite,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
                             ),
-
-                            ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                            dropdownHeadingStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-
-                            ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                            dropdownItemStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Expanded(
+                                  flex: 8,
+                                  child: DropdownButtonFormField<dynamic>(
+                                    isExpanded: true,
+                                    value: countryCode,
+                                    items: widget.countries
+                                        .map((label) => DropdownMenuItem(
+                                              child: Text(label['name']),
+                                              value: label['code'],
+                                            ))
+                                        .toList(),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        print(value);
+                                        String abc = widget.countries
+                                            .firstWhere((element) =>
+                                                element['code'] ==
+                                                value)['name'];
+                                        setState(() {
+                                          print(" value of country : ${value}");
+                                          countryCode = value;
+                                          countryValue = abc;
+                                        });
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 2),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      filled: true,
+                                      fillColor: Color(0xFFEEEEEE),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF606E87),
+                                        ),
+                                    hint: Text('Country'),
+                                  ),
+                                ),
+                              ],
                             ),
-
-                            ///Dialog box radius [OPTIONAL PARAMETER]
-                            dropdownDialogRadius: 10.0,
-
-                            ///Search bar radius [OPTIONAL PARAMETER]
-                            searchBarRadius: 10.0,
-
-                            ///triggers once country selected in dropdown
-                            onCountryChanged: (value) {
-                              setState(() {
-                                ///store value in country variable
-                                countryValue = value;
-                              });
-                            },
-
-                            ///triggers once state selected in dropdown
-                            onStateChanged: (value) {
-                              setState(() {
-                                ///store value in state variable
-                                stateValue = value;
-                              });
-                            },
-
-                            ///triggers once city selected in dropdown
-                            onCityChanged: (value) {
-                              setState(() {
-                                ///store value in city variable
-                                cityValue = value;
-                              });
-                            },
                           ),
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Padding(
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          child: Container(
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
-                              child: Container(
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: TextFormField(
-                                    controller: textController6,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Address',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: TextFormField(
+                                controller: textController7,
+                                obscureText: false,
+                                onEditingComplete: _loadAddress,
+                                // onSaved: (newValue) => print(newValue),
+                                decoration: InputDecoration(
+                                  labelText: 'Zip Code',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
                                       ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
+                                      fontSize: 16,
+                                    ),
+                                keyboardType: TextInputType.number,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          child: Container(
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: IgnorePointer(
+                                child: TextFormField(
+                                  controller: textController8,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'State',
+                                    labelStyle: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF606E87),
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
                                           fontSize: 16,
+                                          fontWeight: FontWeight.w300,
                                         ),
-                                    keyboardType: TextInputType.streetAddress,
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
+                                        fontSize: 16,
+                                      ),
+                                  keyboardType: TextInputType.number,
                                 ),
                               ),
                             ),
-                            Padding(
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                              child: Container(
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: TextFormField(
-                                    controller: textController7,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Zip Code',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: IgnorePointer(
+                                child: TextFormField(
+                                  controller: textController9,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'City',
+                                    labelStyle: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF606E87),
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
                                           fontSize: 16,
+                                          fontWeight: FontWeight.w300,
                                         ),
-                                    keyboardType: TextInputType.number,
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
+                                        fontSize: 16,
+                                      ),
+                                  keyboardType: TextInputType.streetAddress,
                                 ),
                               ),
                             ),
-                          ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: IgnorePointer(
+                                child: TextFormField(
+                                  controller: textController6,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Address',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
+                                        fontSize: 16,
+                                      ),
+                                  keyboardType: TextInputType.streetAddress,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
@@ -939,15 +1067,14 @@ class _AddWidgetState extends State<Add> {
                                   flex: 8,
                                   child: DropdownButtonFormField(
                                     value: dropDownValue,
-                                    items: FFAppState()
-                                        .relation
+                                    items: relationOptions
                                         .map((label) => DropdownMenuItem(
-                                              child: Text(label),
-                                              value: label,
+                                              child: Text(label['name']),
+                                              value: label['id'],
                                             ))
                                         .toList(),
                                     onChanged: (value) {
-                                      setState(() => dropDownValue = value);
+                                      setState(() => relationCode = value);
                                     },
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
@@ -1562,7 +1689,7 @@ class _AddWidgetState extends State<Add> {
                               //   NavBarPage(initialPage: 'Landing'),
                               //  ),
                               // );
-                              if (FFAppState().executive) {
+                              if (!FFAppState().executive) {
                                 if (textController1.text == "" ||
                                     textController2.text == "" ||
                                     textController5.text == "" ||
@@ -1617,6 +1744,8 @@ class _AddWidgetState extends State<Add> {
                                   // stream.cast();
 
                                   // var length = await image.length();
+                                  print("country add ${countryValue}");
+                                  print("relation ${dropDownValue}");
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
@@ -1627,7 +1756,7 @@ class _AddWidgetState extends State<Add> {
                                   res1.fields['lname'] = textController2.text;
                                   res1.fields['email'] = textController5.text;
                                   res1.fields['mobile'] = textController4.text;
-                                  res1.fields['relation'] = dropDownValue;
+                                  res1.fields['relation'] = relationCode;
                                   res1.fields['executive'] =
                                       FFAppState().Chattoggle5.toString();
                                   res1.fields['m_acc_id'] =
@@ -1645,8 +1774,8 @@ class _AddWidgetState extends State<Add> {
                                   res1.fields['view_video'] =
                                       displayView.toString();
                                   res1.fields["country"] = countryValue;
-                                  res1.fields["state"] = stateValue;
-                                  res1.fields["city"] = cityValue;
+                                  res1.fields["state"] = textController8.text;
+                                  res1.fields["city"] = textController9.text;
                                   res1.fields["dob"] = DateFormat("yyyy-MM-dd")
                                       .format(selectedDate);
                                   // ignore: unnecessary_statements

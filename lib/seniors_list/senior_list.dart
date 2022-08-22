@@ -21,7 +21,7 @@ class SeniorsWidget extends StatefulWidget {
 class _SeniorsWidgetState extends State<SeniorsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
-
+  List<dynamic> countries = [];
   @override
   void initState() {
     super.initState();
@@ -213,7 +213,8 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                       builder: (context) =>
                                                           EditSeniorsWidget(
                                                               data: snapshot
-                                                                  .data[index]),
+                                                                  .data[index],
+                                                              countries: []),
                                                     ));
                                                 setState(() {
                                                   SList = fetchSList();
@@ -982,7 +983,9 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
   Future fetchSList() async {
     final ApiCallResponse SList = await SeniorsList.call();
     print(SList.statusCode);
+    print(SList.jsonBody["country"]);
     print(SList.jsonBody["seniors"]);
+    countries = SList.jsonBody["country"];
     return SList.jsonBody["seniors"];
   }
   // Future fetchSList() async {
