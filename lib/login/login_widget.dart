@@ -235,7 +235,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                               "${ApiService.domain}/login/member";
                           final res = await http.post(Uri.parse(url), body: {
                             "mobile": textController1.text,
-                            "password": textController2.text
+                            "password": textController2.text,
+                            "device_token": FFAppState().FCM
                           });
                           final result = jsonDecode(res.body);
                           // print(data?.jsonBody[0].runtimeType);

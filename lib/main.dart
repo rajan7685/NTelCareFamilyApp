@@ -1,30 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'package:n_tel_care_family_app/graph_check.dart';
-
-import 'package:n_tel_care_family_app/backend/ApiService.dart';
-import 'package:n_tel_care_family_app/backend/ApiService.dart';
-import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:n_tel_care_family_app/profile/profile_page.dart';
 import 'package:n_tel_care_family_app/spalsh/modified_splash.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/video/videos_widget.dart';
-import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'devices/devices_widget.dart';
-
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -36,15 +28,14 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp()
       .then((FirebaseApp value) => print('Firebase Service init $value.'));
-
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
-
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
@@ -64,8 +55,6 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'This channel is used for important notifications.', // description
   importance: Importance.high,
 );
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
 
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
@@ -79,17 +68,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Future<void> _getFCMToken() async {
     String fcmToken = await FirebaseMessaging.instance.getToken();
-    print('FCM Token : $fcmToken');
+    FFAppState().FCM = fcmToken;
+    print('FCM Token set : $fcmToken');
   }
 
   @override
   void initState() {
     super.initState();
     _getFCMToken();
-    // FirebaseMessaging.instance.getToken().then((newToken) {
-    //   print("Fcm token");
-    //   print("hello" + newToken);
-    // });
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('ic_launcher');
     var initialzationSettingsAndroid =
@@ -98,12 +84,11 @@ class _MyAppState extends State<MyApp> {
         InitializationSettings(android: initialzationSettingsAndroid);
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-    FirebaseMessaging.onMessage.listen((message) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
-      //  AndroidNotification android = message.notification?.android;
-      // if (notification != null && android != null)
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
       if (notification != null) {
-        //  getToken();
         print(notification.body);
         print(channel.id);
         flutterLocalNotificationsPlugin.show(
@@ -145,11 +130,6 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
-
-  // String token;
-  // getToken() async {
-  //   token = await FirebaseMessaging.instance.getToken();
-  // }
 
   Locale _locale;
   ThemeMode _themeMode = ThemeMode.system;
