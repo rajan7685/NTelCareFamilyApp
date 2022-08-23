@@ -1689,7 +1689,7 @@ class _AddWidgetState extends State<Add> {
                               //   NavBarPage(initialPage: 'Landing'),
                               //  ),
                               // );
-                              if (!FFAppState().executive) {
+                              if (FFAppState().executive) {
                                 if (textController1.text == "" ||
                                     textController2.text == "" ||
                                     textController5.text == "" ||
@@ -1744,8 +1744,8 @@ class _AddWidgetState extends State<Add> {
                                   // stream.cast();
 
                                   // var length = await image.length();
-                                  print("country add ${countryValue}");
-                                  print("relation ${dropDownValue}");
+                                  print("country add $countryValue");
+                                  print("relation $dropDownValue");
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
