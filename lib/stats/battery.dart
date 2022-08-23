@@ -105,7 +105,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
 
 /*  void getStepscount() async {
     var response = await getSteps
-        .get('http://18.208.148.208:4000/graph/health_status/?senior_id=${id}');
+        .get('${ApiService.domain}/graph/health_status/?senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);

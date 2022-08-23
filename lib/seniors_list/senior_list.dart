@@ -214,7 +214,8 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                           EditSeniorsWidget(
                                                               data: snapshot
                                                                   .data[index],
-                                                              countries: []),
+                                                              countries:
+                                                                  countries),
                                                     ));
                                                 setState(() {
                                                   SList = fetchSList();

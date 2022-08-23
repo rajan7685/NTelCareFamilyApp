@@ -96,6 +96,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     }
     FFAppState().SeniorId = data["id"];
 
+    print(dropDownValueGender);
     cityValue = data["city"];
     countryValue = data["country"];
     countryCode = data['ccode'];
@@ -149,7 +150,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
 
   Future<void> _loadAddress() async {
     String uri =
-        'http://18.208.148.208:4000/zipcode/${countryCode.toLowerCase()}/${textController9.text}';
+        '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController9.text}';
     final res = await http.get(
       Uri.parse(uri),
       headers: {"Authorization": "Bearer ${FFAppState().Token}"},
@@ -173,7 +174,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print("executive : ${FFAppState().executive}");
+    // print("executive : ${FFAppState().executive}");
+    print("edit senior countries : ${widget.countries}");
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -452,6 +454,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             "Male",
                                             "Female",
                                             "Transgender",
+                                            "Other"
                                           ]
                                               .map((label) => DropdownMenuItem(
                                                     child: Text(label),

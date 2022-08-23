@@ -407,6 +407,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           AlignmentDirectional(0.08, 0.71),
                                       child: Text(
                                         snapshot.data["member"]["address"] +
+                                            " " +
                                             snapshot.data["member"]["zipcode"],
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1

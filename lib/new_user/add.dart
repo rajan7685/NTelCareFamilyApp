@@ -115,7 +115,7 @@ class _AddWidgetState extends State<Add> {
   }
 
   Future<void> _loadRelation() async {
-    String uri = 'http://18.208.148.208:4000/admin/relations';
+    String uri = '${ApiService.domain}/admin/relations';
     final res = await http.get(
       Uri.parse(uri),
       headers: {"Authorization": "Bearer ${FFAppState().Token}"},
@@ -129,7 +129,7 @@ class _AddWidgetState extends State<Add> {
 
   Future<void> _loadAddress() async {
     String uri =
-        'http://18.208.148.208:4000/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
+        '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
     final res = await http.get(
       Uri.parse(uri),
       headers: {"Authorization": "Bearer ${FFAppState().Token}"},
@@ -1689,7 +1689,7 @@ class _AddWidgetState extends State<Add> {
                               //   NavBarPage(initialPage: 'Landing'),
                               //  ),
                               // );
-                              if (!FFAppState().executive) {
+                              if (FFAppState().executive) {
                                 if (textController1.text == "" ||
                                     textController2.text == "" ||
                                     textController5.text == "" ||
@@ -1744,8 +1744,8 @@ class _AddWidgetState extends State<Add> {
                                   // stream.cast();
 
                                   // var length = await image.length();
-                                  print("country add ${countryValue}");
-                                  print("relation ${dropDownValue}");
+                                  print("country add $countryValue");
+                                  print("relation $dropDownValue");
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));

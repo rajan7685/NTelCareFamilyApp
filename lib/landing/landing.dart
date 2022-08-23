@@ -33,6 +33,7 @@ class ModifiedLandingPageWidget extends StatefulWidget {
 class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
+  List<dynamic> countries;
   var selectedId;
   int isSelected = 0;
   var selList = Colors.red;
@@ -356,8 +357,11 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           MaterialPageRoute(
                                                               builder: (context) =>
                                                                   EditSeniorsWidget(
-                                                                      data: _seniorsList[
-                                                                          index])));
+                                                                    data: _seniorsList[
+                                                                        index],
+                                                                    countries:
+                                                                        countries,
+                                                                  )));
                                                       _loadSeniorsListData();
                                                     },
                                                     child: Row(
@@ -3970,6 +3974,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     final ApiCallResponse SList = await SeniorsList.call();
 
     // print(SList.jsonBody["seniors"]);
+    countries = SList.jsonBody["country"];
     return SList.jsonBody["seniors"];
   }
 

@@ -201,7 +201,7 @@ class GetHeartWeek {
     return ApiManager.instance.makeApiCall(
       callName: 'getHeartWeekStatus',
       apiUrl:
-          'http://18.208.148.208:4000/graph/health_status/heart_rate/weekly?date=${date}&senior_id=${id}',
+          '${ApiService.domain}/graph/health_status/heart_rate/weekly?date=${date}&senior_id=${id}',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${FFAppState().Token}',
