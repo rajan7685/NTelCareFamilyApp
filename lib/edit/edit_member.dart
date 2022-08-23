@@ -174,7 +174,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
 
   Future<void> _loadAddress() async {
     String uri =
-        'http://18.208.148.208:4000/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
+        '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
     final res = await http.get(
       Uri.parse(uri),
       headers: {"Authorization": "Bearer ${FFAppState().Token}"},

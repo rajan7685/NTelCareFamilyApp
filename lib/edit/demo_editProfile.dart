@@ -112,7 +112,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
 
   Future<void> _loadAddress() async {
     String uri =
-        'http://18.208.148.208:4000/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
+        '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
     final res = await http.get(
       Uri.parse(uri),
       headers: {"Authorization": "Bearer ${FFAppState().Token}"},
@@ -135,9 +135,10 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
   @override
   void initState() {
     super.initState();
+    print("edit profile countries : ${widget.countries}");
     print(info["member"]["fname"]);
     profile = info["member"]["profile"];
-    print(" countrues ${widget.countries}");
+    // print(" countrues ${widget.countries}");
     print(" relationships ${FFAppState().relation}");
     print(profile);
     textController1 = TextEditingController(text: info["member"]["fname"]);
@@ -450,6 +451,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                             "Male",
                                             "Female",
                                             "Transgender",
+                                            "Other"
                                           ]
                                               .map((label) => DropdownMenuItem(
                                                     child: Text(label),
@@ -1214,7 +1216,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                         if (image == null)
                                           ClipOval(
                                               child: Image.network(
-                                            profile,
+                                            profile ??
+                                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                             width: 100,
                                             height: 100,
                                             fit: BoxFit.cover,

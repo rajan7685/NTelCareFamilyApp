@@ -133,7 +133,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                 shape: BoxShape.circle,
               ),
               child: Image.network(
-                _chats[index]['profile'],
+                _chats[index]['profile'] ??
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                 fit: BoxFit.cover,
               ),
             ),
