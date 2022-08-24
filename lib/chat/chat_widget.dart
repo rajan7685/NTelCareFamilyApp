@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:open_file/open_file.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
@@ -32,6 +33,7 @@ class _ChatWidgetState extends State<ChatWidget> {
   bool _isChatDataLoading = true;
   XFile _image;
   String _accHolderName = '';
+
   // FilePickerResult;
 
   Future<void> _loadMessages({bool init = false}) async {
@@ -201,6 +203,7 @@ class _ChatWidgetState extends State<ChatWidget> {
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     DateFormat('hh:mm a').format(
@@ -211,6 +214,14 @@ class _ChatWidgetState extends State<ChatWidget> {
                           color: Color(0xFFE5E5E5),
                           fontSize: 6,
                         ),
+                  ),
+                  //Spacer(),
+                  SizedBox(width: 8),
+                  Icon(
+                    FontAwesomeIcons.checkDouble,
+                    color:
+                        _chats[index]['all_read'] ? Colors.blue : Colors.white,
+                    size: 9,
                   ),
                 ],
               ),
