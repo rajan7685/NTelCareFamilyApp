@@ -312,7 +312,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                         children: [
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 35, 10, 0),
                             child: Container(
                               width: 350,
                               decoration: BoxDecoration(
@@ -370,7 +370,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: 350,
                               decoration: BoxDecoration(
@@ -705,7 +705,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               // key: formKey,
                               width: 350,
@@ -776,7 +776,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: 350,
                               decoration: BoxDecoration(
@@ -835,7 +835,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: double.maxFinite,
                               height: 60,
@@ -902,7 +902,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: double.maxFinite,
                               decoration: BoxDecoration(
@@ -962,7 +962,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: double.maxFinite,
                               decoration: BoxDecoration(
@@ -1022,7 +1022,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
@@ -1082,7 +1082,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
@@ -1142,7 +1142,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: 350,
                               decoration: BoxDecoration(
