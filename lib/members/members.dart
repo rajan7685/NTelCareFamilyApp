@@ -418,9 +418,12 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                           MaterialPageRoute(
                                                               builder: (context) =>
                                                                   EditSeniorsWidget(
-                                                                      data: snapshot
-                                                                              .data[
-                                                                          index])));
+                                                                    data: snapshot
+                                                                            .data[
+                                                                        index],
+                                                                    countries:
+                                                                        countries,
+                                                                  )));
                                                       setState(() {
                                                         SList = fetchSList();
                                                       });
@@ -1076,6 +1079,7 @@ class _MembersWidgetState extends State<MembersWidget> {
   Future fetchSList() async {
     final ApiCallResponse SList = await SeniorsList.call();
     print(SList.statusCode);
+    countries = SList.jsonBody["country"];
     print(SList.jsonBody["seniors"]);
     return SList.jsonBody["seniors"];
   }
