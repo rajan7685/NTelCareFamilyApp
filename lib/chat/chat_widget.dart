@@ -11,12 +11,174 @@ import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:http/http.dart' as http;
 // import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+class ChatBox extends StatefulWidget {
+  final bool self;
+  final dynamic messageContent;
+  const ChatBox({Key key, @required this.messageContent, @required this.self})
+      : super(key: key);
+
+  @override
+  State<ChatBox> createState() => _ChatBoxState();
+}
+
+class _ChatBoxState extends State<ChatBox> {
+  bool showSeen = false;
+  List<String> seenPersons = [];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.messageContent["read_by"] != null) {
+      (widget.messageContent["read_by"] as List<dynamic>)
+          .forEach((dynamic data) {
+        seenPersons.add((data["name"] as String).split(" ")[0]);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+          left: !widget.self ? 8 : 0,
+          right: widget.self ? 8 : 0,
+          top: 6,
+          bottom: 6),
+      child: Column(
+        crossAxisAlignment:
+            widget.self ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            // mainAxisAlignment:
+            //     self ? MainAxisAlignment.start : MainAxisAlignment.end,
+            children: [
+              Container(
+                width: 45,
+                height: 45,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: Image.network(
+                  widget.messageContent['profile'] ??
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
+                  fit: BoxFit.cover,
+                ),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    showSeen = !showSeen;
+                  });
+                },
+                child: Flexible(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 8),
+                    constraints: BoxConstraints(
+                        minWidth: MediaQuery.of(context).size.width * .2,
+                        maxWidth: MediaQuery.of(context).size.width * .7),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.messageContent["message"],
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 16)),
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color(0xFF209A1F),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: widget.messageContent['document'] == null
+                            ? Radius.circular(10)
+                            : Radius.circular(0),
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                left: !widget.self ? 8 : 0, right: widget.self ? 8 : 0),
+            child: Row(
+              mainAxisAlignment:
+                  widget.self ? MainAxisAlignment.end : MainAxisAlignment.start,
+              children: [
+                Icon(
+                  FontAwesomeIcons.checkDouble,
+                  color: widget.messageContent['all_read']
+                      ? Colors.blue
+                      : Colors.white,
+                  size: 10,
+                ),
+                SizedBox(
+                  width: 12,
+                ),
+                Text(
+                  DateFormat('hh:mm a').format(
+                      DateTime.parse(widget.messageContent['date_time'])
+                          .toLocal()),
+                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Poppins',
+                        color: Color(0xFFE5E5E5),
+                        fontSize: 8,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: !widget.self ? 8 : 0,
+              right: widget.self ? 8 : 0,
+            ),
+            child: Row(
+              mainAxisAlignment:
+                  widget.self ? MainAxisAlignment.end : MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 350),
+                    constraints: BoxConstraints(
+                        minWidth: MediaQuery.of(context).size.width * .2,
+                        maxWidth: MediaQuery.of(context).size.width * .7),
+                    height: showSeen ? 30 : 0,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                    ),
+                    child: Text(
+                        seenPersons.isEmpty
+                            ? 'Nobody has seen yet'
+                            : 'Seen by ${seenPersons.join(", ")}',
+                        maxLines: 2,
+                        overflow: TextOverflow.fade,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 14)),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
 
 class ChatWidget extends StatefulWidget {
   const ChatWidget({Key key}) : super(key: key);
@@ -48,7 +210,6 @@ class _ChatWidgetState extends State<ChatWidget> {
     final ApiCallResponse profileInfo = await GetProfile.call();
     _accHolderName =
         '${profileInfo.jsonBody['member']['fname']} ${profileInfo.jsonBody['member']['lname']}';
-    // print('profile ${profileInfo.jsonBody}');
     setState(() {
       _chats = _responseJson['chats'];
       _isChatDataLoading = false;
@@ -115,121 +276,6 @@ class _ChatWidgetState extends State<ChatWidget> {
     super.initState();
     _chatController = TextEditingController();
     _loadMessages(init: true);
-  }
-
-  Widget chatWidget(int index, {@required bool me}) {
-    print(_chats[index]['profile']);
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(!me ? 10 : 0, 20, me ? 10 : 0, 0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: me ? MainAxisAlignment.end : MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
-            child: Container(
-              width: 45,
-              height: 45,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-              ),
-              child: Image.network(
-                _chats[index]['profile'] ??
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-                    child: InkWell(
-                      onTap: () {
-                        // if (_chats[index]['document'] != null)
-                        //   _downloadFile(fileUrl: _chats[index]['document']);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xFF209A1F),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(0),
-                            bottomRight: _chats[index]['document'] == null
-                                ? Radius.circular(10)
-                                : Radius.circular(0),
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(12, 7, 12, 7),
-                          child: Row(
-                            children: [
-                              // if (_chats[index]['document'] != null)
-                              //   Icon(
-                              //     Icons.file_download,
-                              //     size: 13,
-                              //     color: Colors.white,
-                              //   ),
-                              // if (_chats[index]['document'] != null)
-                              //   SizedBox(
-                              //     width: 6,
-                              //   ),
-                              Text(
-                                _chats[index]['message'],
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 2,
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    DateFormat('hh:mm a').format(
-                        DateTime.parse(_chats[index]['date_time']).toLocal()),
-                    // _chats[index]['date_time'],
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Color(0xFFE5E5E5),
-                          fontSize: 6,
-                        ),
-                  ),
-                  //Spacer(),
-                  SizedBox(width: 8),
-                  Icon(
-                    FontAwesomeIcons.checkDouble,
-                    color:
-                        _chats[index]['all_read'] ? Colors.blue : Colors.white,
-                    size: 9,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
   }
 
   @override
@@ -377,8 +423,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 physics: BouncingScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: _chats.length,
-                                itemBuilder: (_, int index) => chatWidget(index,
-                                    me: _chats[index]['by'] == _accHolderName),
+                                itemBuilder: (_, int index) => ChatBox(
+                                    messageContent: _chats[index],
+                                    self:
+                                        _chats[index]['by'] == _accHolderName),
                               ),
                       ),
                     ),
