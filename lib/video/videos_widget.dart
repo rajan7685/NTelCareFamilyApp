@@ -2949,7 +2949,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
     final ApiCallResponse SList = await SeniorsList.call();
     print(SList.statusCode);
     // print(SList.jsonBody["seniors"]);
-    _countries = SList.jsonBody["country"];
+    _countries = SList.jsonBody["countries"];
     return SList.jsonBody["seniors"];
   }
 }

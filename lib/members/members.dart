@@ -34,6 +34,7 @@ class _MembersWidgetState extends State<MembersWidget> {
   List<dynamic> membersList = [];
 
   List<dynamic> countries = [];
+  List<dynamic> countriesMember = [];
 
   List<dynamic> relation = [];
 
@@ -79,8 +80,8 @@ class _MembersWidgetState extends State<MembersWidget> {
 
     print(FFAppState().Token);
     print(MList.statusCode);
-    countries = MList.jsonBody["countries"];
-    // print(" countries ${countries}");
+    countriesMember = MList.jsonBody["countries"];
+    print(" countries member $countriesMember");
 
     executiveList = (MList.jsonBody["members"] as List)
         .where((element) => element["executive"])
@@ -161,7 +162,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              Add(countries: countries),
+                                              Add(countries: countriesMember),
                                         ),
                                       );
                                       loadMembersData();
@@ -577,7 +578,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                 EditMemberWidget(
                                                                               data: executiveList[index],
                                                                               title: "Edit Executive",
-                                                                              countries: countries,
+                                                                              countries: countriesMember,
                                                                             ),
                                                                           ),
                                                                         );
@@ -792,7 +793,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                         context,
                                                                         MaterialPageRoute(
                                                                           builder: (context) => EditMemberWidget(
-                                                                              countries: countries,
+                                                                              countries: countriesMember,
                                                                               data: membersList[index],
                                                                               title: "Edit Members"),
                                                                         ),
@@ -1079,7 +1080,7 @@ class _MembersWidgetState extends State<MembersWidget> {
   Future fetchSList() async {
     final ApiCallResponse SList = await SeniorsList.call();
     print(SList.statusCode);
-    countries = SList.jsonBody["country"];
+    countries = SList.jsonBody["countries"];
     print(SList.jsonBody["seniors"]);
     return SList.jsonBody["seniors"];
   }
