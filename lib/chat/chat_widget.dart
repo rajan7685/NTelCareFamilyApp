@@ -55,8 +55,6 @@ class _ChatBoxState extends State<ChatBox> {
         children: [
           Row(
             mainAxisSize: MainAxisSize.min,
-            // mainAxisAlignment:
-            //     self ? MainAxisAlignment.start : MainAxisAlignment.end,
             children: [
               Container(
                 width: 45,
@@ -278,6 +276,121 @@ class _ChatWidgetState extends State<ChatWidget> {
     _loadMessages(init: true);
   }
 
+  Widget chatWidget(int index, {@required bool me}) {
+    print(_chats[index]['profile']);
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(!me ? 10 : 0, 20, me ? 10 : 0, 0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: me ? MainAxisAlignment.end : MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+            child: Container(
+              width: 45,
+              height: 45,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+              ),
+              child: Image.network(
+                _chats[index]['profile'] ??
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    child: InkWell(
+                      onTap: () {
+                        // if (_chats[index]['document'] != null)
+                        //   _downloadFile(fileUrl: _chats[index]['document']);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFF209A1F),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(0),
+                            bottomRight: _chats[index]['document'] == null
+                                ? Radius.circular(10)
+                                : Radius.circular(0),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(12, 7, 12, 7),
+                          child: Row(
+                            children: [
+                              // if (_chats[index]['document'] != null)
+                              //   Icon(
+                              //     Icons.file_download,
+                              //     size: 13,
+                              //     color: Colors.white,
+                              //   ),
+                              // if (_chats[index]['document'] != null)
+                              //   SizedBox(
+                              //     width: 6,
+                              //   ),
+                              Text(
+                                _chats[index]['message'],
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.white,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 2,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    DateFormat('hh:mm a').format(
+                        DateTime.parse(_chats[index]['date_time']).toLocal()),
+                    // _chats[index]['date_time'],
+                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: Color(0xFFE5E5E5),
+                          fontSize: 6,
+                        ),
+                  ),
+                  //Spacer(),
+                  SizedBox(width: 8),
+                  Icon(
+                    FontAwesomeIcons.checkDouble,
+                    color:
+                        _chats[index]['all_read'] ? Colors.blue : Colors.white,
+                    size: 9,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -423,10 +536,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 physics: BouncingScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: _chats.length,
-                                itemBuilder: (_, int index) => ChatBox(
-                                    messageContent: _chats[index],
-                                    self:
-                                        _chats[index]['by'] == _accHolderName),
+                                itemBuilder: (_, int index) => chatWidget(index,
+                                    me: _chats[index]['by'] == _accHolderName),
                               ),
                       ),
                     ),
