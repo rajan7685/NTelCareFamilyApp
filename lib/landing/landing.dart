@@ -111,7 +111,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     print('dashBoardLoading : $_isDashboardDataLoading');
     return RefreshIndicator(
       onRefresh: () async {
-        await fetchDashData(selectedId);
+        await _fetchDashBoardData(_seniorsList[isSelected]["id"]);
       },
       child: Scaffold(
         key: scaffoldKey,
