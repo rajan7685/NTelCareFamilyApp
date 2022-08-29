@@ -8,6 +8,7 @@ import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import '../backend/api_requests/api_calls.dart';
+import '../components/custom_toast.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -17,7 +18,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
 
@@ -83,7 +84,7 @@ class _AddWidgetState extends State<Add> {
     return File(imagePath).copy(image2.path);
   }
 
-  void vaildMail() {
+  /* void vaildMail() {
     final bool isVaild = EmailValidator.validate(textController5.text.trim());
     if (!isVaild) {
       Fluttertoast.showToast(
@@ -95,7 +96,7 @@ class _AddWidgetState extends State<Add> {
           textColor: Colors.black,
           fontSize: 14.0);
     }
-  }
+  }*/
 
   Future pickimage(ImageSource source1) async {
     try {
@@ -689,7 +690,7 @@ class _AddWidgetState extends State<Add> {
                                       color: Color(0xFF606E87),
                                       fontSize: 16,
                                     ),
-                                onEditingComplete: () => vaildMail(),
+                                // onEditingComplete: () => vaildMail(),
                                 // onChanged: (v) => vaildMail(),
                                 keyboardType: TextInputType.emailAddress,
                               ),
@@ -1699,14 +1700,11 @@ class _AddWidgetState extends State<Add> {
                                     dropDownValue == "" ||
                                     dropDownValueGender == "" ||
                                     image == null) {
-                                  Fluttertoast.showToast(
-                                      msg: "All fields are necessary to fill",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIosWeb: 5,
-                                      backgroundColor: Colors.red,
-                                      textColor: Colors.black,
-                                      fontSize: 14.0);
+                                  Toast.showToast(
+                                    context,
+                                    type: ToastType.Error,
+                                    message: "All fields are necessary to fill",
+                                  );
                                 } else {
                                   print(FFAppState().AccountId);
                                   print(displayLive.toString());
@@ -1802,46 +1800,28 @@ class _AddWidgetState extends State<Add> {
                                   print(response.statusCode);
                                   if (response.statusCode == 200) {
                                     print("uploaded");
+                                    Toast.showToast(
+                                      context,
+                                      type: ToastType.Info,
+                                      message: jsonDecode(respStr)["message"],
+                                    );
 
-                                    Fluttertoast.showToast(
-                                        msg: jsonDecode(respStr)["message"],
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.CENTER,
-                                        timeInSecForIosWeb: 5,
-                                        backgroundColor: Colors.green,
-                                        textColor: Colors.black,
-                                        fontSize: 14.0);
                                     Navigator.pop(context);
                                   } else {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (alertDialogContext) {
-                                        return AlertDialog(
-                                          title: Text('Error'),
-                                          content: Text(
-                                              jsonDecode(respStr)["message"]),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  alertDialogContext),
-                                              child: Text('Ok'),
-                                            ),
-                                          ],
-                                        );
-                                      },
+                                    Toast.showToast(
+                                      context,
+                                      type: ToastType.Error,
+                                      message: jsonDecode(respStr)["message"],
                                     );
                                   }
                                 }
                               } else {
-                                Fluttertoast.showToast(
-                                    msg:
-                                        "You are not permitted to add the members",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 5,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.black,
-                                    fontSize: 14.0);
+                                Toast.showToast(
+                                  context,
+                                  type: ToastType.Info,
+                                  message:
+                                      "You are not permitted to add the members",
+                                );
                               }
                               // setState(() {});
                             },

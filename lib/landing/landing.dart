@@ -3974,7 +3974,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     final ApiCallResponse SList = await SeniorsList.call();
 
     // print(SList.jsonBody["seniors"]);
-    countries = SList.jsonBody["country"];
+    countries = SList.jsonBody["countries"];
     return SList.jsonBody["seniors"];
   }
 

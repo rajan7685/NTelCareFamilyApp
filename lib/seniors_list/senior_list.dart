@@ -984,9 +984,9 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
   Future fetchSList() async {
     final ApiCallResponse SList = await SeniorsList.call();
     print(SList.statusCode);
-    print(SList.jsonBody["country"]);
+    print(SList.jsonBody["countries"]);
     print(SList.jsonBody["seniors"]);
-    countries = SList.jsonBody["country"];
+    countries = SList.jsonBody["countries"];
     return SList.jsonBody["seniors"];
   }
   // Future fetchSList() async {
