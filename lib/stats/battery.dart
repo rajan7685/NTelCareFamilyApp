@@ -742,7 +742,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                   dateTimeMonth = dateTimeMonth
                                       .subtract(Duration(days: 30));
                                   setState(() {
-                                    startDateMonth = startDateMonth
+                                    startDateMonth = dateTimeMonth
                                         .subtract(Duration(days: 30));
                                     endDateMonth = dateTimeMonth;
                                   });
@@ -751,7 +751,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                   dateTimeYear = dateTimeYear
                                       .subtract(Duration(days: 365));
                                   setState(() {
-                                    startDateYear = startDateYear
+                                    startDateYear = dateTimeYear
                                         .subtract(Duration(days: 365));
                                     endDateYear = dateTimeYear;
                                   });

@@ -838,7 +838,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                                       dateTimeMonth =
                                           dateTimeMonth.add(Duration(days: 30));
                                       setState(() {
-                                        startDateMonth = startDateMonth
+                                        startDateMonth = dateTimeMonth
                                             .subtract(Duration(days: 30));
                                         endDateMonth = dateTimeMonth;
                                       });
@@ -846,12 +846,12 @@ class _DoorWidgetState extends State<DoorWidget> {
                                     }
                                   } else if (yearly == true) {
                                     if ((DateFormat('dd-MM-yyyy')
-                                            .format(dateTimeMonth)) !=
+                                            .format(dateTimeYear)) !=
                                         dateToday) {
                                       dateTimeYear =
                                           dateTimeYear.add(Duration(days: 365));
                                       setState(() {
-                                        startDateYear = startDateYear
+                                        startDateYear = dateTimeYear
                                             .subtract(Duration(days: 365));
                                         endDateYear = dateTimeYear;
                                       });
