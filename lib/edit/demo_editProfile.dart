@@ -1450,9 +1450,12 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                     child: SwitchListTile(
                                       value:
                                           FFAppState().executiveToggleProfile,
-                                      onChanged: (bool value) => setState(() =>
-                                          FFAppState().executiveToggleProfile =
-                                              value),
+                                      onChanged: (bool value) {
+                                        if (FFAppState().executive) {
+                                          setState(() => FFAppState()
+                                              .executiveToggleProfile = value);
+                                        }
+                                      },
                                       title: Text(
                                         'Executive Members',
                                         style: FlutterFlowTheme.of(context)
