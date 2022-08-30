@@ -68,6 +68,19 @@ class _StatsWidgetState extends State<StatsWidget> {
     });
   }
 
+  Future displayDateRangePickerDaily(context) async {
+    showDatePicker(
+            context: context,
+            initialDate: dateTime == null ? DateTime.now() : dateTime,
+            firstDate: DateTime(2001),
+            lastDate: DateTime.now())
+        .then((date) {
+      setState(() {
+        dateTime = date;
+      });
+    });
+  }
+
   Future<dynamic> HeartStatus;
   Future<List<dynamic>> SList;
 
@@ -684,17 +697,22 @@ class _StatsWidgetState extends State<StatsWidget> {
                             ),
                             if (daily ?? true)
                               Expanded(
-                                child: Text(
-                                  DateFormat('dd-MM-yyyy').format(dateTime),
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFFAFAFAF),
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w300,
-                                      ),
+                                child: InkWell(
+                                  onTap: () async {
+                                    await displayDateRangePickerDaily(context);
+                                  },
+                                  child: Text(
+                                    DateFormat('dd-MM-yyyy').format(dateTime),
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFFAFAFAF),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                  ),
                                 ),
                               ),
                             if (weekly == true)
