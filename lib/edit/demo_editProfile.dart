@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,7 +16,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
-import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -122,8 +122,6 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
     setState(() {
       textController8.text = placesData['data']['state_name'];
       textController9.text = placesData['data']['county_name'];
-      textController6.text =
-          '${placesData['data']['community_name']}, ${placesData['data']['county_name']}';
     });
     dynamic countryValue = widget.countries.singleWhere((element) =>
         element['code'] == placesData['data']['country_code'])['name'];
@@ -1092,50 +1090,48 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                               child: Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                child: IgnorePointer(
-                                  child: TextFormField(
-                                    controller: textController6,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Address',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
+                                child: TextFormField(
+                                  controller: textController6,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Address',
+                                    labelStyle: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF606E87),
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
                                           fontSize: 16,
+                                          fontWeight: FontWeight.w300,
                                         ),
-                                    keyboardType: TextInputType.streetAddress,
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
+                                        fontSize: 16,
+                                      ),
+                                  keyboardType: TextInputType.streetAddress,
                                 ),
                               ),
                             ),
@@ -1454,9 +1450,12 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                     child: SwitchListTile(
                                       value:
                                           FFAppState().executiveToggleProfile,
-                                      onChanged: (bool value) => setState(() =>
-                                          FFAppState().executiveToggleProfile =
-                                              value),
+                                      onChanged: (bool value) {
+                                        if (FFAppState().executive) {
+                                          setState(() => FFAppState()
+                                              .executiveToggleProfile = value);
+                                        }
+                                      },
                                       title: Text(
                                         'Executive Members',
                                         style: FlutterFlowTheme.of(context)
@@ -1849,6 +1848,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                         backgroundColor: Colors.green,
                                         textColor: Colors.black,
                                         fontSize: 14.0);
+                                    Navigator.pop(context);
                                   } else {
                                     await showDialog(
                                       context: context,
