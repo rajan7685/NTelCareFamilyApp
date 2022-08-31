@@ -81,7 +81,7 @@ class _MembersWidgetState extends State<MembersWidget> {
     print(FFAppState().Token);
     print(MList.statusCode);
     countriesMember = MList.jsonBody["countries"];
-    print(" countries member $countriesMember");
+    // print(" countries member $countriesMember");
 
     executiveList = (MList.jsonBody["members"] as List)
         .where((element) => element["executive"])
