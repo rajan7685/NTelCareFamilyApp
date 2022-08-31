@@ -140,8 +140,6 @@ class _AddWidgetState extends State<Add> {
     setState(() {
       textController8.text = placesData['data']['state_name'];
       textController9.text = placesData['data']['county_name'];
-      textController6.text =
-          '${placesData['data']['community_name']}, ${placesData['data']['county_name']}';
     });
     dynamic countryValue = widget.countries.singleWhere((element) =>
         element['code'] == placesData['data']['country_code'])['name'];
@@ -1005,50 +1003,48 @@ class _AddWidgetState extends State<Add> {
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                              child: IgnorePointer(
-                                child: TextFormField(
-                                  controller: textController6,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Address',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          color: Color(0xFF9A9A9A),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
+                              child: TextFormField(
+                                controller: textController6,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText: 'Address',
+                                  labelStyle: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFF606E87),
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
                                         fontSize: 16,
+                                        fontWeight: FontWeight.w300,
                                       ),
-                                  keyboardType: TextInputType.streetAddress,
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
                                 ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
+                                      fontSize: 16,
+                                    ),
+                                keyboardType: TextInputType.streetAddress,
                               ),
                             ),
                           ),

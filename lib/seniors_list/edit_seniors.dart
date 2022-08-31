@@ -161,9 +161,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     setState(() {
       textController10.text = placesData['data']['state_name'];
       textController11.text = placesData['data']['county_name'];
-
-      textController8.text =
-          '${placesData['data']['community_name']}, ${placesData['data']['county_name']}';
     });
     dynamic countryValue = widget.countries.singleWhere((element) =>
         element['code'] == placesData['data']['country_code'])['name'];

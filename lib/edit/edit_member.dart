@@ -189,9 +189,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     setState(() {
       textController8.text = placesData['data']['state_name'];
       textController9.text = placesData['data']['county_name'];
-
-      textController6.text =
-          '${placesData['data']['community_name']}, ${placesData['data']['county_name']}';
     });
     dynamic countryValue = widget.countries.singleWhere((element) =>
         element['code'] == placesData['data']['country_code'])['name'];
@@ -1678,11 +1675,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   // stream.cast();
 
                                   // var length = await image.length();
-                                  print("excecuitive" +
-                                      FFAppState()
-                                          .Chattoggle3
-                                          .toString()
-                                          .capitalize);
+
                                   //    print(" executive ::${data['executive']}");
                                   print(" live video:: " +
                                       displayLive.toString());
@@ -1704,10 +1697,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields['address'] = textController6.text;
                                   res1.fields['zipcode'] = textController7.text;
                                   res1.fields['relation'] = dropDownValue;
-                                  res1.fields['executive'] = FFAppState()
-                                      .Chattoggle3
-                                      .toString()
-                                      .capitalize;
+                                  res1.fields['executive'] =
+                                      FFAppState().Chattoggle3.toString();
                                   res1.fields["dob"] = DateFormat("yyyy-MM-dd")
                                       .format(selectedDate);
                                   res1.fields["country"] = countryValue;
@@ -1741,6 +1732,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                               "profile", image.path));
 
                                   var response = await res1.send();
+                                  print("image ${image}");
                                   // ignore: unnecessary_statements
                                   //List<int> imageBytes = image.readAsBytesSync();
                                   // res1.files.add(http.MultipartFile.fromBytes(
