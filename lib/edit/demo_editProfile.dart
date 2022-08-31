@@ -1759,8 +1759,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                     textController6.text == "" ||
                                     textController7.text == "" ||
                                     dropDownValueGender == "" ||
-                                    dropDownValue == null ||
-                                    profile != null) {
+                                    dropDownValue == null) {
                                   // print('invoking method');
                                   Fluttertoast.showToast(
                                       msg: "All fields are necessary to fill",
