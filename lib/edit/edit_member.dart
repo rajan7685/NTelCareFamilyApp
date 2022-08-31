@@ -1675,11 +1675,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   // stream.cast();
 
                                   // var length = await image.length();
-                                  print("excecuitive" +
-                                      FFAppState()
-                                          .Chattoggle3
-                                          .toString()
-                                          .capitalize);
+
                                   //    print(" executive ::${data['executive']}");
                                   print(" live video:: " +
                                       displayLive.toString());
