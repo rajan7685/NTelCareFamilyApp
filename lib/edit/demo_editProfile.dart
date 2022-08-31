@@ -1848,6 +1848,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                         backgroundColor: Colors.green,
                                         textColor: Colors.black,
                                         fontSize: 14.0);
+
                                     Navigator.pop(context);
                                   } else {
                                     await showDialog(
