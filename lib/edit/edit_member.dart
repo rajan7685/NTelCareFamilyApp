@@ -202,7 +202,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(data);
+    // print(data);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -1642,10 +1642,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       textColor: Colors.black,
                                       fontSize: 14.0);
                                 } else {
-                                  print(FFAppState().AccountId);
-                                  print(displayLive.toString());
-                                  print(displayChat.toString());
-                                  print(displayView.toString());
+                                  // print(FFAppState().AccountId);
+                                  // print(displayLive.toString());
+                                  // print(displayChat.toString());
+                                  // print(displayView.toString());
                                   // List<int> imageBytes = image.readAsBytesSync();
                                   // String base64Image = base64Encode(imageBytes);
                                   //BASE64.encode(imageBytes);
@@ -1693,7 +1693,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
-                                  print(textController5.text);
+                                  // print(textController5.text);
                                   res1.headers['Authorization'] =
                                       "Bearer ${FFAppState().Token}";
                                   res1.fields['fname'] = textController1.text;
@@ -1755,7 +1755,9 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   //  r'''$[:].Error''',
                                   //)) ==
                                   // ('Nill'))
-
+                                  print(
+                                      'requesting to ${ApiService.domain}/edit/member/${data["id"]}');
+                                  print('requesting with ${res1.fields}');
                                   print("this is the status code");
                                   print(response.statusCode);
                                   final respStr =
