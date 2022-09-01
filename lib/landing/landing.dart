@@ -93,6 +93,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     final ApiCallResponse _data = await DashBoardStat.call(id: seniorId);
     // print('data: ${_data.jsonBody["dashboard"]}');
     dashboardData = _data.jsonBody["dashboard"];
+    print("senior id ${seniorId}");
     // print("dashboardData $dashboardData");
     // print(
     //     "PillBox data ${dashboardData["sensors_status"]["pillbox"].runtimeType}");
@@ -116,6 +117,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     FFAppState().shower = dashboardData["sensors_status"]["bath"]["bool"];
     print(FFAppState().door);*/
     print(" shower value ${FFAppState().shower}");
+    print(" bath value ${dashboardData["sensors_status"]["door"]}");
     setState(() {
       _isDashboardDataLoading = false;
     });
@@ -3769,10 +3771,14 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    dashboardData["sensors_status"]["bath"]["bool"] !=
-                                                                            true
+                                                                    dashboardData["sensors_status"]["bath"]
+                                                                            .toString()
+                                                                            .isEmpty
                                                                         ? "Not Bathed"
-                                                                        : "Bathed",
+                                                                        : dashboardData["sensors_status"]["bath"]["bool"] !=
+                                                                                true
+                                                                            ? "Not Bathed"
+                                                                            : "Bathed",
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
