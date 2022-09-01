@@ -1751,7 +1751,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                             child: FFButtonWidget(
                               onPressed: () async {
                                 //final form = formKey.currentState;
-
+                                print('invoking method');
                                 if (textController1.text == "" ||
                                     textController2.text == "" ||
                                     textController3.text == "" ||
@@ -1760,6 +1760,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                     textController7.text == "" ||
                                     dropDownValueGender == "" ||
                                     dropDownValue == null) {
+                                  // print('invoking method');
                                   Fluttertoast.showToast(
                                       msg: "All fields are necessary to fill",
                                       toastLength: Toast.LENGTH_SHORT,
@@ -1803,7 +1804,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   res.fields["gender"] = dropDownValueGender;
                                   res.fields["dob"] = DateFormat("yyyy-MM-dd")
                                       .format(selectedDate);
-                                  res.fields["age"] = "68";
+                                  res.fields["age"] = "68"; // make dynamic
 
                                   /*  profile == null
                                   ? res.files.add(
@@ -1812,26 +1813,29 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   : res.files.add(http.MultipartFile.fromString(
                                       "profile", profile));
                     */
-
-                                  final http.Response responseData =
-                                      await http.get(Uri.parse(profile));
-                                  Uint8List uint8list = responseData.bodyBytes;
-                                  var buffer = uint8list.buffer;
-                                  ByteData byteData = ByteData.view(buffer);
-                                  var tempDir = await getTemporaryDirectory();
-                                  File file = await File('${tempDir.path}/img')
-                                      .writeAsBytes(buffer.asUint8List(
-                                          byteData.offsetInBytes,
-                                          byteData.lengthInBytes));
-                                  print(file.path);
-                                  // File imageFile = File(profile.toString());
-                                  image == null
-                                      ? res.files.add(
-                                          await http.MultipartFile.fromPath(
-                                              "profile", file.path))
-                                      : res.files.add(
-                                          await http.MultipartFile.fromPath(
-                                              "profile", image.path));
+                                  // profile valiation
+                                  if (profile != null) {
+                                    final http.Response responseData =
+                                        await http.get(Uri.parse(profile));
+                                    Uint8List uint8list =
+                                        responseData.bodyBytes;
+                                    var buffer = uint8list.buffer;
+                                    ByteData byteData = ByteData.view(buffer);
+                                    var tempDir = await getTemporaryDirectory();
+                                    File file =
+                                        await File('${tempDir.path}/img')
+                                            .writeAsBytes(buffer.asUint8List(
+                                                byteData.offsetInBytes,
+                                                byteData.lengthInBytes));
+                                    print(file.path);
+                                    image == null
+                                        ? res.files.add(
+                                            await http.MultipartFile.fromPath(
+                                                "profile", file.path))
+                                        : res.files.add(
+                                            await http.MultipartFile.fromPath(
+                                                "profile", image.path));
+                                  }
                                   var response = await res.send();
 
                                   print(response.statusCode);

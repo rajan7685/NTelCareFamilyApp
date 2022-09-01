@@ -376,12 +376,14 @@ class _ChatWidgetState extends State<ChatWidget> {
                   ),
                   //Spacer(),
                   SizedBox(width: 8),
-                  Icon(
-                    FontAwesomeIcons.checkDouble,
-                    color:
-                        _chats[index]['all_read'] ? Colors.blue : Colors.white,
-                    size: 9,
-                  ),
+                  if (me)
+                    Icon(
+                      FontAwesomeIcons.checkDouble,
+                      color: _chats[index]['all_read']
+                          ? Colors.blue
+                          : Colors.white,
+                      size: 9,
+                    ),
                 ],
               ),
             ],
