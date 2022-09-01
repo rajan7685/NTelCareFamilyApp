@@ -101,6 +101,21 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
 
     // print("PillBox data ${dashboardData["sensors_status"]["pillbox"]["bool"]}");
 
+    /*  FFAppState().heart_rate = dashboardData["watch_status"]["heart_rate"];
+    FFAppState().blood_oxygen = dashboardData["watch_status"]["blood_oxygen"];
+    FFAppState().Sleep = dashboardData["watch_status"]["sleep"];
+    FFAppState().Steps = dashboardData["watch_status"]["step"];
+    FFAppState().Calories = dashboardData["watch_status"]["calories"];
+    FFAppState().blood_dia =
+        dashboardData["watch_status"]["blood_pressure"]["dia"];
+    FFAppState().blood_sys =
+        dashboardData["watch_status"]["blood_pressure"]["sys"];
+    FFAppState().battery_level = dashboardData["watch_status"]["battery_level"];
+    FFAppState().Pill_box = dashboardData["sensors_status"]["pillbox"]["bool"];
+    FFAppState().door = dashboardData["sensors_status"]["door"]["bool"];
+    FFAppState().shower = dashboardData["sensors_status"]["bath"]["bool"];
+    print(FFAppState().door);*/
+    print(" shower value ${FFAppState().shower}");
     setState(() {
       _isDashboardDataLoading = false;
     });
@@ -4000,12 +4015,13 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     FFAppState().door = dashboardData["sensors_status"]["door"]["bool"];
     FFAppState().shower = dashboardData["sensors_status"]["bath"]["bool"];
     print(FFAppState().door);
+    print(" shower value ${FFAppState().shower}");
 
     // return data;
   }
 }
 
-class dashboard extends StatefulWidget {
+/*class dashboard extends StatefulWidget {
   String data;
   dashboard({Key key, @required this.data}) : super(key: key);
 
@@ -5303,4 +5319,4 @@ class _dashboardState extends State<dashboard> {
       ),
     );
   }
-}
+}*/
