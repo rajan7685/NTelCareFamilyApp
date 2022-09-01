@@ -110,6 +110,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           child: TextFormField(
                             controller: textController1,
                             obscureText: false,
+                            validator: (value) => textController1.text,
                             decoration: InputDecoration(
                               labelText: 'Mobile Number',
                               labelStyle: FlutterFlowTheme.of(context)

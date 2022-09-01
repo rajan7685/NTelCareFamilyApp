@@ -92,9 +92,13 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     textController8 = TextEditingController(text: data["state"]);
     textController9 = TextEditingController(text: data["city"]);
     countryCode = data['ccode'];
-    print("country code ${countryCode}");
+    // print("country code $countryCode");
 
-    print(" edit member ${widget.countries}");
+    // print(" edit member ${widget.countries}");
+    if (countryCode != null) {
+      countryValue = widget.countries.firstWhere((dynamic countryModel) =>
+          countryModel['code'] == countryCode)['name'];
+    }
     profile = data["profile"];
     if (profile == null) {
       profile =
@@ -185,9 +189,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     setState(() {
       textController8.text = placesData['data']['state_name'];
       textController9.text = placesData['data']['county_name'];
-
-      textController6.text =
-          '${placesData['data']['community_name']}, ${placesData['data']['county_name']}';
     });
     dynamic countryValue = widget.countries.singleWhere((element) =>
         element['code'] == placesData['data']['country_code'])['name'];
@@ -198,7 +199,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(data);
+    // print(data);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -333,7 +334,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 45, 0, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 45, 10, 0),
                           child: Container(
                             width: 350,
                             decoration: BoxDecoration(
@@ -382,7 +384,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                           child: Container(
                             width: 350,
                             decoration: BoxDecoration(
@@ -492,112 +495,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         ),
                                       ),
                                     ),
-                                  ]
-                                  /* Expanded(
-                                      flex: 8,
-                                      child: DropdownButtonFormField<String>(
-                                        value: dropDownValueGender,
-                                        items: [
-                                          "Male",
-                                          "Female"
-                                              "Transgender",
-                                          "Non binary",
-                                        ]
-                                            .map((label) => DropdownMenuItem(
-                                                  child: Text(label),
-                                                  value: label,
-                                                ))
-                                            .toList(),
-                                        onChanged: (value) {
-                                          setState(() =>
-                                              dropDownValueGender = value);
-                                        },
-                                        decoration: InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                          ),
-                                          border: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 2),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          filled: true,
-                                          fillColor: Color(0xFFEEEEEE),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color: Color(0xFF606E87),
-                                            ),
-                                        hint: Text('Gender'),
-                                      ),
-                                    ),
-                                  ]*/
-                                  ,
+                                  ],
                                 ),
                               ),
                             ),
-                            /* Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
-                              child: Container(
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                               child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: TextFormField(
-                                    controller: textController3,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Gender',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          color: Color(0xFF606E87),
-                                          fontSize: 16,
-                                        ),
-                                  ),
-                                ),
-                              ),
-                            ),*/
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
@@ -712,7 +613,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                           child: Container(
                             width: 350,
                             decoration: BoxDecoration(
@@ -762,7 +664,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                           child: Container(
                             key: formKey,
                             width: 350,
@@ -826,7 +729,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                           child: Container(
                             width: double.maxFinite,
                             height: 60,
@@ -892,7 +796,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                           child: Container(
                             width: double.maxFinite,
                             decoration: BoxDecoration(
@@ -953,7 +858,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         ),
 
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                           child: Container(
                             width: double.maxFinite,
                             decoration: BoxDecoration(
@@ -1012,7 +918,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         ),
 
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
@@ -1071,7 +978,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         ),
 
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
@@ -1129,7 +1037,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                           child: Container(
                             width: 350,
                             decoration: BoxDecoration(
@@ -1730,11 +1639,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       textColor: Colors.black,
                                       fontSize: 14.0);
                                 } else {
-                                  print(FFAppState().AccountId);
-                                  print("country val ${countryValue}");
-                                  print(displayLive.toString());
-                                  print(displayChat.toString());
-                                  print(displayView.toString());
+                                  // print(FFAppState().AccountId);
+                                  // print(displayLive.toString());
+                                  // print(displayChat.toString());
+                                  // print(displayView.toString());
                                   // List<int> imageBytes = image.readAsBytesSync();
                                   // String base64Image = base64Encode(imageBytes);
                                   //BASE64.encode(imageBytes);
@@ -1767,11 +1675,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   // stream.cast();
 
                                   // var length = await image.length();
-                                  print("excecuitive" +
-                                      FFAppState()
-                                          .Chattoggle3
-                                          .toString()
-                                          .capitalize);
+
                                   //    print(" executive ::${data['executive']}");
                                   print(" live video:: " +
                                       displayLive.toString());
@@ -1782,7 +1686,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
-                                  print(textController5.text);
+                                  // print(textController5.text);
                                   res1.headers['Authorization'] =
                                       "Bearer ${FFAppState().Token}";
                                   res1.fields['fname'] = textController1.text;
@@ -1793,10 +1697,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields['address'] = textController6.text;
                                   res1.fields['zipcode'] = textController7.text;
                                   res1.fields['relation'] = dropDownValue;
-                                  res1.fields['executive'] = FFAppState()
-                                      .Chattoggle3
-                                      .toString()
-                                      .capitalize;
+                                  res1.fields['executive'] =
+                                      FFAppState().Chattoggle3.toString();
                                   res1.fields["dob"] = DateFormat("yyyy-MM-dd")
                                       .format(selectedDate);
                                   res1.fields["country"] = countryValue;
@@ -1830,6 +1732,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                               "profile", image.path));
 
                                   var response = await res1.send();
+                                  print("image ${image}");
                                   // ignore: unnecessary_statements
                                   //List<int> imageBytes = image.readAsBytesSync();
                                   // res1.files.add(http.MultipartFile.fromBytes(
@@ -1844,7 +1747,9 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   //  r'''$[:].Error''',
                                   //)) ==
                                   // ('Nill'))
-
+                                  print(
+                                      'requesting to ${ApiService.domain}/edit/member/${data["id"]}');
+                                  print('requesting with ${res1.fields}');
                                   print("this is the status code");
                                   print(response.statusCode);
                                   final respStr =

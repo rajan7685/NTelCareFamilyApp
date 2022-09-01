@@ -21,6 +21,7 @@ class VideoClipsWidget extends StatefulWidget {
 class _VideoClipsWidgetState extends State<VideoClipsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
+  List<dynamic> _countries;
   int isSelected = 0;
   bool _hasPermissionToViewVideo;
   bool _hasPermissionToViewLiveVideo;
@@ -316,9 +317,12 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                         MaterialPageRoute(
                                                             builder: (context) =>
                                                                 EditSeniorsWidget(
-                                                                    data: snapshot
-                                                                            .data[
-                                                                        index])));
+                                                                  data: snapshot
+                                                                          .data[
+                                                                      index],
+                                                                  countries:
+                                                                      _countries,
+                                                                )));
                                                     setState(() {
                                                       SList = fetchSList();
                                                     });
@@ -2944,7 +2948,8 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
   Future fetchSList() async {
     final ApiCallResponse SList = await SeniorsList.call();
     print(SList.statusCode);
-    print(SList.jsonBody["seniors"]);
+    // print(SList.jsonBody["seniors"]);
+    _countries = SList.jsonBody["countries"];
     return SList.jsonBody["seniors"];
   }
 }

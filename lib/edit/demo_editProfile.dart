@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,7 +16,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
-import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -122,8 +122,6 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
     setState(() {
       textController8.text = placesData['data']['state_name'];
       textController9.text = placesData['data']['county_name'];
-      textController6.text =
-          '${placesData['data']['community_name']}, ${placesData['data']['county_name']}';
     });
     dynamic countryValue = widget.countries.singleWhere((element) =>
         element['code'] == placesData['data']['country_code'])['name'];
@@ -312,7 +310,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                         children: [
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 35, 10, 0),
                             child: Container(
                               width: 350,
                               decoration: BoxDecoration(
@@ -370,7 +368,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: 350,
                               decoration: BoxDecoration(
@@ -705,7 +703,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               // key: formKey,
                               width: 350,
@@ -776,7 +774,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: 350,
                               decoration: BoxDecoration(
@@ -835,7 +833,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: double.maxFinite,
                               height: 60,
@@ -902,7 +900,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: double.maxFinite,
                               decoration: BoxDecoration(
@@ -962,7 +960,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: double.maxFinite,
                               decoration: BoxDecoration(
@@ -1022,7 +1020,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
@@ -1082,7 +1080,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
@@ -1092,57 +1090,55 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                               child: Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                child: IgnorePointer(
-                                  child: TextFormField(
-                                    controller: textController6,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Address',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
+                                child: TextFormField(
+                                  controller: textController6,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Address',
+                                    labelStyle: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF606E87),
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
                                           fontSize: 16,
+                                          fontWeight: FontWeight.w300,
                                         ),
-                                    keyboardType: TextInputType.streetAddress,
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
+                                        fontSize: 16,
+                                      ),
+                                  keyboardType: TextInputType.streetAddress,
                                 ),
                               ),
                             ),
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 0),
                             child: Container(
                               width: 350,
                               decoration: BoxDecoration(
@@ -1454,9 +1450,12 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                     child: SwitchListTile(
                                       value:
                                           FFAppState().executiveToggleProfile,
-                                      onChanged: (bool value) => setState(() =>
-                                          FFAppState().executiveToggleProfile =
-                                              value),
+                                      onChanged: (bool value) {
+                                        if (FFAppState().executive) {
+                                          setState(() => FFAppState()
+                                              .executiveToggleProfile = value);
+                                        }
+                                      },
                                       title: Text(
                                         'Executive Members',
                                         style: FlutterFlowTheme.of(context)
@@ -1751,7 +1750,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                 EdgeInsetsDirectional.fromSTEB(0, 15, 0, 30),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                final form = formKey.currentState;
+                                //final form = formKey.currentState;
+                                print('invoking method');
                                 if (textController1.text == "" ||
                                     textController2.text == "" ||
                                     textController3.text == "" ||
@@ -1760,6 +1760,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                     textController7.text == "" ||
                                     dropDownValueGender == "" ||
                                     dropDownValue == null) {
+                                  // print('invoking method');
                                   Fluttertoast.showToast(
                                       msg: "All fields are necessary to fill",
                                       toastLength: Toast.LENGTH_SHORT,
@@ -1803,7 +1804,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   res.fields["gender"] = dropDownValueGender;
                                   res.fields["dob"] = DateFormat("yyyy-MM-dd")
                                       .format(selectedDate);
-                                  res.fields["age"] = "68";
+                                  res.fields["age"] = "68"; // make dynamic
 
                                   /*  profile == null
                                   ? res.files.add(
@@ -1812,26 +1813,29 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   : res.files.add(http.MultipartFile.fromString(
                                       "profile", profile));
                     */
-
-                                  final http.Response responseData =
-                                      await http.get(Uri.parse(profile));
-                                  Uint8List uint8list = responseData.bodyBytes;
-                                  var buffer = uint8list.buffer;
-                                  ByteData byteData = ByteData.view(buffer);
-                                  var tempDir = await getTemporaryDirectory();
-                                  File file = await File('${tempDir.path}/img')
-                                      .writeAsBytes(buffer.asUint8List(
-                                          byteData.offsetInBytes,
-                                          byteData.lengthInBytes));
-                                  print(file.path);
-                                  // File imageFile = File(profile.toString());
-                                  image == null
-                                      ? res.files.add(
-                                          await http.MultipartFile.fromPath(
-                                              "profile", file.path))
-                                      : res.files.add(
-                                          await http.MultipartFile.fromPath(
-                                              "profile", image.path));
+                                  // profile valiation
+                                  if (profile != null) {
+                                    final http.Response responseData =
+                                        await http.get(Uri.parse(profile));
+                                    Uint8List uint8list =
+                                        responseData.bodyBytes;
+                                    var buffer = uint8list.buffer;
+                                    ByteData byteData = ByteData.view(buffer);
+                                    var tempDir = await getTemporaryDirectory();
+                                    File file =
+                                        await File('${tempDir.path}/img')
+                                            .writeAsBytes(buffer.asUint8List(
+                                                byteData.offsetInBytes,
+                                                byteData.lengthInBytes));
+                                    print(file.path);
+                                    image == null
+                                        ? res.files.add(
+                                            await http.MultipartFile.fromPath(
+                                                "profile", file.path))
+                                        : res.files.add(
+                                            await http.MultipartFile.fromPath(
+                                                "profile", image.path));
+                                  }
                                   var response = await res.send();
 
                                   print(response.statusCode);
@@ -1848,6 +1852,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                         backgroundColor: Colors.green,
                                         textColor: Colors.black,
                                         fontSize: 14.0);
+
+                                    Navigator.pop(context);
                                   } else {
                                     await showDialog(
                                       context: context,

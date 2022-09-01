@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'dart:convert';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -104,7 +106,6 @@ class _ShowerWidgetState extends State<ShowerWidget> {
     print(response.body.runtimeType);
     print(response.body);
     final rate = jsonDecode((response.body));
-    //  print(rate["health_status"]["heart_rate"].runtimeType);
 
     List<ShowerStat> temp =
         stepsStatFromJson(rate["health_status"][0]["BathRoom"]);
@@ -1062,10 +1063,10 @@ List<ShowerStat> stepsStatFromJson(List<dynamic> rate) {
   rate.forEach((element) {
     print(element);
     int k;
-    if (element["bool"] == true) {
+    if (element["value"] == true) {
       k = 100;
     } else {
-      k = 10;
+      k = 0;
     }
     step.add(ShowerStat(time: element["time"], value: k));
   });
