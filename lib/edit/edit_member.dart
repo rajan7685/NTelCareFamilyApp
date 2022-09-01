@@ -1706,7 +1706,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   res1.fields["city"] = cityValue;
                                   res1.fields['live_video'] =
                                       displayLive.toString().capitalize;
-                                  res1.fields['chats'] =
+                                  res1.fields['chat'] =
                                       displayChat.toString().capitalize;
                                   res1.fields['view_video'] =
                                       displayView.toString().capitalize;
@@ -1747,10 +1747,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   //  r'''$[:].Error''',
                                   //)) ==
                                   // ('Nill'))
-                                  print(
-                                      'requesting to ${ApiService.domain}/edit/member/${data["id"]}');
-                                  print('requesting with ${res1.fields}');
-                                  print("this is the status code");
+                                  // print(
+                                  //     'requesting to ${ApiService.domain}/edit/member/${data["id"]}');
+                                  // print('requesting with ${res1.fields}');
+                                  // print("this is the status code");
                                   print(response.statusCode);
                                   final respStr =
                                       await response.stream.bytesToString();
