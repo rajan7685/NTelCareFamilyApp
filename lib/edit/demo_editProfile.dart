@@ -148,13 +148,15 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
     textController8 = TextEditingController(text: info["member"]["state"]);
     textController9 = TextEditingController(text: info["member"]["city"]);
 
-    dropDownValueGender = info["member"]["sex"];
+    dropDownValueGender = (info["member"]["sex"] as String).capitalize;
     countryCode = info["member"]["ccode"];
     cityValue = info["member"]["city"];
     countryValue = info["member"]["country"];
     stateValue = info["member"]["state"];
     selectedDate = HttpDate.parse(info["member"]["dob"]);
-    dropDownValue = info["member"]["relation"];
+    dropDownValue = (info["member"]["relation"] as String).isEmpty
+        ? null
+        : info["member"]["relation"];
     _isExecutive = FFAppState().executive ?? false;
     if (_isExecutive) {
       displayLive = displayChat = displayView = true;
@@ -1439,76 +1441,39 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                 ),
                               ),
                             ),
-                          if (FFAppState().executive)
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 8, 0, 0),
-                                    child: SwitchListTile(
-                                      value:
-                                          FFAppState().executiveToggleProfile,
-                                      onChanged: (bool value) {
-                                        if (FFAppState().executive) {
-                                          setState(() => FFAppState()
-                                              .executiveToggleProfile = value);
-                                        }
-                                      },
-                                      title: Text(
-                                        'Executive Members',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color: Color(0xFFE5E5E5),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w200,
-                                            ),
-                                      ),
-                                      tileColor: Color(0xFF1F252B),
-                                      activeColor: Color(0xB254DCC5),
-                                      dense: false,
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 8, 0, 0),
+                                  child: SwitchListTile(
+                                    value: FFAppState().executiveToggleProfile,
+                                    onChanged: (bool value) {
+                                      // do nothing
+                                    },
+                                    title: Text(
+                                      'Executive Members',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFE5E5E5),
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w200,
+                                          ),
                                     ),
+                                    tileColor: Color(0xFF1F252B),
+                                    activeColor: Color(0xB254DCC5),
+                                    dense: false,
+                                    controlAffinity:
+                                        ListTileControlAffinity.trailing,
                                   ),
                                 ),
-                              ],
-                            ),
-                          if (!FFAppState().executive)
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 8, 0, 0),
-                                    child: SwitchListTile(
-                                      value: FFAppState().executive,
-                                      onChanged: (bool value) {},
-                                      title: Text(
-                                        'Executive Members',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color: Color(0xFFE5E5E5),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w200,
-                                            ),
-                                      ),
-                                      tileColor: Color(0xFF1F252B),
-                                      activeColor: Color(0xB254DCC5),
-                                      dense: false,
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
+                          ),
                           Theme(
                             data: ThemeData(
                               unselectedWidgetColor: Color(0xFF707070),
