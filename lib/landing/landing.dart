@@ -3769,9 +3769,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    dashboardData["sensors_status"]["shower"]
-                                                                            .toString()
-                                                                            .isEmpty
+                                                                    dashboardData["sensors_status"]["bath"]["bool"] !=
+                                                                            true
                                                                         ? "Not Bathed"
                                                                         : "Bathed",
                                                                     style: FlutterFlowTheme.of(
