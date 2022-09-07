@@ -153,27 +153,28 @@ class _MembersWidgetState extends State<MembersWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 10, 0),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              Add(countries: countriesMember),
-                                        ),
-                                      );
-                                      loadMembersData();
-                                    },
-                                    child: Icon(
-                                      Icons.add_circle_outline,
-                                      color: Color(0xFF00B89F),
-                                      size: 30,
+                                if (FFAppState().executive)
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 10, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Add(countries: countriesMember),
+                                          ),
+                                        );
+                                        loadMembersData();
+                                      },
+                                      child: Icon(
+                                        Icons.add_circle_outline,
+                                        color: Color(0xFF00B89F),
+                                        size: 30,
+                                      ),
                                     ),
                                   ),
-                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 0),

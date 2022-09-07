@@ -399,8 +399,8 @@ class _PillWidgetState extends State<PillWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Image.asset(
-                        'assets/images/8675105_ic_fluent_pill_regular_icon.png',
+                      SvgPicture.asset(
+                        'assets/images/pillBox.svg',
                         width: 220,
                         height: 220,
                         fit: BoxFit.fitWidth,
