@@ -546,6 +546,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                             : RefreshIndicator(
                                 onRefresh: () => _loadMessages(),
                                 child: ListView.builder(
+                                  // reverse: true,
                                   physics: BouncingScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount: _chats.length,
