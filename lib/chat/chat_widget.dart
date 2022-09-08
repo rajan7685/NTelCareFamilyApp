@@ -281,7 +281,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(!me ? 10 : 0, 20, me ? 10 : 0, 0),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: me ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           Padding(
@@ -294,8 +294,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                 shape: BoxShape.circle,
               ),
               child: Image.network(
-                _chats[index]['profile'] ??
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
+                _chats[index]['profile'] == null ||
+                        (_chats[index]['profile'] as String).isEmpty
+                    ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU"
+                    : _chats[index]['profile'],
                 fit: BoxFit.cover,
               ),
             ),
@@ -305,7 +307,7 @@ class _ChatWidgetState extends State<ChatWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisSize: MainAxisSize.max,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
@@ -315,6 +317,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                         //   _downloadFile(fileUrl: _chats[index]['document']);
                       },
                       child: Container(
+                        constraints: BoxConstraints(
+                          minWidth: MediaQuery.of(context).size.width * 0.2,
+                          maxWidth: MediaQuery.of(context).size.width * 0.75,
+                        ),
                         decoration: BoxDecoration(
                           color: Color(0xFF209A1F),
                           borderRadius: BorderRadius.only(
@@ -329,6 +335,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(12, 7, 12, 7),
                           child: Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               // if (_chats[index]['document'] != null)
                               //   Icon(
@@ -340,14 +347,16 @@ class _ChatWidgetState extends State<ChatWidget> {
                               //   SizedBox(
                               //     width: 6,
                               //   ),
-                              Text(
-                                _chats[index]['message'],
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                    ),
+                              Flexible(
+                                child: Text(
+                                  _chats[index]['message'],
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
+                                ),
                               ),
                             ],
                           ),
@@ -534,12 +543,17 @@ class _ChatWidgetState extends State<ChatWidget> {
                             ? Center(
                                 child: CircularProgressIndicator(),
                               )
-                            : ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: _chats.length,
-                                itemBuilder: (_, int index) => chatWidget(index,
-                                    me: _chats[index]['by'] == _accHolderName),
+                            : RefreshIndicator(
+                                onRefresh: () => _loadMessages(),
+                                child: ListView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: _chats.length,
+                                  itemBuilder: (_, int index) => chatWidget(
+                                      index,
+                                      me: _chats[index]['by'] ==
+                                          _accHolderName),
+                                ),
                               ),
                       ),
                     ),
