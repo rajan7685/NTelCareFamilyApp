@@ -443,7 +443,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              if (FFAppState().executive ?? true)
+                              if (FFAppState().chat ?? true)
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       8, 0, 0, 0),
@@ -908,8 +908,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
             ]),
           ),
         ),
-        floatingActionButton: (FFAppState().Chattoggle2 &&
-                FFAppState().executive)
+        floatingActionButton: (FFAppState().Chattoggle2 && FFAppState().chat)
             ? Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                 child: Column(

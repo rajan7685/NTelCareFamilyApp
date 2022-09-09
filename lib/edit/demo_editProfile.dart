@@ -1738,7 +1738,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   // List<int> imagebytes = image.readAsBytesSync();
                                   // String base64Image = base64Encode(imagebytes);
                                   // print(base64Image);
-
+                                  FFAppState().executive =
+                                      FFAppState().executiveToggleProfile;
                                   final String url =
                                       "${ApiService.domain}/edit/profile/member";
                                   var res = new http.MultipartRequest(
