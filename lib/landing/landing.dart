@@ -197,20 +197,20 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Text(
-                                                '5',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          color: Colors.white,
-                                                          fontSize: 8,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
+                                              // Text(
+                                              //   '5',
+                                              //   style:
+                                              //       FlutterFlowTheme.of(context)
+                                              //           .bodyText1
+                                              //           .override(
+                                              //             fontFamily:
+                                              //                 'Montserrat',
+                                              //             color: Colors.white,
+                                              //             fontSize: 8,
+                                              //             fontWeight:
+                                              //                 FontWeight.bold,
+                                              //           ),
+                                              // ),
                                             ],
                                           ),
                                         ),
