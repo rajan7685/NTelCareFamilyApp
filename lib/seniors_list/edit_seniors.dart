@@ -40,14 +40,16 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
-  TextEditingController textController4;
-  TextEditingController textController5;
+  TextEditingController textController4; // height
+  TextEditingController textController5; // weight
   TextEditingController textController6;
   TextEditingController textController7;
   TextEditingController textController8;
   TextEditingController textController9;
   TextEditingController textController10;
   TextEditingController textController11;
+  TextEditingController inchesController;
+  TextEditingController ozController;
   String dropDownValue2;
   String dropDownValue3;
   String dropDownValue4;
@@ -60,6 +62,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String stateValue = "";
   String cityValue = "";
   String address = "";
+  String heightUnit = "feet";
+  String weightUnit = "lbs";
   String countryCode;
   String dateJson;
   DateTime dateTime;
@@ -88,6 +92,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     textController9 = TextEditingController(text: data["zipcode"]);
     textController10 = TextEditingController(text: data["state"]);
     textController11 = TextEditingController(text: data["city"]);
+    inchesController = TextEditingController();
+    ozController = TextEditingController();
 
     profile = data["profile"];
     if (profile == null) {
@@ -666,129 +672,425 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                             ),
                           ],
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
-                              child: Container(
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: TextFormField(
-                                    enabled: _hasPermissionToEdit,
-                                    controller: textController4,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Height',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: Container(
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFEEEEEE),
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(15),
+                                            bottomLeft: Radius.circular(15),
                                           ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
                                         ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 0, 0, 0),
+                                          child: TextFormField(
+                                            enabled: _hasPermissionToEdit,
+                                            controller: textController4,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              labelText: 'Height',
+                                              labelStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color(0xFF9A9A9A),
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(4.0),
+                                                  topRight:
+                                                      Radius.circular(4.0),
+                                                ),
+                                              ),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(4.0),
+                                                  topRight:
+                                                      Radius.circular(4.0),
+                                                ),
+                                              ),
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFF606E87),
+                                                  fontSize: 16,
+                                                ),
+                                            keyboardType: TextInputType.number,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF606E87),
-                                          fontSize: 16,
-                                        ),
-                                    keyboardType: TextInputType.number,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                              child: Container(
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: TextFormField(
-                                    enabled: _hasPermissionToEdit,
-                                    controller: textController5,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Weight',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFEEEEEE),
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(15),
+                                            bottomRight: Radius.circular(15),
                                           ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
                                         ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: IgnorePointer(
+                                            ignoring: !_hasPermissionToEdit,
+                                            child:
+                                                DropdownButtonFormField<String>(
+                                              value: heightUnit,
+                                              items: ["feet", "cm"]
+                                                  .map((label) =>
+                                                      DropdownMenuItem(
+                                                        child: Text(label),
+                                                        value: label,
+                                                      ))
+                                                  .toList(),
+                                              onChanged: (value) {
+                                                setState(
+                                                    () => heightUnit = value);
+                                              },
+                                              decoration: InputDecoration(
+                                                enabledBorder: InputBorder.none,
+                                                focusedBorder: InputBorder.none,
+                                                border: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 0),
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                    bottomRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                                // filled: true,
+                                                // fillColor: Color(0xFFEEEEEE),
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            Color(0xFF606E87),
+                                                      ),
+                                              hint: Text('unit'),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              if (heightUnit == "feet")
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFEEEEEE),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
+                                      child: TextFormField(
+                                        enabled: _hasPermissionToEdit,
+                                        controller: inchesController,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          labelText: 'Inches',
+                                          labelStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color(0xFF9A9A9A),
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
                                         ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFF606E87),
+                                              fontSize: 16,
+                                            ),
+                                        keyboardType: TextInputType.number,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: Container(
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFEEEEEE),
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(15),
+                                            bottomLeft: Radius.circular(15),
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 0, 0, 0),
+                                          child: TextFormField(
+                                            enabled: _hasPermissionToEdit,
+                                            controller: textController5,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              labelText: 'Weight',
+                                              labelStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color(0xFF9A9A9A),
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(4.0),
+                                                  topRight:
+                                                      Radius.circular(4.0),
+                                                ),
+                                              ),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(4.0),
+                                                  topRight:
+                                                      Radius.circular(4.0),
+                                                ),
+                                              ),
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFF606E87),
+                                                  fontSize: 16,
+                                                ),
+                                            keyboardType: TextInputType.number,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF606E87),
-                                          fontSize: 16,
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFEEEEEE),
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(15),
+                                            bottomRight: Radius.circular(15),
+                                          ),
                                         ),
-                                    keyboardType: TextInputType.number,
-                                  ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: IgnorePointer(
+                                            ignoring: !_hasPermissionToEdit,
+                                            child:
+                                                DropdownButtonFormField<String>(
+                                              value: weightUnit,
+                                              items: ["lbs", "kg"]
+                                                  .map((label) =>
+                                                      DropdownMenuItem(
+                                                        child: Text(label),
+                                                        value: label,
+                                                      ))
+                                                  .toList(),
+                                              onChanged: (value) {
+                                                setState(
+                                                    () => weightUnit = value);
+                                              },
+                                              decoration: InputDecoration(
+                                                enabledBorder: InputBorder.none,
+                                                focusedBorder: InputBorder.none,
+                                                border: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 0),
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                    bottomRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                                // filled: true,
+                                                // fillColor: Color(0xFFEEEEEE),
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            Color(0xFF606E87),
+                                                      ),
+                                              hint: Text('unit'),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
-                            ),
-                          ],
+                              SizedBox(width: 8),
+                              if (weightUnit == "lbs")
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFEEEEEE),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
+                                      child: TextFormField(
+                                        enabled: _hasPermissionToEdit,
+                                        controller: ozController,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          labelText: 'Oz',
+                                          labelStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color(0xFF9A9A9A),
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w300,
+                                                  ),
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFF606E87),
+                                              fontSize: 16,
+                                            ),
+                                        keyboardType: TextInputType.number,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),

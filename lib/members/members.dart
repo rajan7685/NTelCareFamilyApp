@@ -153,27 +153,28 @@ class _MembersWidgetState extends State<MembersWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 10, 0),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              Add(countries: countriesMember),
-                                        ),
-                                      );
-                                      loadMembersData();
-                                    },
-                                    child: Icon(
-                                      Icons.add_circle_outline,
-                                      color: Color(0xFF00B89F),
-                                      size: 30,
+                                if (FFAppState().executive)
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 10, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Add(countries: countriesMember),
+                                          ),
+                                        );
+                                        loadMembersData();
+                                      },
+                                      child: Icon(
+                                        Icons.add_circle_outline,
+                                        color: Color(0xFF00B89F),
+                                        size: 30,
+                                      ),
                                     ),
                                   ),
-                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 0),
@@ -210,44 +211,44 @@ class _MembersWidgetState extends State<MembersWidget> {
                                               ),
                                             ),
                                           ),
-                                          Align(
-                                            alignment: AlignmentDirectional(
-                                                0.05, -0.43),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(17, 0, 0, 0),
-                                              child: Container(
-                                                width: 15,
-                                                height: 15,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF006B5D),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      '5',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            color: Colors.white,
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                          // Align(
+                                          //   alignment: AlignmentDirectional(
+                                          //       0.05, -0.43),
+                                          //   child: Padding(
+                                          //     padding: EdgeInsetsDirectional
+                                          //         .fromSTEB(17, 0, 0, 0),
+                                          //     child: Container(
+                                          //       width: 15,
+                                          //       height: 15,
+                                          //       decoration: BoxDecoration(
+                                          //         color: Color(0xFF006B5D),
+                                          //         shape: BoxShape.circle,
+                                          //       ),
+                                          //       child: Row(
+                                          //         mainAxisSize:
+                                          //             MainAxisSize.max,
+                                          //         mainAxisAlignment:
+                                          //             MainAxisAlignment.center,
+                                          //         children: [
+                                          //           Text(
+                                          //             '5',
+                                          //             style: FlutterFlowTheme
+                                          //                     .of(context)
+                                          //                 .bodyText1
+                                          //                 .override(
+                                          //                   fontFamily:
+                                          //                       'Montserrat',
+                                          //                   color: Colors.white,
+                                          //                   fontSize: 8,
+                                          //                   fontWeight:
+                                          //                       FontWeight.bold,
+                                          //                 ),
+                                          //           ),
+                                          //         ],
+                                          //       ),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ),
@@ -963,8 +964,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (FFAppState().Chattoggle2 &&
-                                FFAppState().executive)
+                            if (FFAppState().Chattoggle2 && FFAppState().chat)
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
@@ -1010,42 +1010,42 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                 ],
                                               ),
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  1.31, -0.83),
-                                              child: Container(
-                                                width: 20,
-                                                height: 20,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFFEEEEEE),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      '5',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            color: Color(
-                                                                0xFF00B89F),
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
+                                            // Align(
+                                            //   alignment: AlignmentDirectional(
+                                            //       1.31, -0.83),
+                                            //   child: Container(
+                                            //     width: 20,
+                                            //     height: 20,
+                                            //     decoration: BoxDecoration(
+                                            //       color: Color(0xFFEEEEEE),
+                                            //       shape: BoxShape.circle,
+                                            //     ),
+                                            //     child: Row(
+                                            //       mainAxisSize:
+                                            //           MainAxisSize.min,
+                                            //       mainAxisAlignment:
+                                            //           MainAxisAlignment.center,
+                                            //       children: [
+                                            //         Text(
+                                            //           '5',
+                                            //           textAlign:
+                                            //               TextAlign.center,
+                                            //           style: FlutterFlowTheme
+                                            //                   .of(context)
+                                            //               .bodyText1
+                                            //               .override(
+                                            //                 fontFamily:
+                                            //                     'Montserrat',
+                                            //                 color: Color(
+                                            //                     0xFF00B89F),
+                                            //                 fontWeight:
+                                            //                     FontWeight.bold,
+                                            //               ),
+                                            //         ),
+                                            //       ],
+                                            //     ),
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                       ),

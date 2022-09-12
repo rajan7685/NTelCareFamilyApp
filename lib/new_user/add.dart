@@ -66,7 +66,7 @@ class _AddWidgetState extends State<Add> {
   @override
   void initState() {
     super.initState();
-    print("countries add ${widget.countries}");
+    // print("countries add ${widget.countries}");
     _loadRelation();
   }
 
@@ -1702,10 +1702,10 @@ class _AddWidgetState extends State<Add> {
                                     message: "All fields are necessary to fill",
                                   );
                                 } else {
-                                  print(FFAppState().AccountId);
-                                  print(displayLive.toString());
-                                  print(displayChat.toString());
-                                  print(displayView.toString());
+                                  // print(FFAppState().AccountId);
+                                  // print(displayLive.toString());
+                                  // print(displayChat.toString());
+                                  // print(displayView.toString());
                                   // List<int> imageBytes = image.readAsBytesSync();
                                   // String base64Image = base64Encode(imageBytes);
                                   //BASE64.encode(imageBytes);
@@ -1738,8 +1738,8 @@ class _AddWidgetState extends State<Add> {
                                   // stream.cast();
 
                                   // var length = await image.length();
-                                  print("country add $countryValue");
-                                  print("relation $dropDownValue");
+                                  // print("country add $countryValue");
+                                  // print("relation $dropDownValue");
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
@@ -1764,7 +1764,7 @@ class _AddWidgetState extends State<Add> {
                                           "profile", image.path));
                                   res1.fields['live_video'] =
                                       displayLive.toString();
-                                  res1.fields['chats'] = displayChat.toString();
+                                  res1.fields['chat'] = displayChat.toString();
                                   res1.fields['view_video'] =
                                       displayView.toString();
                                   res1.fields["country"] = countryValue;
