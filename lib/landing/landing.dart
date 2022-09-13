@@ -3351,6 +3351,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             10, 0, 0, 0),
                                         child: Container(
+                                          height: 140,
                                           decoration: BoxDecoration(
                                             color: Color(0xFF272E36),
                                             borderRadius:
@@ -3437,8 +3438,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                             .isEmpty
                                                                         ? "Closed"
                                                                         : (dashboardData["sensors_status"]["pillbox"]["bool"]
-                                                                            ? "Opened"
-                                                                            : "Closed"),
+                                                                            ? "Accessed"
+                                                                            : " Not Accessed"),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -3452,6 +3453,53 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                           fontWeight:
                                                                               FontWeight.w200,
                                                                         ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            10,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                    child: SvgPicture
+                                                                        .asset(
+                                                                      'assets/images/batteryL.svg',
+                                                                      width: 20,
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                    child: Text(
+                                                                      dashboardData["sensors_status"]["pillbox"]
+                                                                              [
+                                                                              "battery"] +
+                                                                          "%",
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText1
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Montserrat',
+                                                                            color:
+                                                                                Colors.yellow,
+                                                                            fontSize:
+                                                                                10,
+                                                                            fontWeight:
+                                                                                FontWeight.w200,
+                                                                          ),
+                                                                    ),
                                                                   ),
                                                                 ],
                                                               ),
@@ -3500,7 +3548,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                       1, 0, 0),
                                                           child: Image.asset(
                                                             'assets/images/8675105_ic_fluent_pill_regular_icon.png',
-                                                            height: 90,
+                                                            height: 80,
                                                             fit: BoxFit.fill,
                                                           ),
                                                         ),
@@ -3527,6 +3575,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Container(
+                                        height: 140,
                                         decoration: BoxDecoration(
                                           color: Color(0xFF272E36),
                                           borderRadius:
@@ -3630,6 +3679,59 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                             ),
                                                           ],
                                                         ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                'assets/images/batteryL.svg',
+                                                                width: 20,
+                                                                color:
+                                                                    Colors.red,
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                              child: Text(
+                                                                dashboardData["sensors_status"]
+                                                                            [
+                                                                            "door"]
+                                                                        [
+                                                                        "battery"] +
+                                                                    "%",
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Montserrat',
+                                                                      color: Colors
+                                                                          .red,
+                                                                      fontSize:
+                                                                          10,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w200,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
@@ -3672,7 +3774,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                     0, 1, 0, 0),
                                                         child: Image.asset(
                                                           'assets/images/7068954_furniture_door_interior_house_front_icon.png',
-                                                          height: 90,
+                                                          height: 80,
                                                           fit: BoxFit.fill,
                                                         ),
                                                       ),
@@ -3690,6 +3792,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             10, 0, 0, 0),
                                         child: Container(
+                                          height: 140,
                                           decoration: BoxDecoration(
                                             color: Color(0xFF272E36),
                                             borderRadius:
@@ -3795,6 +3898,54 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                   ),
                                                                 ],
                                                               ),
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                    child: SvgPicture.asset(
+                                                                        'assets/images/batteryL.svg',
+                                                                        width:
+                                                                            20,
+                                                                        color: Color(
+                                                                            0xFF00B89F)),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                    child: Text(
+                                                                      dashboardData["sensors_status"]["bath"]
+                                                                              [
+                                                                              "battery"] +
+                                                                          "%",
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText1
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Montserrat',
+                                                                            color:
+                                                                                Color(0xFF00B89F),
+                                                                            fontSize:
+                                                                                10,
+                                                                            fontWeight:
+                                                                                FontWeight.w200,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ],
                                                           ),
                                                         ),
@@ -3840,7 +3991,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                       1, 0, 0),
                                                           child: Image.asset(
                                                             'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon.png',
-                                                            height: 90,
+                                                            height: 80,
                                                             fit: BoxFit.fill,
                                                           ),
                                                         ),
