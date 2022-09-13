@@ -71,6 +71,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   dynamic placesData;
   String title;
   var profile = null;
+  String idOfMem;
 
   // permission for editing
   bool _hasPermissionToEdit;
@@ -91,9 +92,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     textController7 = TextEditingController(text: data["zipcode"]);
     textController8 = TextEditingController(text: data["state"]);
     textController9 = TextEditingController(text: data["city"]);
+    idOfMem = data['id'];
     countryCode = data['ccode'];
-    // print("country code $countryCode");
-
+    print(" user $idOfMem");
+    print("current user ${FFAppState().CurrentUserId}");
     // print(" edit member ${widget.countries}");
     if (countryCode != null) {
       countryValue = widget.countries.firstWhere((dynamic countryModel) =>
@@ -1677,6 +1679,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   // var length = await image.length();
 
                                   //    print(" executive ::${data['executive']}");
+                                  print("id : ${FFAppState().AccountId}");
                                   print(" live video:: " +
                                       displayLive.toString());
                                   print(
@@ -1812,7 +1815,9 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                             ),
                           ),
                         //Delete User
-                        if (_hasPermissionToEdit)
+
+                        if (_hasPermissionToEdit &&
+                            idOfMem != FFAppState().CurrentUserId)
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),

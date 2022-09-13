@@ -105,6 +105,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                         } else {
                           FFAppState().relation = snapshot.data["relation"];
                           countries = snapshot.data["countries"];
+                          FFAppState().CurrentUserId = snapshot.data["id"];
                           //print("snap shot countries : ${}");
                           return Column(
                             mainAxisSize: MainAxisSize.max,

@@ -38,6 +38,7 @@ class FFAppState {
   String Token = '';
   String UserId = '';
   String AccountId = '';
+  String CurrentUserId = '';
   String RoleId = '';
   String IsLiveView = '';
   bool Chattoggle = false;
