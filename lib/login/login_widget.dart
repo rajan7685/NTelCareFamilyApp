@@ -255,6 +255,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             // print(data["access_token"]);
                             FFAppState().Token = data["access_token"];
                             FFAppState().AccountId = data["master_obj_id"];
+                            FFAppState().CurrentUserId = data["member_id"];
                             print(FFAppState().AccountId);
                             FFAppState().executive = data["execeutive"];
                             FFAppState().liveView =

@@ -1620,7 +1620,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         if (_hasPermissionToEdit)
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 10),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 if (textController1.text == "" ||

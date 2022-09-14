@@ -147,6 +147,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
     textController7 = TextEditingController(text: info["member"]["zipcode"]);
     textController8 = TextEditingController(text: info["member"]["state"]);
     textController9 = TextEditingController(text: info["member"]["city"]);
+    FFAppState().executiveToggleProfile = info["member"]["executive"];
 
     dropDownValueGender = (info["member"]["sex"] as String).capitalize;
     countryCode = info["member"]["ccode"];
