@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
@@ -13,6 +14,11 @@ class VideoPlayerScreen extends StatefulWidget {
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   VideoPlayerController _controller;
   Future<void> _initializeVideoPlayerFuture;
+  VlcPlayerController _videoPlayerController = VlcPlayerController.network(
+    'rtsp://Regami:Regami01@regamisolutions.hopto.org/stream1',
+    autoPlay: false,
+    options: VlcPlayerOptions(),
+  );
 
   @override
   void initState() {
@@ -24,7 +30,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _controller = VideoPlayerController.network(
       'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
     );
-
+    _videoPlayerController.initialize();
     // Initialize the controller and store the Future for later use.
     _initializeVideoPlayerFuture = _controller.initialize();
 
@@ -48,25 +54,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       ),
       // Use a FutureBuilder to display a loading spinner while waiting for the
       // VideoPlayerController to finish initializing.
-      body: FutureBuilder(
-        future: _initializeVideoPlayerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // If the VideoPlayerController has finished initialization, use
-            // the data it provides to limit the aspect ratio of the video.
-            return AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              // Use the VideoPlayer widget to display the video.
-              child: VideoPlayer(_controller),
-            );
-          } else {
-            // If the VideoPlayerController is still initializing, show a
-            // loading spinner.
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+      body: VlcPlayer(
+        controller: _videoPlayerController,
+        aspectRatio: 16 / 9,
+        placeholder: Center(child: CircularProgressIndicator()),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -76,9 +67,11 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             // If the video is playing, pause it.
             if (_controller.value.isPlaying) {
               _controller.pause();
+              _videoPlayerController.pause();
             } else {
               // If the video is paused, play it.
               _controller.play();
+              _videoPlayerController.play();
             }
           });
         },
@@ -90,3 +83,30 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     );
   }
 }
+
+// VlcPlayer(
+//             controller: _videoPlayerController,
+//             aspectRatio: 16 / 9,
+//             placeholder: Center(child: CircularProgressIndicator()),
+//           )
+
+// FutureBuilder(
+//         future: _initializeVideoPlayerFuture,
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState == ConnectionState.done) {
+//             // If the VideoPlayerController has finished initialization, use
+//             // the data it provides to limit the aspect ratio of the video.
+//             return AspectRatio(
+//               aspectRatio: _controller.value.aspectRatio,
+//               // Use the VideoPlayer widget to display the video.
+//               child: VideoPlayer(_controller),
+//             );
+//           } else {
+//             // If the VideoPlayerController is still initializing, show a
+//             // loading spinner.
+//             return const Center(
+//               child: CircularProgressIndicator(),
+//             );
+//           }
+//         },
+//       )

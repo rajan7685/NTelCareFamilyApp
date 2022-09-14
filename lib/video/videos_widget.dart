@@ -55,6 +55,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
     _checkNetworkConnectivity();
     _hasPermissionToViewVideo = FFAppState().viewVideo ?? false;
     _hasPermissionToViewLiveVideo = FFAppState().liveView ?? false;
+    
   }
 
   @override
