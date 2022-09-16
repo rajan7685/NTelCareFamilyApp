@@ -127,6 +127,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
       displayChat = data["permission"]["chat"];
       displayView = data["permission"]["view_video"];
     }
+
     _hasPermissionToEdit = FFAppState().executive;
     // _hasPermissionToEdit = true;
   }
@@ -1620,7 +1621,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         if (_hasPermissionToEdit)
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 10),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 if (textController1.text == "" ||
@@ -1680,13 +1681,15 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
 
                                   //    print(" executive ::${data['executive']}");
                                   print("id : ${FFAppState().AccountId}");
+                                  FFAppState().chat = displayChat;
                                   print(" live video:: " +
                                       displayLive.toString());
                                   print(
                                       "live video:: " + displayChat.toString());
                                   print(" view video ::" +
                                       displayView.toString());
-
+                                  FFAppState().executive =
+                                      FFAppState().Chattoggle3;
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
                                   // print(textController5.text);
