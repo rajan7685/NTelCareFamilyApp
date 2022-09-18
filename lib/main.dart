@@ -51,8 +51,7 @@ void main() async {
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'ntelcare', // id
-  'High Importance Notifications', // title
-  'This channel is used for important notifications.', // description
+  'High Importance Notifications',
   importance: Importance.high,
 );
 
@@ -99,7 +98,6 @@ class _MyAppState extends State<MyApp> {
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
-                channel.description,
                 color: Colors.white,
 
                 // TODO add a proper drawable resource to android, for now using
