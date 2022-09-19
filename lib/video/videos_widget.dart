@@ -1,15 +1,15 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/components/custom_toast.dart';
-
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
 import 'package:n_tel_care_family_app/video/video_player.dart';
-
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 
 class VideoClipsWidget extends StatefulWidget {
   const VideoClipsWidget({Key key}) : super(key: key);
@@ -55,6 +55,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
     _checkNetworkConnectivity();
     _hasPermissionToViewVideo = FFAppState().viewVideo ?? false;
     _hasPermissionToViewLiveVideo = FFAppState().liveView ?? false;
+    
   }
 
   @override
@@ -890,6 +891,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                     builder:
                                                                         (context) =>
                                                                             VideoPlayerScreen(),
+                                                                    //
                                                                   ),
                                                                 );
                                                               },
