@@ -21,6 +21,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:string_extensions/string_extensions.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 class EditMemberWidget extends StatefulWidget {
   dynamic data;
@@ -127,7 +128,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
       displayChat = data["permission"]["chat"];
       displayView = data["permission"]["view_video"];
     }
-
+    if (idOfMem == FFAppState().CurrentUserId) {
+      displayLive = data["permission"]["live_video"];
+      displayChat = data["permission"]["chat"];
+      displayView = data["permission"]["view_video"];
+    }
     _hasPermissionToEdit = FFAppState().executive;
     // _hasPermissionToEdit = true;
   }
@@ -661,6 +666,9 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       color: Color(0xFF606E87),
                                       fontSize: 16,
                                     ),
+                                inputFormatters: [
+                                  MaskedInputFormatter('###.###.####')
+                                ],
                                 keyboardType: TextInputType.number,
                               ),
                             ),
@@ -1339,15 +1347,17 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 child: SwitchListTile(
                                   value: FFAppState().Chattoggle3,
                                   onChanged: (bool value) => setState(() {
-                                    FFAppState().Chattoggle3 = value;
-                                    if (FFAppState().Chattoggle3 == false) {
-                                      displayChat = false;
-                                      displayLive = false;
-                                      displayView = false;
-                                    } else {
-                                      displayChat = true;
-                                      displayLive = true;
-                                      displayView = true;
+                                    if (idOfMem != FFAppState().CurrentUserId) {
+                                      FFAppState().Chattoggle3 = value;
+                                      if (FFAppState().Chattoggle3 == false) {
+                                        displayChat = false;
+                                        displayLive = false;
+                                        displayView = false;
+                                      } else {
+                                        displayChat = true;
+                                        displayLive = true;
+                                        displayView = true;
+                                      }
                                     }
                                   }),
                                   title: Text(
@@ -1447,18 +1457,21 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                             10, 1, 10, 1),
                                         child: InkWell(
                                           onTap: () async {
-                                            if (FFAppState().Chattoggle3 ==
-                                                true) {
-                                              setState(() {
-                                                // displayLive = !displayLive;
-                                                // displayChat = true;
-                                                displayLive = true;
-                                                // displayView = true;
-                                              });
-                                            } else {
-                                              setState(() {
-                                                displayLive = !displayLive;
-                                              });
+                                            if (idOfMem !=
+                                                FFAppState().CurrentUserId) {
+                                              if (FFAppState().Chattoggle3 ==
+                                                  true) {
+                                                setState(() {
+                                                  // displayLive = !displayLive;
+                                                  // displayChat = true;
+                                                  displayLive = true;
+                                                  // displayView = true;
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  displayLive = !displayLive;
+                                                });
+                                              }
                                             }
                                           },
                                           child: Row(
@@ -1505,17 +1518,20 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     ),
                                     child: InkWell(
                                       onTap: () async {
-                                        if (FFAppState().Chattoggle3 == true) {
-                                          setState(() {
-                                            // displayLive = !displayLive;
-                                            // displayChat = true;
-                                            displayView = true;
-                                            // displayView = true;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            displayView = !displayView;
-                                          });
+                                        if (idOfMem !=
+                                            FFAppState().CurrentUserId) {
+                                          if (FFAppState().Chattoggle3) {
+                                            setState(() {
+                                              // displayLive = !displayLive;
+                                              // displayChat = true;
+                                              displayView = true;
+                                              // displayView = true;
+                                            });
+                                          } else {
+                                            setState(() {
+                                              displayView = !displayView;
+                                            });
+                                          }
                                         }
                                       },
                                       child: Padding(
@@ -1567,17 +1583,20 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         0.1499999999999999, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        if (FFAppState().Chattoggle3 == true) {
-                                          setState(() {
-                                            // displayLive = !displayLive;
-                                            // displayChat = true;
-                                            displayChat = true;
-                                            // displayView = true;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            displayChat = !displayChat;
-                                          });
+                                        if (idOfMem !=
+                                            FFAppState().CurrentUserId) {
+                                          if (FFAppState().Chattoggle3) {
+                                            setState(() {
+                                              // displayLive = !displayLive;
+                                              // displayChat = true;
+                                              displayChat = true;
+                                              // displayView = true;
+                                            });
+                                          } else {
+                                            setState(() {
+                                              displayChat = !displayChat;
+                                            });
+                                          }
                                         }
                                       },
                                       child: Padding(

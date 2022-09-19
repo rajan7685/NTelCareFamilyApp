@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 class EditCopy2Widget extends StatefulWidget {
   dynamic info;
@@ -833,6 +834,9 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                         fontSize: 16,
                                       ),
                                   keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    MaskedInputFormatter('###.###.####')
+                                  ],
                                 ),
                               ),
                             ),

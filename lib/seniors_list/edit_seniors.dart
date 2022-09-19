@@ -22,6 +22,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math';
 import 'package:email_validator/email_validator.dart';
 import 'package:string_extensions/string_extensions.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 class EditSeniorsWidget extends StatefulWidget {
   dynamic data;
@@ -81,6 +82,12 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   @override
   void initState() {
     super.initState();
+    String phoneNumber = data["mobile"];
+
+    String formattedPhoneNumber =
+        phoneNumber.replaceFirst("(\d{3})(\d{3})(\d+)", "(\$1) \$2-\$3");
+
+    print('Formatted number ${formattedPhoneNumber}');
     textController1 = TextEditingController(text: data["fname"]);
     textController2 = TextEditingController(text: data["lname"]);
     dropDownValueGender = data["gender"];
@@ -1146,6 +1153,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       fontSize: 16,
                                     ),
                                 keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  MaskedInputFormatter('###.###.####')
+                                ],
                               ),
                             ),
                           ),
