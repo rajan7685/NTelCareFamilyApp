@@ -84,10 +84,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     super.initState();
     String phoneNumber = data["mobile"];
 
-    String formattedPhoneNumber =
-        phoneNumber.replaceFirst("(\d{3})(\d{3})(\d+)", "(\$1) \$2-\$3");
-
-    print('Formatted number ${formattedPhoneNumber}');
+    textController6 = TextEditingController(text: "");
+    // print('Formatted number ${formattedPhoneNumber}');
     textController1 = TextEditingController(text: data["fname"]);
     textController2 = TextEditingController(text: data["lname"]);
     dropDownValueGender = data["gender"];
@@ -612,7 +610,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(0, 0, 0, 0),
                                                 child: Text(
-                                                    DateFormat("yyyy-MM-dd")
+                                                    DateFormat("dd-MM-yyyy")
                                                         .format(selectedDate),
                                                     style: FlutterFlowTheme.of(
                                                             context)

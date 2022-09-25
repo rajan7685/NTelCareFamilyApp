@@ -440,7 +440,7 @@ class _PillWidgetState extends State<PillWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                             child: Text(
-                              'Pill Box',
+                              'PillBox',
                               style: FlutterFlowTheme.of(context)
                                   .bodyText1
                                   .override(

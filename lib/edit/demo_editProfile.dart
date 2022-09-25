@@ -1462,7 +1462,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                       // do nothing
                                     },
                                     title: Text(
-                                      'Executive Members',
+                                      'Executive Member',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(

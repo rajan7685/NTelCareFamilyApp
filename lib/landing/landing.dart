@@ -2268,7 +2268,12 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           children: [
                                                             Text(
                                                               // FFAppState().heart_rate,
-                                                              "${dashboardData["watch_status"]["heart_rate"]} BPM",
+                                                              dashboardData["watch_status"]
+                                                                          [
+                                                                          "heart_rate"] !=
+                                                                      null
+                                                                  ? "${dashboardData["watch_status"]["heart_rate"]} BPM"
+                                                                  : "No Data",
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
@@ -2427,10 +2432,12 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    dashboardData[
-                                                                            "watch_status"]
-                                                                        [
-                                                                        "blood_oxygen"],
+                                                                    dashboardData["watch_status"]["blood_oxygen"] !=
+                                                                            null
+                                                                        ? dashboardData["watch_status"]
+                                                                            [
+                                                                            "blood_oxygen"]
+                                                                        : "No Data",
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -2592,9 +2599,14 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               MainAxisSize.max,
                                                           children: [
                                                             Text(
-                                                              dashboardData[
-                                                                      "watch_status"]
-                                                                  ["sleep"],
+                                                              dashboardData["watch_status"]
+                                                                          [
+                                                                          "sleep"] !=
+                                                                      null
+                                                                  ? dashboardData[
+                                                                          "watch_status"]
+                                                                      ["sleep"]
+                                                                  : "No Data",
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
@@ -2753,10 +2765,12 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    dashboardData[
-                                                                            "watch_status"]
-                                                                        [
-                                                                        "step"],
+                                                                    dashboardData["watch_status"]["step"] !=
+                                                                            null
+                                                                        ? dashboardData["watch_status"]
+                                                                            [
+                                                                            "step"]
+                                                                        : "No Data",
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -2894,7 +2908,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                     .max,
                                                             children: [
                                                               Text(
-                                                                'Calorie\'s',
+                                                                'Calories',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyText1
@@ -2918,9 +2932,15 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               MainAxisSize.max,
                                                           children: [
                                                             Text(
-                                                              dashboardData[
-                                                                      "watch_status"]
-                                                                  ["calories"],
+                                                              dashboardData["watch_status"]
+                                                                          [
+                                                                          "calories"] !=
+                                                                      null
+                                                                  ? dashboardData[
+                                                                          "watch_status"]
+                                                                      [
+                                                                      "calories"]
+                                                                  : "No Data",
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
@@ -3079,10 +3099,11 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    dashboardData["watch_status"]
-                                                                            [
-                                                                            "blood_pressure"]
-                                                                        ["sys"],
+                                                                    dashboardData["watch_status"]["blood_pressure"]["sys"] !=
+                                                                            null
+                                                                        ? "SYS: " +
+                                                                            dashboardData["watch_status"]["blood_pressure"]["sys"]
+                                                                        : "No Data",
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -3105,10 +3126,11 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    "DIA: " +
-                                                                        dashboardData["watch_status"]["blood_pressure"]
-                                                                            [
-                                                                            "dia"],
+                                                                    dashboardData["watch_status"]["blood_pressure"]["dia"] !=
+                                                                            null
+                                                                        ? "DIA: " +
+                                                                            dashboardData["watch_status"]["blood_pressure"]["dia"]
+                                                                        : "No Data",
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -3246,7 +3268,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                     .max,
                                                             children: [
                                                               Text(
-                                                                'Smart Watch Battery',
+                                                                'Health Watch \nBattery',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyText1
@@ -3270,10 +3292,15 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               MainAxisSize.max,
                                                           children: [
                                                             Text(
-                                                              dashboardData[
-                                                                      "watch_status"]
-                                                                  [
-                                                                  "battery_level"],
+                                                              dashboardData["watch_status"]
+                                                                          [
+                                                                          "battery_level"] !=
+                                                                      null
+                                                                  ? dashboardData[
+                                                                          "watch_status"]
+                                                                      [
+                                                                      "battery_level"]
+                                                                  : "No Data",
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
@@ -3409,7 +3436,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                           .max,
                                                                   children: [
                                                                     Text(
-                                                                      'Pill Box',
+                                                                      'PillBox',
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyText1
@@ -3433,13 +3460,16 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    dashboardData["sensors_status"]["pillbox"]
-                                                                            .toString()
-                                                                            .isEmpty
-                                                                        ? "Closed"
-                                                                        : (dashboardData["sensors_status"]["pillbox"]["bool"]
-                                                                            ? "Accessed"
-                                                                            : " Not Accessed"),
+                                                                    dashboardData["sensors_status"]["pillbox"] !=
+                                                                            null
+                                                                        ? dashboardData["sensors_status"]["pillbox"]
+                                                                                .toString()
+                                                                                .isEmpty
+                                                                            ? "Closed"
+                                                                            : (dashboardData["sensors_status"]["pillbox"]["bool"]
+                                                                                ? "Accessed"
+                                                                                : " Not Accessed")
+                                                                        : "No Data",
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -3482,10 +3512,11 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                             0,
                                                                             0),
                                                                     child: Text(
-                                                                      dashboardData["sensors_status"]["pillbox"]
-                                                                              [
-                                                                              "battery"] +
-                                                                          "%",
+                                                                      dashboardData["sensors_status"]["pillbox"] !=
+                                                                              ""
+                                                                          ? dashboardData["sensors_status"]["pillbox"]["battery"] +
+                                                                              "%"
+                                                                          : "00 %",
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyText1
@@ -3651,17 +3682,20 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                             Text(
                                                               dashboardData["sensors_status"]
                                                                           [
-                                                                          "door"]
-                                                                      .toString()
-                                                                      .isEmpty
-                                                                  ? "Closed"
-                                                                  : (dashboardData["sensors_status"]
+                                                                          "door"] !=
+                                                                      null
+                                                                  ? dashboardData["sensors_status"]
                                                                               [
                                                                               "door"]
-                                                                          [
-                                                                          "bool"]
-                                                                      ? "Opened"
-                                                                      : "Closed"),
+                                                                          .toString()
+                                                                          .isEmpty
+                                                                      ? "Closed"
+                                                                      : (dashboardData["sensors_status"]["door"]
+                                                                              [
+                                                                              "bool"]
+                                                                          ? "Opened"
+                                                                          : "Closed")
+                                                                  : "No Data",
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyText1
@@ -3710,10 +3744,13 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               child: Text(
                                                                 dashboardData["sensors_status"]
                                                                             [
-                                                                            "door"]
-                                                                        [
-                                                                        "battery"] +
-                                                                    "%",
+                                                                            "door"] !=
+                                                                        ""
+                                                                    ? dashboardData["sensors_status"]["door"]
+                                                                            [
+                                                                            "battery"] +
+                                                                        "%"
+                                                                    : "00 %",
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyText1
@@ -3874,14 +3911,14 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    dashboardData["sensors_status"]["bath"]
-                                                                            .toString()
-                                                                            .isEmpty
-                                                                        ? "Not Bathed"
-                                                                        : dashboardData["sensors_status"]["bath"]["bool"] !=
-                                                                                true
+                                                                    dashboardData["sensors_status"]["bath"] !=
+                                                                            null
+                                                                        ? dashboardData["sensors_status"]["bath"].toString().isEmpty
                                                                             ? "Not Bathed"
-                                                                            : "Bathed",
+                                                                            : dashboardData["sensors_status"]["bath"]["bool"] != true
+                                                                                ? "Not Bathed"
+                                                                                : "Bathed"
+                                                                        : "No Data",
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -3925,10 +3962,11 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                             0,
                                                                             0),
                                                                     child: Text(
-                                                                      dashboardData["sensors_status"]["bath"]
-                                                                              [
-                                                                              "battery"] +
-                                                                          "%",
+                                                                      dashboardData["sensors_status"]["bath"] !=
+                                                                              ""
+                                                                          ? dashboardData["sensors_status"]["bath"]["battery"] +
+                                                                              "%"
+                                                                          : "00 %",
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyText1

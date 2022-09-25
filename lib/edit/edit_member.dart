@@ -359,6 +359,14 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'First Name',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -409,6 +417,14 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Last Name',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -638,6 +654,14 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Phone Number',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -1361,7 +1385,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     }
                                   }),
                                   title: Text(
-                                    'Executive Members',
+                                    'Executive Member',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(

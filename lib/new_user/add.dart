@@ -270,7 +270,7 @@ class _AddWidgetState extends State<Add> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 10),
                           child: Text(
-                            'Add',
+                            'Add User',
                             textAlign: TextAlign.start,
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
@@ -1424,7 +1424,7 @@ class _AddWidgetState extends State<Add> {
                                     });
                                   },
                                   title: Text(
-                                    'Executive Members',
+                                    'Executive Member',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
