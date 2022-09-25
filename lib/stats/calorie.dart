@@ -430,7 +430,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                             child: Text(
-                              'Calorie',
+                              'Calories',
                               style: FlutterFlowTheme.of(context)
                                   .bodyText1
                                   .override(

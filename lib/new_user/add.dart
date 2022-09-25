@@ -18,6 +18,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
@@ -269,7 +270,7 @@ class _AddWidgetState extends State<Add> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 10),
                           child: Text(
-                            'Add',
+                            'Add User',
                             textAlign: TextAlign.start,
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
@@ -709,6 +710,9 @@ class _AddWidgetState extends State<Add> {
                               child: TextFormField(
                                 controller: textController4,
                                 obscureText: false,
+                                inputFormatters: [
+                                  MaskedInputFormatter('###.###.####')
+                                ],
                                 decoration: InputDecoration(
                                   labelText: 'Phone Number',
                                   labelStyle: FlutterFlowTheme.of(context)
@@ -1420,7 +1424,7 @@ class _AddWidgetState extends State<Add> {
                                     });
                                   },
                                   title: Text(
-                                    'Executive Members',
+                                    'Executive Member',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(

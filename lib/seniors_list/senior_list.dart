@@ -377,9 +377,10 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                                             6,
                                                                       ),
                                                                       Text(
-                                                                        inf[index]
-                                                                            [
-                                                                            "mobile"],
+                                                                        inf[index]["mobile"] !=
+                                                                                null
+                                                                            ? inf[index]["mobile"]
+                                                                            : "",
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(

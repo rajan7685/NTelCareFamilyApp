@@ -498,7 +498,7 @@ class _BloodWidgetState extends State<BloodWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                               child: Text(
-                                'Blood-Pressure',
+                                'Blood Pressure',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText1
                                     .override(

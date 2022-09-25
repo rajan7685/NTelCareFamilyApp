@@ -997,7 +997,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                             Container(
                               width: 150,
                               decoration: BoxDecoration(
-                                color: Color(0xFF00B89F),
+                                color: Color(0xFF272E36),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Column(
