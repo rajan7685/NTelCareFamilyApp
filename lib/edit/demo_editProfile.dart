@@ -646,7 +646,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(0, 0, 0, 0),
                                                   child: Text(
-                                                      DateFormat('dd-MM-yyyy')
+                                                      DateFormat('MM-dd-yyyy')
                                                           .format(selectedDate),
                                                       style:
                                                           FlutterFlowTheme.of(
