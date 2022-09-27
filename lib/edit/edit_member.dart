@@ -573,7 +573,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(0, 0, 0, 0),
                                                 child: Text(
-                                                    DateFormat('dd-MM-yyyy')
+                                                    DateFormat('MM-dd-yyyy')
                                                         .format(selectedDate),
                                                     style: FlutterFlowTheme.of(
                                                             context)
