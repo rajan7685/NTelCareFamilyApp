@@ -150,9 +150,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       fontSize: 16,
                                     ),
                             keyboardType: TextInputType.number,
-                            // inputFormatters: [
-                            //   MaskedInputFormatter('###.###.####')
-                            // ],
+                            inputFormatters: [
+                             MaskedInputFormatter('###.###.####')
+                            ],
                           ),
                         ),
                       ),
