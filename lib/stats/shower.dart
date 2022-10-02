@@ -903,192 +903,248 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                 //textDirection: TextDirection.,
                                 defaultVerticalAlignment:
                                     TableCellVerticalAlignment.top,
+                                // defaultColumnWidth: FixedColumnWidth(120),
+
                                 border: TableBorder.all(
                                   width: 2.0,
-                                  color: Color(0xFFAFAFAF),
+                                  color:Color(0xFF272E36),
                                 ),
                                 children: [
                                   TableRow(
                                     children: [
-                                      Text(
-                                        "Time",
-                                        textScaleFactor: 1.5,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
-                                      ),
-                                      Text(
-                                        "Shower Sensor",
-                                        textScaleFactor: 1.5,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
-                                      ),
-                                    ],
-                                  ),
-                                  TableRow(
-                                    children: [
-                                      Text(
-                                        "29-Sep-2022",
-                                        textScaleFactor: 1.5,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
-                                      ),
-                                      Text(
-                                        "Open",
-                                        textScaleFactor: 1.5,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
-                                      ),
-                                    ],
-                                  ),
-                                  TableRow(
-                                    children: [
-                                      Text(
-                                        "30-Sep-2022",
-                                        textAlign: TextAlign.center,
-                                        textScaleFactor: 1.5,
-                                        style: TextStyle(
-                                          color: Color(0xFFAFAFAF),
-                                          fontFamily: 'Montserrat',
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "Time",
+                                          // textScaleFactor: 1.5,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFF00B89F),
+                                              fontFamily: 'Montserrat'),
                                         ),
                                       ),
-                                      Text(
-                                        "Closed",
-                                        textScaleFactor: 1.5,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "Shower Sensor",
+                                          // textScaleFactor: 1.5,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFF00B89F),
+                                              fontFamily: 'Montserrat'),
+                                        ),
                                       ),
                                     ],
                                   ),
                                   TableRow(
                                     children: [
-                                      Text(
-                                        "01-Oct-2022",
-                                        textAlign: TextAlign.center,
-                                        textScaleFactor: 1.5,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "29-Sep-2022",
+                                          // textScaleFactor: 1.5,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFFAFAFAF),
+                                              fontFamily: 'Montserrat'),
+                                        ),
                                       ),
-                                      Text(
-                                        "Open",
-                                        textScaleFactor: 1.5,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
-                                      ),
-                                    ],
-                                  ),
-                                  TableRow(
-                                    children: [
-                                      Text(
-                                        "02-Oct-2022",
-                                        textAlign: TextAlign.center,
-                                        textScaleFactor: 1.5,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
-                                      ),
-                                      Text(
-                                        "Closed",
-                                        textScaleFactor: 1.5,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "Bathed",
+                                          // textScaleFactor: 1.5,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFFAFAFAF),
+                                              fontFamily: 'Montserrat'),
+                                        ),
                                       ),
                                     ],
                                   ),
                                   TableRow(
                                     children: [
-                                      Text(
-                                        "03-Oct-2022",
-                                        textAlign: TextAlign.center,
-                                        textScaleFactor: 1.5,
-                                        style: TextStyle(
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "30-Sep-2022",
+                                          textAlign: TextAlign.center,
+                                          // textScaleFactor: 1.5,
+                                          style: TextStyle(
                                             color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
+                                            fontFamily: 'Montserrat',
+                                          ),
+                                        ),
                                       ),
-                                      Text(
-                                        "Open",
-                                        textScaleFactor: 1.5,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
-                                      ),
-                                    ],
-                                  ),
-                                  TableRow(
-                                    children: [
-                                      Text(
-                                        "04-Oct-2022",
-                                        textAlign: TextAlign.center,
-                                        textScaleFactor: 1.5,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
-                                      ),
-                                      Text(
-                                        "Closed",
-                                        textScaleFactor: 1.5,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "Bathed",
+                                          // textScaleFactor: 1.5,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFFAFAFAF),
+                                              fontFamily: 'Montserrat'),
+                                        ),
                                       ),
                                     ],
                                   ),
                                   TableRow(
                                     children: [
-                                      Text(
-                                        "05-Oct-2022",
-                                        textAlign: TextAlign.center,
-                                        textScaleFactor: 1.5,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "01-Oct-2022",
+                                          textAlign: TextAlign.center,
+                                          // textScaleFactor: 1.5,
+                                          style: TextStyle(
+                                              color: Color(0xFFAFAFAF),
+                                              fontFamily: 'Montserrat'),
+                                        ),
                                       ),
-                                      Text(
-                                        "Open",
-                                        textScaleFactor: 1.5,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "Bathed",
+                                          // textScaleFactor: 1.5,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFFAFAFAF),
+                                              fontFamily: 'Montserrat'),
+                                        ),
                                       ),
                                     ],
                                   ),
                                   TableRow(
                                     children: [
-                                      Text(
-                                        "06-Oct-2022",
-                                        textAlign: TextAlign.center,
-                                        textScaleFactor: 1.5,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "02-Oct-2022",
+                                          textAlign: TextAlign.center,
+                                          // textScaleFactor: 1.5,
+                                          style: TextStyle(
+                                              color: Color(0xFFAFAFAF),
+                                              fontFamily: 'Montserrat'),
+                                        ),
                                       ),
-                                      Text(
-                                        "Closed",
-                                        textScaleFactor: 1.5,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xFFAFAFAF),
-                                            fontFamily: 'Montserrat'),
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "Bathed",
+                                          // textScaleFactor: 1.5,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFFAFAFAF),
+                                              fontFamily: 'Montserrat'),
+                                        ),
                                       ),
                                     ],
                                   ),
+                                  TableRow(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "03-Oct-2022",
+                                          textAlign: TextAlign.center,
+                                          // textScaleFactor: 1.5,
+                                          style: TextStyle(
+                                              color: Color(0xFFAFAFAF),
+                                              fontFamily: 'Montserrat'),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "Bathed",
+                                          // textScaleFactor: 1.5,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFFAFAFAF),
+                                              fontFamily: 'Montserrat'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  // TableRow(
+                                  //   children: [
+                                  //     Padding(
+                                  //       padding: EdgeInsets.all(10.0),
+                                  //       child: Text(
+                                  //         "04-Oct-2022",
+                                  //         textAlign: TextAlign.center,
+                                  //         // textScaleFactor: 1.5,
+                                  //         style: TextStyle(
+                                  //             color: Color(0xFFAFAFAF),
+                                  //             fontFamily: 'Montserrat'),
+                                  //       ),
+                                  //     ),
+                                  //     Padding(
+                                  //       padding: EdgeInsets.all(10.0),
+                                  //       child: Text(
+                                  //         "Bathed",
+                                  //         // textScaleFactor: 1.5,
+                                  //         textAlign: TextAlign.center,
+                                  //         style: TextStyle(
+                                  //             color: Color(0xFFAFAFAF),
+                                  //             fontFamily: 'Montserrat'),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  // TableRow(
+                                  //   children: [
+                                  //     Padding(
+                                  //       padding: EdgeInsets.all(10.0),
+                                  //       child: Text(
+                                  //         "05-Oct-2022",
+                                  //         textAlign: TextAlign.center,
+                                  //         // textScaleFactor: 1.5,
+                                  //         style: TextStyle(
+                                  //             color: Color(0xFFAFAFAF),
+                                  //             fontFamily: 'Montserrat'),
+                                  //       ),
+                                  //     ),
+                                  //     Padding(
+                                  //       padding: EdgeInsets.all(10.0),
+                                  //       child: Text(
+                                  //         "Bathed",
+                                  //         // textScaleFactor: 1.5,
+                                  //         textAlign: TextAlign.center,
+                                  //         style: TextStyle(
+                                  //             color: Color(0xFFAFAFAF),
+                                  //             fontFamily: 'Montserrat'),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  // TableRow(
+                                  //   children: [
+                                  //     Padding(
+                                  //       padding: EdgeInsets.all(10.0),
+                                  //       child: Text(
+                                  //         "06-Oct-2022",
+                                  //         textAlign: TextAlign.center,
+                                  //         // textScaleFactor: 1.5,
+                                  //         style: TextStyle(
+                                  //             color: Color(0xFFAFAFAF),
+                                  //             fontFamily: 'Montserrat'),
+                                  //       ),
+                                  //     ),
+                                  //     Padding(
+                                  //       padding: EdgeInsets.all(10.0),
+                                  //       child: Text(
+                                  //         "Bathed",
+                                  //         // textScaleFactor: 1.5,
+                                  //         textAlign: TextAlign.center,
+                                  //         style: TextStyle(
+                                  //             color: Color(0xFFAFAFAF),
+                                  //             fontFamily: 'Montserrat'),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                 ],
                               ),
                             )
