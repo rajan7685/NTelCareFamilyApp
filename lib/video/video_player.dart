@@ -12,7 +12,7 @@ class VideoPlayerScreen extends StatefulWidget {
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   VideoPlayerController _controller;
   VlcPlayerController _videoPlayerController = VlcPlayerController.network(
-    "rtsp://Regami:Regami01@regamisolutions.hopto.org/stream1",
+    "rtsp://regami:regami@10.10.101.89/stream1",
     hwAcc: HwAcc.full,
     autoPlay: true,
     options: VlcPlayerOptions(),
@@ -81,30 +81,3 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     );
   }
 }
-
-// VlcPlayer(
-//             controller: _videoPlayerController,
-//             aspectRatio: 16 / 9,
-//             placeholder: Center(child: CircularProgressIndicator()),
-//           )
-
-// FutureBuilder(
-//         future: _initializeVideoPlayerFuture,
-//         builder: (context, snapshot) {
-//           if (snapshot.connectionState == ConnectionState.done) {
-//             // If the VideoPlayerController has finished initialization, use
-//             // the data it provides to limit the aspect ratio of the video.
-//             return AspectRatio(
-//               aspectRatio: _controller.value.aspectRatio,
-//               // Use the VideoPlayer widget to display the video.
-//               child: VideoPlayer(_controller),
-//             );
-//           } else {
-//             // If the VideoPlayerController is still initializing, show a
-//             // loading spinner.
-//             return const Center(
-//               child: CircularProgressIndicator(),
-//             );
-//           }
-//         },
-//       )

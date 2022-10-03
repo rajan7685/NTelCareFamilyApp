@@ -81,7 +81,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     setState(() {
       _isSeniorListDataLoading = false;
     });
-    if (init) {
+    if (init && _seniorsList.isNotEmpty) {
       _fetchDashBoardData(_seniorsList[0]["id"]);
     }
   }
@@ -94,31 +94,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     final ApiCallResponse _data = await DashBoardStat.call(id: seniorId);
     // print('data: ${_data.jsonBody["dashboard"]}');
     dashboardData = _data.jsonBody["dashboard"];
-    print("senior id ${seniorId}");
-    // print("dashboardData $dashboardData");
-    // print(
-    //     "PillBox data ${dashboardData["sensors_status"]["pillbox"].runtimeType}");
-
-    // print("PillBox data type ${dashboardData["sensors_status"]["pillbox"]}");
-
-    // print("PillBox data ${dashboardData["sensors_status"]["pillbox"]["bool"]}");
-
-    /*  FFAppState().heart_rate = dashboardData["watch_status"]["heart_rate"];
-    FFAppState().blood_oxygen = dashboardData["watch_status"]["blood_oxygen"];
-    FFAppState().Sleep = dashboardData["watch_status"]["sleep"];
-    FFAppState().Steps = dashboardData["watch_status"]["step"];
-    FFAppState().Calories = dashboardData["watch_status"]["calories"];
-    FFAppState().blood_dia =
-        dashboardData["watch_status"]["blood_pressure"]["dia"];
-    FFAppState().blood_sys =
-        dashboardData["watch_status"]["blood_pressure"]["sys"];
-    FFAppState().battery_level = dashboardData["watch_status"]["battery_level"];
-    FFAppState().Pill_box = dashboardData["sensors_status"]["pillbox"]["bool"];
-    FFAppState().door = dashboardData["sensors_status"]["door"]["bool"];
-    FFAppState().shower = dashboardData["sensors_status"]["bath"]["bool"];
-    print(FFAppState().door);*/
-    print(" shower value ${FFAppState().shower}");
-    print(" bath value ${dashboardData["sensors_status"]["door"]}");
+    print(" dashboard sensor value ${dashboardData["sensors_status"]}");
+    print(" dashboard sens ${dashboardData['sensors_active']}");
     setState(() {
       _isDashboardDataLoading = false;
     });
@@ -4004,7 +3981,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        dashboardData["sensors_status"]["bath"] !=
+                                                                        dashboardData["sensors_status"]["bath"]["battery"] !=
                                                                                 ""
                                                                             ? dashboardData["sensors_status"]["bath"]["battery"] +
                                                                                 "%"
@@ -4184,11 +4161,11 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                     .max,
                                                             children: [
                                                               Text(
-                                                                dashboardData["sensors_status"]
+                                                                dashboardData["sensors_status"]["sos"]
                                                                             [
-                                                                            "sos"] !=
+                                                                            "bool"] !=
                                                                         null
-                                                                    ? dashboardData["sensors_status"]["sos"]
+                                                                    ? dashboardData["sensors_status"]["sos"]["bool"]
                                                                             .toString()
                                                                             .isEmpty
                                                                         ? "Closed"
@@ -4244,10 +4221,10 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                             0,
                                                                             0),
                                                                 child: Text(
-                                                                  dashboardData["sensors_status"]
+                                                                  dashboardData["sensors_status"]["sos"]
                                                                               [
-                                                                              "sos"] !=
-                                                                          ""
+                                                                              "battery"] !=
+                                                                          null
                                                                       ? dashboardData["sensors_status"]["sos"]
                                                                               [
                                                                               "battery"] +
