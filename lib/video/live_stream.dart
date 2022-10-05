@@ -2,23 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 
 class LiveStreamWidget extends StatefulWidget {
-  const LiveStreamWidget({Key key}) : super(key: key);
+  String rtsp;
+  LiveStreamWidget({Key key, this.rtsp}) : super(key: key);
 
   @override
   State<LiveStreamWidget> createState() => _LiveStreamWidgetState();
 }
 
 class _LiveStreamWidgetState extends State<LiveStreamWidget> {
-  VlcPlayerController _controller = VlcPlayerController.network(
-    "rtsp://regami:regami@10.10.101.89/stream1",
-    hwAcc: HwAcc.full,
-    autoPlay: true,
-    options: VlcPlayerOptions(),
-  );
+  VlcPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = VlcPlayerController.network(
+      widget.rtsp,
+      hwAcc: HwAcc.full,
+      autoPlay: true,
+      options: VlcPlayerOptions(),
+    );
   }
 
   @override
@@ -37,12 +39,16 @@ class _LiveStreamWidgetState extends State<LiveStreamWidget> {
         ),
         // Use a FutureBuilder to display a loading spinner while waiting for the
         // VideoPlayerController to finish initializing.
-        body: Center(
-          child: VlcPlayer(
-            controller: _controller,
-            aspectRatio: 16 / 9,
-            placeholder: Center(child: CircularProgressIndicator()),
-          ),
-        ));
+        body: widget.rtsp != null
+            ? Center(
+                child: VlcPlayer(
+                  controller: _controller,
+                  aspectRatio: 16 / 9,
+                  placeholder: Center(child: CircularProgressIndicator()),
+                ),
+              )
+            : Center(
+                child: Text("RTSP link has not been set"),
+              ));
   }
 }

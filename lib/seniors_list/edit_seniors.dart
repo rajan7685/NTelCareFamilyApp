@@ -1291,155 +1291,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                             ),
                           ),
                         ),
-                        /* Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 2, 0, 0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        4, 5, 0, 0),
-                                    child: Text(
-                                      'Country',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ),*/
-                        /* Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
-                              child: Container(
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: TextFormField(
-                                    enabled: _hasPermissionToEdit,
-                                    controller: textController8,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Address',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF606E87),
-                                          fontSize: 16,
-                                        ),
-                                    keyboardType: TextInputType.streetAddress,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                              child: Container(
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: TextFormField(
-                                    enabled: _hasPermissionToEdit,
-                                    controller: textController9,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Zip Code',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF606E87),
-                                          fontSize: 16,
-                                        ),
-                                    keyboardType: TextInputType.number,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),*/
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
                           child: Container(
@@ -1965,6 +1816,12 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   res.fields["gender"] = dropDownValueGender;
                                   res.fields["height"] = textController4.text;
                                   res.fields["weight"] = textController5.text;
+                                  res.fields["oz"] = weightUnit == "lbs"
+                                      ? ozController.text
+                                      : null;
+                                  res.fields["inchs"] = heightUnit == "feet"
+                                      ? inchesController.text
+                                      : null;
                                   res.fields["address"] = textController8.text;
                                   res.fields["zipcode"] = textController9.text;
                                   res.fields["blood_group"] = "o+";

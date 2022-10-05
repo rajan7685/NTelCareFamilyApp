@@ -94,8 +94,6 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     final ApiCallResponse _data = await DashBoardStat.call(id: seniorId);
     // print('data: ${_data.jsonBody["dashboard"]}');
     dashboardData = _data.jsonBody["dashboard"];
-    print(" dashboard sensor value ${dashboardData["sensors_status"]}");
-    print(" dashboard sens ${dashboardData['sensors_active']}");
     setState(() {
       _isDashboardDataLoading = false;
     });
@@ -103,8 +101,6 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        'senior pillbox data : ${dashboardData["sensors_status"]["pillbox"]["battery"]}');
     return RefreshIndicator(
         onRefresh: () async {
           await _fetchDashBoardData(_seniorsList[isSelected]["id"]);

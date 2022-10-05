@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/components/custom_toast.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
@@ -26,11 +30,22 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
   int isSelected = 0;
   bool _hasPermissionToViewVideo;
   bool _hasPermissionToViewLiveVideo;
+  String rtspLink;
 
   _isSelected(int index) {
     setState(() {
       isSelected = index;
     });
+  }
+
+  Future<void> updateRtspLink(String id) async {
+    print("${ApiService.domain}/get/video/$id");
+    Response res = await Dio().get("${ApiService.domain}/get/video/$id",
+        options: Options(
+            headers: {"Authorization": "Bearer ${FFAppState().Token}"}));
+    rtspLink = res.data["data"]["videos"][0][id]["live_video"];
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("RTSP link has been set")));
   }
 
   Future<void> _checkNetworkConnectivity() async {
@@ -180,6 +195,8 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                       fontSize: 20),
                             );
                           } else {
+                            if ((inf as List).length != 0)
+                              updateRtspLink(inf[0]["id"]);
                             return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
@@ -202,6 +219,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                               //   selectedId = id;
                                               // });
                                               _isSelected(index);
+                                              updateRtspLink(inf[index]["id"]);
                                             },
                                             child: Container(
                                               width: 70,
@@ -432,7 +450,10 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                               context,
                                                               MaterialPageRoute(
                                                                   builder: (_) =>
-                                                                      LiveStreamWidget()));
+                                                                      LiveStreamWidget(
+                                                                        rtsp:
+                                                                            rtspLink,
+                                                                      )));
                                                         },
                                                         child: Card(
                                                           clipBehavior: Clip
