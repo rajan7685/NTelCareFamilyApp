@@ -33,6 +33,7 @@ class _LiveStreamWidgetState extends State<LiveStreamWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.rtsp);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Live Stream RTSP'),

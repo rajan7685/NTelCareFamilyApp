@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
@@ -22,6 +23,9 @@ class UrgentBandWidget extends StatefulWidget {
 
 DateTime dateTime = DateTime.now();
 String dateToday = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+List<dynamic> _bandData = [];
+bool _isBandDataLoading = true;
 
 dynamic Hrate;
 bool daily = true;
@@ -51,6 +55,8 @@ class _UrgentBandWidgetState extends State<UrgentBandWidget> {
     getStepWeekRate();
     getStepMonthlyRate();
     getStepYearlyRate();
+
+    _loadBandData(DateTime.now(), init: true);
   }
 
   bool checkLimit(DateTime limitDay) {
@@ -114,6 +120,21 @@ class _UrgentBandWidgetState extends State<UrgentBandWidget> {
       stepStat = temp;
     });
     print(stepStat);
+  }
+
+  Future<void> _loadBandData(DateTime date, {bool init = false}) async {
+    if (!init)
+      setState(() {
+        _isBandDataLoading = true;
+      });
+    String uri =
+        "${ApiService.domain}/table/sensors?sensor_name=SOS&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}";
+    Response res = await Dio().get(uri);
+    _bandData = res.data["data"];
+    print("bandData $_bandData");
+    setState(() {
+      _isBandDataLoading = false;
+    });
   }
 
   List<charts.Series<StepStatMonth, String>> _createSampleData() {
@@ -682,6 +703,7 @@ class _UrgentBandWidgetState extends State<UrgentBandWidget> {
                                       dateTime =
                                           dateTime.subtract(Duration(days: 1));
                                       getStepscount();
+                                      _loadBandData(dateTime);
                                     });
                                   }
                                   if (weekly == true) {
@@ -815,6 +837,7 @@ class _UrgentBandWidgetState extends State<UrgentBandWidget> {
                                         dateTime =
                                             dateTime.add(Duration(days: 1));
                                         getStepscount();
+                                        _loadBandData(dateTime);
                                       }
                                     });
                                   } else if (weekly == true) {
@@ -908,253 +931,190 @@ class _UrgentBandWidgetState extends State<UrgentBandWidget> {
                                 //         color: charts.MaterialPalette.white),
                                 //   )),
                                 // ),
-                                child: Table(
-                                  //textDirection: TextDirection.,
-                                  defaultVerticalAlignment:
-                                      TableCellVerticalAlignment.top,
-                                  // defaultColumnWidth: FixedColumnWidth(120),
+                                child: SingleChildScrollView(
+                                  child: !_isBandDataLoading
+                                      ? Table(
+                                          //textDirection: TextDirection.,
+                                          defaultVerticalAlignment:
+                                              TableCellVerticalAlignment.top,
+                                          // defaultColumnWidth: FixedColumnWidth(120),
 
-                                  border: TableBorder.all(
-                                    width: 2.0,
-                                    color: Color(0xFF272E36),
-                                  ),
-                                  children: [
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Time",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFF00B89F),
-                                                fontFamily: 'Montserrat'),
+                                          border: TableBorder.all(
+                                            width: 2.0,
+                                            color: Color(0xFF272E36),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "SOS Button",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFF00B89F),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "29-Sep-2022",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Triggered",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "30-Sep-2022",
-                                            textAlign: TextAlign.center,
-                                            // textScaleFactor: 1.5,
-                                            style: TextStyle(
-                                              color: Color(0xFFAFAFAF),
-                                              fontFamily: 'Montserrat',
+                                          children: [
+                                            TableRow(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.all(10.0),
+                                                  child: Text(
+                                                    "Time",
+                                                    // textScaleFactor: 1.5,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFF00B89F),
+                                                        fontFamily:
+                                                            'Montserrat'),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.all(10.0),
+                                                  child: Text(
+                                                    "SOS Button",
+                                                    // textScaleFactor: 1.5,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFF00B89F),
+                                                        fontFamily:
+                                                            'Montserrat'),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
+                                            if (_bandData.length == 0)
+                                              TableRow(children: [
+                                                Text(
+                                                  "No data",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                Text("available",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.white))
+                                              ]),
+                                            if (!_isBandDataLoading &&
+                                                _bandData.length != 0)
+                                              ...List.generate(
+                                                _bandData.length,
+                                                (index) => TableRow(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(10.0),
+                                                      child: Text(
+                                                        DateFormat("h:mm a")
+                                                            .format(DateTime.parse(
+                                                                    "${dateTime.toString().split(" ")[0]} ${_bandData[index]["time"]}Z")
+                                                                .toLocal()),
+                                                        // textScaleFactor: 1.5,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFFAFAFAF),
+                                                            fontFamily:
+                                                                'Montserrat'),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(10.0),
+                                                      child: Text(
+                                                        _bandData[index]
+                                                                ["value"]
+                                                            ? "Triggered"
+                                                            : "nil",
+                                                        // textScaleFactor: 1.5,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFFAFAFAF),
+                                                            fontFamily:
+                                                                'Montserrat'),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            // TableRow(
+                                            //   children: [
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "04-Oct-2022",
+                                            //         textAlign: TextAlign.center,
+                                            //         // textScaleFactor: 1.5,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "Triggered",
+                                            //         // textScaleFactor: 1.5,
+                                            //         textAlign: TextAlign.center,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                            // TableRow(
+                                            //   children: [
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "05-Oct-2022",
+                                            //         textAlign: TextAlign.center,
+                                            //         // textScaleFactor: 1.5,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "Triggered",
+                                            //         // textScaleFactor: 1.5,
+                                            //         textAlign: TextAlign.center,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                            // TableRow(
+                                            //   children: [
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "06-Oct-2022",
+                                            //         textAlign: TextAlign.center,
+                                            //         // textScaleFactor: 1.5,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "Triggered",
+                                            //         // textScaleFactor: 1.5,
+                                            //         textAlign: TextAlign.center,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                          ],
+                                        )
+                                      : Center(
+                                          child: CircularProgressIndicator(),
                                         ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Triggered",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "01-Oct-2022",
-                                            textAlign: TextAlign.center,
-                                            // textScaleFactor: 1.5,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Triggered",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "02-Oct-2022",
-                                            textAlign: TextAlign.center,
-                                            // textScaleFactor: 1.5,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Triggered",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "03-Oct-2022",
-                                            textAlign: TextAlign.center,
-                                            // textScaleFactor: 1.5,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Triggered",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    // TableRow(
-                                    //   children: [
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "04-Oct-2022",
-                                    //         textAlign: TextAlign.center,
-                                    //         // textScaleFactor: 1.5,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "Triggered",
-                                    //         // textScaleFactor: 1.5,
-                                    //         textAlign: TextAlign.center,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                    // TableRow(
-                                    //   children: [
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "05-Oct-2022",
-                                    //         textAlign: TextAlign.center,
-                                    //         // textScaleFactor: 1.5,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "Triggered",
-                                    //         // textScaleFactor: 1.5,
-                                    //         textAlign: TextAlign.center,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                    // TableRow(
-                                    //   children: [
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "06-Oct-2022",
-                                    //         textAlign: TextAlign.center,
-                                    //         // textScaleFactor: 1.5,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "Triggered",
-                                    //         // textScaleFactor: 1.5,
-                                    //         textAlign: TextAlign.center,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                  ],
                                 ),
                               )
                               // Image.asset(

@@ -5,7 +5,7 @@ class ApiService {
   //     'https://netlcare-admin-api.regamicompass.com';
 
   static final String _productionUrl = 'https://api.ntelcare.com';
-  static final String _testingUrl = 'https://067d-111-223-28-67.in.ngrok.io';
+  static final String _testingUrl = 'http://35.87.46.41:5000/';
 
   static String domain = _debug ? _testingUrl : _productionUrl;
 }

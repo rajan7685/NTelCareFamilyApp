@@ -962,10 +962,12 @@ class _PillWidgetState extends State<PillWidget> {
                                             TableRow(children: [
                                               Text(
                                                 "No data",
+                                                textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               ),
                                               Text("available",
+                                                  textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white))
                                             ]),
@@ -979,8 +981,10 @@ class _PillWidgetState extends State<PillWidget> {
                                                     padding:
                                                         EdgeInsets.all(10.0),
                                                     child: Text(
-                                                      _pillboxData[index]
-                                                          ["time"],
+                                                      DateFormat("h:mm a")
+                                                          .format(DateTime.parse(
+                                                                  "${dateTime.toString().split(" ")[0]} ${_pillboxData[index]["time"]}Z")
+                                                              .toLocal()),
                                                       // textScaleFactor: 1.5,
                                                       textAlign:
                                                           TextAlign.center,
