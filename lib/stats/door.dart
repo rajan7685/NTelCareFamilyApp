@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
@@ -22,6 +23,9 @@ class DoorWidget extends StatefulWidget {
 
 DateTime dateTime = DateTime.now();
 String dateToday = DateFormat('dd-MM-yyyy').format(DateTime.now());
+
+List<dynamic> _doorData = [];
+bool _isDoorDataLoading = true;
 
 dynamic Hrate;
 bool daily = true;
@@ -51,6 +55,7 @@ class _DoorWidgetState extends State<DoorWidget> {
     getStepWeekRate();
     getStepMonthlyRate();
     getStepYearlyRate();
+    _loadDoorData(DateTime.now(), init: true);
   }
 
   bool checkLimit(DateTime limitDay) {
@@ -60,6 +65,21 @@ class _DoorWidgetState extends State<DoorWidget> {
       return false;
     }
     return true;
+  }
+
+  Future<void> _loadDoorData(DateTime date, {bool init = false}) async {
+    if (!init)
+      setState(() {
+        _isDoorDataLoading = true;
+      });
+    String uri =
+        "${ApiService.domain}/table/sensors?sensor_name=Door&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}";
+    Response res = await Dio().get(uri);
+    _doorData = res.data["data"];
+    print(_doorData);
+    setState(() {
+      _isDoorDataLoading = false;
+    });
   }
 
   Future displayDateRangePicker(context) async {
@@ -681,7 +701,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                                     setState(() {
                                       dateTime =
                                           dateTime.subtract(Duration(days: 1));
-                                      getStepscount();
+                                      _loadDoorData(dateTime);
                                     });
                                   }
                                   if (weekly == true) {
@@ -814,7 +834,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                                           dateToday) {
                                         dateTime =
                                             dateTime.add(Duration(days: 1));
-                                        getStepscount();
+                                        _loadDoorData(dateTime);
                                       }
                                     });
                                   } else if (weekly == true) {
@@ -908,253 +928,188 @@ class _DoorWidgetState extends State<DoorWidget> {
                                 //         color: charts.MaterialPalette.white),
                                 //   )),
                                 // ),
-                                child: Table(
-                                  //textDirection: TextDirection.,
-                                  defaultVerticalAlignment:
-                                      TableCellVerticalAlignment.top,
-                                  // defaultColumnWidth: FixedColumnWidth(120),
+                                child: SingleChildScrollView(
+                                  child: !_isDoorDataLoading
+                                      ? Table(
+                                          //textDirection: TextDirection.,
+                                          defaultVerticalAlignment:
+                                              TableCellVerticalAlignment.top,
+                                          // defaultColumnWidth: FixedColumnWidth(120),
 
-                                  border: TableBorder.all(
-                                    width: 2.0,
-                                    color: Color(0xFF272E36),
-                                  ),
-                                  children: [
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Time",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFF00B89F),
-                                                fontFamily: 'Montserrat'),
+                                          border: TableBorder.all(
+                                            width: 2.0,
+                                            color: Color(0xFF272E36),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Door Sensor",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFF00B89F),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "29-Sep-2022",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Open",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "30-Sep-2022",
-                                            textAlign: TextAlign.center,
-                                            // textScaleFactor: 1.5,
-                                            style: TextStyle(
-                                              color: Color(0xFFAFAFAF),
-                                              fontFamily: 'Montserrat',
+                                          children: [
+                                            TableRow(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.all(10.0),
+                                                  child: Text(
+                                                    "Time",
+                                                    // textScaleFactor: 1.5,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFF00B89F),
+                                                        fontFamily:
+                                                            'Montserrat'),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.all(10.0),
+                                                  child: Text(
+                                                    "Door Sensor",
+                                                    // textScaleFactor: 1.5,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFF00B89F),
+                                                        fontFamily:
+                                                            'Montserrat'),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
+                                            if (_doorData.length == 0)
+                                              TableRow(children: [
+                                                Text(
+                                                  "No data",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                Text("available",
+                                                    style: TextStyle(
+                                                        color: Colors.white))
+                                              ]),
+                                            if (!_isDoorDataLoading &&
+                                                _doorData.length != 0)
+                                              ...List.generate(
+                                                _doorData.length,
+                                                (index) => TableRow(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(10.0),
+                                                      child: Text(
+                                                        DateFormat("h:mm a")
+                                                            .format(DateTime.parse(
+                                                                    "${dateTime.toString().split(" ")[0]} ${_doorData[index]["time"]}Z")
+                                                                .toLocal()),
+                                                        // textScaleFactor: 1.5,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFFAFAFAF),
+                                                            fontFamily:
+                                                                'Montserrat'),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(10.0),
+                                                      child: Text(
+                                                        _doorData[index]
+                                                                ["value"]
+                                                            ? "Open"
+                                                            : "Close",
+                                                        // textScaleFactor: 1.5,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            color: Color(
+                                                                0xFFAFAFAF),
+                                                            fontFamily:
+                                                                'Montserrat'),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            // TableRow(
+                                            //   children: [
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "04-Oct-2022",
+                                            //         textAlign: TextAlign.center,
+                                            //         // textScaleFactor: 1.5,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "Closed",
+                                            //         // textScaleFactor: 1.5,
+                                            //         textAlign: TextAlign.center,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                            // TableRow(
+                                            //   children: [
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "05-Oct-2022",
+                                            //         textAlign: TextAlign.center,
+                                            //         // textScaleFactor: 1.5,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "Open",
+                                            //         // textScaleFactor: 1.5,
+                                            //         textAlign: TextAlign.center,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                            // TableRow(
+                                            //   children: [
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "06-Oct-2022",
+                                            //         textAlign: TextAlign.center,
+                                            //         // textScaleFactor: 1.5,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //     Padding(
+                                            //       padding: EdgeInsets.all(10.0),
+                                            //       child: Text(
+                                            //         "Closed",
+                                            //         // textScaleFactor: 1.5,
+                                            //         textAlign: TextAlign.center,
+                                            //         style: TextStyle(
+                                            //             color: Color(0xFFAFAFAF),
+                                            //             fontFamily: 'Montserrat'),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                          ],
+                                        )
+                                      : Center(
+                                          child: CircularProgressIndicator(),
                                         ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Closed",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "01-Oct-2022",
-                                            textAlign: TextAlign.center,
-                                            // textScaleFactor: 1.5,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Open",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "02-Oct-2022",
-                                            textAlign: TextAlign.center,
-                                            // textScaleFactor: 1.5,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Closed",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    TableRow(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "03-Oct-2022",
-                                            textAlign: TextAlign.center,
-                                            // textScaleFactor: 1.5,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Text(
-                                            "Open",
-                                            // textScaleFactor: 1.5,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Color(0xFFAFAFAF),
-                                                fontFamily: 'Montserrat'),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    // TableRow(
-                                    //   children: [
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "04-Oct-2022",
-                                    //         textAlign: TextAlign.center,
-                                    //         // textScaleFactor: 1.5,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "Closed",
-                                    //         // textScaleFactor: 1.5,
-                                    //         textAlign: TextAlign.center,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                    // TableRow(
-                                    //   children: [
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "05-Oct-2022",
-                                    //         textAlign: TextAlign.center,
-                                    //         // textScaleFactor: 1.5,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "Open",
-                                    //         // textScaleFactor: 1.5,
-                                    //         textAlign: TextAlign.center,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                    // TableRow(
-                                    //   children: [
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "06-Oct-2022",
-                                    //         textAlign: TextAlign.center,
-                                    //         // textScaleFactor: 1.5,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //     Padding(
-                                    //       padding: EdgeInsets.all(10.0),
-                                    //       child: Text(
-                                    //         "Closed",
-                                    //         // textScaleFactor: 1.5,
-                                    //         textAlign: TextAlign.center,
-                                    //         style: TextStyle(
-                                    //             color: Color(0xFFAFAFAF),
-                                    //             fontFamily: 'Montserrat'),
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                  ],
                                 ),
                               )
                               // Image.asset(

@@ -42,6 +42,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
   bool _isDashboardDataLoading = true;
   List<dynamic> _seniorsList = [];
   bool _isSeniorListDataLoading = true;
+  List<String> _sensorActiveList = [];
+  List<String> _sensorStatusList = [];
 
   _isSelected(int index) {
     setState(() {
@@ -94,8 +96,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     final ApiCallResponse _data = await DashBoardStat.call(id: seniorId);
     // print('data: ${_data.jsonBody["dashboard"]}');
     dashboardData = _data.jsonBody["dashboard"];
-    print(" dashboard sensor value ${dashboardData["sensors_status"]}");
-    print(" dashboard sens ${dashboardData['sensors_active']}");
+    (dashboardData["sensors_active"] as List).forEach((e) =>
+        _sensorActiveList.add((e["sensor_name"] as String).toLowerCase()));
+    print("sensor active list $_sensorActiveList");
     setState(() {
       _isDashboardDataLoading = false;
     });
@@ -103,8 +106,6 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        'senior pillbox data : ${dashboardData["sensors_status"]["pillbox"]["battery"]}');
     return RefreshIndicator(
         onRefresh: () async {
           await _fetchDashBoardData(_seniorsList[isSelected]["id"]);
@@ -1656,615 +1657,393 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                           ),
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 0, 0),
-                                          child: Container(
-                                            height: 140,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFF272E36),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: InkWell(
-                                              onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PillWidget(
-                                                            data: dashboardData[
-                                                                    "senior"]
-                                                                ["id"]),
-                                                  ),
-                                                );
-                                              },
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Stack(
-                                                    children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        15,
-                                                                        0,
-                                                                        0,
-                                                                        0),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0,
-                                                                          10,
-                                                                          0,
-                                                                          0),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Text(
-                                                                        'PillBox',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyText1
-                                                                            .override(
-                                                                              fontFamily: 'Montserrat',
-                                                                              color: Color(0xFF00B89F),
-                                                                              fontSize: 10,
-                                                                              fontWeight: FontWeight.w300,
-                                                                            ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      dashboardData["sensors_status"]["pillbox"]["bool"] !=
-                                                                              null
-                                                                          ? dashboardData["sensors_status"]["pillbox"]["bool"].toString().isEmpty
-                                                                              ? "Closed"
-                                                                              : (dashboardData["sensors_status"]["pillbox"]["bool"] ? "Accessed" : " Not Accessed")
-                                                                          : "No Data",
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText1
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            color:
-                                                                                Color(0xFFE5E5E5),
-                                                                            fontSize:
-                                                                                20,
-                                                                            fontWeight:
-                                                                                FontWeight.w200,
-                                                                          ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              10,
-                                                                              0,
-                                                                              0,
-                                                                              0),
-                                                                      child: SvgPicture
-                                                                          .asset(
-                                                                        'assets/images/batteryL.svg',
-                                                                        width:
-                                                                            20,
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              5,
-                                                                              0,
-                                                                              0,
-                                                                              0),
-                                                                      child:
-                                                                          Text(
-                                                                        dashboardData["sensors_status"]["pillbox"]["battery"] !=
-                                                                                null
-                                                                            ? dashboardData["sensors_status"]["pillbox"]["battery"] +
-                                                                                "%"
-                                                                            : "00 %",
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyText1
-                                                                            .override(
-                                                                              fontFamily: 'Montserrat',
-                                                                              color: Colors.yellow,
-                                                                              fontSize: 10,
-                                                                              fontWeight: FontWeight.w200,
-                                                                            ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        20,
-                                                                        0,
-                                                                        0),
-                                                            child: Icon(
-                                                              Icons
-                                                                  .arrow_forward_ios_sharp,
-                                                              color: Color(
-                                                                  0xFF00B89F),
-                                                              size: 35,
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        1,
-                                                                        0,
-                                                                        0),
-                                                            child: Image.asset(
-                                                              'assets/images/8675105_ic_fluent_pill_regular_icon.png',
-                                                              height: 80,
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                      if (_sensorActiveList.contains("pillbox"))
+                                        Expanded(
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10, 0, 0, 0),
+                                            child: Container(
+                                              height: 140,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFF272E36),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                               ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 10, 10),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          height: 140,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFF272E36),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DoorWidget(
-                                                          data: dashboardData[
-                                                              "senior"]["id"]),
-                                                ),
-                                              );
-                                            },
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Stack(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  15, 0, 50, 0),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        10,
-                                                                        0,
-                                                                        0),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Text(
-                                                                  'Door',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Montserrat',
-                                                                        color: Color(
-                                                                            0xFF00B89F),
-                                                                        fontSize:
-                                                                            10,
-                                                                        fontWeight:
-                                                                            FontWeight.w300,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Text(
-                                                                dashboardData["sensors_status"]["door"]
-                                                                            [
-                                                                            "bool"] !=
-                                                                        null
-                                                                    ? dashboardData["sensors_status"]["door"]["bool"]
-                                                                            .toString()
-                                                                            .isEmpty
-                                                                        ? "Closed"
-                                                                        : (dashboardData["sensors_status"]["door"]["bool"]
-                                                                            ? "Opened"
-                                                                            : "Closed")
-                                                                    : "No Data",
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Montserrat',
-                                                                      color: Color(
-                                                                          0xFFE5E5E5),
-                                                                      fontSize:
-                                                                          20,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w200,
-                                                                    ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child:
-                                                                    SvgPicture
-                                                                        .asset(
-                                                                  'assets/images/batteryL.svg',
-                                                                  width: 20,
-                                                                  color: Colors
-                                                                      .red,
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Text(
-                                                                  dashboardData["sensors_status"]["door"]
-                                                                              [
-                                                                              "battery"] !=
-                                                                          null
-                                                                      ? dashboardData["sensors_status"]["door"]
-                                                                              [
-                                                                              "battery"] +
-                                                                          "%"
-                                                                      : "00 %",
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Montserrat',
-                                                                        color: Colors
-                                                                            .red,
-                                                                        fontSize:
-                                                                            10,
-                                                                        fontWeight:
-                                                                            FontWeight.w200,
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          PillWidget(
+                                                              data: dashboardData[
+                                                                      "senior"]
+                                                                  ["id"]),
                                                     ),
-                                                  ],
-                                                ),
-                                                Column(
+                                                  );
+                                                },
+                                                child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
+                                                    Stack(
                                                       children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      20, 0, 0),
-                                                          child: Icon(
-                                                            Icons
-                                                                .arrow_forward_ios_sharp,
-                                                            color: Color(
-                                                                0xFF00B89F),
-                                                            size: 35,
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      1, 0, 0),
-                                                          child: Image.asset(
-                                                            'assets/images/7068954_furniture_door_interior_house_front_icon.png',
-                                                            height: 80,
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 0, 0),
-                                          child: Container(
-                                            height: 140,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFF272E36),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: InkWell(
-                                              onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ShowerWidget(
-                                                            data: dashboardData[
-                                                                    "senior"]
-                                                                ["id"]),
-                                                  ),
-                                                );
-                                              },
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Stack(
-                                                    children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        15,
-                                                                        0,
-                                                                        0,
-                                                                        0),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
+                                                                          15,
                                                                           0,
-                                                                          10,
                                                                           0,
                                                                           0),
-                                                                  child: Row(
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            10,
+                                                                            0,
+                                                                            0),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Text(
+                                                                          'PillBox',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyText1
+                                                                              .override(
+                                                                                fontFamily: 'Montserrat',
+                                                                                color: Color(0xFF00B89F),
+                                                                                fontSize: 10,
+                                                                                fontWeight: FontWeight.w300,
+                                                                              ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
                                                                       Text(
-                                                                        'Shower',
+                                                                        dashboardData["sensors_status"]["pillbox"]["bool"] !=
+                                                                                null
+                                                                            ? dashboardData["sensors_status"]["pillbox"]["bool"].toString().isEmpty
+                                                                                ? "Closed"
+                                                                                : (dashboardData["sensors_status"]["pillbox"]["bool"] ? "Accessed" : " Not Accessed")
+                                                                            : "No Data",
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(
                                                                               fontFamily: 'Montserrat',
-                                                                              color: Color(0xFF00B89F),
-                                                                              fontSize: 10,
-                                                                              fontWeight: FontWeight.w300,
+                                                                              color: Color(0xFFE5E5E5),
+                                                                              fontSize: 20,
+                                                                              fontWeight: FontWeight.w200,
                                                                             ),
                                                                       ),
                                                                     ],
                                                                   ),
-                                                                ),
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      dashboardData["sensors_status"]["bath"] !=
-                                                                              null
-                                                                          ? dashboardData["sensors_status"]["bath"].toString().isEmpty
-                                                                              ? "Not Bathed"
-                                                                              : dashboardData["sensors_status"]["bath"]["bool"] != true
-                                                                                  ? "Not Bathed"
-                                                                                  : "Bathed"
-                                                                          : "No Data",
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText1
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            color:
-                                                                                Color(0xFFE5E5E5),
-                                                                            fontSize:
-                                                                                20,
-                                                                            fontWeight:
-                                                                                FontWeight.w200,
-                                                                          ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              5,
-                                                                              0,
-                                                                              0,
-                                                                              0),
-                                                                      child: SvgPicture.asset(
+                                                                  Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            10,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                        child: SvgPicture
+                                                                            .asset(
                                                                           'assets/images/batteryL.svg',
                                                                           width:
                                                                               20,
-                                                                          color:
-                                                                              Color(0xFF00B89F)),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              5,
-                                                                              0,
-                                                                              0,
-                                                                              0),
-                                                                      child:
-                                                                          Text(
-                                                                        dashboardData["sensors_status"]["bath"]["battery"] !=
-                                                                                null
-                                                                            ? dashboardData["sensors_status"]["bath"]["battery"] +
-                                                                                "%"
-                                                                            : "00 %",
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyText1
-                                                                            .override(
-                                                                              fontFamily: 'Montserrat',
-                                                                              color: Color(0xFF00B89F),
-                                                                              fontSize: 10,
-                                                                              fontWeight: FontWeight.w200,
-                                                                            ),
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                  ],
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                        child:
+                                                                            Text(
+                                                                          dashboardData["sensors_status"]["pillbox"]["battery"] != null
+                                                                              ? dashboardData["sensors_status"]["pillbox"]["battery"] + "%"
+                                                                              : "00 %",
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyText1
+                                                                              .override(
+                                                                                fontFamily: 'Montserrat',
+                                                                                color: Colors.yellow,
+                                                                                fontSize: 10,
+                                                                                fontWeight: FontWeight.w200,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          20,
+                                                                          0,
+                                                                          0),
+                                                              child: Icon(
+                                                                Icons
+                                                                    .arrow_forward_ios_sharp,
+                                                                color: Color(
+                                                                    0xFF00B89F),
+                                                                size: 35,
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          1,
+                                                                          0,
+                                                                          0),
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/8675105_ic_fluent_pill_regular_icon.png',
+                                                                height: 80,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                                if (_sensorActiveList.contains("door"))
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10, 0, 10, 10),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            height: 140,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFF272E36),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DoorWidget(
+                                                            data: dashboardData[
+                                                                    "senior"]
+                                                                ["id"]),
+                                                  ),
+                                                );
+                                              },
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Stack(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(15, 0,
+                                                                    50, 0),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          10,
+                                                                          0,
+                                                                          0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Text(
+                                                                    'Door',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Montserrat',
+                                                                          color:
+                                                                              Color(0xFF00B89F),
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontWeight:
+                                                                              FontWeight.w300,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Text(
+                                                                  dashboardData["sensors_status"]["door"]
+                                                                              [
+                                                                              "bool"] !=
+                                                                          null
+                                                                      ? dashboardData["sensors_status"]["door"]["bool"]
+                                                                              .toString()
+                                                                              .isEmpty
+                                                                          ? "Closed"
+                                                                          : (dashboardData["sensors_status"]["door"]["bool"]
+                                                                              ? "Opened"
+                                                                              : "Closed")
+                                                                      : "No Data",
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        color: Color(
+                                                                            0xFFE5E5E5),
+                                                                        fontSize:
+                                                                            20,
+                                                                        fontWeight:
+                                                                            FontWeight.w200,
+                                                                      ),
                                                                 ),
                                                               ],
                                                             ),
-                                                          ),
-                                                        ],
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  child:
+                                                                      SvgPicture
+                                                                          .asset(
+                                                                    'assets/images/batteryL.svg',
+                                                                    width: 20,
+                                                                    color: Colors
+                                                                        .red,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  child: Text(
+                                                                    dashboardData["sensors_status"]["door"]["battery"] !=
+                                                                            null
+                                                                        ? dashboardData["sensors_status"]["door"]["battery"] +
+                                                                            "%"
+                                                                        : "00 %",
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Montserrat',
+                                                                          color:
+                                                                              Colors.red,
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontWeight:
+                                                                              FontWeight.w200,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -2311,7 +2090,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         0,
                                                                         0),
                                                             child: Image.asset(
-                                                              'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon.png',
+                                                              'assets/images/7068954_furniture_door_interior_house_front_icon.png',
                                                               height: 80,
                                                               fit: BoxFit.fill,
                                                             ),
@@ -2325,82 +2104,331 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                    10,
-                                    0,
-                                    180,
-                                    10,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          height: 140,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFF272E36),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      UrgentBandWidget(
-                                                          data: dashboardData[
-                                                              "senior"]["id"]),
+                                        if (_sensorActiveList
+                                            .contains("bathroom"))
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(10, 0, 0, 0),
+                                              child: Container(
+                                                height: 140,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF272E36),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
                                                 ),
-                                              );
-                                            },
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Stack(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                        15,
-                                                        0,
-                                                        50,
-                                                        0,
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ShowerWidget(
+                                                                data: dashboardData[
+                                                                        "senior"]
+                                                                    ["id"]),
                                                       ),
-                                                      child: Column(
+                                                    );
+                                                  },
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Stack(
+                                                        children: [
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            15,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              10,
+                                                                              0,
+                                                                              0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Shower',
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Montserrat',
+                                                                                  color: Color(0xFF00B89F),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w300,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Text(
+                                                                          dashboardData["sensors_status"]["bath"] != null
+                                                                              ? dashboardData["sensors_status"]["bath"].toString().isEmpty
+                                                                                  ? "Not Bathed"
+                                                                                  : dashboardData["sensors_status"]["bath"]["bool"] != true
+                                                                                      ? "Not Bathed"
+                                                                                      : "Bathed"
+                                                                              : "No Data",
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyText1
+                                                                              .override(
+                                                                                fontFamily: 'Montserrat',
+                                                                                color: Color(0xFFE5E5E5),
+                                                                                fontSize: 20,
+                                                                                fontWeight: FontWeight.w200,
+                                                                              ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                          child: SvgPicture.asset(
+                                                                              'assets/images/batteryL.svg',
+                                                                              width: 20,
+                                                                              color: Color(0xFF00B89F)),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              Text(
+                                                                            dashboardData["sensors_status"]["bath"]["battery"] != null
+                                                                                ? dashboardData["sensors_status"]["bath"]["battery"] + "%"
+                                                                                : "00 %",
+                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                  fontFamily: 'Montserrat',
+                                                                                  color: Color(0xFF00B89F),
+                                                                                  fontSize: 10,
+                                                                                  fontWeight: FontWeight.w200,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
-                                                                .start,
+                                                                .end,
                                                         children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        10,
-                                                                        0,
-                                                                        0),
-                                                            child: Row(
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            20,
+                                                                            0,
+                                                                            0),
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .arrow_forward_ios_sharp,
+                                                                  color: Color(
+                                                                      0xFF00B89F),
+                                                                  size: 35,
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            1,
+                                                                            0,
+                                                                            0),
+                                                                child:
+                                                                    Image.asset(
+                                                                  'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon.png',
+                                                                  height: 80,
+                                                                  fit: BoxFit
+                                                                      .fill,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                if (_sensorActiveList.contains("sos"))
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                      10,
+                                      0,
+                                      180,
+                                      10,
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            height: 140,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFF272E36),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        UrgentBandWidget(
+                                                            data: dashboardData[
+                                                                    "senior"]
+                                                                ["id"]),
+                                                  ),
+                                                );
+                                              },
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Stack(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                          15,
+                                                          0,
+                                                          50,
+                                                          0,
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0,
+                                                                          10,
+                                                                          0,
+                                                                          0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Text(
+                                                                    'Urgent Band',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Montserrat',
+                                                                          color:
+                                                                              Color(0xFF00B89F),
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontWeight:
+                                                                              FontWeight.w300,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Row(
                                                               mainAxisSize:
                                                                   MainAxisSize
                                                                       .max,
                                                               children: [
                                                                 Text(
-                                                                  'Urgent Band',
+                                                                  dashboardData["sensors_status"]["sos"]
+                                                                              [
+                                                                              "bool"] !=
+                                                                          null
+                                                                      ? dashboardData["sensors_status"]["sos"]["bool"]
+                                                                              .toString()
+                                                                              .isEmpty
+                                                                          ? "Closed"
+                                                                          : (dashboardData["sensors_status"]["sos"]["bool"]
+                                                                              ? "Triggered"
+                                                                              : "")
+                                                                      : "No Data",
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyText1
@@ -2408,168 +2436,132 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         fontFamily:
                                                                             'Montserrat',
                                                                         color: Color(
-                                                                            0xFF00B89F),
+                                                                            0xFFE5E5E5),
                                                                         fontSize:
-                                                                            10,
-                                                                        fontWeight:
-                                                                            FontWeight.w300,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Text(
-                                                                dashboardData["sensors_status"]["sos"]
-                                                                            [
-                                                                            "bool"] !=
-                                                                        null
-                                                                    ? dashboardData["sensors_status"]["sos"]["bool"]
-                                                                            .toString()
-                                                                            .isEmpty
-                                                                        ? "Closed"
-                                                                        : (dashboardData["sensors_status"]["sos"]["bool"]
-                                                                            ? "Triggered"
-                                                                            : "")
-                                                                    : "No Data",
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Montserrat',
-                                                                      color: Color(
-                                                                          0xFFE5E5E5),
-                                                                      fontSize:
-                                                                          20,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w200,
-                                                                    ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child:
-                                                                    SvgPicture
-                                                                        .asset(
-                                                                  'assets/images/batteryL.svg',
-                                                                  width: 20,
-                                                                  color: Colors
-                                                                      .red,
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                child: Text(
-                                                                  dashboardData["sensors_status"]["sos"]
-                                                                              [
-                                                                              "battery"] !=
-                                                                          null
-                                                                      ? dashboardData["sensors_status"]["sos"]
-                                                                              [
-                                                                              "battery"] +
-                                                                          "%"
-                                                                      : "00 %",
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Montserrat',
-                                                                        color: Colors
-                                                                            .red,
-                                                                        fontSize:
-                                                                            10,
+                                                                            20,
                                                                         fontWeight:
                                                                             FontWeight.w200,
                                                                       ),
                                                                 ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  child:
+                                                                      SvgPicture
+                                                                          .asset(
+                                                                    'assets/images/batteryL.svg',
+                                                                    width: 20,
+                                                                    color: Colors
+                                                                        .red,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  child: Text(
+                                                                    dashboardData["sensors_status"]["sos"]["battery"] !=
+                                                                            null
+                                                                        ? dashboardData["sensors_status"]["sos"]["battery"] +
+                                                                            "%"
+                                                                        : "00 %",
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Montserrat',
+                                                                          color:
+                                                                              Colors.red,
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontWeight:
+                                                                              FontWeight.w200,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0,
+                                                                        20,
+                                                                        0,
+                                                                        0),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .arrow_forward_ios_sharp,
+                                                              color: Color(
+                                                                  0xFF00B89F),
+                                                              size: 35,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0,
+                                                                        1,
+                                                                        0,
+                                                                        0),
+                                                            child: SvgPicture
+                                                                .asset(
+                                                              'assets/images/sos.svg',
+                                                              height: 80,
+                                                              fit: BoxFit.fill,
+                                                            ),
                                                           ),
                                                         ],
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      20, 0, 0),
-                                                          child: Icon(
-                                                            Icons
-                                                                .arrow_forward_ios_sharp,
-                                                            color: Color(
-                                                                0xFF00B89F),
-                                                            size: 35,
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      1, 0, 0),
-                                                          child:
-                                                              SvgPicture.asset(
-                                                            'assets/images/sos.svg',
-                                                            height: 80,
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                )
+                                      ],
+                                    ),
+                                  )
                               ],
                             ),
                           ),
