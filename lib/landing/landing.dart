@@ -103,8 +103,6 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        'senior pillbox data : ${dashboardData["sensors_status"]["pillbox"]["battery"]}');
     return RefreshIndicator(
         onRefresh: () async {
           await _fetchDashBoardData(_seniorsList[isSelected]["id"]);
