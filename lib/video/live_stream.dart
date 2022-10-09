@@ -42,10 +42,14 @@ class _LiveStreamWidgetState extends State<LiveStreamWidget> {
         // VideoPlayerController to finish initializing.
         body: widget.rtsp != null
             ? Center(
-                child: VlcPlayer(
-                  controller: _controller,
-                  aspectRatio: 16 / 9,
-                  placeholder: Center(child: CircularProgressIndicator()),
+                child: Stack(
+                  children: [
+                    VlcPlayer(
+                      controller: _controller,
+                      aspectRatio: 16 / 9,
+                      placeholder: Center(child: CircularProgressIndicator()),
+                    ),
+                  ],
                 ),
               )
             : Center(
