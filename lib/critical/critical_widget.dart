@@ -7,10 +7,8 @@ import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CriticalWidget extends StatefulWidget {
   const CriticalWidget({Key key}) : super(key: key);
@@ -37,9 +35,13 @@ class _CriticalWidgetState extends State<CriticalWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SList = fetchSList();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   Future<void> _loadEvents({bool init = false}) async {
@@ -49,7 +51,7 @@ class _CriticalWidgetState extends State<CriticalWidget> {
       });
     }
     String uri =
-        "${ApiService.domain}/notification/senior?senior_id=$_seniorId&date=2022-10-05";
+        "${ApiService.domain}/notification/senior?senior_id=$_seniorId&date=${DateFormat("yyyy-MM-dd").format(date)}";
     Response res = await Dio().get(uri,
         options: Options(
             headers: {"Authorization": "Bearer ${FFAppState().Token}"}));
@@ -132,7 +134,6 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                           future: SList,
                           builder: (context, snapshot) {
                             final inf = snapshot.data;
-                            _loadEvents(init: true);
                             if (!snapshot.hasData) {
                               return Text(
                                 "Loading...",
@@ -360,7 +361,23 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Today',
+                                        date.year == DateTime.now().year &&
+                                                date.month ==
+                                                    DateTime.now().month &&
+                                                date.day == DateTime.now().day
+                                            ? "Today"
+                                            : (date.year ==
+                                                        DateTime.now().year &&
+                                                    date.month ==
+                                                        DateTime.now().month &&
+                                                    date.day ==
+                                                        DateTime.now()
+                                                            .subtract(Duration(
+                                                                days: 1))
+                                                            .day
+                                                ? "Yesterday"
+                                                : DateFormat("dd MMM, yyyy")
+                                                    .format(date)),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
                                             .override(
@@ -393,27 +410,51 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                               fit: BoxFit.contain,
                                             ),
                                           ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 10, 0),
-                                            child: Text(
-                                              'Filter By',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            Color(0xFFAFAFAF),
-                                                      ),
+                                          InkWell(
+                                            onTap: () async {
+                                              DateTime _date =
+                                                  await showDatePicker(
+                                                      context: context,
+                                                      initialDate: date,
+                                                      firstDate:
+                                                          DateTime(1900, 8),
+                                                      lastDate: DateTime.now());
+                                              if (_date != null &&
+                                                  _date != date) {
+                                                setState(() {
+                                                  date = _date;
+                                                });
+                                                _loadEvents();
+                                              }
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 10, 0),
+                                                  child: Text(
+                                                    'Filter By',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color:
+                                                              Color(0xFFAFAFAF),
+                                                        ),
+                                                  ),
+                                                ),
+                                                FaIcon(
+                                                  FontAwesomeIcons.calendarAlt,
+                                                  color: Color(0xFF00B89F),
+                                                  size: 19,
+                                                ),
+                                                SizedBox(
+                                                  width: 8,
+                                                )
+                                              ],
                                             ),
-                                          ),
-                                          FaIcon(
-                                            FontAwesomeIcons.calendarAlt,
-                                            color: Color(0xFF00B89F),
-                                            size: 19,
-                                          ),
+                                          )
                                         ],
                                       ),
                                     ],
@@ -695,7 +736,7 @@ class _CriticalWidgetState extends State<CriticalWidget> {
     print(SList.jsonBody["seniors"]);
     if ((SList.jsonBody["seniors"] as List<dynamic>).length != 0)
       _seniorId = (SList.jsonBody["seniors"] as List<dynamic>)[0]["id"];
-
+    _loadEvents(init: true);
     return SList.jsonBody["seniors"];
   }
 }

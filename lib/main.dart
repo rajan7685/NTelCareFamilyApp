@@ -41,8 +41,10 @@ void main() async {
     badge: true,
     sound: true,
   );
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
   // Initialize FFAppState.
   FFAppState();
 
