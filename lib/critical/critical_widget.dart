@@ -24,6 +24,7 @@ class _CriticalWidgetState extends State<CriticalWidget> {
   int isSelected = 0;
   String _seniorId;
   List<dynamic> _eventList;
+  List<dynamic> _countries;
   DateTime date = DateTime.now();
   bool _isEventDataLoading = true;
 
@@ -287,7 +288,8 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                                           context,
                                                           MaterialPageRoute(
                                                               builder: (context) => EditSeniorsWidget(
-                                                                  countries: [],
+                                                                  countries:
+                                                                      _countries,
                                                                   data: snapshot
                                                                           .data[
                                                                       index])));
@@ -732,8 +734,7 @@ class _CriticalWidgetState extends State<CriticalWidget> {
 
   Future fetchSList() async {
     final ApiCallResponse SList = await SeniorsList.call();
-    print(SList.statusCode);
-    print(SList.jsonBody["seniors"]);
+    _countries = SList.jsonBody["countries"];
     if ((SList.jsonBody["seniors"] as List<dynamic>).length != 0)
       _seniorId = (SList.jsonBody["seniors"] as List<dynamic>)[0]["id"];
     _loadEvents(init: true);
