@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import '../main.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key key}) : super(key: key);
@@ -149,6 +150,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       fontSize: 16,
                                     ),
                             keyboardType: TextInputType.number,
+                            // inputFormatters: [
+                            //   MaskedInputFormatter('###.###.####')
+                            // ],
                           ),
                         ),
                       ),
@@ -255,6 +259,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             // print(data["access_token"]);
                             FFAppState().Token = data["access_token"];
                             FFAppState().AccountId = data["master_obj_id"];
+                            FFAppState().CurrentUserId = data["member_id"];
                             print(FFAppState().AccountId);
                             FFAppState().executive = data["execeutive"];
                             FFAppState().liveView =

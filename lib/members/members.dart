@@ -796,7 +796,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                           builder: (context) => EditMemberWidget(
                                                                               countries: countriesMember,
                                                                               data: membersList[index],
-                                                                              title: "Edit Members"),
+                                                                              title: "Edit Member"),
                                                                         ),
                                                                       );
                                                                       loadMembersData();

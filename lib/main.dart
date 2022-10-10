@@ -41,8 +41,10 @@ void main() async {
     badge: true,
     sound: true,
   );
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
   // Initialize FFAppState.
   FFAppState();
 
@@ -51,8 +53,7 @@ void main() async {
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'ntelcare', // id
-  'High Importance Notifications', // title
-  'This channel is used for important notifications.', // description
+  'High Importance Notifications',
   importance: Importance.high,
 );
 
@@ -86,11 +87,11 @@ class _MyAppState extends State<MyApp> {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
+      // print('Got a message whilst in the foreground!');
+      // print('Message data: ${message.data}');
       if (notification != null) {
-        print(notification.body);
-        print(channel.id);
+        // print(notification.body);
+        // print(channel.id);
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,
@@ -99,7 +100,6 @@ class _MyAppState extends State<MyApp> {
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
-                channel.description,
                 color: Colors.white,
 
                 // TODO add a proper drawable resource to android, for now using

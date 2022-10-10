@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
@@ -37,6 +38,8 @@ DateTime startDateMonth = dateTimeMonth.subtract(Duration(days: 30));
 DateTime endDateMonth = dateTimeMonth;
 DateTime startDateYear = dateTimeYear.subtract(Duration(days: 365));
 DateTime endDateYear = dateTimeYear;
+List<dynamic> _pillboxData = [];
+bool _pillBoxdataLoading = true;
 DateTimeRange dateRange = DateTimeRange(start: _startDate, end: _endDate);
 
 class _PillWidgetState extends State<PillWidget> {
@@ -47,6 +50,27 @@ class _PillWidgetState extends State<PillWidget> {
     getStepWeekRate();
     getStepMonthlyRate();
     getStepYearlyRate();
+    _loadPillboxTableData(DateTime.now(), init: true);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  Future<void> _loadPillboxTableData(DateTime date, {bool init = false}) async {
+    if (!init)
+      setState(() {
+        _pillBoxdataLoading = true;
+      });
+    String pillboxDataUri =
+        '${ApiService.domain}/table/sensors?sensor_name=PillBox&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}';
+    Response res = await Dio().get(pillboxDataUri);
+    _pillboxData = res.data["data"];
+    setState(() {
+      _pillBoxdataLoading = false;
+    });
+    print('sensor pillbox data ${res.data}');
   }
 
   bool checkLimit(DateTime limitDay) {
@@ -98,9 +122,9 @@ class _PillWidgetState extends State<PillWidget> {
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
     var response = await getHrate.get(
         '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
-    print(response.statusCode);
-    print(response.body.runtimeType);
-    print(response.body);
+    // print(response.statusCode);
+    // print(response.body.runtimeType);
+    // print(response.body);
     final rate = jsonDecode((response.body));
     //  print(rate["health_status"]["heart_rate"].runtimeType);
 
@@ -109,7 +133,7 @@ class _PillWidgetState extends State<PillWidget> {
     setState(() {
       stepStat = temp;
     });
-    print(stepStat);
+    // print(stepStat);
   }
 
   List<charts.Series<StepStatMonth, String>> _createSampleData() {
@@ -178,10 +202,10 @@ class _PillWidgetState extends State<PillWidget> {
       time = selectedDatum.first.datum.day;
       selectedDatum.forEach((charts.SeriesDatum datumPair) {
         measures[datumPair.series.displayName] = datumPair.datum.Stat;
-        print(datumPair.datum.Stat);
-        print(datumPair.datum.avg);
-        print(datumPair.datum.max);
-        print(datumPair.datum.min);
+        // print(datumPair.datum.Stat);
+        // print(datumPair.datum.avg);
+        // print(datumPair.datum.max);
+        // print(datumPair.datum.min);
         Dialog errorDialog = Dialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
@@ -305,14 +329,14 @@ class _PillWidgetState extends State<PillWidget> {
 
   void getStepWeekRate() async {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
-    print(wDate);
+    // print(wDate);
     var response = await getHrate.get(
         '${ApiService.domain}/graph/health_status/PillBox/weekly?date=${wDate}&senior_id=${id}');
-    print(response.statusCode);
-    print(response.body.runtimeType);
-    print(response.body);
+    // print(response.statusCode);
+    // print(response.body.runtimeType);
+    // print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["PillBox"]);
+    // print(rate["PillBox"]);
     List<StepStatMonth> temp = StepStatWeekFromJson(rate["PillBox"]);
     setState(() {
       stepMax = temp;
@@ -325,14 +349,14 @@ class _PillWidgetState extends State<PillWidget> {
 
   void getStepMonthlyRate() async {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
-    print(wDate);
+    // print(wDate);
     var response = await getHrate.get(
         '${ApiService.domain}/graph/health_status/PillBox/monthly?date=${wDate1}&senior_id=${id}');
-    print(response.statusCode);
-    print(response.body.runtimeType);
-    print(response.body);
+    // print(response.statusCode);
+    // print(response.body.runtimeType);
+    // print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["PillBox"]);
+    // print(rate["PillBox"]);
     List<StepStatMonth> temp = StepStatWeekFromJson(rate["PillBox"]);
     setState(() {
       stepMaxMon = temp;
@@ -341,14 +365,14 @@ class _PillWidgetState extends State<PillWidget> {
 
   void getStepYearlyRate() async {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
-    print(wDate2);
+    // print(wDate2);
     var response = await getHrate.get(
         '${ApiService.domain}/graph/health_status/PillBox/yearly?date=${wDate2}&senior_id=${id}');
-    print(response.statusCode);
-    print(response.body.runtimeType);
-    print(response.body);
+    // print(response.statusCode);
+    // print(response.body.runtimeType);
+    // print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["PillBox"]);
+    // print(rate["PillBox"]);
     List<PillboxStatMax> temp = PillboxStatWeekMaxFromJson(rate["PillBox"]);
     setState(() {
       stepMaxYr = temp;
@@ -440,7 +464,7 @@ class _PillWidgetState extends State<PillWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                             child: Text(
-                              'Pill Box',
+                              'PillBox',
                               style: FlutterFlowTheme.of(context)
                                   .bodyText1
                                   .override(
@@ -453,206 +477,206 @@ class _PillWidgetState extends State<PillWidget> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                  onTap: () async {
-                                    setState(() {
-                                      color1 = Color(0xFF00B89F);
-                                      color2 = Color(0xFF1A1A1A);
-                                      color3 = Color(0xFF1A1A1A);
-                                      color4 = Color(0xFF1A1A1A);
-                                      daily = true;
-                                      weekly = false;
-                                      monthly = false;
-                                      yearly = false;
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: color1,
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10),
-                                        bottomRight: Radius.circular(0),
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(0),
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 5, 0, 5),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Daily',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: Color(0xFF6D6767),
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w200,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )),
-                            ),
-                            Expanded(
-                                child: InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  color1 = Color(0xFF1A1A1A);
-                                  color2 = Color(0xFF00B89F);
-                                  color3 = Color(0xFF1A1A1A);
-                                  color4 = Color(0xFF1A1A1A);
-                                  weekly = true;
-                                  daily = false;
-                                  monthly = false;
-                                  yearly = false;
-                                  dateTimeWeek = DateTime.now();
-                                });
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: color2,
-                                  borderRadius: BorderRadius.circular(0),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 5, 0, 5),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Weekly',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFF6D6767),
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w200,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )),
-                            Expanded(
-                              child: InkWell(
-                                onTap: () async {
-                                  setState(() {
-                                    color1 = Color(0xFF1A1A1A);
-                                    color2 = Color(0xFF1A1A1A);
-                                    color3 = Color(0xFF00B89F);
-                                    color4 = Color(0xFF1A1A1A);
-                                    monthly = true;
-                                    daily = false;
-                                    weekly = false;
-                                    yearly = false;
-                                    dateTimeMonth = DateTime.now();
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: color3,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(0),
-                                      bottomRight: Radius.circular(0),
-                                      topLeft: Radius.circular(0),
-                                      topRight: Radius.circular(0),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 5, 0, 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Monthly',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFF6D6767),
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w200,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: InkWell(
-                                onTap: () async {
-                                  setState(() {
-                                    color1 = Color(0xFF1A1A1A);
-                                    color2 = Color(0xFF1A1A1A);
-                                    color3 = Color(0xFF1A1A1A);
-                                    color4 = Color(0xFF00B89F);
-                                    monthly = false;
-                                    daily = false;
-                                    weekly = false;
-                                    yearly = true;
-                                    dateTimeYear = DateTime.now();
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: color4,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(0),
-                                      bottomRight: Radius.circular(10),
-                                      topLeft: Radius.circular(0),
-                                      topRight: Radius.circular(10),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 5, 0, 5),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Yearly',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFF6D6767),
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w200,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
+                      //   child: Row(
+                      //     mainAxisSize: MainAxisSize.max,
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Expanded(
+                      //         child: InkWell(
+                      //             onTap: () async {
+                      //               setState(() {
+                      //                 color1 = Color(0xFF00B89F);
+                      //                 color2 = Color(0xFF1A1A1A);
+                      //                 color3 = Color(0xFF1A1A1A);
+                      //                 color4 = Color(0xFF1A1A1A);
+                      //                 daily = true;
+                      //                 weekly = false;
+                      //                 monthly = false;
+                      //                 yearly = false;
+                      //               });
+                      //             },
+                      //             child: Container(
+                      //               decoration: BoxDecoration(
+                      //                 color: color1,
+                      //                 borderRadius: BorderRadius.only(
+                      //                   bottomLeft: Radius.circular(10),
+                      //                   bottomRight: Radius.circular(0),
+                      //                   topLeft: Radius.circular(10),
+                      //                   topRight: Radius.circular(0),
+                      //                 ),
+                      //               ),
+                      //               child: Padding(
+                      //                 padding: EdgeInsetsDirectional.fromSTEB(
+                      //                     0, 5, 0, 5),
+                      //                 child: Row(
+                      //                   mainAxisSize: MainAxisSize.max,
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.center,
+                      //                   children: [
+                      //                     Text(
+                      //                       'Daily',
+                      //                       style: FlutterFlowTheme.of(context)
+                      //                           .bodyText1
+                      //                           .override(
+                      //                             fontFamily: 'Montserrat',
+                      //                             color: Color(0xFF6D6767),
+                      //                             fontSize: 18,
+                      //                             fontWeight: FontWeight.w200,
+                      //                           ),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             )),
+                      //       ),
+                      //       Expanded(
+                      //           child: InkWell(
+                      //         onTap: () async {
+                      //           setState(() {
+                      //             color1 = Color(0xFF1A1A1A);
+                      //             color2 = Color(0xFF00B89F);
+                      //             color3 = Color(0xFF1A1A1A);
+                      //             color4 = Color(0xFF1A1A1A);
+                      //             weekly = true;
+                      //             daily = false;
+                      //             monthly = false;
+                      //             yearly = false;
+                      //             dateTimeWeek = DateTime.now();
+                      //           });
+                      //         },
+                      //         child: Container(
+                      //           decoration: BoxDecoration(
+                      //             color: color2,
+                      //             borderRadius: BorderRadius.circular(0),
+                      //           ),
+                      //           child: Padding(
+                      //             padding: EdgeInsetsDirectional.fromSTEB(
+                      //                 0, 5, 0, 5),
+                      //             child: Row(
+                      //               mainAxisSize: MainAxisSize.max,
+                      //               mainAxisAlignment: MainAxisAlignment.center,
+                      //               children: [
+                      //                 Text(
+                      //                   'Weekly',
+                      //                   style: FlutterFlowTheme.of(context)
+                      //                       .bodyText1
+                      //                       .override(
+                      //                         fontFamily: 'Montserrat',
+                      //                         color: Color(0xFF6D6767),
+                      //                         fontSize: 18,
+                      //                         fontWeight: FontWeight.w200,
+                      //                       ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       )),
+                      //       Expanded(
+                      //         child: InkWell(
+                      //           onTap: () async {
+                      //             setState(() {
+                      //               color1 = Color(0xFF1A1A1A);
+                      //               color2 = Color(0xFF1A1A1A);
+                      //               color3 = Color(0xFF00B89F);
+                      //               color4 = Color(0xFF1A1A1A);
+                      //               monthly = true;
+                      //               daily = false;
+                      //               weekly = false;
+                      //               yearly = false;
+                      //               dateTimeMonth = DateTime.now();
+                      //             });
+                      //           },
+                      //           child: Container(
+                      //             decoration: BoxDecoration(
+                      //               color: color3,
+                      //               borderRadius: BorderRadius.only(
+                      //                 bottomLeft: Radius.circular(0),
+                      //                 bottomRight: Radius.circular(0),
+                      //                 topLeft: Radius.circular(0),
+                      //                 topRight: Radius.circular(0),
+                      //               ),
+                      //             ),
+                      //             child: Padding(
+                      //               padding: EdgeInsetsDirectional.fromSTEB(
+                      //                   0, 5, 0, 5),
+                      //               child: Row(
+                      //                 mainAxisSize: MainAxisSize.max,
+                      //                 mainAxisAlignment:
+                      //                     MainAxisAlignment.center,
+                      //                 children: [
+                      //                   Text(
+                      //                     'Monthly',
+                      //                     style: FlutterFlowTheme.of(context)
+                      //                         .bodyText1
+                      //                         .override(
+                      //                           fontFamily: 'Montserrat',
+                      //                           color: Color(0xFF6D6767),
+                      //                           fontSize: 18,
+                      //                           fontWeight: FontWeight.w200,
+                      //                         ),
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //         child: InkWell(
+                      //           onTap: () async {
+                      //             setState(() {
+                      //               color1 = Color(0xFF1A1A1A);
+                      //               color2 = Color(0xFF1A1A1A);
+                      //               color3 = Color(0xFF1A1A1A);
+                      //               color4 = Color(0xFF00B89F);
+                      //               monthly = false;
+                      //               daily = false;
+                      //               weekly = false;
+                      //               yearly = true;
+                      //               dateTimeYear = DateTime.now();
+                      //             });
+                      //           },
+                      //           child: Container(
+                      //             decoration: BoxDecoration(
+                      //               color: color4,
+                      //               borderRadius: BorderRadius.only(
+                      //                 bottomLeft: Radius.circular(0),
+                      //                 bottomRight: Radius.circular(10),
+                      //                 topLeft: Radius.circular(0),
+                      //                 topRight: Radius.circular(10),
+                      //               ),
+                      //             ),
+                      //             child: Padding(
+                      //               padding: EdgeInsetsDirectional.fromSTEB(
+                      //                   0, 5, 0, 5),
+                      //               child: Row(
+                      //                 mainAxisSize: MainAxisSize.max,
+                      //                 mainAxisAlignment:
+                      //                     MainAxisAlignment.center,
+                      //                 children: [
+                      //                   Text(
+                      //                     'Yearly',
+                      //                     style: FlutterFlowTheme.of(context)
+                      //                         .bodyText1
+                      //                         .override(
+                      //                           fontFamily: 'Montserrat',
+                      //                           color: Color(0xFF6D6767),
+                      //                           fontSize: 18,
+                      //                           fontWeight: FontWeight.w200,
+                      //                         ),
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                       // if (daily == true)
                       //   Daily()
                       // else if (monthly == true)
@@ -664,16 +688,11 @@ class _PillWidgetState extends State<PillWidget> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                print(DateFormat('dd-MM-yyyy')
-                                    .format(dateTimeWeek));
-
-                                print(DateFormat('dd-MM-yyyy')
-                                    .format(dateTimeWeek));
                                 if (daily) {
                                   setState(() {
                                     dateTime =
                                         dateTime.subtract(Duration(days: 1));
-                                    getStepscount();
+                                    _loadPillboxTableData(dateTime);
                                   });
                                 }
                                 if (weekly == true) {
@@ -806,7 +825,7 @@ class _PillWidgetState extends State<PillWidget> {
                                         dateToday) {
                                       dateTime =
                                           dateTime.add(Duration(days: 1));
-                                      getStepscount();
+                                      _loadPillboxTableData(dateTime);
                                     }
                                   });
                                 } else if (weekly == true) {
@@ -890,15 +909,196 @@ class _PillWidgetState extends State<PillWidget> {
                               decoration: BoxDecoration(
                                   color: Color(0xFF272E36),
                                   borderRadius: BorderRadius.circular(10)),
-                              child: charts.BarChart(
-                                _createSampleDataDaily(),
-                                domainAxis: new charts.OrdinalAxisSpec(
-                                    renderSpec:
-                                        new charts.SmallTickRendererSpec(
-                                  labelStyle: new charts.TextStyleSpec(
-                                      fontSize: 6, // size in Pts.
-                                      color: charts.MaterialPalette.white),
-                                )),
+                              // child: charts.BarChart(
+                              //   _createSampleDataDaily(),
+                              //   domainAxis: new charts.OrdinalAxisSpec(
+                              //       renderSpec:
+                              //           new charts.SmallTickRendererSpec(
+                              //     labelStyle: new charts.TextStyleSpec(
+                              //         fontSize: 6, // size in Pts.
+                              //         color: charts.MaterialPalette.white),
+                              //   )),
+                              // ),
+                              child: SingleChildScrollView(
+                                child: !_pillBoxdataLoading
+                                    ? Table(
+                                        //textDirection: TextDirection.,
+                                        defaultVerticalAlignment:
+                                            TableCellVerticalAlignment.top,
+                                        // defaultColumnWidth: FixedColumnWidth(120),
+
+                                        border: TableBorder.all(
+                                          width: 2.0,
+                                          color: Color(0xFF272E36),
+                                        ),
+                                        children: [
+                                          TableRow(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.all(10.0),
+                                                child: Text(
+                                                  "Time",
+                                                  // textScaleFactor: 1.5,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Color(0xFF00B89F),
+                                                      fontFamily: 'Montserrat'),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.all(10.0),
+                                                child: Text(
+                                                  "PillBox Sensor",
+                                                  // textScaleFactor: 1.5,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Color(0xFF00B89F),
+                                                      fontFamily: 'Montserrat'),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          if (_pillboxData.length == 0)
+                                            TableRow(children: [
+                                              Text(
+                                                "No data",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              Text("available",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.white))
+                                            ]),
+                                          if (!_pillBoxdataLoading &&
+                                              _pillboxData.length != 0)
+                                            ...List.generate(
+                                              _pillboxData.length,
+                                              (int index) => TableRow(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(10.0),
+                                                    child: Text(
+                                                      DateFormat("h:mm a")
+                                                          .format(DateTime.parse(
+                                                                  "${dateTime.toString().split(" ")[0]} ${_pillboxData[index]["time"]}Z")
+                                                              .toLocal()),
+                                                      // textScaleFactor: 1.5,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xFFAFAFAF),
+                                                          fontFamily:
+                                                              'Montserrat'),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.all(10.0),
+                                                    child: Text(
+                                                      _pillboxData[index]
+                                                              ["value"]
+                                                          ? "Open"
+                                                          : "Close",
+                                                      // textScaleFactor: 1.5,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xFFAFAFAF),
+                                                          fontFamily:
+                                                              'Montserrat'),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          // TableRow(
+                                          //   children: [
+                                          //     Padding(
+                                          //       padding: EdgeInsets.all(10.0),
+                                          //       child: Text(
+                                          //         "04-Oct-2022",
+                                          //         textAlign: TextAlign.center,
+                                          //         // textScaleFactor: 1.5,
+                                          //         style: TextStyle(
+                                          //             color: Color(0xFFAFAFAF),
+                                          //             fontFamily: 'Montserrat'),
+                                          //       ),
+                                          //     ),
+                                          //     Padding(
+                                          //       padding: EdgeInsets.all(10.0),
+                                          //       child: Text(
+                                          //         "Closed",
+                                          //         // textScaleFactor: 1.5,
+                                          //         textAlign: TextAlign.center,
+                                          //         style: TextStyle(
+                                          //             color: Color(0xFFAFAFAF),
+                                          //             fontFamily: 'Montserrat'),
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // ),
+                                          // TableRow(
+                                          //   children: [
+                                          //     Padding(
+                                          //       padding: EdgeInsets.all(10.0),
+                                          //       child: Text(
+                                          //         "05-Oct-2022",
+                                          //         textAlign: TextAlign.center,
+                                          //         // textScaleFactor: 1.5,
+                                          //         style: TextStyle(
+                                          //             color: Color(0xFFAFAFAF),
+                                          //             fontFamily: 'Montserrat'),
+                                          //       ),
+                                          //     ),
+                                          //     Padding(
+                                          //       padding: EdgeInsets.all(10.0),
+                                          //       child: Text(
+                                          //         "Open",
+                                          //         // textScaleFactor: 1.5,
+                                          //         textAlign: TextAlign.center,
+                                          //         style: TextStyle(
+                                          //             color: Color(0xFFAFAFAF),
+                                          //             fontFamily: 'Montserrat'),
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // ),
+                                          // TableRow(
+                                          //   children: [
+                                          //     Padding(
+                                          //       padding: EdgeInsets.all(10.0),
+                                          //       child: Text(
+                                          //         "06-Oct-2022",
+                                          //         textAlign: TextAlign.center,
+                                          //         // textScaleFactor: 1.5,
+                                          //         style: TextStyle(
+                                          //             color: Color(0xFFAFAFAF),
+                                          //             fontFamily: 'Montserrat'),
+                                          //       ),
+                                          //     ),
+                                          //     Padding(
+                                          //       padding: EdgeInsets.all(10.0),
+                                          //       child: Text(
+                                          //         "Closed",
+                                          //         // textScaleFactor: 1.5,
+                                          //         textAlign: TextAlign.center,
+                                          //         style: TextStyle(
+                                          //             color: Color(0xFFAFAFAF),
+                                          //             fontFamily: 'Montserrat'),
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // ),
+                                        ],
+                                      )
+                                    : Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
                               ),
                             )
                             // Image.asset(

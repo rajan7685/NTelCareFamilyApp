@@ -18,6 +18,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
@@ -66,6 +67,7 @@ class _AddWidgetState extends State<Add> {
   @override
   void initState() {
     super.initState();
+    FFAppState().Chattoggle5 = false;
     // print("countries add ${widget.countries}");
     _loadRelation();
   }
@@ -269,7 +271,7 @@ class _AddWidgetState extends State<Add> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 10),
                           child: Text(
-                            'Add',
+                            'Add User',
                             textAlign: TextAlign.start,
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
@@ -617,7 +619,7 @@ class _AddWidgetState extends State<Add> {
                                                 setState(() {
                                                   selectedDate = picked;
                                                 });
-                                              Date = DateFormat('dd-MM-yyyy')
+                                              Date = DateFormat('MM-dd-yyyy')
                                                   .format(selectedDate);
                                             },
                                             child: Icon(
@@ -709,6 +711,9 @@ class _AddWidgetState extends State<Add> {
                               child: TextFormField(
                                 controller: textController4,
                                 obscureText: false,
+                                inputFormatters: [
+                                  MaskedInputFormatter('###.###.####')
+                                ],
                                 decoration: InputDecoration(
                                   labelText: 'Phone Number',
                                   labelStyle: FlutterFlowTheme.of(context)
@@ -1412,15 +1417,19 @@ class _AddWidgetState extends State<Add> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       FFAppState().Chattoggle5 = value;
-                                      if (FFAppState().Chattoggle5) {
-                                        displayLive = true;
+                                      if (FFAppState().Chattoggle5 == false) {
+                                        displayChat = false;
+                                        displayLive = false;
+                                        displayView = false;
+                                      } else {
                                         displayChat = true;
+                                        displayLive = true;
                                         displayView = true;
                                       }
                                     });
                                   },
                                   title: Text(
-                                    'Executive Members',
+                                    'Executive Member',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -1497,6 +1506,198 @@ class _AddWidgetState extends State<Add> {
                               ),
                             ),
                             Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  15, 25, 15, 55),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF292929),
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                          color: displayLive ? color1 : color,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 1, 10, 1),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            if (FFAppState().Chattoggle5 ==
+                                                true) {
+                                              setState(() {
+                                                // displayLive = !displayLive;
+                                                // displayChat = true;
+                                                displayLive = true;
+                                                // displayView = true;
+                                              });
+                                            } else {
+                                              setState(() {
+                                                displayLive = !displayLive;
+                                              });
+                                            }
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 0, 2),
+                                                child: Icon(
+                                                  Icons.videocam_outlined,
+                                                  color: Color(0xB254DCC5),
+                                                  size: 22,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(5, 0, 0, 0),
+                                                child: Text(
+                                                  'Live Video',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: displayLive
+                                                            ? color1
+                                                            : color,
+                                                        fontSize: 12,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                  Container(
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF292929),
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        color: displayView ? color1 : color,
+                                      ),
+                                    ),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        if (FFAppState().Chattoggle5) {
+                                          setState(() {
+                                            // displayLive = !displayLive;
+                                            // displayChat = true;
+                                            displayView = true;
+                                            // displayView = true;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            displayView = !displayView;
+                                          });
+                                        }
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 1, 10, 1),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/images/2006462_google_media_play_video_icon.svg',
+                                              width: 15,
+                                              color: color1,
+                                              height: 15,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5, 0, 0, 0),
+                                              child: Text(
+                                                'View Video',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: displayView
+                                                              ? color1
+                                                              : color,
+                                                          fontSize: 12,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF292929),
+                                      borderRadius: BorderRadius.circular(5),
+                                      shape: BoxShape.rectangle,
+                                      border: Border.all(
+                                        color: displayChat ? color1 : color,
+                                      ),
+                                    ),
+                                    alignment: AlignmentDirectional(
+                                        0.1499999999999999, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        if (FFAppState().Chattoggle5) {
+                                          setState(() {
+                                            // displayLive = !displayLive;
+                                            // displayChat = true;
+                                            displayChat = true;
+                                            // displayView = true;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            displayChat = !displayChat;
+                                          });
+                                        }
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 1, 10, 1),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
+                                              width: 13,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5, 0, 0, 0),
+                                              child: Text(
+                                                'Chat',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: displayChat
+                                                              ? color1
+                                                              : color,
+                                                          fontSize: 12,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+
+                            /* Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   15, 25, 15, 55),
                               child: Row(
@@ -1672,7 +1873,7 @@ class _AddWidgetState extends State<Add> {
                                   )
                                 ],
                               ),
-                            ),
+                            )*/
                           ],
                         ),
                         Padding(

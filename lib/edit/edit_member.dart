@@ -21,6 +21,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:string_extensions/string_extensions.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 class EditMemberWidget extends StatefulWidget {
   dynamic data;
@@ -123,6 +124,11 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     if (data['executive'] == true) {
       displayLive = displayChat = displayView = true;
     } else {
+      displayLive = data["permission"]["live_video"];
+      displayChat = data["permission"]["chat"];
+      displayView = data["permission"]["view_video"];
+    }
+    if (idOfMem == FFAppState().CurrentUserId) {
       displayLive = data["permission"]["live_video"];
       displayChat = data["permission"]["chat"];
       displayView = data["permission"]["view_video"];
@@ -353,6 +359,14 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'First Name',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -403,6 +417,14 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Last Name',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -551,7 +573,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(0, 0, 0, 0),
                                                 child: Text(
-                                                    DateFormat('dd-MM-yyyy')
+                                                    DateFormat('MM-dd-yyyy')
                                                         .format(selectedDate),
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -632,6 +654,14 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Phone Number',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -660,6 +690,9 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       color: Color(0xFF606E87),
                                       fontSize: 16,
                                     ),
+                                inputFormatters: [
+                                  MaskedInputFormatter('###.###.####')
+                                ],
                                 keyboardType: TextInputType.number,
                               ),
                             ),
@@ -1338,19 +1371,21 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 child: SwitchListTile(
                                   value: FFAppState().Chattoggle3,
                                   onChanged: (bool value) => setState(() {
-                                    FFAppState().Chattoggle3 = value;
-                                    if (FFAppState().Chattoggle3 == false) {
-                                      displayChat = false;
-                                      displayLive = false;
-                                      displayView = false;
-                                    } else {
-                                      displayChat = true;
-                                      displayLive = true;
-                                      displayView = true;
+                                    if (idOfMem != FFAppState().CurrentUserId) {
+                                      FFAppState().Chattoggle3 = value;
+                                      if (FFAppState().Chattoggle3 == false) {
+                                        displayChat = false;
+                                        displayLive = false;
+                                        displayView = false;
+                                      } else {
+                                        displayChat = true;
+                                        displayLive = true;
+                                        displayView = true;
+                                      }
                                     }
                                   }),
                                   title: Text(
-                                    'Executive Members',
+                                    'Executive Member',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -1446,18 +1481,21 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                             10, 1, 10, 1),
                                         child: InkWell(
                                           onTap: () async {
-                                            if (FFAppState().Chattoggle3 ==
-                                                true) {
-                                              setState(() {
-                                                // displayLive = !displayLive;
-                                                // displayChat = true;
-                                                displayLive = true;
-                                                // displayView = true;
-                                              });
-                                            } else {
-                                              setState(() {
-                                                displayLive = !displayLive;
-                                              });
+                                            if (idOfMem !=
+                                                FFAppState().CurrentUserId) {
+                                              if (FFAppState().Chattoggle3 ==
+                                                  true) {
+                                                setState(() {
+                                                  // displayLive = !displayLive;
+                                                  // displayChat = true;
+                                                  displayLive = true;
+                                                  // displayView = true;
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  displayLive = !displayLive;
+                                                });
+                                              }
                                             }
                                           },
                                           child: Row(
@@ -1504,17 +1542,20 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     ),
                                     child: InkWell(
                                       onTap: () async {
-                                        if (FFAppState().Chattoggle3 == true) {
-                                          setState(() {
-                                            // displayLive = !displayLive;
-                                            // displayChat = true;
-                                            displayView = true;
-                                            // displayView = true;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            displayView = !displayView;
-                                          });
+                                        if (idOfMem !=
+                                            FFAppState().CurrentUserId) {
+                                          if (FFAppState().Chattoggle3) {
+                                            setState(() {
+                                              // displayLive = !displayLive;
+                                              // displayChat = true;
+                                              displayView = true;
+                                              // displayView = true;
+                                            });
+                                          } else {
+                                            setState(() {
+                                              displayView = !displayView;
+                                            });
+                                          }
                                         }
                                       },
                                       child: Padding(
@@ -1566,17 +1607,20 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                         0.1499999999999999, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        if (FFAppState().Chattoggle3 == true) {
-                                          setState(() {
-                                            // displayLive = !displayLive;
-                                            // displayChat = true;
-                                            displayChat = true;
-                                            // displayView = true;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            displayChat = !displayChat;
-                                          });
+                                        if (idOfMem !=
+                                            FFAppState().CurrentUserId) {
+                                          if (FFAppState().Chattoggle3) {
+                                            setState(() {
+                                              // displayLive = !displayLive;
+                                              // displayChat = true;
+                                              displayChat = true;
+                                              // displayView = true;
+                                            });
+                                          } else {
+                                            setState(() {
+                                              displayChat = !displayChat;
+                                            });
+                                          }
                                         }
                                       },
                                       child: Padding(
@@ -1620,7 +1664,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                         if (_hasPermissionToEdit)
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 10),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 if (textController1.text == "" ||
@@ -1680,13 +1724,15 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
 
                                   //    print(" executive ::${data['executive']}");
                                   print("id : ${FFAppState().AccountId}");
+                                  FFAppState().chat = displayChat;
                                   print(" live video:: " +
                                       displayLive.toString());
                                   print(
                                       "live video:: " + displayChat.toString());
                                   print(" view video ::" +
                                       displayView.toString());
-
+                                  FFAppState().executive =
+                                      FFAppState().Chattoggle3;
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
                                   // print(textController5.text);
