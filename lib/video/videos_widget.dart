@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/components/custom_toast.dart';
@@ -445,8 +446,8 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                               .fromSTEB(
                                                                   5, 5, 5, 0),
                                                       child: InkWell(
-                                                        onTap: () {
-                                                          Navigator.push(
+                                                        onTap: () async {
+                                                          await Navigator.push(
                                                               context,
                                                               MaterialPageRoute(
                                                                   builder: (_) =>
@@ -454,6 +455,14 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                         rtsp:
                                                                             rtspLink,
                                                                       )));
+                                                          SystemChrome
+                                                              .setPreferredOrientations([
+                                                            DeviceOrientation
+                                                                .portraitUp
+                                                          ]);
+                                                          setState(() {
+                                                            // updateUI
+                                                          });
                                                         },
                                                         child: Card(
                                                           clipBehavior: Clip

@@ -29,6 +29,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+  };
+
   await Firebase.initializeApp()
       .then((FirebaseApp value) => print('Firebase Service init $value.'));
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
