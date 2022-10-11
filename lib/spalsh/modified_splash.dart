@@ -26,17 +26,6 @@ class _ModifiedSplashWidgetState extends State<ModifiedSplashWidget> {
     print("object");
     SchedulerBinding.instance?.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 3000));
-      print(" cccc ");
-      print(
-          " ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)} ");
-      print(
-          " ${SharedPreferenceService.loadBool(key: AccountsKeys.Executive)} ");
-      print(
-          " ${SharedPreferenceService.loadBool(key: AccountsKeys.ChatPermission)} ");
-      print(
-          " ${SharedPreferenceService.loadBool(key: AccountsKeys.LivePermission)} ");
-      print(
-          " ${SharedPreferenceService.loadBool(key: AccountsKeys.VideoPermission)} ");
       await Navigator.pushReplacement(
         context,
         MaterialPageRoute(

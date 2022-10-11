@@ -138,7 +138,10 @@ class SeniorsList {
         'Authorization':
             'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
       },
-      params: {"m_acc_id": '${FFAppState().AccountId}'},
+      params: {
+        "m_acc_id":
+            '${SharedPreferenceService.loadString(key: AccountsKeys.MasterAccountKey)}'
+      },
       returnBody: true,
     );
   }

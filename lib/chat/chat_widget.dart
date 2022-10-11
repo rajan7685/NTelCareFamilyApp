@@ -476,41 +476,41 @@ class _ChatWidgetState extends State<ChatWidget> {
                                       ),
                                     ),
                                   ),
-                                  Align(
-                                    alignment:
-                                        AlignmentDirectional(0.05, -0.43),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          17, 0, 0, 0),
-                                      child: Container(
-                                        width: 15,
-                                        height: 15,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF006B5D),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              '5',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Colors.white,
-                                                    fontSize: 8,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  // Align(
+                                  //   alignment:
+                                  //       AlignmentDirectional(0.05, -0.43),
+                                  //   child: Padding(
+                                  //     padding: EdgeInsetsDirectional.fromSTEB(
+                                  //         17, 0, 0, 0),
+                                  //     child: Container(
+                                  //       width: 15,
+                                  //       height: 15,
+                                  //       decoration: BoxDecoration(
+                                  //         color: Color(0xFF006B5D),
+                                  //         shape: BoxShape.circle,
+                                  //       ),
+                                  //       child: Row(
+                                  //         mainAxisSize: MainAxisSize.max,
+                                  //         mainAxisAlignment:
+                                  //             MainAxisAlignment.center,
+                                  //         children: [
+                                  //           Text(
+                                  //             '5',
+                                  //             style: FlutterFlowTheme.of(
+                                  //                     context)
+                                  //                 .bodyText1
+                                  //                 .override(
+                                  //                   fontFamily: 'Montserrat',
+                                  //                   color: Colors.white,
+                                  //                   fontSize: 8,
+                                  //                   fontWeight: FontWeight.bold,
+                                  //                 ),
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),

@@ -2,6 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/components/custom_toast.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/stats/battery.dart';
 import 'package:n_tel_care_family_app/stats/blood_pressure.dart';
@@ -2579,7 +2580,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     if (FFAppState().Chattoggle2 &&
-                                        FFAppState().chat)
+                                        SharedPreferenceService.loadBool(
+                                            key: AccountsKeys.ChatPermission))
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 15, 0),
@@ -2700,8 +2702,6 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
 
   Future fetchSList() async {
     final ApiCallResponse SList = await SeniorsList.call();
-
-    // print(SList.jsonBody["seniors"]);
     countries = SList.jsonBody["countries"];
     return SList.jsonBody["seniors"];
   }

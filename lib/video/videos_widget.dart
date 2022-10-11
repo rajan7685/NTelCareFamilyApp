@@ -72,8 +72,12 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
     super.initState();
     SList = fetchSList();
     _checkNetworkConnectivity();
-    _hasPermissionToViewVideo = FFAppState().viewVideo ?? false;
-    _hasPermissionToViewLiveVideo = FFAppState().liveView ?? false;
+    _hasPermissionToViewVideo =
+        SharedPreferenceService.loadBool(key: AccountsKeys.VideoPermission) ??
+            false;
+    _hasPermissionToViewLiveVideo =
+        SharedPreferenceService.loadBool(key: AccountsKeys.LivePermission) ??
+            false;
   }
 
   @override
@@ -2872,7 +2876,9 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (FFAppState().Chattoggle2 && FFAppState().chat)
+                          if (FFAppState().Chattoggle2 &&
+                              SharedPreferenceService.loadBool(
+                                  key: AccountsKeys.ChatPermission))
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),

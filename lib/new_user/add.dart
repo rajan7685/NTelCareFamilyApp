@@ -1887,14 +1887,8 @@ class _AddWidgetState extends State<Add> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 30),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              // await Navigator.push(
-                              //  context,
-                              // MaterialPageRoute(
-                              //  builder: (context) =>
-                              //   NavBarPage(initialPage: 'Landing'),
-                              //  ),
-                              // );
-                              if (FFAppState().executive) {
+                              if (SharedPreferenceService.loadBool(
+                                  key: AccountsKeys.Executive)) {
                                 if (textController1.text == "" ||
                                     textController2.text == "" ||
                                     textController5.text == "" ||

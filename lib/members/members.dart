@@ -155,7 +155,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                if (FFAppState().executive)
+                                if (SharedPreferenceService.loadBool(
+                                    key: AccountsKeys.Executive))
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 10, 0),
@@ -966,7 +967,9 @@ class _MembersWidgetState extends State<MembersWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (FFAppState().Chattoggle2 && FFAppState().chat)
+                            if (FFAppState().Chattoggle2 &&
+                                SharedPreferenceService.loadBool(
+                                    key: AccountsKeys.ChatPermission))
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),

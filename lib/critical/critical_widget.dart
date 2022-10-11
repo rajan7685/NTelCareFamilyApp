@@ -668,42 +668,42 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                                 ],
                                               ),
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  1.31, -0.83),
-                                              child: Container(
-                                                width: 20,
-                                                height: 20,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFFEEEEEE),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      '5',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            color: Color(
-                                                                0xFF00B89F),
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
+                                            // Align(
+                                            //   alignment: AlignmentDirectional(
+                                            //       1.31, -0.83),
+                                            //   child: Container(
+                                            //     width: 20,
+                                            //     height: 20,
+                                            //     decoration: BoxDecoration(
+                                            //       color: Color(0xFFEEEEEE),
+                                            //       shape: BoxShape.circle,
+                                            //     ),
+                                            //     child: Row(
+                                            //       mainAxisSize:
+                                            //           MainAxisSize.min,
+                                            //       mainAxisAlignment:
+                                            //           MainAxisAlignment.center,
+                                            //       children: [
+                                            //         Text(
+                                            //           '5',
+                                            //           textAlign:
+                                            //               TextAlign.center,
+                                            //           style: FlutterFlowTheme
+                                            //                   .of(context)
+                                            //               .bodyText1
+                                            //               .override(
+                                            //                 fontFamily:
+                                            //                     'Montserrat',
+                                            //                 color: Color(
+                                            //                     0xFF00B89F),
+                                            //                 fontWeight:
+                                            //                     FontWeight.bold,
+                                            //               ),
+                                            //         ),
+                                            //       ],
+                                            //     ),
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                       ),
