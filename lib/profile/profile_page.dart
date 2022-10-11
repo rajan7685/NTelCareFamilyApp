@@ -640,6 +640,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     0, 10, 10, 0),
                                 child: InkWell(
                                   onTap: () async {
+                                    await SharedPreferenceService
+                                        .clearAuthenticationData();
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
