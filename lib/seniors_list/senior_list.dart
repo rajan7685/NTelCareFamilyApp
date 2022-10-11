@@ -994,9 +994,9 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
   //   final sody = {"m_acc_id": "6299517488b3bba4d3df12ce"};
   //   final url = Uri.http("18.208.148.208:4000", "/get/seniors/member", sody);
   //   final SList = await http.get(url, headers: {
-  //     'Authorization': 'Bearer ${FFAppState().Token}',
+  //     'Authorization': 'Bearer ${SharedPreferenceService.loadBool(key: AccountsKeys.Executive}',
   //   });
-  //   print(FFAppState().Token);
+  //   print(SharedPreferenceService.loadBool(key: AccountsKeys.Executive);
   //   print(FFAppState().AccountId);
   //   print(SList.statusCode);
   //   if (SList.statusCode == 200) {

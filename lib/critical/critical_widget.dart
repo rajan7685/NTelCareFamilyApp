@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/chat/chat_widget.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -54,8 +55,10 @@ class _CriticalWidgetState extends State<CriticalWidget> {
     String uri =
         "${ApiService.domain}/notification/senior?senior_id=$_seniorId&date=${DateFormat("yyyy-MM-dd").format(date)}";
     Response res = await Dio().get(uri,
-        options: Options(
-            headers: {"Authorization": "Bearer ${FFAppState().Token}"}));
+        options: Options(headers: {
+          "Authorization":
+              "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+        }));
     _eventList = res.data["data"];
     setState(() {
       _isEventDataLoading = false;

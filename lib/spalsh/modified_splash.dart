@@ -1,5 +1,9 @@
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
+import 'package:n_tel_care_family_app/main.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../landing/landing.dart';
 import '../login/login_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -19,12 +23,31 @@ class _ModifiedSplashWidgetState extends State<ModifiedSplashWidget> {
   void initState() {
     super.initState();
     // On page load action.
+    print("object");
     SchedulerBinding.instance?.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 3000));
+      print(" cccc ");
+      print(
+          " ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)} ");
+      print(
+          " ${SharedPreferenceService.loadBool(key: AccountsKeys.Executive)} ");
+      print(
+          " ${SharedPreferenceService.loadBool(key: AccountsKeys.ChatPermission)} ");
+      print(
+          " ${SharedPreferenceService.loadBool(key: AccountsKeys.LivePermission)} ");
+      print(
+          " ${SharedPreferenceService.loadBool(key: AccountsKeys.VideoPermission)} ");
       await Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginWidget(),
+          builder: (context) => SharedPreferenceService.loadString(
+                          key: AccountsKeys.AccessTokenKey) ==
+                      null ||
+                  SharedPreferenceService.loadString(
+                          key: AccountsKeys.AccessTokenKey)
+                      .isEmpty
+              ? LoginWidget()
+              : NavBarPage(initialPage: 'Landing'),
         ),
       );
     });

@@ -3,6 +3,7 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:path_provider/path_provider.dart';
@@ -121,7 +122,10 @@ class _AddWidgetState extends State<Add> {
     String uri = '${ApiService.domain}/admin/relations';
     final res = await http.get(
       Uri.parse(uri),
-      headers: {"Authorization": "Bearer ${FFAppState().Token}"},
+      headers: {
+        "Authorization":
+            "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+      },
     );
     // print(res.body);
     setState(() {
@@ -135,7 +139,10 @@ class _AddWidgetState extends State<Add> {
         '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
     final res = await http.get(
       Uri.parse(uri),
-      headers: {"Authorization": "Bearer ${FFAppState().Token}"},
+      headers: {
+        "Authorization":
+            "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+      },
     );
     print(res.body);
     placesData = jsonDecode(res.body);
@@ -1915,7 +1922,7 @@ class _AddWidgetState extends State<Add> {
                                       "${ApiService.domain}/add/member";
                                   /* final res =
                                   await http.post(Uri.parse(url), headers: {
-                                "Authorization": "Bearer ${FFAppState().Token}"
+                                "Authorization": "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
                                }, body: {
                                 "fname": textController1.text,
                                 "lname": textController2.text,
@@ -1946,7 +1953,7 @@ class _AddWidgetState extends State<Add> {
                                       'POST', Uri.parse(url));
 
                                   res1.headers['Authorization'] =
-                                      "Bearer ${FFAppState().Token}";
+                                      "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}";
                                   res1.fields['fname'] = textController1.text;
                                   res1.fields['lname'] = textController2.text;
                                   res1.fields['email'] = textController5.text;

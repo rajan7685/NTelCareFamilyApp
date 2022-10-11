@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/seniors_list/senior_list.dart';
@@ -164,7 +165,10 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
         '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController9.text}';
     final res = await http.get(
       Uri.parse(uri),
-      headers: {"Authorization": "Bearer ${FFAppState().Token}"},
+      headers: {
+        "Authorization":
+            "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+      },
     );
     print(res.body);
     placesData = jsonDecode(res.body);
@@ -1805,7 +1809,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       'POST', Uri.parse(url));
 
                                   res.headers['Authorization'] =
-                                      "Bearer ${FFAppState().Token}";
+                                      "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}";
                                   res.fields["senior_id"] =
                                       FFAppState().SeniorId;
 

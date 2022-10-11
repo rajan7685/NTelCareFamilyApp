@@ -43,7 +43,6 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
   List<dynamic> _seniorsList = [];
   bool _isSeniorListDataLoading = true;
   List<String> _sensorActiveList = [];
-  List<String> _sensorStatusList = [];
 
   _isSelected(int index) {
     setState(() {

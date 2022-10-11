@@ -10,6 +10,7 @@ import 'package:n_tel_care_family_app/profile/profile_page.dart';
 import 'package:n_tel_care_family_app/spalsh/modified_splash.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/video/videos_widget.dart';
+import 'core/shared_preferences_service.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 
@@ -47,7 +48,7 @@ void main() async {
   ]);
   // Initialize FFAppState.
   FFAppState();
-
+  SharedPreferenceService.init();
   runApp(MyApp());
 }
 

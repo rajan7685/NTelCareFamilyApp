@@ -5,6 +5,7 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:path_provider/path_provider.dart';
@@ -189,7 +190,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
         '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
     final res = await http.get(
       Uri.parse(uri),
-      headers: {"Authorization": "Bearer ${FFAppState().Token}"},
+      headers: {
+        "Authorization":
+            "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+      },
     );
     print(res.body);
     placesData = jsonDecode(res.body);
@@ -1697,7 +1701,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       "${ApiService.domain}/edit/member/${data["id"]}";
                                   /* final res =
                                   await http.post(Uri.parse(url), headers: {
-                                "Authorization": "Bearer ${FFAppState().Token}"
+                                "Authorization": "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
                               }, body: {
                                 "fname": textController1.text,
                                 "lname": textController2.text,
@@ -1737,7 +1741,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       'POST', Uri.parse(url));
                                   // print(textController5.text);
                                   res1.headers['Authorization'] =
-                                      "Bearer ${FFAppState().Token}";
+                                      "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}";
                                   res1.fields['fname'] = textController1.text;
                                   res1.fields['lname'] = textController2.text;
                                   res1.fields['gender'] = dropDownValueGender;

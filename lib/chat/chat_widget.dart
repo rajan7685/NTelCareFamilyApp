@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:open_file/open_file.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
@@ -202,8 +203,10 @@ class _ChatWidgetState extends State<ChatWidget> {
         _isChatDataLoading = true;
       });
     String uri = '${ApiService.domain}/get_chats/member';
-    final res = await http.get(Uri.parse(uri),
-        headers: {"Authorization": "Bearer ${FFAppState().Token}"});
+    final res = await http.get(Uri.parse(uri), headers: {
+      "Authorization":
+          "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+    });
     Map<String, dynamic> _responseJson = jsonDecode(res.body);
     final ApiCallResponse profileInfo = await GetProfile.call();
     _accHolderName =
@@ -253,18 +256,20 @@ class _ChatWidgetState extends State<ChatWidget> {
     try {
       Response response = await Dio().post(uri,
           data: formData,
-          options: Options(
-              headers: {"Authorization": "Bearer ${FFAppState().Token}"}));
+          options: Options(headers: {
+            "Authorization":
+                "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+          }));
       _chatController.text = '';
       _image = null;
       _loadMessages();
     } catch (e) {
       print('error ${e.toString()}');
     }
-    // "Bearer ${FFAppState().Token}"
+    // "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
     // final res = await http.post(Uri.parse(uri),
     //     body: {"message": _chatController.text, "document": null},
-    //     headers: {"Authorization": "Bearer ${FFAppState().Token}"});
+    //     headers: {"Authorization": "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"});
     // Map<String, dynamic> _responseJson = jsonDecode(res.body);
     // print(res.body);
   }

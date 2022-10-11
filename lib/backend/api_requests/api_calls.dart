@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 
 import '../../flutter_flow/flutter_flow_util.dart';
 
@@ -30,7 +31,10 @@ class DeleteUserCall {
       callName: 'DeleteUser',
       apiUrl: '${ApiService.domain}/delete/member/',
       callType: ApiCallType.DELETE,
-      headers: {'Authorization': 'Bearer ${FFAppState().Token}'},
+      headers: {
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}'
+      },
       params: {"member_id": memberId},
       returnBody: true,
     );
@@ -131,7 +135,8 @@ class SeniorsList {
       apiUrl: '${ApiService.domain}/get/seniors/member',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${FFAppState().Token}',
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
       },
       params: {"m_acc_id": '${FFAppState().AccountId}'},
       returnBody: true,
@@ -146,7 +151,8 @@ class GetProfile {
       apiUrl: '${ApiService.domain}/get/profile/member',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${FFAppState().Token}',
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
       },
       returnBody: true,
     );
@@ -178,7 +184,8 @@ class DashBoardStat {
       apiUrl: '${ApiService.domain}/dashboard/${id}',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${FFAppState().Token}',
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
       },
       params: {},
       returnBody: true,
@@ -190,7 +197,8 @@ class GetHrate {
   Future<http.Response> get(String endpoint) async {
     var url = Uri.parse(endpoint);
     var response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${FFAppState().Token}',
+      'Authorization':
+          'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
     });
     return response;
   }
@@ -204,7 +212,8 @@ class GetHeartWeek {
           '${ApiService.domain}/graph/health_status/heart_rate/weekly?date=${date}&senior_id=${id}',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${FFAppState().Token}',
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
       },
       // params: {"senior_id": id, "date": date},
       returnBody: true,
@@ -216,7 +225,8 @@ class GetSteps {
   Future<http.Response> get(String endpoint) async {
     var url = Uri.parse(endpoint);
     var response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${FFAppState().Token}',
+      'Authorization':
+          'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
     });
     return response;
   }
@@ -226,7 +236,8 @@ class GetCalories {
   Future<http.Response> get(String endpoint) async {
     var url = Uri.parse(endpoint);
     var response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${FFAppState().Token}',
+      'Authorization':
+          'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
     });
     return response;
   }
