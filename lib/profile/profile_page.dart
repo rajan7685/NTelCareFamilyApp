@@ -581,7 +581,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     0, 10, 10, 0),
                                 child: InkWell(
                                   onTap: () async {
-                                    print("presses");
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
@@ -590,6 +589,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           content:
                                               ("Are you sure you want to logout?"),
                                           onpressed: () async {
+                                            await SharedPreferenceService
+                                                .clearAuthenticationData();
                                             await Navigator.pushAndRemoveUntil(
                                               context,
                                               MaterialPageRoute(
@@ -640,8 +641,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     0, 10, 10, 0),
                                 child: InkWell(
                                   onTap: () async {
-                                    await SharedPreferenceService
-                                        .clearAuthenticationData();
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
