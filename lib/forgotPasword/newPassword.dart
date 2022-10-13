@@ -302,7 +302,7 @@ class _newPasswordState extends State<newPassword> {
                               //     FFAppState().IsLiveView = loginModel.IsLiveView;
                               //     FFAppState().Error = loginModel.Error;
                               //     FFAppState().Email = loginModel.Email;
-                              //     FFAppState().Token = loginModel.Token;
+                              //     SharedPreferenceService.loadBool(key: AccountsKeys.Executive = loginModel.Token;
                               //     FFAppState().UserId = loginModel.UserId;
                               //     FFAppState().AccountId = loginModel.AccountId;
                               //     FFAppState().RoleId = loginModel.RoleId;

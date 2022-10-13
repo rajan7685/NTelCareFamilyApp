@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
@@ -116,7 +117,10 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
         '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
     final res = await http.get(
       Uri.parse(uri),
-      headers: {"Authorization": "Bearer ${FFAppState().Token}"},
+      headers: {
+        "Authorization":
+            "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+      },
     );
     print(res.body);
     placesData = jsonDecode(res.body);
@@ -1754,7 +1758,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                       'POST', Uri.parse(url));
 
                                   res.headers['Authorization'] =
-                                      "Bearer ${FFAppState().Token}";
+                                      "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}";
 
                                   res.fields["fname"] = textController1.text;
                                   res.fields["lname"] = textController2.text;

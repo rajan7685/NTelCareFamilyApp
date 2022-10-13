@@ -5,6 +5,7 @@ import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_manager.dart';
 import 'package:n_tel_care_family_app/components/custom_toast.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/edit/edit_executive.dart';
 import 'package:n_tel_care_family_app/edit/edit_member.dart';
@@ -78,7 +79,7 @@ class _MembersWidgetState extends State<MembersWidget> {
     }
     final ApiCallResponse MList = await MemberList.call();
 
-    print(FFAppState().Token);
+    print(SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey));
     print(MList.statusCode);
     countriesMember = MList.jsonBody["countries"];
     // print(" countries member $countriesMember");
@@ -104,7 +105,8 @@ class _MembersWidgetState extends State<MembersWidget> {
       apiUrl: '${ApiService.domain}/get/members/member',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${FFAppState().Token}',
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
       },
       params: {},
       returnBody: true,
@@ -153,7 +155,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                if (FFAppState().executive)
+                                if (SharedPreferenceService.loadBool(
+                                    key: AccountsKeys.Executive))
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 10, 0),
@@ -964,7 +967,9 @@ class _MembersWidgetState extends State<MembersWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (FFAppState().Chattoggle2 && FFAppState().chat)
+                            if (FFAppState().Chattoggle2 &&
+                                SharedPreferenceService.loadBool(
+                                    key: AccountsKeys.ChatPermission))
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),

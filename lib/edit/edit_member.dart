@@ -5,6 +5,7 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:path_provider/path_provider.dart';
@@ -95,8 +96,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     textController9 = TextEditingController(text: data["city"]);
     idOfMem = data['id'];
     countryCode = data['ccode'];
-    print(" user $idOfMem");
-    print("current user ${FFAppState().CurrentUserId}");
     // print(" edit member ${widget.countries}");
     if (countryCode != null) {
       countryValue = widget.countries.firstWhere((dynamic countryModel) =>
@@ -114,11 +113,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     dropDownValue = data["relation"];
     selectedDate = DateTime.parse(data["dob"]);
     print(data["dob"]);
-    print(DateFormat("yyyy-MM-dd").format(selectedDate));
-    print(" executive ::${data['executive']}");
-    print(" live video::${data["permission"]["live_video"]}");
-    print(" chat ::${data["permission"]["chat"]}");
-    print(" view video ::${data["permission"]["view_video"]}");
     FFAppState().Chattoggle3 = data['executive'];
 
     if (data['executive'] == true) {
@@ -133,7 +127,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
       displayChat = data["permission"]["chat"];
       displayView = data["permission"]["view_video"];
     }
-    _hasPermissionToEdit = FFAppState().executive;
+    _hasPermissionToEdit =
+        SharedPreferenceService.loadBool(key: AccountsKeys.Executive);
     // _hasPermissionToEdit = true;
   }
 
@@ -189,7 +184,10 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
         '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
     final res = await http.get(
       Uri.parse(uri),
-      headers: {"Authorization": "Bearer ${FFAppState().Token}"},
+      headers: {
+        "Authorization":
+            "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+      },
     );
     print(res.body);
     placesData = jsonDecode(res.body);
@@ -1685,59 +1683,16 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                       textColor: Colors.black,
                                       fontSize: 14.0);
                                 } else {
-                                  // print(FFAppState().AccountId);
-                                  // print(displayLive.toString());
-                                  // print(displayChat.toString());
-                                  // print(displayView.toString());
-                                  // List<int> imageBytes = image.readAsBytesSync();
-                                  // String base64Image = base64Encode(imageBytes);
-                                  //BASE64.encode(imageBytes);
-
                                   final String url =
                                       "${ApiService.domain}/edit/member/${data["id"]}";
-                                  /* final res =
-                                  await http.post(Uri.parse(url), headers: {
-                                "Authorization": "Bearer ${FFAppState().Token}"
-                              }, body: {
-                                "fname": textController1.text,
-                                "lname": textController2.text,
-                                "email": "hong@gmail.com",
-                                "mobile": textController3.text,
-                                "relation": dropDownValue,
-                                "executive": display.toString(),
-                                "m_acc_id": FFAppState().AccountId,
-                                "age": "80",
-                                "gender": "Female",
-                                "address": "123456",
-                                "zipcode": "123456",
-                                "profile": image,
-                                "live_video": true.toString(),
-                                "chats": displayChat.toString(),
-                                "view_video": displayView.toString(),
-                              });*/
 
-                                  //  var stream =
-                                  //     new http.ByteStream(image.openRead());
-                                  // stream.cast();
-
-                                  // var length = await image.length();
-
-                                  //    print(" executive ::${data['executive']}");
-                                  print("id : ${FFAppState().AccountId}");
-                                  FFAppState().chat = displayChat;
-                                  print(" live video:: " +
-                                      displayLive.toString());
-                                  print(
-                                      "live video:: " + displayChat.toString());
-                                  print(" view video ::" +
-                                      displayView.toString());
                                   FFAppState().executive =
                                       FFAppState().Chattoggle3;
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
                                   // print(textController5.text);
                                   res1.headers['Authorization'] =
-                                      "Bearer ${FFAppState().Token}";
+                                      "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}";
                                   res1.fields['fname'] = textController1.text;
                                   res1.fields['lname'] = textController2.text;
                                   res1.fields['gender'] = dropDownValueGender;
@@ -1781,7 +1736,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                               "profile", image.path));
 
                                   var response = await res1.send();
-                                  print("image ${image}");
                                   // ignore: unnecessary_statements
                                   //List<int> imageBytes = image.readAsBytesSync();
                                   // res1.files.add(http.MultipartFile.fromBytes(

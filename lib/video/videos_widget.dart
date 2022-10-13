@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/components/custom_toast.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
 import 'package:n_tel_care_family_app/video/live_stream.dart';
@@ -42,8 +43,10 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
   Future<void> updateRtspLink(String id) async {
     print("${ApiService.domain}/get/video/$id");
     Response res = await Dio().get("${ApiService.domain}/get/video/$id",
-        options: Options(
-            headers: {"Authorization": "Bearer ${FFAppState().Token}"}));
+        options: Options(headers: {
+          "Authorization":
+              "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+        }));
     rtspLink = res.data["data"]["videos"][0][id]["live_video"];
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("RTSP link has been set")));
@@ -70,8 +73,12 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
     super.initState();
     SList = fetchSList();
     _checkNetworkConnectivity();
-    _hasPermissionToViewVideo = FFAppState().viewVideo ?? false;
-    _hasPermissionToViewLiveVideo = FFAppState().liveView ?? false;
+    _hasPermissionToViewVideo =
+        SharedPreferenceService.loadBool(key: AccountsKeys.VideoPermission) ??
+            false;
+    _hasPermissionToViewLiveVideo =
+        SharedPreferenceService.loadBool(key: AccountsKeys.LivePermission) ??
+            false;
   }
 
   @override
@@ -2878,7 +2885,9 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (FFAppState().Chattoggle2 && FFAppState().chat)
+                          if (FFAppState().Chattoggle2 &&
+                              SharedPreferenceService.loadBool(
+                                  key: AccountsKeys.ChatPermission))
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),

@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/seniors_list/senior_list.dart';
@@ -107,16 +108,15 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     }
     FFAppState().SeniorId = data["id"];
 
-    print(dropDownValueGender);
     cityValue = data["city"];
     countryValue = data["country"];
     countryCode = data['ccode'];
-    print("country code ${countryCode}");
     stateValue = data["state"];
     selectedDate = HttpDate.parse(data["dob"]);
-    print(data["dob"]);
-    print(DateFormat("yyyy-MM-dd").format(selectedDate));
-    _hasPermissionToEdit = FFAppState().executive;
+    // print(data["dob"]);
+    // print(DateFormat("yyyy-MM-dd").format(selectedDate));
+    _hasPermissionToEdit =
+        SharedPreferenceService.loadBool(key: AccountsKeys.Executive);
   }
 
   void vaildMail() {
@@ -164,11 +164,14 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
         '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController9.text}';
     final res = await http.get(
       Uri.parse(uri),
-      headers: {"Authorization": "Bearer ${FFAppState().Token}"},
+      headers: {
+        "Authorization":
+            "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+      },
     );
-    print(res.body);
+    // print(res.body);
     placesData = jsonDecode(res.body);
-    print(placesData);
+    // print(placesData);
     setState(() {
       textController10.text = placesData['data']['state_name'];
       textController11.text = placesData['data']['county_name'];
@@ -177,13 +180,13 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
         element['code'] == placesData['data']['country_code'])['name'];
     cityValue = placesData['data']['county_name'];
     stateValue = placesData['data']['state_name'];
-    print('country $countryValue city $cityValue state $stateValue');
+    // print('country $countryValue city $cityValue state $stateValue');
   }
 
   @override
   Widget build(BuildContext context) {
     // print("executive : ${FFAppState().executive}");
-    print("edit senior countries : ${widget.countries}");
+    // print("edit senior countries : ${widget.countries}");
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -1255,9 +1258,9 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                             .firstWhere((element) =>
                                                 element['code'] ==
                                                 value)['name'];
-                                        print("value of country" + abc);
+                                        // print("value of country" + abc);
                                         setState(() {
-                                          print(" value of country : ${value}");
+                                          // print(" value of country : ${value}");
                                           countryCode = value;
                                           countryValue = abc;
                                         });
@@ -1805,7 +1808,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       'POST', Uri.parse(url));
 
                                   res.headers['Authorization'] =
-                                      "Bearer ${FFAppState().Token}";
+                                      "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}";
                                   res.fields["senior_id"] =
                                       FFAppState().SeniorId;
 
@@ -1816,12 +1819,12 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   res.fields["gender"] = dropDownValueGender;
                                   res.fields["height"] = textController4.text;
                                   res.fields["weight"] = textController5.text;
-                                  res.fields["oz"] = weightUnit == "lbs"
-                                      ? ozController.text
-                                      : null;
-                                  res.fields["inchs"] = heightUnit == "feet"
-                                      ? inchesController.text
-                                      : null;
+                                  if (ozController.text.isNotEmpty) {
+                                    res.fields["oz"] = ozController.text;
+                                  }
+                                  if (inchesController.text.isNotEmpty) {
+                                    res.fields["inchs"] = inchesController.text;
+                                  }
                                   res.fields["address"] = textController8.text;
                                   res.fields["zipcode"] = textController9.text;
                                   res.fields["blood_group"] = "o+";
