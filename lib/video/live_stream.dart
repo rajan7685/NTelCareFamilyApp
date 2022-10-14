@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 
 class LiveStreamWidget extends StatefulWidget {
@@ -15,6 +16,7 @@ class _LiveStreamWidgetState extends State<LiveStreamWidget> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
     _controller = VlcPlayerController.network(
       widget.rtsp,
       hwAcc: HwAcc.full,
@@ -26,6 +28,7 @@ class _LiveStreamWidgetState extends State<LiveStreamWidget> {
   @override
   void dispose() {
     // Ensure disposing of the VideoPlayerController to free up resources.
+    _controller.startRendererScanning();
     _controller.dispose();
 
     super.dispose();
@@ -43,11 +46,14 @@ class _LiveStreamWidgetState extends State<LiveStreamWidget> {
         body: widget.rtsp != null
             ? Center(
                 child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    VlcPlayer(
-                      controller: _controller,
-                      aspectRatio: 16 / 9,
-                      placeholder: Center(child: CircularProgressIndicator()),
+                    Expanded(
+                      child: VlcPlayer(
+                        controller: _controller,
+                        aspectRatio: 16 / 9,
+                        placeholder: Center(child: CircularProgressIndicator()),
+                      ),
                     ),
                   ],
                 ),
