@@ -52,6 +52,15 @@ void main() async {
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
+      // for IOS
+  await flutterLocalNotificationsPlugin
+    .resolvePlatformSpecificImplementation<
+        IOSFlutterLocalNotificationsPlugin>()
+    ?.requestPermissions(
+    alert: true,
+    badge: true,
+    sound: true,
+    );
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
@@ -89,37 +98,47 @@ class _MyAppState extends State<MyApp> {
     print('FCM Token set : $fcmToken');
   }
 
+  void _onDidReceiveLocalNotification(int a, String b, String c, String d){
+      print("recieved notification");
+    }
+
   @override
   void initState() {
     super.initState();
     _getFCMToken();
-    var initializationSettingsAndroid =
-        new AndroidInitializationSettings('ic_launcher');
     var initialzationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
+        final DarwinInitializationSettings iosSettings = DarwinInitializationSettings(
+            requestSoundPermission: false,
+            requestBadgePermission: false,
+            requestAlertPermission: false,
+            onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
+        );
     var initializationSettings =
-        InitializationSettings(android: initialzationSettingsAndroid);
+        InitializationSettings(android: initialzationSettingsAndroid, iOS: iosSettings);
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+    
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
-      // print('Got a message whilst in the foreground!');
-      // print('Message data: ${message.data}');
       if (notification != null) {
-        // print(notification.body);
-        // print(channel.id);
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,
             notification.body,
             NotificationDetails(
+              iOS: DarwinNotificationDetails(
+                presentAlert: true,
+                presentBadge: true,
+                presentSound: true,
+                subtitle: "NtelCare",
+                interruptionLevel: InterruptionLevel.critical
+              ),
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
                 color: Colors.white,
-
-                // TODO add a proper drawable resource to android, for now using
-                //      one that already exists in example app.
                 icon: "@mipmap/ic_launcher",
               ),
             ));
