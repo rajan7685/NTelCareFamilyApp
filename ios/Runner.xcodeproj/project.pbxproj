@@ -10,22 +10,24 @@
 		0C444B8F52EC92D435B3560F /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F4F42E58751C12C0A9AB1B /* Pods_Runner.framework */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
+		4E3DDEC73AE7B9C6B2A2F618 /* Pods_NtelcareNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EA80E8A6107ADCD7F18AFA0 /* Pods_NtelcareNotification.framework */; };
 		604E3EA328F702AA00BC6E31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 604E3EA228F702AA00BC6E31 /* GoogleService-Info.plist */; };
+		609D8A4429018F3C003FFA5E /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609D8A4329018F3C003FFA5E /* NotificationService.swift */; };
+		609D8A4829018F3C003FFA5E /* NtelcareNotification.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 609D8A4129018F3B003FFA5E /* NtelcareNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6436409A27A31CD800820AF7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6436409C27A31CD800820AF7 /* InfoPlist.strings */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
-		7E46EDFB5EF389A414057945 /* Pods_NTelCareNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0937C550CF33DCCDEEB8991B /* Pods_NTelCareNotification.framework */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		609D8A35290146EC003FFA5E /* PBXContainerItemProxy */ = {
+		609D8A4629018F3C003FFA5E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 609D8A2F290146EC003FFA5E;
-			remoteInfo = NTelCareNotification;
+			remoteGlobalIDString = 609D8A4029018F3B003FFA5E;
+			remoteInfo = NtelcareNotification;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -36,7 +38,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				609D8A37290146EC003FFA5E /* NTelCareNotification.appex in Embed Foundation Extensions */,
+				609D8A4829018F3C003FFA5E /* NtelcareNotification.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,10 +61,17 @@
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		1D0DEED4986EB871D2F002D7 /* Pods-NTelCareNotification.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NTelCareNotification.profile.xcconfig"; path = "Target Support Files/Pods-NTelCareNotification/Pods-NTelCareNotification.profile.xcconfig"; sourceTree = "<group>"; };
+		33D92829BD4187E26FF35EC9 /* Pods-NtelcareNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NtelcareNotification.debug.xcconfig"; path = "Target Support Files/Pods-NtelcareNotification/Pods-NtelcareNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
+		4EA80E8A6107ADCD7F18AFA0 /* Pods_NtelcareNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NtelcareNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57F4F42E58751C12C0A9AB1B /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		604E3EA228F702AA00BC6E31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		609D8A3C29018EBC003FFA5E /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
+		609D8A4129018F3B003FFA5E /* NtelcareNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NtelcareNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		609D8A4329018F3C003FFA5E /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		609D8A4529018F3C003FFA5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		611E2EF1D3D505D3A70BAE25 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		74186DD07E3C5CAE1E522C37 /* Pods-NtelcareNotification.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NtelcareNotification.profile.xcconfig"; path = "Target Support Files/Pods-NtelcareNotification/Pods-NtelcareNotification.profile.xcconfig"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
@@ -76,14 +85,15 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C75656171E56C5973EC47D13 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		C82EB9D7CE4FC124256FC754 /* Pods-NTelCareNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NTelCareNotification.debug.xcconfig"; path = "Target Support Files/Pods-NTelCareNotification/Pods-NTelCareNotification.debug.xcconfig"; sourceTree = "<group>"; };
+		C9804F624D3E27369C40DECC /* Pods-NtelcareNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NtelcareNotification.release.xcconfig"; path = "Target Support Files/Pods-NtelcareNotification/Pods-NtelcareNotification.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		609D8A2D290146EC003FFA5E /* Frameworks */ = {
+		609D8A3E29018F3B003FFA5E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E46EDFB5EF389A414057945 /* Pods_NTelCareNotification.framework in Frameworks */,
+				4E3DDEC73AE7B9C6B2A2F618 /* Pods_NtelcareNotification.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,8 +111,6 @@
 		609D8A20290145B1003FFA5E /* NTelCare */ = {
 			isa = PBXGroup;
 			children = (
-				609D8A21290145B1003FFA5E /* NotificationService.swift */,
-				609D8A23290145B1003FFA5E /* Info.plist */,
 			);
 			path = NTelCare;
 			sourceTree = "<group>";
@@ -110,10 +118,17 @@
 		609D8A31290146EC003FFA5E /* NTelCareNotification */ = {
 			isa = PBXGroup;
 			children = (
-				609D8A32290146EC003FFA5E /* NotificationService.swift */,
-				609D8A34290146EC003FFA5E /* Info.plist */,
 			);
 			path = NTelCareNotification;
+			sourceTree = "<group>";
+		};
+		609D8A4229018F3C003FFA5E /* NtelcareNotification */ = {
+			isa = PBXGroup;
+			children = (
+				609D8A4329018F3C003FFA5E /* NotificationService.swift */,
+				609D8A4529018F3C003FFA5E /* Info.plist */,
+			);
+			path = NtelcareNotification;
 			sourceTree = "<group>";
 		};
 		88B8BA03B915EB99265F430B /* Pods */ = {
@@ -125,6 +140,9 @@
 				C82EB9D7CE4FC124256FC754 /* Pods-NTelCareNotification.debug.xcconfig */,
 				8A27DE1D2DFCF4A51F3BA028 /* Pods-NTelCareNotification.release.xcconfig */,
 				1D0DEED4986EB871D2F002D7 /* Pods-NTelCareNotification.profile.xcconfig */,
+				33D92829BD4187E26FF35EC9 /* Pods-NtelcareNotification.debug.xcconfig */,
+				C9804F624D3E27369C40DECC /* Pods-NtelcareNotification.release.xcconfig */,
+				74186DD07E3C5CAE1E522C37 /* Pods-NtelcareNotification.profile.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -147,6 +165,7 @@
 				97C146F01CF9000F007C117D /* Runner */,
 				609D8A20290145B1003FFA5E /* NTelCare */,
 				609D8A31290146EC003FFA5E /* NTelCareNotification */,
+				609D8A4229018F3C003FFA5E /* NtelcareNotification */,
 				97C146EF1CF9000F007C117D /* Products */,
 				88B8BA03B915EB99265F430B /* Pods */,
 				EF07DED6021257FB0D5A48EC /* Frameworks */,
@@ -157,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
-				609D8A30290146EC003FFA5E /* NTelCareNotification.appex */,
+				609D8A4129018F3B003FFA5E /* NtelcareNotification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,6 +184,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				609D8A3C29018EBC003FFA5E /* Runner.entitlements */,
 				604E3EA228F702AA00BC6E31 /* GoogleService-Info.plist */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
@@ -184,6 +204,7 @@
 			children = (
 				57F4F42E58751C12C0A9AB1B /* Pods_Runner.framework */,
 				0937C550CF33DCCDEEB8991B /* Pods_NTelCareNotification.framework */,
+				4EA80E8A6107ADCD7F18AFA0 /* Pods_NtelcareNotification.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -191,22 +212,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		609D8A2F290146EC003FFA5E /* NTelCareNotification */ = {
+		609D8A4029018F3B003FFA5E /* NtelcareNotification */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 609D8A38290146ED003FFA5E /* Build configuration list for PBXNativeTarget "NTelCareNotification" */;
+			buildConfigurationList = 609D8A4929018F3C003FFA5E /* Build configuration list for PBXNativeTarget "NtelcareNotification" */;
 			buildPhases = (
-				EC5315A8F71E1BD51A65224E /* [CP] Check Pods Manifest.lock */,
-				609D8A2C290146EC003FFA5E /* Sources */,
-				609D8A2D290146EC003FFA5E /* Frameworks */,
-				609D8A2E290146EC003FFA5E /* Resources */,
+				CAB73B8675D942CD8806E8DF /* [CP] Check Pods Manifest.lock */,
+				609D8A3D29018F3B003FFA5E /* Sources */,
+				609D8A3E29018F3B003FFA5E /* Frameworks */,
+				609D8A3F29018F3B003FFA5E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = NTelCareNotification;
-			productName = NTelCareNotification;
-			productReference = 609D8A30290146EC003FFA5E /* NTelCareNotification.appex */;
+			name = NtelcareNotification;
+			productName = NtelcareNotification;
+			productReference = 609D8A4129018F3B003FFA5E /* NtelcareNotification.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		97C146ED1CF9000F007C117D /* Runner */ = {
@@ -226,7 +247,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				609D8A36290146EC003FFA5E /* PBXTargetDependency */,
+				609D8A4729018F3C003FFA5E /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -243,7 +264,7 @@
 				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
-					609D8A2F290146EC003FFA5E = {
+					609D8A4029018F3B003FFA5E = {
 						CreatedOnToolsVersion = 14.0.1;
 					};
 					97C146ED1CF9000F007C117D = {
@@ -266,13 +287,13 @@
 			projectRoot = "";
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
-				609D8A2F290146EC003FFA5E /* NTelCareNotification */,
+				609D8A4029018F3B003FFA5E /* NtelcareNotification */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		609D8A2E290146EC003FFA5E /* Resources */ = {
+		609D8A3F29018F3B003FFA5E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -345,6 +366,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CAB73B8675D942CD8806E8DF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NtelcareNotification-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D898EBF30B181641819A3BAB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -362,36 +405,14 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EC5315A8F71E1BD51A65224E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NTelCareNotification-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		609D8A2C290146EC003FFA5E /* Sources */ = {
+		609D8A3D29018F3B003FFA5E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				609D8A33290146EC003FFA5E /* NotificationService.swift in Sources */,
+				609D8A4429018F3C003FFA5E /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,10 +428,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		609D8A36290146EC003FFA5E /* PBXTargetDependency */ = {
+		609D8A4729018F3C003FFA5E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 609D8A2F290146EC003FFA5E /* NTelCareNotification */;
-			targetProxy = 609D8A35290146EC003FFA5E /* PBXContainerItemProxy */;
+			target = 609D8A4029018F3B003FFA5E /* NtelcareNotification */;
+			targetProxy = 609D8A4629018F3C003FFA5E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -498,12 +519,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J8CV4W6JSL;
+				DEVELOPMENT_TEAM = J8CV4W6JSL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -522,16 +542,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ntelcare.familyapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ntelcare_family_app;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Profile;
 		};
-		609D8A39290146ED003FFA5E /* Debug */ = {
+		609D8A4A29018F3C003FFA5E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C82EB9D7CE4FC124256FC754 /* Pods-NTelCareNotification.debug.xcconfig */;
+			baseConfigurationReference = 33D92829BD4187E26FF35EC9 /* Pods-NtelcareNotification.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -545,8 +564,8 @@
 				DEVELOPMENT_TEAM = J8CV4W6JSL;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NTelCareNotification/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NTelCareNotification;
+				INFOPLIST_FILE = NtelcareNotification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NtelcareNotification;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -557,7 +576,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ntelcare.familyapp.NTelCareNotification;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ntelcare.familyapp.NtelcareNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -568,9 +587,9 @@
 			};
 			name = Debug;
 		};
-		609D8A3A290146ED003FFA5E /* Release */ = {
+		609D8A4B29018F3C003FFA5E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A27DE1D2DFCF4A51F3BA028 /* Pods-NTelCareNotification.release.xcconfig */;
+			baseConfigurationReference = C9804F624D3E27369C40DECC /* Pods-NtelcareNotification.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -584,8 +603,8 @@
 				DEVELOPMENT_TEAM = J8CV4W6JSL;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NTelCareNotification/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NTelCareNotification;
+				INFOPLIST_FILE = NtelcareNotification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NtelcareNotification;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -595,7 +614,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ntelcare.familyapp.NTelCareNotification;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ntelcare.familyapp.NtelcareNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -606,9 +625,9 @@
 			};
 			name = Release;
 		};
-		609D8A3B290146ED003FFA5E /* Profile */ = {
+		609D8A4C29018F3C003FFA5E /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D0DEED4986EB871D2F002D7 /* Pods-NTelCareNotification.profile.xcconfig */;
+			baseConfigurationReference = 74186DD07E3C5CAE1E522C37 /* Pods-NtelcareNotification.profile.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -622,8 +641,8 @@
 				DEVELOPMENT_TEAM = J8CV4W6JSL;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NTelCareNotification/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = NTelCareNotification;
+				INFOPLIST_FILE = NtelcareNotification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NtelcareNotification;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -633,7 +652,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ntelcare.familyapp.NTelCareNotification;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ntelcare.familyapp.NtelcareNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -757,51 +776,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J8CV4W6JSL;
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flutter",
-				);
-				INFOPLIST_FILE = Runner/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Flutter",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ntelcare.familyapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ntelcare_family_app;
-				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Debug;
-		};
-		97C147071CF9000F007C117D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J8CV4W6JSL;
 				DEVELOPMENT_TEAM = J8CV4W6JSL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -821,7 +799,43 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ntelcare.familyapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ntelcare_family_app;
+				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		97C147071CF9000F007C117D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				DEVELOPMENT_TEAM = J8CV4W6JSL;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Flutter",
+				);
+				INFOPLIST_FILE = Runner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Flutter",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ntelcare.familyapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -831,12 +845,12 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		609D8A38290146ED003FFA5E /* Build configuration list for PBXNativeTarget "NTelCareNotification" */ = {
+		609D8A4929018F3C003FFA5E /* Build configuration list for PBXNativeTarget "NtelcareNotification" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				609D8A39290146ED003FFA5E /* Debug */,
-				609D8A3A290146ED003FFA5E /* Release */,
-				609D8A3B290146ED003FFA5E /* Profile */,
+				609D8A4A29018F3C003FFA5E /* Debug */,
+				609D8A4B29018F3C003FFA5E /* Release */,
+				609D8A4C29018F3C003FFA5E /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

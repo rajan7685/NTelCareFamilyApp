@@ -40,7 +40,7 @@ post_install do |installer|
   end
 end
 
-target 'NTelCareNotification' do
+target 'NtelcareNotification' do
   use_frameworks!
   pod 'Firebase/Messaging'
 end

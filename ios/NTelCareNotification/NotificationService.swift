@@ -1,6 +1,6 @@
 //
 //  NotificationService.swift
-//  NTelCareNotification
+//  NtelcareNotification
 //
 //  Created by Regami Solutions on 20/10/22.
 //
