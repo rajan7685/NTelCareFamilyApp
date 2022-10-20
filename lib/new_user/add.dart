@@ -841,7 +841,7 @@ class _AddWidgetState extends State<Add> {
                               child: TextFormField(
                                 controller: textController7,
                                 obscureText: false,
-                                onEditingComplete: _loadAddress,
+                                onChanged: (_) => _loadAddress(),
                                 // onSaved: (newValue) => print(newValue),
                                 decoration: InputDecoration(
                                   labelText: 'Zip Code',

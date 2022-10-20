@@ -122,7 +122,9 @@ class _MyAppState extends State<MyApp> {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
+      print("got notification ie not null");
       if (notification != null) {
+        print("got notification ie not null");
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,
@@ -148,7 +150,8 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
       AndroidNotification android = message.notification?.android;
-      if (notification != null && android != null) {
+      AppleNotification iphone = message.notification?.apple;
+      if (notification != null && android != null && iphone != null) {
         showDialog(
             context: context,
             builder: (_) {

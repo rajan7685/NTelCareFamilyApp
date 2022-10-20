@@ -113,6 +113,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
   }
 
   Future<void> _loadAddress() async {
+    print("calling loadAdrs");
     String uri =
         '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
     final res = await http.get(
@@ -927,6 +928,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                 child: TextFormField(
                                   controller: textController7,
                                   obscureText: false,
+                                  onChanged: (_) => _loadAddress(),
                                   onEditingComplete: _loadAddress,
                                   // onSaved: (newValue) => print(newValue),
                                   decoration: InputDecoration(
