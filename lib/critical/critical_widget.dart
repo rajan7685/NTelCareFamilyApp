@@ -168,9 +168,6 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                           children: [
                                             InkWell(
                                               onTap: () {
-                                                // setState(() {
-                                                //   selectedId = id;
-                                                // });
                                                 _seniorId = inf[index]["id"];
                                                 print(
                                                     "id changed to $_seniorId");
@@ -552,11 +549,17 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    'jolly\'s Smart band not Worn',
+                                                                    _eventList[
+                                                                            index]
+                                                                        [
+                                                                        "message"],
+                                                                    maxLines: 2,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
                                                                         .override(
+                                                                          fontSize:
+                                                                              12,
                                                                           fontFamily:
                                                                               'Montserrat',
                                                                           color:
@@ -565,13 +568,19 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                                                   ),
                                                                 ],
                                                               ),
+                                                              SizedBox(
+                                                                height: 6,
+                                                              ),
                                                               Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    '14:20 hrs',
+                                                                    DateFormat(
+                                                                            "h:mm a")
+                                                                        .format(
+                                                                            DateTime.parse("${_eventList[index]["date"].toString().split(" ").first} ${_eventList[index]["time"]}").toLocal()),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -609,7 +618,9 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                     ),
                   ],
                 ),
-                if (FFAppState().chat && FFAppState().Chattoggle2)
+                if (SharedPreferenceService.loadBool(
+                        key: AccountsKeys.ChatPermission) &&
+                    FFAppState().Chattoggle2)
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 30),
                     child: Column(
