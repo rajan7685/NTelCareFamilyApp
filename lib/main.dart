@@ -1,63 +1,77 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:n_tel_care_family_app/profile/profile_page.dart';
 import 'package:n_tel_care_family_app/spalsh/modified_splash.dart';
 import 'package:flutter/services.dart';
 import 'package:n_tel_care_family_app/video/videos_widget.dart';
-import 'flutter_flow/flutter_flow_theme.dart';
+import 'core/shared_preferences_service.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'devices/devices_widget.dart';
-
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
+  await Firebase.initializeApp()
+      .then((FirebaseApp value) => print('Firebase Service init $value.'));
   print('Handling a background message ${message.messageId}');
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  HttpOverrides.global = MyHttpOverrides();
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+  };
 
+  await Firebase.initializeApp()
+      .then((FirebaseApp value) => print('Firebase Service init $value.'));
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
-
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
     sound: true,
   );
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
   // Initialize FFAppState.
   FFAppState();
-
+  SharedPreferenceService.init();
   runApp(MyApp());
 }
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'ntelcare', // id
-  'High Importance Notifications', // title
-  'This channel is used for important notifications.', // description
+  'High Importance Notifications',
   importance: Importance.high,
 );
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
 
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
@@ -69,13 +83,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Future<void> _getFCMToken() async {
+    String fcmToken = await FirebaseMessaging.instance.getToken();
+    FFAppState().FCM = fcmToken;
+    print('FCM Token set : $fcmToken');
+  }
+
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.instance.getToken().then((newToken) {
-      print("Fcm token");
-      print("hello" + newToken);
-    });
+    _getFCMToken();
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('ic_launcher');
     var initialzationSettingsAndroid =
@@ -84,14 +101,13 @@ class _MyAppState extends State<MyApp> {
         InitializationSettings(android: initialzationSettingsAndroid);
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-    FirebaseMessaging.onMessage.listen((message) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
-      //  AndroidNotification android = message.notification?.android;
-      // if (notification != null && android != null)
+      // print('Got a message whilst in the foreground!');
+      // print('Message data: ${message.data}');
       if (notification != null) {
-        //  getToken();
-        print(notification.body);
-        print(channel.id);
+        // print(notification.body);
+        // print(channel.id);
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,
@@ -100,7 +116,6 @@ class _MyAppState extends State<MyApp> {
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
-                channel.description,
                 color: Colors.white,
 
                 // TODO add a proper drawable resource to android, for now using
@@ -116,26 +131,21 @@ class _MyAppState extends State<MyApp> {
       AndroidNotification android = message.notification?.android;
       if (notification != null && android != null) {
         showDialog(
-            // context: context,
+            context: context,
             builder: (_) {
-          return AlertDialog(
-            title: Text(notification.title),
-            content: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text(notification.body)],
-              ),
-            ),
-          );
-        });
+              return AlertDialog(
+                title: Text(notification.title),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(notification.body)],
+                  ),
+                ),
+              );
+            });
       }
     });
   }
-
-  // String token;
-  // getToken() async {
-  //   token = await FirebaseMessaging.instance.getToken();
-  // }
 
   Locale _locale;
   ThemeMode _themeMode = ThemeMode.system;

@@ -1,3 +1,7 @@
+import 'package:flutter/cupertino.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
+
 import '../../flutter_flow/flutter_flow_util.dart';
 
 import 'api_manager.dart';
@@ -12,7 +16,7 @@ class LoginCall {
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'Login',
-      apiUrl: 'http://18.208.148.208:4000/login/member',
+      apiUrl: '${ApiService.domain}/login/member',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -22,13 +26,16 @@ class LoginCall {
 }
 
 class DeleteUserCall {
-  static Future<ApiCallResponse> call() {
+  static Future<ApiCallResponse> call({@required String memberId}) {
     return ApiManager.instance.makeApiCall(
       callName: 'DeleteUser',
-      apiUrl: 'http://18.208.148.208:4000/delete/member/',
+      apiUrl: '${ApiService.domain}/delete/member/',
       callType: ApiCallType.DELETE,
-      headers: {'Authorization': 'Bearer ${FFAppState().Token}'},
-      params: {"member_id": FFAppState().MemberId},
+      headers: {
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}'
+      },
+      params: {"member_id": memberId},
       returnBody: true,
     );
   }
@@ -41,7 +48,7 @@ class CameraLIstCall {
     return ApiManager.instance.makeApiCall(
       callName: 'CameraLIst',
       apiUrl:
-          'http://demo.ntelcare.com/MobiPortal/Cameras.aspx?Token=${token}&OSType=I',
+          '${ApiService.domain}/MobiPortal/Cameras.aspx?Token=${token}&OSType=I',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -60,7 +67,7 @@ class UserAddCall {
     return ApiManager.instance.makeApiCall(
       callName: 'UserAdd',
       apiUrl:
-          'http://demo.ntelcare.com/MobiPortal/UserAdd.aspx?Token=${token}&FirstName=${firstName}&LastName=${lastName}&Email=${email}',
+          '${ApiService.domain}/MobiPortal/UserAdd.aspx?Token=${token}&FirstName=${firstName}&LastName=${lastName}&Email=${email}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -80,7 +87,7 @@ class UserEditCall {
     return ApiManager.instance.makeApiCall(
       callName: 'UserEdit',
       apiUrl:
-          'http://demo.ntelcare.com/MobiPortal/UserEdit.aspx?Token=${token}&UserID=${userId}FirstName=${firstName}&LastName=${lastName}&Email=${email}',
+          '${ApiService.domain}/MobiPortal/UserEdit.aspx?Token=${token}&UserID=${userId}FirstName=${firstName}&LastName=${lastName}&Email=${email}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -125,12 +132,16 @@ class SeniorsList {
   static Future<dynamic> call() {
     return ApiManager.instance.makeApiCall(
       callName: 'SeniorList',
-      apiUrl: 'http://18.208.148.208:4000/get/seniors/member',
+      apiUrl: '${ApiService.domain}/get/seniors/member',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${FFAppState().Token}',
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
       },
-      params: {"m_acc_id": '${FFAppState().AccountId}'},
+      params: {
+        "m_acc_id":
+            '${SharedPreferenceService.loadString(key: AccountsKeys.MasterAccountKey)}'
+      },
       returnBody: true,
     );
   }
@@ -140,10 +151,11 @@ class GetProfile {
   static Future<dynamic> call() {
     return ApiManager.instance.makeApiCall(
       callName: 'getProfile',
-      apiUrl: 'http://18.208.148.208:4000/get/profile/member',
+      apiUrl: '${ApiService.domain}/get/profile/member',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${FFAppState().Token}',
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
       },
       returnBody: true,
     );
@@ -172,10 +184,11 @@ class DashBoardStat {
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'DashBoardStat',
-      apiUrl: 'http://18.208.148.208:4000/dashboard/${id}',
+      apiUrl: '${ApiService.domain}/dashboard/${id}',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${FFAppState().Token}',
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
       },
       params: {},
       returnBody: true,
@@ -187,9 +200,27 @@ class GetHrate {
   Future<http.Response> get(String endpoint) async {
     var url = Uri.parse(endpoint);
     var response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${FFAppState().Token}',
+      'Authorization':
+          'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
     });
     return response;
+  }
+}
+
+class GetHeartWeek {
+  static Future<dynamic> call({String id = '', String date = ''}) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getHeartWeekStatus',
+      apiUrl:
+          '${ApiService.domain}/graph/health_status/heart_rate/weekly?date=${date}&senior_id=${id}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
+      },
+      // params: {"senior_id": id, "date": date},
+      returnBody: true,
+    );
   }
 }
 
@@ -197,7 +228,8 @@ class GetSteps {
   Future<http.Response> get(String endpoint) async {
     var url = Uri.parse(endpoint);
     var response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${FFAppState().Token}',
+      'Authorization':
+          'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
     });
     return response;
   }
@@ -207,7 +239,8 @@ class GetCalories {
   Future<http.Response> get(String endpoint) async {
     var url = Uri.parse(endpoint);
     var response = await http.get(url, headers: {
-      'Authorization': 'Bearer ${FFAppState().Token}',
+      'Authorization':
+          'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
     });
     return response;
   }

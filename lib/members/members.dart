@@ -1,7 +1,11 @@
 // ignore_for_file: missing_return
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_manager.dart';
+import 'package:n_tel_care_family_app/components/custom_toast.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/edit/edit_executive.dart';
 import 'package:n_tel_care_family_app/edit/edit_member.dart';
@@ -29,6 +33,12 @@ class _MembersWidgetState extends State<MembersWidget> {
   int isSelected = 0;
   List<dynamic> executiveList = [];
   List<dynamic> membersList = [];
+
+  List<dynamic> countries = [];
+  List<dynamic> countriesMember = [];
+
+  List<dynamic> relation = [];
+
   dynamic executive;
   bool isloading = true;
 
@@ -38,24 +48,48 @@ class _MembersWidgetState extends State<MembersWidget> {
     });
   }
 
+  Future<void> _checkNetworkConnectivity() async {
+    ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    print(connectivityResult.name);
+    print(connectivityResult.name);
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+    } else {
+      Toast.showToast(context,
+          message: 'You are not connected to internet.', type: ToastType.Error);
+    }
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //MList = fetchList();
-    loadMembersData();
+    _checkNetworkConnectivity();
+    loadMembersData(init: true);
     SList = fetchSList();
   }
 
-  void loadMembersData() async {
+  void loadMembersData({bool init = false}) async {
+    if (!init) {
+      setState(() {
+        isloading = true;
+      });
+    }
     final ApiCallResponse MList = await MemberList.call();
-    print(FFAppState().Token);
+
+    print(SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey));
     print(MList.statusCode);
+    countriesMember = MList.jsonBody["countries"];
+    // print(" countries member $countriesMember");
 
     executiveList = (MList.jsonBody["members"] as List)
         .where((element) => element["executive"])
         .toList();
 
+    relation = MList.jsonBody["relation"] as List;
+    FFAppState().relation = relation;
     membersList = (MList.jsonBody["members"] as List)
         .where((element) => !element["executive"])
         .toList();
@@ -68,10 +102,11 @@ class _MembersWidgetState extends State<MembersWidget> {
   Future<dynamic> MemberList() {
     return ApiManager.instance.makeApiCall(
       callName: 'MemberList',
-      apiUrl: 'http://18.208.148.208:4000/get/members/member',
+      apiUrl: '${ApiService.domain}/get/members/member',
       callType: ApiCallType.GET,
       headers: {
-        'Authorization': 'Bearer ${FFAppState().Token}',
+        'Authorization':
+            'Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}',
       },
       params: {},
       returnBody: true,
@@ -120,25 +155,29 @@ class _MembersWidgetState extends State<MembersWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 10, 0),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Add(),
-                                        ),
-                                      );
-                                    },
-                                    child: Icon(
-                                      Icons.add_circle_outline,
-                                      color: Color(0xFF00B89F),
-                                      size: 30,
+                                if (SharedPreferenceService.loadBool(
+                                    key: AccountsKeys.Executive))
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 10, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Add(countries: countriesMember),
+                                          ),
+                                        );
+                                        loadMembersData();
+                                      },
+                                      child: Icon(
+                                        Icons.add_circle_outline,
+                                        color: Color(0xFF00B89F),
+                                        size: 30,
+                                      ),
                                     ),
                                   ),
-                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 0, 0, 0),
@@ -172,44 +211,6 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .tertiaryColor,
                                                 size: 35,
-                                              ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: AlignmentDirectional(
-                                                0.05, -0.43),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(17, 0, 0, 0),
-                                              child: Container(
-                                                width: 15,
-                                                height: 15,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF006B5D),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      '5',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            color: Colors.white,
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
                                               ),
                                             ),
                                           ),
@@ -263,9 +264,6 @@ class _MembersWidgetState extends State<MembersWidget> {
                                           children: [
                                             InkWell(
                                               onTap: () {
-                                                // setState(() {
-                                                //   selectedId = id;
-                                                // });
                                                 _isSelected(index);
                                               },
                                               child: Container(
@@ -279,7 +277,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                       : Colors.black,
                                                 ),
                                                 child: Image.network(
-                                                  inf[index]["profile"],
+                                                  inf[index]["profile"] ??
+                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -383,9 +382,12 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                           MaterialPageRoute(
                                                               builder: (context) =>
                                                                   EditSeniorsWidget(
-                                                                      data: snapshot
-                                                                              .data[
-                                                                          index])));
+                                                                    data: snapshot
+                                                                            .data[
+                                                                        index],
+                                                                    countries:
+                                                                        countries,
+                                                                  )));
                                                       setState(() {
                                                         SList = fetchSList();
                                                       });
@@ -502,189 +504,210 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                 0, 0),
                                                         child: isloading == true
                                                             ? CircularProgressIndicator()
-                                                            : ListView.builder(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .zero,
-                                                                scrollDirection:
-                                                                    Axis
-                                                                        .vertical,
-                                                                itemCount:
-                                                                    executiveList
-                                                                        .length,
-                                                                itemBuilder:
-                                                                    (BuildContext
-                                                                            context,
-                                                                        int index) {
-                                                                  return Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5,
-                                                                            10,
-                                                                            5,
-                                                                            0),
-                                                                    child:
-                                                                        InkWell(
-                                                                      onTap:
-                                                                          () async {
-                                                                        //       FFAppState().MemberId = snapshot.data[index]["id"];
-                                                                        // print(executiveList[
-                                                                        //     index]);
-
-                                                                        await Navigator
-                                                                            .push(
-                                                                          context,
-                                                                          MaterialPageRoute(
-                                                                            builder: (context) =>
-                                                                                EditMemberWidget(data: executiveList[index], title: "Edit Executive"),
-                                                                          ),
-                                                                        );
-                                                                        loadMembersData();
-                                                                      },
-                                                                      child:
-                                                                          Card(
-                                                                        clipBehavior:
-                                                                            Clip.antiAliasWithSaveLayer,
-                                                                        color: Color(
-                                                                            0xFF272E36),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              3,
-                                                                              0,
-                                                                              0,
-                                                                              0),
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Container(
-                                                                                width: 80,
-                                                                                height: 80,
-                                                                                decoration: BoxDecoration(
-                                                                                  color: Color(0xFF272E36),
-                                                                                ),
-                                                                                child: Stack(
-                                                                                  children: [
-                                                                                    Container(
-                                                                                      width: 100,
-                                                                                      height: 100,
-                                                                                      clipBehavior: Clip.antiAlias,
-                                                                                      decoration: BoxDecoration(
-                                                                                        shape: BoxShape.circle,
-                                                                                      ),
-                                                                                      child: Image.network(
-                                                                                        executiveList[index]["profile"] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
-                                                                                        fit: BoxFit.cover,
-                                                                                      ),
+                                                            : (executiveList
+                                                                    .isEmpty
+                                                                ? Center(
+                                                                    child: Text(
+                                                                        "No executive member have been added",
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyText1
+                                                                            .override(
+                                                                              fontFamily: 'Montserrat',
+                                                                              color: Color(0xFF00B89F),
+                                                                              fontWeight: FontWeight.bold,
+                                                                            )),
+                                                                  )
+                                                                : ListView
+                                                                    .builder(
+                                                                        padding:
+                                                                            EdgeInsets
+                                                                                .zero,
+                                                                        scrollDirection:
+                                                                            Axis
+                                                                                .vertical,
+                                                                        itemCount:
+                                                                            executiveList
+                                                                                .length,
+                                                                        itemBuilder:
+                                                                            (BuildContext context,
+                                                                                int index) {
+                                                                          return Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                5,
+                                                                                10,
+                                                                                5,
+                                                                                0),
+                                                                            child:
+                                                                                InkWell(
+                                                                              onTap: () async {
+                                                                                await Navigator.push(
+                                                                                  context,
+                                                                                  MaterialPageRoute(
+                                                                                    builder: (context) => EditMemberWidget(
+                                                                                      data: executiveList[index],
+                                                                                      title: "Edit Executive",
+                                                                                      countries: countriesMember,
                                                                                     ),
-                                                                                    Align(
-                                                                                      alignment: AlignmentDirectional(1.2, 0.83),
-                                                                                      child: Container(
-                                                                                        width: 30,
-                                                                                        height: 30,
+                                                                                  ),
+                                                                                );
+                                                                                loadMembersData();
+                                                                              },
+                                                                              child: Card(
+                                                                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                                                color: Color(0xFF272E36),
+                                                                                child: Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
+                                                                                  child: Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    children: [
+                                                                                      Container(
+                                                                                        width: 80,
+                                                                                        height: 80,
                                                                                         decoration: BoxDecoration(
-                                                                                          color: Color(0xFF00B89F),
-                                                                                          shape: BoxShape.circle,
+                                                                                          color: Color(0xFF272E36),
                                                                                         ),
-                                                                                        alignment: AlignmentDirectional(0, 0),
-                                                                                        child: Column(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                                        child: Stack(
                                                                                           children: [
-                                                                                            Expanded(
-                                                                                              child: Column(
-                                                                                                mainAxisSize: MainAxisSize.min,
-                                                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                                children: [
-                                                                                                  SvgPicture.asset(
-                                                                                                    'assets/images/achievment.svg',
-                                                                                                    height: 20,
-                                                                                                    fit: BoxFit.cover,
-                                                                                                  ),
-                                                                                                ],
+                                                                                            Container(
+                                                                                              width: 100,
+                                                                                              height: 100,
+                                                                                              clipBehavior: Clip.antiAlias,
+                                                                                              decoration: BoxDecoration(
+                                                                                                shape: BoxShape.circle,
+                                                                                              ),
+                                                                                              child: Image.network(
+                                                                                                executiveList[index]["profile"] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
+                                                                                                fit: BoxFit.cover,
+                                                                                              ),
+                                                                                            ),
+                                                                                            Align(
+                                                                                              alignment: AlignmentDirectional(1.2, 0.83),
+                                                                                              child: Container(
+                                                                                                width: 30,
+                                                                                                height: 30,
+                                                                                                decoration: BoxDecoration(
+                                                                                                  color: Color(0xFF00B89F),
+                                                                                                  shape: BoxShape.circle,
+                                                                                                ),
+                                                                                                alignment: AlignmentDirectional(0, 0),
+                                                                                                child: Column(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                  children: [
+                                                                                                    Expanded(
+                                                                                                      child: Column(
+                                                                                                        mainAxisSize: MainAxisSize.min,
+                                                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                        children: [
+                                                                                                          SvgPicture.asset(
+                                                                                                            'assets/images/achievment.svg',
+                                                                                                            height: 20,
+                                                                                                            fit: BoxFit.cover,
+                                                                                                          ),
+                                                                                                        ],
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
                                                                                               ),
                                                                                             ),
                                                                                           ],
                                                                                         ),
                                                                                       ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                              Expanded(
-                                                                                child: Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                  children: [
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                                                                      child: Column(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                        children: [
-                                                                                          Row(
-                                                                                            mainAxisSize: MainAxisSize.max,
-                                                                                            children: [
-                                                                                              Text(
-                                                                                                executiveList[index]["fname"] + " " + executiveList[index]["lname"],
-                                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                      fontFamily: 'Montserrat',
-                                                                                                      color: Color(0xFF00B89F),
-                                                                                                      fontWeight: FontWeight.bold,
-                                                                                                    ),
+                                                                                      Expanded(
+                                                                                        child: Row(
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                          children: [
+                                                                                            Padding(
+                                                                                              padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                                                                              child: Column(
+                                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                children: [
+                                                                                                  Row(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    children: [
+                                                                                                      Text(
+                                                                                                        executiveList[index]["fname"] + " " + executiveList[index]["lname"],
+                                                                                                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                              fontFamily: 'Montserrat',
+                                                                                                              color: Color(0xFF00B89F),
+                                                                                                              fontWeight: FontWeight.bold,
+                                                                                                            ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                  SizedBox(
+                                                                                                    height: 6,
+                                                                                                  ),
+                                                                                                  Row(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    children: [
+                                                                                                      Icon(
+                                                                                                        Icons.mail_outline,
+                                                                                                        color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                        size: 12,
+                                                                                                      ),
+                                                                                                      SizedBox(
+                                                                                                        width: 6,
+                                                                                                      ),
+                                                                                                      Text(
+                                                                                                        executiveList[index]["email"],
+                                                                                                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                              fontFamily: 'Montserrat',
+                                                                                                              color: Color(0xFFAFAFAF),
+                                                                                                              fontSize: 12,
+                                                                                                              fontWeight: FontWeight.w200,
+                                                                                                            ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                  SizedBox(
+                                                                                                    height: 2,
+                                                                                                  ),
+                                                                                                  Row(
+                                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                                    children: [
+                                                                                                      Icon(
+                                                                                                        Icons.phone_outlined,
+                                                                                                        color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                        size: 12,
+                                                                                                      ),
+                                                                                                      SizedBox(
+                                                                                                        width: 6,
+                                                                                                      ),
+                                                                                                      Text(
+                                                                                                        executiveList[index]["mobile"],
+                                                                                                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                              fontFamily: 'Montserrat',
+                                                                                                              color: Color(0xFFAFAFAF),
+                                                                                                              fontSize: 12,
+                                                                                                              fontWeight: FontWeight.w200,
+                                                                                                            ),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                ],
                                                                                               ),
-                                                                                            ],
-                                                                                          ),
-                                                                                          Row(
-                                                                                            mainAxisSize: MainAxisSize.max,
-                                                                                            children: [
-                                                                                              Text(
-                                                                                                executiveList[index]["email"],
-                                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                      fontFamily: 'Montserrat',
-                                                                                                      color: Color(0xFFAFAFAF),
-                                                                                                      fontSize: 12,
-                                                                                                      fontWeight: FontWeight.w200,
-                                                                                                    ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                          Row(
-                                                                                            mainAxisSize: MainAxisSize.max,
-                                                                                            children: [
-                                                                                              Text(
-                                                                                                executiveList[index]["mobile"],
-                                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                      fontFamily: 'Montserrat',
-                                                                                                      color: Color(0xFFAFAFAF),
-                                                                                                      fontSize: 12,
-                                                                                                      fontWeight: FontWeight.w200,
-                                                                                                    ),
-                                                                                              ),
-                                                                                            ],
-                                                                                          ),
-                                                                                        ],
+                                                                                            ),
+                                                                                            Icon(
+                                                                                              Icons.chevron_right,
+                                                                                              color: Color(0xFF00B89F),
+                                                                                              size: 30,
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
                                                                                       ),
-                                                                                    ),
-                                                                                    Icon(
-                                                                                      Icons.chevron_right,
-                                                                                      color: Color(0xFF00B89F),
-                                                                                      size: 30,
-                                                                                    ),
-                                                                                  ],
+                                                                                    ],
+                                                                                  ),
                                                                                 ),
                                                                               ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }),
+                                                                            ),
+                                                                          );
+                                                                        })),
                                                       )
                                                     ],
                                                   ),
@@ -694,157 +717,194 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                             0, 0),
                                                     child: isloading == true
                                                         ? CircularProgressIndicator()
-                                                        : ListView.builder(
-                                                            padding:
-                                                                EdgeInsets.zero,
-                                                            scrollDirection:
-                                                                Axis.vertical,
-                                                            itemCount:
-                                                                membersList
-                                                                    .length,
-                                                            itemBuilder:
-                                                                (BuildContext
-                                                                        context,
-                                                                    int index) {
-                                                              {
-                                                                return Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          5,
-                                                                          10,
-                                                                          5,
-                                                                          0),
-                                                                  child:
-                                                                      InkWell(
-                                                                    onTap:
-                                                                        () async {
-                                                                      FFAppState()
-                                                                          .MemberId = membersList[
-                                                                              index]
-                                                                          [
-                                                                          "id"];
-                                                                      await Navigator
-                                                                          .push(
-                                                                        context,
-                                                                        MaterialPageRoute(
-                                                                          builder: (context) => EditMemberWidget(
-                                                                              data: membersList[index],
-                                                                              title: "Edit Members"),
-                                                                        ),
-                                                                      );
-                                                                    },
-                                                                    child: Card(
-                                                                      clipBehavior:
-                                                                          Clip.antiAliasWithSaveLayer,
-                                                                      color: Color(
-                                                                          0xFF272E36),
+                                                        : (membersList.isEmpty
+                                                            ? Center(
+                                                                child: Text(
+                                                                  "No member have been added",
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        color: Color(
+                                                                            0xFF00B89F),
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                ),
+                                                              )
+                                                            : ListView.builder(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                scrollDirection:
+                                                                    Axis
+                                                                        .vertical,
+                                                                itemCount:
+                                                                    membersList
+                                                                        .length,
+                                                                itemBuilder:
+                                                                    (BuildContext
+                                                                            context,
+                                                                        int index) {
+                                                                  {
+                                                                    return Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              5,
+                                                                              10,
+                                                                              5,
+                                                                              0),
                                                                       child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            3,
-                                                                            0,
-                                                                            0,
-                                                                            0),
+                                                                          InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          FFAppState().MemberId =
+                                                                              membersList[index]["id"];
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            MaterialPageRoute(
+                                                                              builder: (context) => EditMemberWidget(countries: countriesMember, data: membersList[index], title: "Edit Member"),
+                                                                            ),
+                                                                          );
+                                                                          loadMembersData();
+                                                                        },
                                                                         child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: [
-                                                                            Container(
-                                                                              width: 80,
-                                                                              height: 80,
-                                                                              decoration: BoxDecoration(
-                                                                                color: Color(0xFF272E36),
-                                                                              ),
-                                                                              child: Stack(
-                                                                                children: [
-                                                                                  Container(
-                                                                                    width: 100,
-                                                                                    height: 100,
-                                                                                    clipBehavior: Clip.antiAlias,
-                                                                                    decoration: BoxDecoration(
-                                                                                      shape: BoxShape.circle,
-                                                                                    ),
-                                                                                    child: Image.network(
-                                                                                      membersList[index]["profile"] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
-                                                                                      fit: BoxFit.cover,
-                                                                                    ),
+                                                                            Card(
+                                                                          clipBehavior:
+                                                                              Clip.antiAliasWithSaveLayer,
+                                                                          color:
+                                                                              Color(0xFF272E36),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                3,
+                                                                                0,
+                                                                                0,
+                                                                                0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Container(
+                                                                                  width: 80,
+                                                                                  height: 80,
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: Color(0xFF272E36),
                                                                                   ),
-                                                                                ],
-                                                                              ),
+                                                                                  child: Stack(
+                                                                                    children: [
+                                                                                      Container(
+                                                                                        width: 100,
+                                                                                        height: 100,
+                                                                                        clipBehavior: Clip.antiAlias,
+                                                                                        decoration: BoxDecoration(
+                                                                                          shape: BoxShape.circle,
+                                                                                        ),
+                                                                                        child: Image.network(
+                                                                                          membersList[index]["profile"] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU",
+                                                                                          fit: BoxFit.cover,
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                                Expanded(
+                                                                                  child: Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    children: [
+                                                                                      Padding(
+                                                                                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                                                                        child: Column(
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                          children: [
+                                                                                            Row(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              children: [
+                                                                                                Text(
+                                                                                                  membersList[index]["fname"] + " " + membersList[index]["lname"],
+                                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                        fontFamily: 'Montserrat',
+                                                                                                        color: Color(0xFF00B89F),
+                                                                                                        fontWeight: FontWeight.bold,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                            SizedBox(
+                                                                                              height: 6,
+                                                                                            ),
+                                                                                            Row(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              children: [
+                                                                                                Icon(
+                                                                                                  Icons.mail_outline,
+                                                                                                  color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                  size: 12,
+                                                                                                ),
+                                                                                                SizedBox(
+                                                                                                  width: 6,
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  membersList[index]["email"],
+                                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                        fontFamily: 'Montserrat',
+                                                                                                        color: Color(0xFFAFAFAF),
+                                                                                                        fontSize: 12,
+                                                                                                        fontWeight: FontWeight.w200,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                            SizedBox(
+                                                                                              height: 2,
+                                                                                            ),
+                                                                                            Row(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              children: [
+                                                                                                Icon(
+                                                                                                  Icons.phone_outlined,
+                                                                                                  color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                  size: 12,
+                                                                                                ),
+                                                                                                SizedBox(
+                                                                                                  width: 6,
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  membersList[index]["mobile"],
+                                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                                        fontFamily: 'Montserrat',
+                                                                                                        color: Color(0xFFAFAFAF),
+                                                                                                        fontSize: 12,
+                                                                                                        fontWeight: FontWeight.w200,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                      Icon(
+                                                                                        Icons.chevron_right,
+                                                                                        color: Color(0xFF00B89F),
+                                                                                        size: 30,
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ],
                                                                             ),
-                                                                            Expanded(
-                                                                              child: Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                children: [
-                                                                                  Padding(
-                                                                                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                                                                    child: Column(
-                                                                                      mainAxisSize: MainAxisSize.max,
-                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                      children: [
-                                                                                        Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          children: [
-                                                                                            Text(
-                                                                                              membersList[index]["fname"] + " " + membersList[index]["lname"],
-                                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                    fontFamily: 'Montserrat',
-                                                                                                    color: Color(0xFF00B89F),
-                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                  ),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                        Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          children: [
-                                                                                            Text(
-                                                                                              membersList[index]["email"],
-                                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                    fontFamily: 'Montserrat',
-                                                                                                    color: Color(0xFFAFAFAF),
-                                                                                                    fontSize: 12,
-                                                                                                    fontWeight: FontWeight.w200,
-                                                                                                  ),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                        Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          children: [
-                                                                                            Text(
-                                                                                              membersList[index]["mobile"],
-                                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                    fontFamily: 'Montserrat',
-                                                                                                    color: Color(0xFFAFAFAF),
-                                                                                                    fontSize: 12,
-                                                                                                    fontWeight: FontWeight.w200,
-                                                                                                  ),
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ),
-                                                                                  Icon(
-                                                                                    Icons.chevron_right,
-                                                                                    color: Color(0xFF00B89F),
-                                                                                    size: 30,
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                          ],
+                                                                          ),
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              }
-                                                            }),
+                                                                    );
+                                                                  }
+                                                                })),
                                                   ),
                                                 ],
                                               ),
@@ -875,7 +935,8 @@ class _MembersWidgetState extends State<MembersWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (FFAppState().Chattoggle2 &&
-                                FFAppState().executive)
+                                SharedPreferenceService.loadBool(
+                                    key: AccountsKeys.ChatPermission))
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
@@ -921,42 +982,42 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                 ],
                                               ),
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  1.31, -0.83),
-                                              child: Container(
-                                                width: 20,
-                                                height: 20,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFFEEEEEE),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      '5',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            color: Color(
-                                                                0xFF00B89F),
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
+                                            // Align(
+                                            //   alignment: AlignmentDirectional(
+                                            //       1.31, -0.83),
+                                            //   child: Container(
+                                            //     width: 20,
+                                            //     height: 20,
+                                            //     decoration: BoxDecoration(
+                                            //       color: Color(0xFFEEEEEE),
+                                            //       shape: BoxShape.circle,
+                                            //     ),
+                                            //     child: Row(
+                                            //       mainAxisSize:
+                                            //           MainAxisSize.min,
+                                            //       mainAxisAlignment:
+                                            //           MainAxisAlignment.center,
+                                            //       children: [
+                                            //         Text(
+                                            //           '5',
+                                            //           textAlign:
+                                            //               TextAlign.center,
+                                            //           style: FlutterFlowTheme
+                                            //                   .of(context)
+                                            //               .bodyText1
+                                            //               .override(
+                                            //                 fontFamily:
+                                            //                     'Montserrat',
+                                            //                 color: Color(
+                                            //                     0xFF00B89F),
+                                            //                 fontWeight:
+                                            //                     FontWeight.bold,
+                                            //               ),
+                                            //         ),
+                                            //       ],
+                                            //     ),
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                       ),
@@ -991,6 +1052,7 @@ class _MembersWidgetState extends State<MembersWidget> {
   Future fetchSList() async {
     final ApiCallResponse SList = await SeniorsList.call();
     print(SList.statusCode);
+    countries = SList.jsonBody["countries"];
     print(SList.jsonBody["seniors"]);
     return SList.jsonBody["seniors"];
   }

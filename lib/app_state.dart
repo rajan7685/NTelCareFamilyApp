@@ -21,6 +21,7 @@ class FFAppState {
 
   String id = "";
   String hear;
+  String FCM; // stores the fcm token for current device
   String AccessToken = '';
   String RefreshToken = '';
   String LoginMessage = '';
@@ -37,6 +38,7 @@ class FFAppState {
   String Token = '';
   String UserId = '';
   String AccountId = '';
+  String CurrentUserId = '';
   String RoleId = '';
   String IsLiveView = '';
   bool Chattoggle = false;
@@ -57,8 +59,9 @@ class FFAppState {
   bool executive;
   bool liveView;
   bool chat;
+  String appFCMToken;
   bool viewVideo;
-  List<String> relation = [];
+  List<dynamic> relation = [];
   String buildversion = " ";
   String buildNumber = " ";
   // bool _Chattoggle2 = false;

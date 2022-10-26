@@ -21,10 +21,9 @@ class SeniorsWidget extends StatefulWidget {
 class _SeniorsWidgetState extends State<SeniorsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
-
+  List<dynamic> countries = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SList = fetchSList();
   }
@@ -112,44 +111,44 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                               ),
                                             ),
                                           ),
-                                          Align(
-                                            alignment: AlignmentDirectional(
-                                                0.05, -0.43),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(17, 0, 0, 0),
-                                              child: Container(
-                                                width: 15,
-                                                height: 15,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF006B5D),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      '5',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'Montserrat',
-                                                            color: Colors.white,
-                                                            fontSize: 8,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                          // Align(
+                                          //   alignment: AlignmentDirectional(
+                                          //       0.05, -0.43),
+                                          //   child: Padding(
+                                          //     padding: EdgeInsetsDirectional
+                                          //         .fromSTEB(17, 0, 0, 0),
+                                          //     child: Container(
+                                          //       width: 15,
+                                          //       height: 15,
+                                          //       decoration: BoxDecoration(
+                                          //         color: Color(0xFF006B5D),
+                                          //         shape: BoxShape.circle,
+                                          //       ),
+                                          //       child: Row(
+                                          //         mainAxisSize:
+                                          //             MainAxisSize.max,
+                                          //         mainAxisAlignment:
+                                          //             MainAxisAlignment.center,
+                                          //         children: [
+                                          //           Text(
+                                          //             '5',
+                                          //             style: FlutterFlowTheme
+                                          //                     .of(context)
+                                          //                 .bodyText1
+                                          //                 .override(
+                                          //                   fontFamily:
+                                          //                       'Montserrat',
+                                          //                   color: Colors.white,
+                                          //                   fontSize: 8,
+                                          //                   fontWeight:
+                                          //                       FontWeight.bold,
+                                          //                 ),
+                                          //           ),
+                                          //         ],
+                                          //       ),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ),
@@ -214,7 +213,9 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                       builder: (context) =>
                                                           EditSeniorsWidget(
                                                               data: snapshot
-                                                                  .data[index]),
+                                                                  .data[index],
+                                                              countries:
+                                                                  countries),
                                                     ));
                                                 setState(() {
                                                   SList = fetchSList();
@@ -320,11 +321,26 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                                       ),
                                                                     ],
                                                                   ),
+                                                                  SizedBox(
+                                                                    height: 6,
+                                                                  ),
                                                                   Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .mail_outline,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .tertiaryColor,
+                                                                        size:
+                                                                            12,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            6,
+                                                                      ),
                                                                       Text(
                                                                         inf[index]
                                                                             [
@@ -340,15 +356,31 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
                                                                       ),
                                                                     ],
                                                                   ),
+                                                                  SizedBox(
+                                                                    height: 2,
+                                                                  ),
                                                                   Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .phone_outlined,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .tertiaryColor,
+                                                                        size:
+                                                                            12,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            6,
+                                                                      ),
                                                                       Text(
-                                                                        inf[index]
-                                                                            [
-                                                                            "mobile"],
+                                                                        inf[index]["mobile"] !=
+                                                                                null
+                                                                            ? inf[index]["mobile"]
+                                                                            : "",
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyText1
                                                                             .override(
@@ -953,16 +985,18 @@ class _SeniorsWidgetState extends State<SeniorsWidget> {
   Future fetchSList() async {
     final ApiCallResponse SList = await SeniorsList.call();
     print(SList.statusCode);
+    print(SList.jsonBody["countries"]);
     print(SList.jsonBody["seniors"]);
+    countries = SList.jsonBody["countries"];
     return SList.jsonBody["seniors"];
   }
   // Future fetchSList() async {
   //   final sody = {"m_acc_id": "6299517488b3bba4d3df12ce"};
   //   final url = Uri.http("18.208.148.208:4000", "/get/seniors/member", sody);
   //   final SList = await http.get(url, headers: {
-  //     'Authorization': 'Bearer ${FFAppState().Token}',
+  //     'Authorization': 'Bearer ${SharedPreferenceService.loadBool(key: AccountsKeys.Executive}',
   //   });
-  //   print(FFAppState().Token);
+  //   print(SharedPreferenceService.loadBool(key: AccountsKeys.Executive);
   //   print(FFAppState().AccountId);
   //   print(SList.statusCode);
   //   if (SList.statusCode == 200) {

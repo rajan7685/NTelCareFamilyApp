@@ -1,6 +1,11 @@
 import 'dart:convert';
+import 'dart:core';
+import 'dart:core';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
+
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/landing/landing.dart';
 
@@ -42,10 +47,12 @@ class _BatteryWidgetState extends State<BatteryWidget> {
   @override
   void initState() {
     super.initState();
+
     daily = true;
     weekly = false;
     monthly = false;
     yearly = false;
+
     getHeartRate();
     getBatteryWeekRate();
     getBatteryMonthlyRate();
@@ -79,7 +86,6 @@ class _BatteryWidgetState extends State<BatteryWidget> {
   Future<dynamic> HeartStatus;
   Future<List<dynamic>> SList;
 
-  //List<HeartStat> hRate = [];
   List<batteryStat> hRate = [];
   List<batteryStatMax> stepMax = [];
   List<batteryStatMax> stepMin = [];
@@ -93,9 +99,38 @@ class _BatteryWidgetState extends State<BatteryWidget> {
   String wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
   String wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
 
-  Future<dynamic> Stepcount;
+  // List<StepsStat> stepStat = [];
 
   _BatteryWidgetState(this.id);
+
+/*  void getStepscount() async {
+    var response = await getSteps
+        .get('${ApiService.domain}/graph/health_status/?senior_id=${id}');
+    print(response.statusCode);
+    print(response.body.runtimeType);
+    print(response.body);
+    final rate = jsonDecode((response.body));
+    //  print(rate["health_status"]["heart_rate"].runtimeType);
+
+    List<StepsStat> temp = stepsStatFromJson(rate["health_status"][0]["steps"]);
+    setState(() {
+      stepStat = temp;
+    });
+    print(stepStat);
+  }
+*/
+  /* List<charts.Series<batteryStatMax, String>> _createSampleDataDaily() {
+    return [
+      new charts.Series<batteryStatMax, String>(
+          id: 'daily',
+          domainFn: (batteryStatMax sales, _) => sales.time,
+          measureFn: (StepsStat sales, _) => sales.value,
+          data: stepStat,
+          colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
+          labelAccessorFn: (StepsStat sales, _) =>
+              '\$${sales.value.toString()}'),
+    ];
+  }*/
 
   List<charts.Series<batteryStatMax, String>> _createSampleData() {
     return [
@@ -166,7 +201,8 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     print(id);
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/?senior_id=${id}&date=${date}');
+        '${ApiService.domain}/graph/health_status/?senior_id=${id}&date=${date}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -185,7 +221,8 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/battery/weekly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/battery/weekly?date=${wDate}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -279,7 +316,8 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/battery/monthly?date=${wDate1}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/battery/monthly?date=${wDate1}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -299,7 +337,8 @@ class _BatteryWidgetState extends State<BatteryWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
     print(wDate2);
     var response = await getHrate.get(
-        'http://18.208.148.208:4000/graph/health_status/battery/yearly?date=${wDate2}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/battery/yearly?date=${wDate2}&senior_id=${id}');
+
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
@@ -323,18 +362,15 @@ class _BatteryWidgetState extends State<BatteryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<batteryStat, String>> _createSampleDataDaily() {
-      return [
-        new charts.Series<batteryStat, String>(
-            id: 'max_battery',
-            domainFn: (batteryStat sales, _) => sales.time,
-            measureFn: (batteryStat sales, _) => sales.value,
-            data: hRate,
-            colorFn: (_, __) => charts.Color.fromHex(code: "#00B89F"),
-            labelAccessorFn: (batteryStat sales, _) =>
-                '\$${sales.value.toString()}')
-      ];
-    }
+    List<charts.Series<batteryStat, int>> heart = [
+      charts.Series(
+          data: hRate,
+          id: "Heart Rate",
+          domainFn: (batteryStat pops, _) => pops.time,
+          measureFn: (batteryStat pops, _) => pops.value,
+          colorFn: (batteryStat pops, _) =>
+              charts.ColorUtil.fromDartColor(Colors.red))
+    ];
 
     return MaterialApp(
       localizationsDelegates: [
@@ -427,6 +463,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                       weekly = false;
                                       monthly = false;
                                       yearly = false;
+                                      getHeartRate();
                                     });
                                   },
                                   child: Container(
@@ -519,6 +556,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                     weekly = false;
                                     yearly = false;
                                     dateTimeMonth = DateTime.now();
+                                    getBatteryMonthlyRate();
                                   });
                                 },
                                 child: Container(
@@ -569,6 +607,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                     weekly = false;
                                     yearly = true;
                                     dateTimeYear = DateTime.now();
+                                    getBatteryYearlyRate();
                                   });
                                 },
                                 child: Container(
@@ -609,10 +648,65 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                           ],
                         ),
                       ),
-                      // if (daily == true)
-                      //   Daily()
-                      // else if (monthly == true)
+                      /* Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  print(DateFormat('dd-MM-yyyy')
+                                      .format(dateTimeWeek));
 
+                                  print(DateFormat('dd-MM-yyyy')
+                                      .format(dateTimeWeek));
+                                  if (daily) {
+                                    setState(() {
+                                      dateTime =
+                                          dateTime.subtract(Duration(days: 1));
+                                      getHeartRate();
+                                    });
+                                  }
+
+                                  if (weekly == true) {
+                                    dateTimeWeek = dateTimeWeek
+                                        .subtract(Duration(days: 1));
+                                    setState(() {
+                                      _startDate = dateTimeWeek
+                                          .subtract(Duration(days: 7));
+                                      _endDate = dateTimeWeek;
+                                    });
+
+                                    getBatteryWeekRate();
+                                  } else if (monthly == true) {
+                                    dateTimeMonth = dateTimeMonth
+                                        .subtract(Duration(days: 30));
+                                    setState(() {
+                                      startDateMonth = startDateMonth
+                                          .subtract(Duration(days: 30));
+                                      endDateMonth = dateTimeMonth;
+                                    });
+                                    getBatteryMonthlyRate();
+                                  } else if (yearly == true) {
+                                    dateTimeYear = dateTimeYear
+                                        .subtract(Duration(days: 365));
+                                    setState(() {
+                                      startDateYear = startDateYear
+                                          .subtract(Duration(days: 365));
+                                      endDateYear = dateTimeYear;
+                                    });
+                                    getBatteryYearlyRate();
+                                  }
+                                },
+                                icon: Icon(
+                                  Icons.chevron_left,
+                                  color: Color(0xFFAFAFAF),
+                                  size: 32,
+                                ),
+                              ),
+                            ],
+                          )),*/
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
                         child: Row(
@@ -648,7 +742,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                   dateTimeMonth = dateTimeMonth
                                       .subtract(Duration(days: 30));
                                   setState(() {
-                                    startDateMonth = startDateMonth
+                                    startDateMonth = dateTimeMonth
                                         .subtract(Duration(days: 30));
                                     endDateMonth = dateTimeMonth;
                                   });
@@ -657,7 +751,7 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                                   dateTimeYear = dateTimeYear
                                       .subtract(Duration(days: 365));
                                   setState(() {
-                                    startDateYear = startDateYear
+                                    startDateYear = dateTimeYear
                                         .subtract(Duration(days: 365));
                                     endDateYear = dateTimeYear;
                                   });
@@ -828,15 +922,23 @@ class _BatteryWidgetState extends State<BatteryWidget> {
                               decoration: BoxDecoration(
                                   color: Color(0xFF272E36),
                                   borderRadius: BorderRadius.circular(10)),
-                              child: charts.BarChart(
-                                _createSampleDataDaily(),
-                                domainAxis: new charts.OrdinalAxisSpec(
+                              child: charts.LineChart(
+                                heart,
+                                domainAxis: new charts.NumericAxisSpec(
+                                    tickProviderSpec:
+                                        charts.BasicNumericTickProviderSpec(
+                                            zeroBound: false),
                                     renderSpec:
                                         new charts.SmallTickRendererSpec(
-                                  labelStyle: new charts.TextStyleSpec(
-                                      fontSize: 6, // size in Pts.
-                                      color: charts.MaterialPalette.white),
-                                )),
+                                      labelStyle: new charts.TextStyleSpec(
+                                          fontSize: 8, // size in Pts.
+                                          color: charts.MaterialPalette.white),
+                                    )),
+
+                                // domainAxis: charts.OrdinalAxisSpec(
+                                //     renderSpec: charts.SmallTickRendererSpec(
+                                //         labelStyle: new charts.TextStyleSpec(
+                                //             color: charts.MaterialPalette.white))),
                               ),
                             )
                             // Image.asset(
@@ -1007,7 +1109,7 @@ class batteryStat {
     this.value,
   });
 
-  String time;
+  int time;
   int value;
 
   factory batteryStat.fromJson(Map<String, dynamic> json) => batteryStat(

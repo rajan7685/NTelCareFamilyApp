@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
+import 'package:n_tel_care_family_app/components/custom_toast.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/custom_code/widgets/custom_message.dart';
 import 'package:n_tel_care_family_app/edit/demo_editProfile.dart';
@@ -30,11 +33,29 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   bool switchListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<dynamic> SList;
+  List<dynamic> countries = [];
   dynamic inf;
+
+  Future<void> _checkNetworkConnectivity() async {
+    ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    print(connectivityResult.name);
+    print(connectivityResult.name);
+    if (connectivityResult == ConnectivityResult.mobile) {
+      // I am connected to a mobile network.
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a wifi network.
+    } else {
+      Toast.showToast(context,
+          message: 'You are not connected to internet.', type: ToastType.Error);
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _checkNetworkConnectivity();
     SList = fetchSList();
   }
 
@@ -71,7 +92,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                       builder: (context, snapshot) {
                         inf = snapshot.data;
 
-                        //  print(snapshot.data['message']);
+                        print(FFAppState().relation);
                         if (!snapshot.hasData) {
                           return Text(
                             "Loading",
@@ -83,6 +104,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     fontSize: 20),
                           );
                         } else {
+                          FFAppState().relation = snapshot.data["relation"];
+                          countries = snapshot.data["countries"];
+                          FFAppState().CurrentUserId = snapshot.data["id"];
+                          //print("snap shot countries : ${}");
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -103,9 +128,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             shape: BoxShape.circle,
                                             image: DecorationImage(
                                               fit: BoxFit.fill,
-                                              image: Image.network(
-                                                      snapshot.data["member"]
-                                                          ["profile"])
+                                              image: Image.network(snapshot
+                                                              .data["member"]
+                                                          ["profile"] ??
+                                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYL2_7f_QDJhq5m9FYGrz5W4QI5EUuDLSdGA&usqp=CAU")
                                                   .image,
                                             ),
                                           ),
@@ -186,51 +212,51 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                     ),
                                                   ),
                                                 ),
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.05, -0.43),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                17, 0, 0, 0),
-                                                    child: Container(
-                                                      width: 15,
-                                                      height: 15,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFF006B5D),
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            '5',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 8,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
+                                                // Align(
+                                                //   alignment:
+                                                //       AlignmentDirectional(
+                                                //           0.05, -0.43),
+                                                //   child: Padding(
+                                                //     padding:
+                                                //         EdgeInsetsDirectional
+                                                //             .fromSTEB(
+                                                //                 17, 0, 0, 0),
+                                                //     child: Container(
+                                                //       width: 15,
+                                                //       height: 15,
+                                                //       decoration: BoxDecoration(
+                                                //         color:
+                                                //             Color(0xFF006B5D),
+                                                //         shape: BoxShape.circle,
+                                                //       ),
+                                                //       child: Row(
+                                                //         mainAxisSize:
+                                                //             MainAxisSize.max,
+                                                //         mainAxisAlignment:
+                                                //             MainAxisAlignment
+                                                //                 .center,
+                                                //         children: [
+                                                //           Text(
+                                                //             '5',
+                                                //             style: FlutterFlowTheme
+                                                //                     .of(context)
+                                                //                 .bodyText1
+                                                //                 .override(
+                                                //                   fontFamily:
+                                                //                       'Montserrat',
+                                                //                   color: Colors
+                                                //                       .white,
+                                                //                   fontSize: 8,
+                                                //                   fontWeight:
+                                                //                       FontWeight
+                                                //                           .bold,
+                                                //                 ),
+                                                //           ),
+                                                //         ],
+                                                //       ),
+                                                //     ),
+                                                //   ),
+                                                // ),
                                               ],
                                             ),
                                           ),
@@ -278,10 +304,12 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 5, 0, 0),
                                       child: Text(
-                                        snapshot.data["member"]["age"]
-                                                .toString() +
-                                            "," +
-                                            snapshot.data["member"]["sex"],
+                                        // snapshot.data["member"]["age"]
+                                        //         .toString() +
+                                        //     "," +
+                                        //     snapshot.data["member"]["sex"]
+                                        // ,
+                                        'Age ${snapshot.data["member"]["age"]}, ${snapshot.data["member"]["sex"]}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
                                             .override(
@@ -303,11 +331,14 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         .tertiaryColor,
                                     size: 15,
                                   ),
+                                  SizedBox(
+                                    width: 6,
+                                  ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.08, 0.71),
+                                    // alignment: AlignmentDirectional(0.08, 0.71),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 5, 0, 0),
+                                          0, 0, 0, 0),
                                       child: Text(
                                         snapshot.data["member"]["email"],
                                         style: FlutterFlowTheme.of(context)
@@ -335,6 +366,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .tertiaryColor,
                                       size: 15,
+                                    ),
+                                    SizedBox(
+                                      width: 6,
                                     ),
                                     Align(
                                       alignment:
@@ -367,11 +401,15 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           .tertiaryColor,
                                       size: 15,
                                     ),
+                                    SizedBox(
+                                      width: 6,
+                                    ),
                                     Align(
                                       alignment:
                                           AlignmentDirectional(0.08, 0.71),
                                       child: Text(
                                         snapshot.data["member"]["address"] +
+                                            " " +
                                             snapshot.data["member"]["zipcode"],
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1
@@ -407,7 +445,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              if (FFAppState().executive ?? true)
+                              if (FFAppState().chat ?? true)
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       8, 0, 0, 0),
@@ -504,8 +542,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            EditCopy2Widget(info: inf),
+                                        builder: (context) => EditCopy2Widget(
+                                            info: inf, countries: countries),
                                       ),
                                     );
                                     setState(() {
@@ -543,7 +581,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     0, 10, 10, 0),
                                 child: InkWell(
                                   onTap: () async {
-                                    print("presses");
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
@@ -552,6 +589,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           content:
                                               ("Are you sure you want to logout?"),
                                           onpressed: () async {
+                                            await SharedPreferenceService
+                                                .clearAuthenticationData();
                                             await Navigator.pushAndRemoveUntil(
                                               context,
                                               MaterialPageRoute(
@@ -742,135 +781,255 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                   //   ),
                   // ),
 
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(0, 0, 100, 100),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (FFAppState().Chattoggle2 &&
-                                  FFAppState().executive)
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 10, 15, 0),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => ChatWidget(),
-                                        ),
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Container(
-                                          width: 60,
-                                          height: 60,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFEEEEEE),
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Stack(
-                                            children: [
-                                              Container(
-                                                width: 60,
-                                                height: 60,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFF00B89F),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Image.asset(
-                                                      'assets/images/bubble.png',
-                                                      width: 40,
-                                                      height: 40,
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    1.31, -0.83),
-                                                child: Container(
-                                                  width: 20,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFFEEEEEE),
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        '5',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  color: Color(
-                                                                      0xFF00B89F),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Text(
-                                          'Family Chat',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFFE5E5E5),
-                                                fontWeight: FontWeight.w100,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                  //   child: Column(
+                  //     mainAxisSize: MainAxisSize.max,
+                  //     mainAxisAlignment: MainAxisAlignment.end,
+                  //     children: [
+                  //       Padding(
+                  //         padding:
+                  //             EdgeInsetsDirectional.fromSTEB(0, 0, 100, 100),
+                  //         child: Row(
+                  //           mainAxisSize: MainAxisSize.max,
+                  //           mainAxisAlignment: MainAxisAlignment.start,
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             if (FFAppState().Chattoggle2 &&
+                  //                 FFAppState().executive)
+                  //               Padding(
+                  //                 padding: EdgeInsetsDirectional.fromSTEB(
+                  //                     0, 10, 15, 0),
+                  //                 child: InkWell(
+                  //                   onTap: () async {
+                  //                     await Navigator.push(
+                  //                       context,
+                  //                       MaterialPageRoute(
+                  //                         builder: (context) => ChatWidget(),
+                  //                       ),
+                  //                     );
+                  //                   },
+                  //                   child: Column(
+                  //                     mainAxisSize: MainAxisSize.max,
+                  //                     children: [
+                  //                       Container(
+                  //                         width: 60,
+                  //                         height: 60,
+                  //                         decoration: BoxDecoration(
+                  //                           color: Color(0xFFEEEEEE),
+                  //                           shape: BoxShape.circle,
+                  //                         ),
+                  //                         child: Stack(
+                  //                           children: [
+                  //                             Container(
+                  //                               width: 60,
+                  //                               height: 60,
+                  //                               decoration: BoxDecoration(
+                  //                                 color: Color(0xFF00B89F),
+                  //                                 shape: BoxShape.circle,
+                  //                               ),
+                  //                               child: Column(
+                  //                                 mainAxisSize:
+                  //                                     MainAxisSize.max,
+                  //                                 mainAxisAlignment:
+                  //                                     MainAxisAlignment.center,
+                  //                                 children: [
+                  //                                   Image.asset(
+                  //                                     'assets/images/bubble.png',
+                  //                                     width: 40,
+                  //                                     height: 40,
+                  //                                     fit: BoxFit.fill,
+                  //                                   ),
+                  //                                 ],
+                  //                               ),
+                  //                             ),
+                  //                             Align(
+                  //                               alignment: AlignmentDirectional(
+                  //                                   1.31, -0.83),
+                  //                               child: Container(
+                  //                                 width: 20,
+                  //                                 height: 20,
+                  //                                 decoration: BoxDecoration(
+                  //                                   color: Color(0xFFEEEEEE),
+                  //                                   shape: BoxShape.circle,
+                  //                                 ),
+                  //                                 child: Row(
+                  //                                   mainAxisSize:
+                  //                                       MainAxisSize.min,
+                  //                                   mainAxisAlignment:
+                  //                                       MainAxisAlignment
+                  //                                           .center,
+                  //                                   children: [
+                  //                                     Text(
+                  //                                       '5',
+                  //                                       textAlign:
+                  //                                           TextAlign.center,
+                  //                                       style:
+                  //                                           FlutterFlowTheme.of(
+                  //                                                   context)
+                  //                                               .bodyText1
+                  //                                               .override(
+                  //                                                 fontFamily:
+                  //                                                     'Montserrat',
+                  //                                                 color: Color(
+                  //                                                     0xFF00B89F),
+                  //                                                 fontWeight:
+                  //                                                     FontWeight
+                  //                                                         .bold,
+                  //                                               ),
+                  //                                     ),
+                  //                                   ],
+                  //                                 ),
+                  //                               ),
+                  //                             ),
+                  //                           ],
+                  //                         ),
+                  //                       ),
+                  //                       Text(
+                  //                         'Family Chat',
+                  //                         style: FlutterFlowTheme.of(context)
+                  //                             .bodyText1
+                  //                             .override(
+                  //                               fontFamily: 'Montserrat',
+                  //                               color: Color(0xFFE5E5E5),
+                  //                               fontWeight: FontWeight.w100,
+                  //                             ),
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  SizedBox(height: 100)
                 ],
               ),
             ]),
           ),
         ),
+        floatingActionButton: (FFAppState().Chattoggle2 &&
+                SharedPreferenceService.loadBool(
+                    key: AccountsKeys.ChatPermission))
+            ? Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 100, 80),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
+                            child: InkWell(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChatWidget(),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Container(
+                                    width: 60,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFEEEEEE),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          width: 60,
+                                          height: 60,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF00B89F),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                'assets/images/bubble.png',
+                                                width: 40,
+                                                height: 40,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        // Align(
+                                        //   alignment:
+                                        //       AlignmentDirectional(1.31, -0.83),
+                                        //   child: Container(
+                                        //     width: 20,
+                                        //     height: 20,
+                                        //     decoration: BoxDecoration(
+                                        //       color: Color(0xFFEEEEEE),
+                                        //       shape: BoxShape.circle,
+                                        //     ),
+                                        //     child: Row(
+                                        //       mainAxisSize: MainAxisSize.min,
+                                        //       mainAxisAlignment:
+                                        //           MainAxisAlignment.center,
+                                        //       children: [
+                                        //         Text(
+                                        //           '5',
+                                        //           textAlign: TextAlign.center,
+                                        //           style: FlutterFlowTheme.of(
+                                        //                   context)
+                                        //               .bodyText1
+                                        //               .override(
+                                        //                 fontFamily:
+                                        //                     'Montserrat',
+                                        //                 color:
+                                        //                     Color(0xFF00B89F),
+                                        //                 fontWeight:
+                                        //                     FontWeight.bold,
+                                        //               ),
+                                        //         ),
+                                        //       ],
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    'Family Chat',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFFE5E5E5),
+                                          fontWeight: FontWeight.w100,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : null,
       ),
     );
   }
@@ -879,7 +1038,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
     final ApiCallResponse SList = await GetProfile.call();
 
     print(SList.statusCode);
-    print(SList.jsonBody);
+    //print(SList["relation"]);
+
     return SList.jsonBody;
   }
 }

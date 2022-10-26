@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
 import 'package:n_tel_care_family_app/forgotPasword/forget_password.dart';
 import 'package:n_tel_care_family_app/forgotPasword/verification.dart';
 import 'package:n_tel_care_family_app/login/login_widget.dart';
@@ -237,7 +238,7 @@ class _newPasswordState extends State<newPassword> {
                                   fontSize: 14.0);
                             } else {
                               final String url =
-                                  "http://18.208.148.208:4000/reset/member";
+                                  "${ApiService.domain}/reset/member";
                               final res =
                                   await http.post(Uri.parse(url), body: {
                                 "mobile": FFAppState().Mobile,
@@ -301,7 +302,7 @@ class _newPasswordState extends State<newPassword> {
                               //     FFAppState().IsLiveView = loginModel.IsLiveView;
                               //     FFAppState().Error = loginModel.Error;
                               //     FFAppState().Email = loginModel.Email;
-                              //     FFAppState().Token = loginModel.Token;
+                              //     SharedPreferenceService.loadBool(key: AccountsKeys.Executive = loginModel.Token;
                               //     FFAppState().UserId = loginModel.UserId;
                               //     FFAppState().AccountId = loginModel.AccountId;
                               //     FFAppState().RoleId = loginModel.RoleId;

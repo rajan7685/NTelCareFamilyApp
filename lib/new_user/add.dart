@@ -2,11 +2,14 @@ import 'dart:convert';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
+import 'package:n_tel_care_family_app/backend/ApiService.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import '../backend/api_requests/api_calls.dart';
+import '../components/custom_toast.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -16,12 +19,14 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
 
 class Add extends StatefulWidget {
-  const Add({Key key}) : super(key: key);
+  List<dynamic> countries;
+  Add({Key key, @required this.countries}) : super(key: key);
 
   @override
   _AddWidgetState createState() => _AddWidgetState();
@@ -38,6 +43,13 @@ class _AddWidgetState extends State<Add> {
   TextEditingController textController5 = TextEditingController();
   TextEditingController textController6 = TextEditingController();
   TextEditingController textController7 = TextEditingController();
+  TextEditingController textController8 = TextEditingController();
+  TextEditingController textController9 = TextEditingController();
+
+  dynamic placesData;
+  List<dynamic> relationOptions = [];
+  String relationCode;
+  String relationName;
   bool switchListTileValue;
   bool checkboxListTileValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -49,12 +61,16 @@ class _AddWidgetState extends State<Add> {
   String countryValue = "";
   String stateValue = "";
   String cityValue = "";
+  String countryCode;
   DateTime dateTime;
   String Date = "Select";
   DateTime selectedDate = DateTime.now();
   @override
   void initState() {
     super.initState();
+    FFAppState().Chattoggle5 = false;
+    // print("countries add ${widget.countries}");
+    _loadRelation();
   }
 
   bool display = false;
@@ -71,7 +87,7 @@ class _AddWidgetState extends State<Add> {
     return File(imagePath).copy(image2.path);
   }
 
-  void vaildMail() {
+  /* void vaildMail() {
     final bool isVaild = EmailValidator.validate(textController5.text.trim());
     if (!isVaild) {
       Fluttertoast.showToast(
@@ -83,7 +99,7 @@ class _AddWidgetState extends State<Add> {
           textColor: Colors.black,
           fontSize: 14.0);
     }
-  }
+  }*/
 
   Future pickimage(ImageSource source1) async {
     try {
@@ -100,6 +116,45 @@ class _AddWidgetState extends State<Add> {
     } on PlatformException catch (e) {
       print("Permission Denied");
     }
+  }
+
+  Future<void> _loadRelation() async {
+    String uri = '${ApiService.domain}/admin/relations';
+    final res = await http.get(
+      Uri.parse(uri),
+      headers: {
+        "Authorization":
+            "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+      },
+    );
+    // print(res.body);
+    setState(() {
+      relationOptions = jsonDecode(res.body)['data'];
+      print(" relation option ${relationOptions}");
+    });
+  }
+
+  Future<void> _loadAddress() async {
+    String uri =
+        '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
+    final res = await http.get(
+      Uri.parse(uri),
+      headers: {
+        "Authorization":
+            "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
+      },
+    );
+    print(res.body);
+    placesData = jsonDecode(res.body);
+    setState(() {
+      textController8.text = placesData['data']['state_name'];
+      textController9.text = placesData['data']['county_name'];
+    });
+    dynamic countryValue = widget.countries.singleWhere((element) =>
+        element['code'] == placesData['data']['country_code'])['name'];
+    cityValue = placesData['data']['county_name'];
+    stateValue = placesData['data']['state_name'];
+    print('country $countryValue city $cityValue state $stateValue');
   }
 
   @override
@@ -223,7 +278,7 @@ class _AddWidgetState extends State<Add> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 10),
                           child: Text(
-                            'Add',
+                            'Add User',
                             textAlign: TextAlign.start,
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
@@ -376,7 +431,6 @@ class _AddWidgetState extends State<Add> {
                                           "Male",
                                           "Female",
                                           "Transgender",
-                                          "Non binary"
                                         ]
                                             .map((label) => DropdownMenuItem(
                                                   child: Text(label),
@@ -572,7 +626,7 @@ class _AddWidgetState extends State<Add> {
                                                 setState(() {
                                                   selectedDate = picked;
                                                 });
-                                              Date = DateFormat('dd-MM-yyyy')
+                                              Date = DateFormat('MM-dd-yyyy')
                                                   .format(selectedDate);
                                             },
                                             child: Icon(
@@ -643,13 +697,9 @@ class _AddWidgetState extends State<Add> {
                                       color: Color(0xFF606E87),
                                       fontSize: 16,
                                     ),
-                                onEditingComplete: () => vaildMail(),
-                                onChanged: (v) => vaildMail(),
+                                // onEditingComplete: () => vaildMail(),
+                                // onChanged: (v) => vaildMail(),
                                 keyboardType: TextInputType.emailAddress,
-                                validator: (value) => value != null &&
-                                        !EmailValidator.validate(value)
-                                    ? 'Enter a valid email'
-                                    : null,
                               ),
                             ),
                           ),
@@ -668,6 +718,9 @@ class _AddWidgetState extends State<Add> {
                               child: TextFormField(
                                 controller: textController4,
                                 obscureText: false,
+                                inputFormatters: [
+                                  MaskedInputFormatter('###.###.####')
+                                ],
                                 decoration: InputDecoration(
                                   labelText: 'Phone Number',
                                   labelStyle: FlutterFlowTheme.of(context)
@@ -712,220 +765,301 @@ class _AddWidgetState extends State<Add> {
                           ),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
-                          child: CSCPicker(
-                            ///Enable disable state dropdown [OPTIONAL PARAMETER]
-                            showStates: true,
-
-                            /// Enable disable city drop down [OPTIONAL PARAMETER]
-                            showCities: true,
-
-                            ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
-                            flagState: CountryFlag.DISABLE,
-                            layout: Layout.vertical,
-
-                            ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
-                            dropdownDecoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
-                                color: Color(0xFFEEEEEE),
-                                border: Border.all(
-                                    color: Color(0xFFEEEEEE), width: 11)),
-
-                            ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
-                            disabledDropdownDecoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(11)),
-                                color: Color(0xFFEEEEEE),
-                                border: Border.all(
-                                    color: Color(0xFFEEEEEE), width: 11)),
-
-                            ///placeholders for dropdown search field
-
-                            stateSearchPlaceholder: "State",
-                            citySearchPlaceholder: "City",
-                            countrySearchPlaceholder: "Country",
-
-                            ///labels for dropdown
-
-                            stateDropdownLabel: "State",
-                            cityDropdownLabel: "City",
-                            countryDropdownLabel: "Country",
-
-                            ///Default Country
-                            //  defaultCountry: data["country"],
-
-                            ///selected item style [OPTIONAL PARAMETER]
-                            selectedItemStyle: TextStyle(
-                              color: Color(0xFF606E87),
-                              fontSize: 16,
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          child: Container(
+                            width: double.maxFinite,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
                             ),
-
-                            ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                            dropdownHeadingStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-
-                            ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                            dropdownItemStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Expanded(
+                                  flex: 8,
+                                  child: DropdownButtonFormField<dynamic>(
+                                    isExpanded: true,
+                                    value: countryCode,
+                                    items: widget.countries
+                                        .map((label) => DropdownMenuItem(
+                                              child: Text(label['name']),
+                                              value: label['code'],
+                                            ))
+                                        .toList(),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        print(value);
+                                        String abc = widget.countries
+                                            .firstWhere((element) =>
+                                                element['code'] ==
+                                                value)['name'];
+                                        setState(() {
+                                          print(" value of country : ${value}");
+                                          countryCode = value;
+                                          countryValue = abc;
+                                        });
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 2),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      filled: true,
+                                      fillColor: Color(0xFFEEEEEE),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF606E87),
+                                        ),
+                                    hint: Text('Country'),
+                                  ),
+                                ),
+                              ],
                             ),
-
-                            ///Dialog box radius [OPTIONAL PARAMETER]
-                            dropdownDialogRadius: 10.0,
-
-                            ///Search bar radius [OPTIONAL PARAMETER]
-                            searchBarRadius: 10.0,
-
-                            ///triggers once country selected in dropdown
-                            onCountryChanged: (value) {
-                              setState(() {
-                                ///store value in country variable
-                                countryValue = value;
-                              });
-                            },
-
-                            ///triggers once state selected in dropdown
-                            onStateChanged: (value) {
-                              setState(() {
-                                ///store value in state variable
-                                stateValue = value;
-                              });
-                            },
-
-                            ///triggers once city selected in dropdown
-                            onCityChanged: (value) {
-                              setState(() {
-                                ///store value in city variable
-                                cityValue = value;
-                              });
-                            },
                           ),
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Padding(
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          child: Container(
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 15, 0),
-                              child: Container(
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: TextFormField(
-                                    controller: textController6,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Address',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: TextFormField(
+                                controller: textController7,
+                                obscureText: false,
+                                onEditingComplete: _loadAddress,
+                                // onSaved: (newValue) => print(newValue),
+                                decoration: InputDecoration(
+                                  labelText: 'Zip Code',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
                                       ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
+                                      fontSize: 16,
+                                    ),
+                                keyboardType: TextInputType.number,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          child: Container(
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: IgnorePointer(
+                                child: TextFormField(
+                                  controller: textController8,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'State',
+                                    labelStyle: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF606E87),
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
                                           fontSize: 16,
+                                          fontWeight: FontWeight.w300,
                                         ),
-                                    keyboardType: TextInputType.streetAddress,
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
+                                        fontSize: 16,
+                                      ),
+                                  keyboardType: TextInputType.number,
                                 ),
                               ),
                             ),
-                            Padding(
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                              child: Container(
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEEEEEE),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: TextFormField(
-                                    controller: textController7,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Zip Code',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: Color(0xFF9A9A9A),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: IgnorePointer(
+                                child: TextFormField(
+                                  controller: textController9,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'City',
+                                    labelStyle: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFF606E87),
+                                          fontFamily: 'Montserrat',
+                                          color: Color(0xFF9A9A9A),
                                           fontSize: 16,
+                                          fontWeight: FontWeight.w300,
                                         ),
-                                    keyboardType: TextInputType.number,
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x00000000),
+                                        width: 1,
+                                      ),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                      ),
+                                    ),
                                   ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF606E87),
+                                        fontSize: 16,
+                                      ),
+                                  keyboardType: TextInputType.streetAddress,
                                 ),
                               ),
                             ),
-                          ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: TextFormField(
+                                controller: textController6,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText: 'Address',
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: Color(0xFF9A9A9A),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                      ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF606E87),
+                                      fontSize: 16,
+                                    ),
+                                keyboardType: TextInputType.streetAddress,
+                              ),
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
@@ -940,21 +1074,16 @@ class _AddWidgetState extends State<Add> {
                               children: [
                                 Expanded(
                                   flex: 8,
-                                  child: DropdownButtonFormField<String>(
+                                  child: DropdownButtonFormField(
                                     value: dropDownValue,
-                                    items: [
-                                      "Son",
-                                      "Daughter",
-                                      "Grand Son",
-                                      "Grand Daugter"
-                                    ]
+                                    items: relationOptions
                                         .map((label) => DropdownMenuItem(
-                                              child: Text(label),
-                                              value: label,
+                                              child: Text(label['name']),
+                                              value: label['id'],
                                             ))
                                         .toList(),
                                     onChanged: (value) {
-                                      setState(() => dropDownValue = value);
+                                      setState(() => relationCode = value);
                                     },
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
@@ -1295,15 +1424,19 @@ class _AddWidgetState extends State<Add> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       FFAppState().Chattoggle5 = value;
-                                      if (FFAppState().Chattoggle5) {
-                                        displayLive = true;
+                                      if (FFAppState().Chattoggle5 == false) {
+                                        displayChat = false;
+                                        displayLive = false;
+                                        displayView = false;
+                                      } else {
                                         displayChat = true;
+                                        displayLive = true;
                                         displayView = true;
                                       }
                                     });
                                   },
                                   title: Text(
-                                    'Executive Members',
+                                    'Executive Member',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
@@ -1380,6 +1513,198 @@ class _AddWidgetState extends State<Add> {
                               ),
                             ),
                             Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  15, 25, 15, 55),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF292929),
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                          color: displayLive ? color1 : color,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 1, 10, 1),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            if (FFAppState().Chattoggle5 ==
+                                                true) {
+                                              setState(() {
+                                                // displayLive = !displayLive;
+                                                // displayChat = true;
+                                                displayLive = true;
+                                                // displayView = true;
+                                              });
+                                            } else {
+                                              setState(() {
+                                                displayLive = !displayLive;
+                                              });
+                                            }
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 0, 2),
+                                                child: Icon(
+                                                  Icons.videocam_outlined,
+                                                  color: Color(0xB254DCC5),
+                                                  size: 22,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(5, 0, 0, 0),
+                                                child: Text(
+                                                  'Live Video',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: displayLive
+                                                            ? color1
+                                                            : color,
+                                                        fontSize: 12,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                  Container(
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF292929),
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        color: displayView ? color1 : color,
+                                      ),
+                                    ),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        if (FFAppState().Chattoggle5) {
+                                          setState(() {
+                                            // displayLive = !displayLive;
+                                            // displayChat = true;
+                                            displayView = true;
+                                            // displayView = true;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            displayView = !displayView;
+                                          });
+                                        }
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 1, 10, 1),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/images/2006462_google_media_play_video_icon.svg',
+                                              width: 15,
+                                              color: color1,
+                                              height: 15,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5, 0, 0, 0),
+                                              child: Text(
+                                                'View Video',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: displayView
+                                                              ? color1
+                                                              : color,
+                                                          fontSize: 12,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF292929),
+                                      borderRadius: BorderRadius.circular(5),
+                                      shape: BoxShape.rectangle,
+                                      border: Border.all(
+                                        color: displayChat ? color1 : color,
+                                      ),
+                                    ),
+                                    alignment: AlignmentDirectional(
+                                        0.1499999999999999, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        if (FFAppState().Chattoggle5) {
+                                          setState(() {
+                                            // displayLive = !displayLive;
+                                            // displayChat = true;
+                                            displayChat = true;
+                                            // displayView = true;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            displayChat = !displayChat;
+                                          });
+                                        }
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10, 1, 10, 1),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            SvgPicture.asset(
+                                              'assets/images/353430_checkbox_pen_edit_pencil_icon.svg',
+                                              width: 13,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5, 0, 0, 0),
+                                              child: Text(
+                                                'Chat',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: displayChat
+                                                              ? color1
+                                                              : color,
+                                                          fontSize: 12,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+
+                            /* Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   15, 25, 15, 55),
                               child: Row(
@@ -1555,21 +1880,15 @@ class _AddWidgetState extends State<Add> {
                                   )
                                 ],
                               ),
-                            ),
+                            )*/
                           ],
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 30),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              // await Navigator.push(
-                              //  context,
-                              // MaterialPageRoute(
-                              //  builder: (context) =>
-                              //   NavBarPage(initialPage: 'Landing'),
-                              //  ),
-                              // );
-                              if (FFAppState().executive) {
+                              if (SharedPreferenceService.loadBool(
+                                  key: AccountsKeys.Executive)) {
                                 if (textController1.text == "" ||
                                     textController2.text == "" ||
                                     textController5.text == "" ||
@@ -1579,28 +1898,25 @@ class _AddWidgetState extends State<Add> {
                                     dropDownValue == "" ||
                                     dropDownValueGender == "" ||
                                     image == null) {
-                                  Fluttertoast.showToast(
-                                      msg: "All fields are necessary to fill",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.CENTER,
-                                      timeInSecForIosWeb: 5,
-                                      backgroundColor: Colors.red,
-                                      textColor: Colors.black,
-                                      fontSize: 14.0);
+                                  Toast.showToast(
+                                    context,
+                                    type: ToastType.Error,
+                                    message: "All fields are necessary to fill",
+                                  );
                                 } else {
-                                  print(FFAppState().AccountId);
-                                  print(displayLive.toString());
-                                  print(displayChat.toString());
-                                  print(displayView.toString());
+                                  // print(FFAppState().AccountId);
+                                  // print(displayLive.toString());
+                                  // print(displayChat.toString());
+                                  // print(displayView.toString());
                                   // List<int> imageBytes = image.readAsBytesSync();
                                   // String base64Image = base64Encode(imageBytes);
                                   //BASE64.encode(imageBytes);
 
                                   final String url =
-                                      "http://18.208.148.208:4000/add/member";
+                                      "${ApiService.domain}/add/member";
                                   /* final res =
                                   await http.post(Uri.parse(url), headers: {
-                                "Authorization": "Bearer ${FFAppState().Token}"
+                                "Authorization": "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
                                }, body: {
                                 "fname": textController1.text,
                                 "lname": textController2.text,
@@ -1624,17 +1940,19 @@ class _AddWidgetState extends State<Add> {
                                   // stream.cast();
 
                                   // var length = await image.length();
+                                  // print("country add $countryValue");
+                                  // print("relation $dropDownValue");
 
                                   var res1 = new http.MultipartRequest(
                                       'POST', Uri.parse(url));
 
                                   res1.headers['Authorization'] =
-                                      "Bearer ${FFAppState().Token}";
+                                      "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}";
                                   res1.fields['fname'] = textController1.text;
                                   res1.fields['lname'] = textController2.text;
                                   res1.fields['email'] = textController5.text;
                                   res1.fields['mobile'] = textController4.text;
-                                  res1.fields['relation'] = dropDownValue;
+                                  res1.fields['relation'] = relationCode;
                                   res1.fields['executive'] =
                                       FFAppState().Chattoggle5.toString();
                                   res1.fields['m_acc_id'] =
@@ -1648,12 +1966,12 @@ class _AddWidgetState extends State<Add> {
                                           "profile", image.path));
                                   res1.fields['live_video'] =
                                       displayLive.toString();
-                                  res1.fields['chats'] = displayChat.toString();
+                                  res1.fields['chat'] = displayChat.toString();
                                   res1.fields['view_video'] =
                                       displayView.toString();
                                   res1.fields["country"] = countryValue;
-                                  res1.fields["state"] = stateValue;
-                                  res1.fields["city"] = cityValue;
+                                  res1.fields["state"] = textController8.text;
+                                  res1.fields["city"] = textController9.text;
                                   res1.fields["dob"] = DateFormat("yyyy-MM-dd")
                                       .format(selectedDate);
                                   // ignore: unnecessary_statements
@@ -1680,46 +1998,28 @@ class _AddWidgetState extends State<Add> {
                                   print(response.statusCode);
                                   if (response.statusCode == 200) {
                                     print("uploaded");
+                                    Toast.showToast(
+                                      context,
+                                      type: ToastType.Info,
+                                      message: jsonDecode(respStr)["message"],
+                                    );
 
-                                    Fluttertoast.showToast(
-                                        msg: jsonDecode(respStr)["message"],
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.CENTER,
-                                        timeInSecForIosWeb: 5,
-                                        backgroundColor: Colors.green,
-                                        textColor: Colors.black,
-                                        fontSize: 14.0);
                                     Navigator.pop(context);
                                   } else {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (alertDialogContext) {
-                                        return AlertDialog(
-                                          title: Text('Error'),
-                                          content: Text(
-                                              jsonDecode(respStr)["message"]),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  alertDialogContext),
-                                              child: Text('Ok'),
-                                            ),
-                                          ],
-                                        );
-                                      },
+                                    Toast.showToast(
+                                      context,
+                                      type: ToastType.Error,
+                                      message: jsonDecode(respStr)["message"],
                                     );
                                   }
                                 }
                               } else {
-                                Fluttertoast.showToast(
-                                    msg:
-                                        "You are not permitted to add the members",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 5,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.black,
-                                    fontSize: 14.0);
+                                Toast.showToast(
+                                  context,
+                                  type: ToastType.Info,
+                                  message:
+                                      "You are not permitted to add the members",
+                                );
                               }
                               // setState(() {});
                             },
