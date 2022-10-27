@@ -110,6 +110,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                           child: TextFormField(
+                            inputFormatters: [
+                              MaskedInputFormatter("###.###.####")
+                            ],
                             controller: textController1,
                             obscureText: false,
                             validator: (value) => textController1.text,
@@ -240,7 +243,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           final String url =
                               "${ApiService.domain}/login/member";
                           final res = await http.post(Uri.parse(url), body: {
-                            "mobile": textController1.text,
+                            "mobile": textController1.text.replaceAll(".", ""),
                             "password": textController2.text,
                             "device_token": FFAppState().FCM
                           });
