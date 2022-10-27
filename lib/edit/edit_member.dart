@@ -190,18 +190,21 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
             "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
       },
     );
-    print(res.body);
-    placesData = jsonDecode(res.body);
-    print(placesData);
-    setState(() {
-      textController8.text = placesData['data']['state_name'];
-      textController9.text = placesData['data']['county_name'];
-    });
-    dynamic countryValue = widget.countries.singleWhere((element) =>
-        element['code'] == placesData['data']['country_code'])['name'];
-    cityValue = placesData['data']['county_name'];
-    stateValue = placesData['data']['state_name'];
-    print('country $countryValue city $cityValue state $stateValue');
+
+    if (res.statusCode == 200) placesData = jsonDecode(res.body);
+
+    if (res.statusCode == 200 &&
+        placesData["data"] != null &&
+        placesData["data"]["country_code"] != null) {
+      setState(() {
+        textController8.text = placesData['data']['state_name'];
+        textController9.text = placesData['data']['county_name'];
+      });
+      dynamic countryValue = widget.countries.singleWhere((element) =>
+          element['code'] == placesData['data']['country_code'])['name'];
+      cityValue = placesData['data']['county_name'];
+      stateValue = placesData['data']['state_name'];
+    }
   }
 
   @override
@@ -457,7 +460,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: Container(
-                                  width: 180,
+                                  width:
+                                      MediaQuery.of(context).size.width * .44,
                                   height: 60,
                                   decoration: BoxDecoration(
                                     color: Color(0xFFEEEEEE),
@@ -523,7 +527,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: Container(
-                                  width: 180,
+                                  width:
+                                      MediaQuery.of(context).size.width * .44,
                                   height: 60,
                                   decoration: BoxDecoration(
                                     color: Color(0xFFEEEEEE),
@@ -827,8 +832,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                   enabled: _hasPermissionToEdit,
                                   controller: textController7,
                                   obscureText: false,
-                                  onEditingComplete: _loadAddress,
-                                  // onSaved: (newValue) => print(newValue),
+                                  onChanged: (_) => _loadAddress(),
                                   decoration: InputDecoration(
                                     labelText: 'Zip Code',
                                     labelStyle: FlutterFlowTheme.of(context)
@@ -1690,8 +1694,8 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     res1.fields['fname'] = textController1.text;
                                     res1.fields['lname'] = textController2.text;
                                     res1.fields['gender'] = dropDownValueGender;
-                                    res1.fields['mobile'] =
-                                        textController4.text;
+                                    res1.fields['mobile'] = textController4.text
+                                        .replaceAll(".", "");
                                     res1.fields['email'] = textController5.text;
                                     res1.fields['address'] =
                                         textController6.text;
