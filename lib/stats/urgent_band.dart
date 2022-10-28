@@ -13,19 +13,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-class DoorWidget extends StatefulWidget {
+class UrgentBandWidget extends StatefulWidget {
   String data;
-  DoorWidget({Key key, @required this.data}) : super(key: key);
+  UrgentBandWidget({Key key, @required this.data}) : super(key: key);
 
   @override
-  _DoorWidgetState createState() => _DoorWidgetState(data);
+  _UrgentBandWidgetState createState() => _UrgentBandWidgetState(data);
 }
 
 DateTime dateTime = DateTime.now();
 String dateToday = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-List<dynamic> _doorData = [];
-bool _isDoorDataLoading = true;
+List<dynamic> _bandData = [];
+bool _isBandDataLoading = true;
 
 dynamic Hrate;
 bool daily = true;
@@ -43,7 +43,7 @@ DateTime startDateYear = dateTimeYear.subtract(Duration(days: 365));
 DateTime endDateYear = dateTimeYear;
 DateTimeRange dateRange = DateTimeRange(start: _startDate, end: _endDate);
 
-class _DoorWidgetState extends State<DoorWidget> {
+class _UrgentBandWidgetState extends State<UrgentBandWidget> {
   @override
   void initState() {
     super.initState();
@@ -55,7 +55,8 @@ class _DoorWidgetState extends State<DoorWidget> {
     getStepWeekRate();
     getStepMonthlyRate();
     getStepYearlyRate();
-    _loadDoorData(DateTime.now(), init: true);
+
+    _loadBandData(DateTime.now(), init: true);
   }
 
   bool checkLimit(DateTime limitDay) {
@@ -65,21 +66,6 @@ class _DoorWidgetState extends State<DoorWidget> {
       return false;
     }
     return true;
-  }
-
-  Future<void> _loadDoorData(DateTime date, {bool init = false}) async {
-    if (!init)
-      setState(() {
-        _isDoorDataLoading = true;
-      });
-    String uri =
-        "${ApiService.domain}/table/sensors?sensor_name=Door&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}";
-    Response res = await Dio().get(uri);
-    _doorData = res.data["data"];
-    print(_doorData);
-    setState(() {
-      _isDoorDataLoading = false;
-    });
   }
 
   Future displayDateRangePicker(context) async {
@@ -117,7 +103,7 @@ class _DoorWidgetState extends State<DoorWidget> {
   List<StepsStat> stepStat = [];
   GetSteps getSteps = GetSteps();
 
-  _DoorWidgetState(this.id);
+  _UrgentBandWidgetState(this.id);
 
   void getStepscount() async {
     String date = DateFormat('yyyy-MM-dd').format(dateTime);
@@ -129,11 +115,26 @@ class _DoorWidgetState extends State<DoorWidget> {
     final rate = jsonDecode((response.body));
     //  print(rate["health_status"]["heart_rate"].runtimeType);
 
-    List<StepsStat> temp = stepsStatFromJson(rate["health_status"][0]["Door"]);
+    List<StepsStat> temp = stepsStatFromJson(rate["health_status"][0]["sos"]);
     setState(() {
       stepStat = temp;
     });
     print(stepStat);
+  }
+
+  Future<void> _loadBandData(DateTime date, {bool init = false}) async {
+    if (!init)
+      setState(() {
+        _isBandDataLoading = true;
+      });
+    String uri =
+        "${ApiService.domain}/table/sensors?sensor_name=SOS&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}";
+    Response res = await Dio().get(uri);
+    _bandData = res.data["data"];
+    print("bandData $_bandData");
+    setState(() {
+      _isBandDataLoading = false;
+    });
   }
 
   List<charts.Series<StepStatMonth, String>> _createSampleData() {
@@ -189,13 +190,13 @@ class _DoorWidgetState extends State<DoorWidget> {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
     print(wDate);
     var response = await getHrate.get(
-        '${ApiService.domain}/graph/health_status/Door/weekly?date=${wDate}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/sos/weekly?date=${wDate}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["Door"]);
-    List<StepStatMonth> temp = StepStatWeekFromJson(rate["Door"]);
+    print(rate["sos"]);
+    List<StepStatMonth> temp = StepStatWeekFromJson(rate["sos"]);
     setState(() {
       stepMax = temp;
     });
@@ -205,13 +206,13 @@ class _DoorWidgetState extends State<DoorWidget> {
     wDate1 = DateFormat('yyyy-MM-dd').format(dateTimeMonth);
     print(wDate1);
     var response = await getHrate.get(
-        '${ApiService.domain}/graph/health_status/Door/monthly?date=${wDate1}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/sos/monthly?date=${wDate1}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["Door"]);
-    List<StepStatMonth> temp = StepStatWeekFromJson(rate["Door"]);
+    print(rate["sos"]);
+    List<StepStatMonth> temp = StepStatWeekFromJson(rate["sos"]);
     setState(() {
       stepMaxMon = temp;
     });
@@ -364,17 +365,17 @@ class _DoorWidgetState extends State<DoorWidget> {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
     print(wDate2);
     var response = await getHrate.get(
-        '${ApiService.domain}/graph/health_status/Door/yearly?date=${wDate2}&senior_id=${id}');
+        '${ApiService.domain}/graph/health_status/sos/yearly?date=${wDate2}&senior_id=${id}');
     print(response.statusCode);
     print(response.body.runtimeType);
     print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["Door"]);
-    List<StepStatMax> temp = StepStatWeekMaxFromJson(rate["Door"]);
+    print(rate["sos"]);
+    List<StepStatMax> temp = StepStatWeekMaxFromJson(rate["sos"]);
     setState(() {
       stepMaxYr = temp;
     });
-    List<StepStatMax> temp1 = StepStatWeekMinFromJson(rate["Door"]);
+    List<StepStatMax> temp1 = StepStatWeekMinFromJson(rate["sos"]);
     setState(() {
       stepMinYr = temp1;
     });
@@ -421,9 +422,9 @@ class _DoorWidgetState extends State<DoorWidget> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SvgPicture.asset(
-                          'assets/images/door.svg',
-                          width: 220,
-                          height: 220,
+                          'assets/images/sos.svg',
+                          width: 150,
+                          height: 150,
                           fit: BoxFit.fitWidth,
                         ),
                       ],
@@ -461,7 +462,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                               child: Text(
-                                'Door Sensor',
+                                'Urgent Band',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText1
                                     .override(
@@ -701,7 +702,8 @@ class _DoorWidgetState extends State<DoorWidget> {
                                     setState(() {
                                       dateTime =
                                           dateTime.subtract(Duration(days: 1));
-                                      _loadDoorData(dateTime);
+                                      getStepscount();
+                                      _loadBandData(dateTime);
                                     });
                                   }
                                   if (weekly == true) {
@@ -834,7 +836,8 @@ class _DoorWidgetState extends State<DoorWidget> {
                                           dateToday) {
                                         dateTime =
                                             dateTime.add(Duration(days: 1));
-                                        _loadDoorData(dateTime);
+                                        getStepscount();
+                                        _loadBandData(dateTime);
                                       }
                                     });
                                   } else if (weekly == true) {
@@ -895,7 +898,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                               child: Text(
-                                'Last Used',
+                                'Triggered',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText1
                                     .override(
@@ -929,7 +932,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                                 //   )),
                                 // ),
                                 child: SingleChildScrollView(
-                                  child: !_isDoorDataLoading
+                                  child: !_isBandDataLoading
                                       ? Table(
                                           //textDirection: TextDirection.,
                                           defaultVerticalAlignment:
@@ -959,7 +962,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                                                 Padding(
                                                   padding: EdgeInsets.all(10.0),
                                                   child: Text(
-                                                    "Door Sensor",
+                                                    "SOS Button",
                                                     // textScaleFactor: 1.5,
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
@@ -971,21 +974,23 @@ class _DoorWidgetState extends State<DoorWidget> {
                                                 ),
                                               ],
                                             ),
-                                            if (_doorData.length == 0)
+                                            if (_bandData.length == 0)
                                               TableRow(children: [
                                                 Text(
                                                   "No data",
+                                                  textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white),
                                                 ),
                                                 Text("available",
+                                                    textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         color: Colors.white))
                                               ]),
-                                            if (!_isDoorDataLoading &&
-                                                _doorData.length != 0)
+                                            if (!_isBandDataLoading &&
+                                                _bandData.length != 0)
                                               ...List.generate(
-                                                _doorData.length,
+                                                _bandData.length,
                                                 (index) => TableRow(
                                                   children: [
                                                     Padding(
@@ -994,7 +999,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                                                       child: Text(
                                                         DateFormat("h:mm a")
                                                             .format(DateTime.parse(
-                                                                    "${dateTime.toString().split(" ")[0]} ${_doorData[index]["time"]}Z")
+                                                                    "${dateTime.toString().split(" ")[0]} ${_bandData[index]["time"]}Z")
                                                                 .toLocal()),
                                                         // textScaleFactor: 1.5,
                                                         textAlign:
@@ -1010,10 +1015,10 @@ class _DoorWidgetState extends State<DoorWidget> {
                                                       padding:
                                                           EdgeInsets.all(10.0),
                                                       child: Text(
-                                                        _doorData[index]
+                                                        _bandData[index]
                                                                 ["value"]
-                                                            ? "Open"
-                                                            : "Close",
+                                                            ? "Triggered"
+                                                            : "nil",
                                                         // textScaleFactor: 1.5,
                                                         textAlign:
                                                             TextAlign.center,
@@ -1043,7 +1048,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                                             //     Padding(
                                             //       padding: EdgeInsets.all(10.0),
                                             //       child: Text(
-                                            //         "Closed",
+                                            //         "Triggered",
                                             //         // textScaleFactor: 1.5,
                                             //         textAlign: TextAlign.center,
                                             //         style: TextStyle(
@@ -1069,7 +1074,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                                             //     Padding(
                                             //       padding: EdgeInsets.all(10.0),
                                             //       child: Text(
-                                            //         "Open",
+                                            //         "Triggered",
                                             //         // textScaleFactor: 1.5,
                                             //         textAlign: TextAlign.center,
                                             //         style: TextStyle(
@@ -1095,7 +1100,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                                             //     Padding(
                                             //       padding: EdgeInsets.all(10.0),
                                             //       child: Text(
-                                            //         "Closed",
+                                            //         "Triggered",
                                             //         // textScaleFactor: 1.5,
                                             //         textAlign: TextAlign.center,
                                             //         style: TextStyle(

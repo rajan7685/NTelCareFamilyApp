@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:n_tel_care_family_app/backend/api_requests/api_calls.dart';
 import 'package:n_tel_care_family_app/components/custom_toast.dart';
+import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/custom_code/widgets/custom_message.dart';
 import 'package:n_tel_care_family_app/edit/demo_editProfile.dart';
@@ -105,6 +106,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                         } else {
                           FFAppState().relation = snapshot.data["relation"];
                           countries = snapshot.data["countries"];
+                          FFAppState().CurrentUserId = snapshot.data["id"];
                           //print("snap shot countries : ${}");
                           return Column(
                             mainAxisSize: MainAxisSize.max,
@@ -579,7 +581,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     0, 10, 10, 0),
                                 child: InkWell(
                                   onTap: () async {
-                                    print("presses");
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
@@ -588,6 +589,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           content:
                                               ("Are you sure you want to logout?"),
                                           onpressed: () async {
+                                            await SharedPreferenceService
+                                                .clearAuthenticationData();
                                             await Navigator.pushAndRemoveUntil(
                                               context,
                                               MaterialPageRoute(
@@ -908,7 +911,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
             ]),
           ),
         ),
-        floatingActionButton: (FFAppState().Chattoggle2 && FFAppState().chat)
+        floatingActionButton: (FFAppState().Chattoggle2 &&
+                SharedPreferenceService.loadBool(
+                    key: AccountsKeys.ChatPermission))
             ? Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                 child: Column(

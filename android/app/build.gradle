@@ -8,7 +8,7 @@ if (localPropertiesFile.exists()) {
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+    throw  GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
@@ -44,13 +44,23 @@ android {
         checkReleaseBuilds false
     }
 
+    compileOptions {
+    // Flag to enable support for the new language APIs
+    coreLibraryDesugaringEnabled true
+    // Sets Java compatibility to Java 8
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.ntelcare.familyapp"
         minSdkVersion 21
-        targetSdkVersion 31
+        compileSdkVersion 33
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
    signingConfigs {
@@ -79,4 +89,5 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.firebase:firebase-analytics'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 }
