@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({Key key}) : super(key: key);
+  final Map<String, dynamic> videoData;
+  final String title;
+  const VideoPlayerScreen(
+      {Key key, @required this.videoData, @required this.title})
+      : super(key: key);
 
   @override
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
@@ -16,13 +19,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void initState() {
     super.initState();
-
-    // Create and store the VideoPlayerController. The VideoPlayerController
-    // offers several different constructors to play videos from assets, files,
-    // or the internet.
-    _controller = VideoPlayerController.network(
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-    );
+    _controller = VideoPlayerController.network(widget.videoData["path"],
+        videoPlayerOptions: VideoPlayerOptions());
     // Initialize the controller and store the Future for later use.
     _initializeVideoPlayerFuture = _controller.initialize();
 
@@ -41,8 +39,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Live Stream'),
+        title: Text(widget.title),
       ),
       // Use a FutureBuilder to display a loading spinner while waiting for the
       // VideoPlayerController to finish initializing.
@@ -55,7 +54,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               // the data it provides to limit the aspect ratio of the video.
               return AspectRatio(
                 aspectRatio: _controller.value.aspectRatio,
-                // Use the VideoPlayer widget to display the video.
                 child: VideoPlayer(_controller),
               );
             } else {
@@ -68,10 +66,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           },
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Wrap the play or pause in a call to `setState`. This ensures the
-          // correct icon is shown.
           setState(() {
             // If the video is playing, pause it.
             if (_controller.value.isPlaying) {
