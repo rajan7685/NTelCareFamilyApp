@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:n_tel_care_family_app/backend/ApiService.dart';
@@ -122,17 +123,21 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
             "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
       },
     );
-    print(res.body);
-    placesData = jsonDecode(res.body);
-    setState(() {
-      textController8.text = placesData['data']['state_name'];
-      textController9.text = placesData['data']['county_name'];
-    });
-    dynamic countryValue = widget.countries.singleWhere((element) =>
-        element['code'] == placesData['data']['country_code'])['name'];
-    cityValue = placesData['data']['county_name'];
-    stateValue = placesData['data']['state_name'];
-    print('country $countryValue city $cityValue state $stateValue');
+
+    if (res.statusCode == 200) placesData = jsonDecode(res.body);
+
+    if (res.statusCode == 200 &&
+        placesData["data"] != null &&
+        placesData["data"]["country_code"] != null) {
+      setState(() {
+        textController8.text = placesData['data']['state_name'];
+        textController9.text = placesData['data']['county_name'];
+      });
+      dynamic countryValue = widget.countries.singleWhere((element) =>
+          element['code'] == placesData['data']['country_code'])['name'];
+      cityValue = placesData['data']['county_name'];
+      stateValue = placesData['data']['state_name'];
+    }
   }
 
   @override
@@ -433,7 +438,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 10, 0, 0),
                                   child: Container(
-                                    width: 180,
+                                    width:
+                                        MediaQuery.of(context).size.width * .44,
                                     height: 60,
                                     decoration: BoxDecoration(
                                       color: Color(0xFFEEEEEE),
@@ -497,7 +503,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 10, 0, 0),
                                   child: Container(
-                                    width: 180,
+                                    width:
+                                        MediaQuery.of(context).size.width * .44,
                                     height: 60,
                                     decoration: BoxDecoration(
                                       color: Color(0xFFEEEEEE),
@@ -757,7 +764,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                                     value)['name'];
                                             setState(() {
                                               print(
-                                                  " value of country : ${value}");
+                                                  " value of country : $value");
                                               countryCode = value;
                                               countryValue = abc;
                                             });
@@ -805,8 +812,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
                                   child: TextFormField(
                                     controller: textController7,
                                     obscureText: false,
-                                    onEditingComplete: _loadAddress,
-                                    // onSaved: (newValue) => print(newValue),
+                                    onChanged: (_) => _loadAddress(),
                                     decoration: InputDecoration(
                                       labelText: 'Zip Code',
                                       labelStyle: FlutterFlowTheme.of(context)
@@ -1652,7 +1658,8 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
 
                                     res.fields["fname"] = textController1.text;
                                     res.fields["lname"] = textController2.text;
-                                    res.fields["mobile"] = textController3.text;
+                                    res.fields["mobile"] = textController3.text
+                                        .replaceAll(".", "");
                                     res.fields["email"] = textController4.text;
                                     res.fields["relation"] = dropDownValue;
                                     res.fields["address"] =
