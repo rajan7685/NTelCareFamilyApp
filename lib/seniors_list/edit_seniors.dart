@@ -51,7 +51,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   TextEditingController textController10;
   TextEditingController textController11;
   TextEditingController inchesController;
-  TextEditingController ozController;
   String dropDownValue2;
   String dropDownValue3;
   String dropDownValue4;
@@ -64,8 +63,8 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   String stateValue = "";
   String cityValue = "";
   String address = "";
-  String heightUnit = "feet";
-  String weightUnit = "lbs";
+  String heightUnit;
+  String weightUnit;
   String countryCode;
   String dateJson;
   DateTime dateTime;
@@ -84,9 +83,11 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
   void initState() {
     super.initState();
     String phoneNumber = data["mobile"];
-
+    print("senior: ${data["weight_unit"]} ${data["height_unit"]}");
     textController6 = TextEditingController(text: "");
-    // print('Formatted number ${formattedPhoneNumber}');
+    // units
+    weightUnit = data["weight_unit"] == "lbs" ? "lbs" : "kg";
+    heightUnit = data["height_unit"] == "ft" ? "feet" : "cm";
     textController1 = TextEditingController(text: data["fname"]);
     textController2 = TextEditingController(text: data["lname"]);
     dropDownValueGender = data["gender"];
@@ -98,8 +99,7 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     textController9 = TextEditingController(text: data["zipcode"]);
     textController10 = TextEditingController(text: data["state"]);
     textController11 = TextEditingController(text: data["city"]);
-    inchesController = TextEditingController();
-    ozController = TextEditingController();
+    inchesController = TextEditingController(text: data["inchs"]);
 
     profile = data["profile"];
     if (profile == null) {
@@ -113,8 +113,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
     countryCode = data['ccode'];
     stateValue = data["state"];
     selectedDate = HttpDate.parse(data["dob"]);
-    // print(data["dob"]);
-    // print(DateFormat("yyyy-MM-dd").format(selectedDate));
     _hasPermissionToEdit =
         SharedPreferenceService.loadBool(key: AccountsKeys.Executive);
   }
@@ -904,7 +902,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                       ),
                                     ),
                                     Expanded(
-                                      flex: 2,
                                       child: Container(
                                         height: 60,
                                         decoration: BoxDecoration(
@@ -967,68 +964,6 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 8),
-                              if (weightUnit == "lbs")
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFEEEEEE),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 0, 0),
-                                      child: TextFormField(
-                                        enabled: _hasPermissionToEdit,
-                                        controller: ozController,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText: 'Oz',
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFF9A9A9A),
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w300,
-                                                  ),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color: Color(0xFF606E87),
-                                              fontSize: 16,
-                                            ),
-                                        keyboardType: TextInputType.number,
-                                      ),
-                                    ),
-                                  ),
-                                )
                             ],
                           ),
                           Padding(
@@ -1762,13 +1697,13 @@ class _EditSeniorsWidgetState extends State<EditSeniorsWidget> {
                                     res.fields["gender"] = dropDownValueGender;
                                     res.fields["height"] = textController4.text;
                                     res.fields["weight"] = textController5.text;
-                                    if (ozController.text.isNotEmpty) {
-                                      res.fields["oz"] = ozController.text;
-                                    }
                                     if (inchesController.text.isNotEmpty) {
                                       res.fields["inchs"] =
                                           inchesController.text;
                                     }
+                                    res.fields["weight_unit"] = weightUnit;
+                                    res.fields["height_unit"] =
+                                        heightUnit == "feet" ? "ft" : "cm";
                                     res.fields["address"] =
                                         textController8.text;
                                     res.fields["zipcode"] =

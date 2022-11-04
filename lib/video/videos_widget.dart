@@ -70,9 +70,9 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
               "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
         }));
     rtspLink = res.data["data"]["videos"][0][id]["live_video"];
-    if (rtspLink != null && rtspLink.toString().isNotEmpty)
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("RTSP link has been set")));
+    // if (rtspLink != null && rtspLink.toString().isNotEmpty)
+    //   ScaffoldMessenger.of(context)
+    //       .showSnackBar(SnackBar(content: Text("RTSP link has been set")));
     setState(() {
       _motionClips = res.data["data"]["videos"][0][id]["clips"];
       _areVideosDataLoading = false;
@@ -522,14 +522,19 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                   5, 5, 5, 0),
                                                       child: InkWell(
                                                         onTap: () async {
-                                                          await Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (_) =>
-                                                                      LiveStreamWidget(
-                                                                        rtsp:
-                                                                            rtspLink,
-                                                                      )));
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(SnackBar(
+                                                                  content: Text(
+                                                                      "RTSP has some issues, sorry for inconvenience")));
+                                                          // await Navigator.push(
+                                                          //     context,
+                                                          //     MaterialPageRoute(
+                                                          //         builder: (_) =>
+                                                          //             LiveStreamWidget(
+                                                          //               rtsp:
+                                                          //                   rtspLink,
+                                                          //             )));
                                                           SystemChrome
                                                               .setPreferredOrientations([
                                                             DeviceOrientation
