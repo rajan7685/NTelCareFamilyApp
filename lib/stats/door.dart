@@ -742,21 +742,37 @@ class _DoorWidgetState extends State<DoorWidget> {
                               ),
                               if (daily ?? true)
                                 Expanded(
-                                  child: Text(
-                                    dateTime == null
-                                        ? DateFormat('dd-MM-yyyy')
-                                            .format(DateTime.now())
-                                        : DateFormat('dd-MM-yyyy')
-                                            .format(dateTime),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFFAFAFAF),
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w300,
-                                        ),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      DateTime time = await showDatePicker(
+                                          context: context,
+                                          initialDate: dateTime,
+                                          firstDate: DateTime.now()
+                                              .subtract(Duration(days: 1000)),
+                                          lastDate: DateTime.now());
+                                      if (time != null && time != dateTime) {
+                                        setState(() {
+                                          dateTime = time;
+                                        });
+                                        _loadDoorData(dateTime);
+                                      }
+                                    },
+                                    child: Text(
+                                      dateTime == null
+                                          ? DateFormat('dd-MM-yyyy')
+                                              .format(DateTime.now())
+                                          : DateFormat('dd-MM-yyyy')
+                                              .format(dateTime),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFAFAFAF),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               if (weekly == true)
@@ -975,10 +991,12 @@ class _DoorWidgetState extends State<DoorWidget> {
                                               TableRow(children: [
                                                 Text(
                                                   "No data",
+                                                  textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white),
                                                 ),
                                                 Text("available",
+                                                    textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         color: Colors.white))
                                               ]),
@@ -1013,7 +1031,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                                                         _doorData[index]
                                                                 ["value"]
                                                             ? "Open"
-                                                            : "Close",
+                                                            : "Closed",
                                                         // textScaleFactor: 1.5,
                                                         textAlign:
                                                             TextAlign.center,
