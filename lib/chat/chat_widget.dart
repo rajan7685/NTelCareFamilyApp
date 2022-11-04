@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
@@ -193,12 +194,14 @@ class _ChatWidgetState extends State<ChatWidget> {
   List<dynamic> _chats;
   bool _isChatDataLoading = true;
   XFile _image;
+  Timer _scheduler;
   String _accHolderName = '';
 
   // FilePickerResult;
 
-  Future<void> _loadMessages({bool init = false}) async {
-    if (!init)
+  Future<void> _loadMessages(
+      {bool init = false, bool autoRefresh = false}) async {
+    if (!init && !autoRefresh)
       setState(() {
         _isChatDataLoading = true;
       });
@@ -211,6 +214,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     final ApiCallResponse profileInfo = await GetProfile.call();
     _accHolderName =
         '${profileInfo.jsonBody['member']['fname']} ${profileInfo.jsonBody['member']['lname']}';
+
     setState(() {
       _chats = _responseJson['chats'];
       _isChatDataLoading = false;
@@ -278,7 +282,15 @@ class _ChatWidgetState extends State<ChatWidget> {
   void initState() {
     super.initState();
     _chatController = TextEditingController();
+    _scheduler = Timer.periodic(
+        const Duration(seconds: 20), (_) => _loadMessages(autoRefresh: true));
     _loadMessages(init: true);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scheduler.cancel();
   }
 
   Widget chatWidget(int index, {@required bool me}) {

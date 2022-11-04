@@ -1,4 +1,14 @@
 PODS:
+
+
+  - better_player (0.0.1):
+    - Cache (~> 6.0.0)
+    - Flutter
+    - GCDWebServer
+    - HLSCachingReverseProxyServer
+    - PINCache
+  - Cache (6.0.0)
+  
   - connectivity_plus (0.0.1):
     - Flutter
     - ReachabilitySwift
@@ -6,9 +16,13 @@ PODS:
     - FirebaseCore (= 9.6.0)
   - Firebase/Messaging (9.6.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 9.6.0)
-  - firebase_core (1.24.0):
-    - Firebase/CoreOnly (= 9.6.0)
+
+    - FirebaseMessaging (~> 9.4.0)
+
+  - firebase_core (1.21.0):
+
+    - Firebase/CoreOnly (= 9.4.0)
+
     - Flutter
   - firebase_messaging (12.0.3):
     - Firebase/Messaging (= 9.6.0)
@@ -43,15 +57,22 @@ PODS:
   - Flutter (1.0.0)
   - flutter_local_notifications (0.0.1):
     - Flutter
+
   - flutter_vlc_player (3.0.3):
     - Flutter
     - MobileVLCKit (~> 3.4)
+
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+
+
+  - GCDWebServer (3.5.4):
+    - GCDWebServer/Core (= 3.5.4)
+  - GCDWebServer/Core (3.5.4)
   - GoogleDataTransport (9.2.0):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
@@ -73,9 +94,16 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.8.0):
     - GoogleUtilities/Logger
+
+
+  - HLSCachingReverseProxyServer (0.1.0):
+    - GCDWebServer (~> 3.5)
+    - PINCache (>= 3.0.1-beta.3)
+
   - image_picker_ios (0.0.1):
     - Flutter
   - MobileVLCKit (3.4.0)
+
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -87,6 +115,17 @@ PODS:
     - Flutter
   - path_provider_ios (0.0.1):
     - Flutter
+
+
+  - PINCache (3.0.3):
+    - PINCache/Arc-exception-safe (= 3.0.3)
+    - PINCache/Core (= 3.0.3)
+  - PINCache/Arc-exception-safe (3.0.3):
+    - PINCache/Core
+  - PINCache/Core (3.0.3):
+    - PINOperation (~> 1.2.1)
+  - PINOperation (1.2.1)
+
   - PromisesObjC (2.1.1)
   - ReachabilitySwift (5.0.0)
   - shared_preferences_ios (0.0.1):
@@ -101,13 +140,16 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Firebase/Messaging
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
+
   - flutter_vlc_player (from `.symlinks/plugins/flutter_vlc_player/ios`)
+
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
@@ -118,8 +160,13 @@ DEPENDENCIES:
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/ios`)
 
+
+  - wakelock (from `.symlinks/plugins/wakelock/ios`)
+
 SPEC REPOS:
   trunk:
+    - Cache
+
     - Firebase
     - FirebaseCore
     - FirebaseCoreDiagnostics
@@ -127,15 +174,24 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseMessaging
     - FMDB
+
+    - GCDWebServer
+
     - GoogleDataTransport
     - GoogleUtilities
     - MobileVLCKit
     - nanopb
+    - PINCache
+    - PINOperation
+\
     - PromisesObjC
     - ReachabilitySwift
     - Toast
 
 EXTERNAL SOURCES:
+  better_player:
+    :path: ".symlinks/plugins/better_player/ios"
+
   connectivity_plus:
     :path: ".symlinks/plugins/connectivity_plus/ios"
   firebase_core:
@@ -146,8 +202,10 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
+
   flutter_vlc_player:
     :path: ".symlinks/plugins/flutter_vlc_player/ios"
+
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   image_picker_ios:
@@ -167,18 +225,26 @@ EXTERNAL SOURCES:
   video_player_avfoundation:
     :path: ".symlinks/plugins/video_player_avfoundation/ios"
 
+
+  wakelock:
+    :path: ".symlinks/plugins/wakelock/ios"
+
+
 SPEC CHECKSUMS:
   connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
-  Firebase: 5ae8b7cf8efce559a653aef0ad95bab3f427c351
-  firebase_core: 7c28ecc1e5dd74e03829ac3e9ff5ba3314e737a9
-  firebase_messaging: 2499de6fb0276940a70ed027f35a4b59a8ea0f73
-  FirebaseCore: 2082fffcd855f95f883c0a1641133eb9bbe76d40
-  FirebaseCoreDiagnostics: 99a495094b10a57eeb3ae8efa1665700ad0bdaa6
-  FirebaseCoreInternal: bca76517fe1ed381e989f5e7d8abb0da8d85bed3
-  FirebaseInstallations: 0a115432c4e223c5ab20b0dbbe4cbefa793a0e8e
-  FirebaseMessaging: a4d7910e4af663c9cbfc1071c5bef34651690949
+
+  Firebase: 7703fc4022824b6d6db1bf7bea58d13b8e17ec46
+  firebase_core: c1cdfa024dc7f3d1ba8055a2ae323dba3dce4fa1
+
+  firebase_messaging: b65dacd4de1b469893dea0d754b1947f45ef4f7a
+  FirebaseCore: 9a2b10270a854731c4d4d8a97d0aa8380ec3458d
+  FirebaseCoreDiagnostics: 17cbf4e72b1dbd64bfdc33d4b1f07bce4f16f1d8
+  FirebaseCoreInternal: 50a8e39cae8abf72d5145d07ea34c3244f70862b
+  FirebaseInstallations: 41f811b530c41dd90973d0174381cdb3fcb5e839
+  FirebaseMessaging: 4e220eddd356181469ba2ec5f7d5fafbc2312841
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
+
   flutter_vlc_player: a0bd756da5d2456f6d26963976616185a65ec677
   fluttertoast: 74526702fea2c060ea55dde75895b7e1bde1c86b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -186,10 +252,16 @@ SPEC CHECKSUMS:
   GoogleUtilities: 1d20a6ad97ef46f67bbdec158ce00563a671ebb7
   image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
   MobileVLCKit: 20ccee43f7788a94ea1f67179e33d9600779dfd9
+
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+
+
+  PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
+  PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
+
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
@@ -198,6 +270,11 @@ SPEC CHECKSUMS:
   url_launcher: b6e016d912f04be9f5bf6e8e82dc599b7ba59649
   video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
 
+
+  wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
+
+
 PODFILE CHECKSUM: aaac846308c38681e1acae4c574c438abdc3785f
+
 
 COCOAPODS: 1.11.3
