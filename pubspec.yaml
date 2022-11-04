@@ -17,7 +17,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 
 
-version: 1.0.35+36
+version: 1.0.41+42
 
 
 
@@ -50,7 +50,7 @@ dependencies:
   package_info_plus: ^1.0.6
   fluttertoast: ^8.0.9 
   flutter_svg: 0.22.0
-  better_player: 0.0.82
+  # better_player: 0.0.82
   string_extensions: ^0.6.2
  
  
