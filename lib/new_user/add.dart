@@ -704,7 +704,30 @@ class _AddWidgetState extends State<Add> {
                                       ),
                                     ),
                                   ),
-                                  style: FlutterFlowTheme.of(context)
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
+                          child: Container(
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                              child: TextFormField(
+                                controller: textController7,
+                                obscureText: false,
+                                onChanged: (_) => _loadAddress(),
+                                // onSaved: (newValue) => print(newValue),
+                                decoration: InputDecoration(
+                                  labelText: 'Zip Code',
+                                  labelStyle: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
                                         fontFamily: 'Poppins',
