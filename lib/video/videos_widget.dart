@@ -70,9 +70,9 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
               "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
         }));
     rtspLink = res.data["data"]["videos"][0][id]["live_video"];
-    if (rtspLink != null && rtspLink.toString().isNotEmpty)
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("RTSP link has been set")));
+    // if (rtspLink != null && rtspLink.toString().isNotEmpty)
+    //   ScaffoldMessenger.of(context)
+    //       .showSnackBar(SnackBar(content: Text("RTSP link has been set")));
     setState(() {
       _motionClips = res.data["data"]["videos"][0][id]["clips"];
       _areVideosDataLoading = false;
@@ -107,64 +107,51 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
           ),
         );
       },
-      child: Container(
-        width: 90,
-        height: 90,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
-          color: Color(0xFF535353),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Stack(
+          alignment: AlignmentDirectional.center,
           children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Text(
-                  //   '03:24',
-                  //   style: FlutterFlowTheme.of(context).bodyText1.override(
-                  //         fontFamily: 'Poppins',
-                  //         color: Color(0xFFE5E5E5),
-                  //         fontSize: 10,
-                  //         fontWeight: FontWeight.w100,
-                  //       ),
-                  // ),
-                  // Icon(
-                  //   Icons.cloud_download_rounded,
-                  //   color: Color(0xFF00B89F),
-                  //   size: 18,
-                  // ),
-                ],
-              ),
+            Positioned.fill(
+                child: Image.asset(
+              "assets/images/splash.png",
+              fit: BoxFit.cover,
+            )),
+            Positioned.fill(
+              child: Container(color: Color(0x99000000)),
             ),
             Image.asset(
               'assets/images/2959742_broadcast_google_streaming_video_youtube_icon.png',
               width: 35,
               height: 25,
+              color: Color(0xFFE5E5E5),
               fit: BoxFit.fill,
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    video["file"],
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Color(0xFFE5E5E5),
-                          fontSize: 8,
-                          fontWeight: FontWeight.w200,
-                        ),
-                  ),
-                ],
+            Positioned(
+              top: 4,
+              left: 4,
+              child: Text(
+                "03:24",
+                style: FlutterFlowTheme.of(context).bodyText1.override(
+                      fontFamily: 'Poppins',
+                      color: Color(0xFFE5E5E5),
+                      fontSize: 8,
+                      fontWeight: FontWeight.w200,
+                    ),
               ),
             ),
+            Positioned(
+              bottom: 6,
+              child: Text(
+                video["file"],
+                style: FlutterFlowTheme.of(context).bodyText1.override(
+                      fontFamily: 'Poppins',
+                      color: Color(0xFFE5E5E5),
+                      fontSize: 8,
+                      fontWeight: FontWeight.w200,
+                    ),
+              ),
+            )
           ],
         ),
       ),
@@ -535,14 +522,19 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                   5, 5, 5, 0),
                                                       child: InkWell(
                                                         onTap: () async {
-                                                          await Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (_) =>
-                                                                      LiveStreamWidget(
-                                                                        rtsp:
-                                                                            rtspLink,
-                                                                      )));
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(SnackBar(
+                                                                  content: Text(
+                                                                      "RTSP has some issues, sorry for inconvenience")));
+                                                          // await Navigator.push(
+                                                          //     context,
+                                                          //     MaterialPageRoute(
+                                                          //         builder: (_) =>
+                                                          //             LiveStreamWidget(
+                                                          //               rtsp:
+                                                          //                   rtspLink,
+                                                          //             )));
                                                           SystemChrome
                                                               .setPreferredOrientations([
                                                             DeviceOrientation
@@ -686,273 +678,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5, 5, 5, 0),
-                                                      child: Card(
-                                                        clipBehavior: Clip
-                                                            .antiAliasWithSaveLayer,
-                                                        color:
-                                                            Color(0xFF272E36),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(3,
-                                                                      0, 0, 0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(5),
-                                                                child:
-                                                                    Container(
-                                                                  width: 80,
-                                                                  height: 80,
-                                                                  decoration: BoxDecoration(
-                                                                      color: Color(
-                                                                          0xFF262626),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              5)),
-                                                                  child: Stack(
-                                                                    children: [
-                                                                      Card(
-                                                                        clipBehavior:
-                                                                            Clip.antiAliasWithSaveLayer,
-                                                                        color: Color(
-                                                                            0xFF1A1A1A),
-                                                                      ),
-                                                                      Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            -0.06,
-                                                                            -0.12),
-                                                                        child: Image
-                                                                            .asset(
-                                                                          'assets/images/809512_camera_multimedia_security_security_camera_surveillance_icon.png',
-                                                                          width:
-                                                                              35,
-                                                                          height:
-                                                                              35,
-                                                                          fit: BoxFit
-                                                                              .contain,
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Expanded(
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              10,
-                                                                              0,
-                                                                              0,
-                                                                              0),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Text(
-                                                                                'Camera 2',
-                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                      fontFamily: 'Montserrat',
-                                                                                      color: Color(0xFF00B89F),
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Text(
-                                                                                'Dining room',
-                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                      fontFamily: 'Poppins',
-                                                                                      color: Color(0xFFAFAFAF),
-                                                                                      fontSize: 12,
-                                                                                      fontWeight: FontWeight.w200,
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Icon(
-                                                                      Icons
-                                                                          .chevron_right,
-                                                                      color: Color(
-                                                                          0xFF00B89F),
-                                                                      size: 30,
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5, 5, 5, 0),
-                                                      child: Card(
-                                                        clipBehavior: Clip
-                                                            .antiAliasWithSaveLayer,
-                                                        color:
-                                                            Color(0xFF272E36),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(3,
-                                                                      0, 0, 0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(5),
-                                                                child:
-                                                                    Container(
-                                                                  width: 80,
-                                                                  height: 80,
-                                                                  decoration: BoxDecoration(
-                                                                      color: Color(
-                                                                          0xFF262626),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              5)),
-                                                                  child: Stack(
-                                                                    children: [
-                                                                      Card(
-                                                                        clipBehavior:
-                                                                            Clip.antiAliasWithSaveLayer,
-                                                                        color: Color(
-                                                                            0xFF1A1A1A),
-                                                                      ),
-                                                                      Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            -0.06,
-                                                                            -0.12),
-                                                                        child: Image
-                                                                            .asset(
-                                                                          'assets/images/809512_camera_multimedia_security_security_camera_surveillance_icon.png',
-                                                                          width:
-                                                                              35,
-                                                                          height:
-                                                                              35,
-                                                                          fit: BoxFit
-                                                                              .contain,
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Expanded(
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              10,
-                                                                              0,
-                                                                              0,
-                                                                              0),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Text(
-                                                                                'Camera 3',
-                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                      fontFamily: 'Montserrat',
-                                                                                      color: Color(0xFF00B89F),
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            children: [
-                                                                              Text(
-                                                                                'Bedroom',
-                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                      fontFamily: 'Poppins',
-                                                                                      color: Color(0xFFAFAFAF),
-                                                                                      fontSize: 12,
-                                                                                      fontWeight: FontWeight.w200,
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Icon(
-                                                                      Icons
-                                                                          .chevron_right,
-                                                                      color: Color(
-                                                                          0xFF00B89F),
-                                                                      size: 30,
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                    )
                                                   ],
                                                 )
                                               : Center(
@@ -978,6 +704,9 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                           CircularProgressIndicator(),
                                                     )
                                                   : GridView.builder(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 8),
                                                       itemCount: _motionClips
                                                           .length,
                                                       gridDelegate:
