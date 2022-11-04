@@ -539,13 +539,18 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     0, 10, 10, 0),
                                 child: InkWell(
                                   onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => EditCopy2Widget(
-                                            info: inf, countries: countries),
-                                      ),
-                                    );
+                                    if (inf == null)
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text("Please wait")));
+                                    if (inf != null)
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => EditCopy2Widget(
+                                              info: inf, countries: countries),
+                                        ),
+                                      );
                                     setState(() {
                                       SList = fetchSList();
                                     });
