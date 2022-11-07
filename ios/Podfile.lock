@@ -126,6 +126,7 @@ PODS:
 DEPENDENCIES:
   - better_player (from `.symlinks/plugins/better_player/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
+  - Firebase/Messaging
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
@@ -238,6 +239,6 @@ SPEC CHECKSUMS:
   video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
 
-PODFILE CHECKSUM: 2d003d2a4f4b67e0a26ff44e9ea1b5df6c5e26d8
+PODFILE CHECKSUM: 849bf27da1fa03b08d74cbe8725c7875e96610c3
 
 COCOAPODS: 1.11.3
