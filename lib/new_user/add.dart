@@ -24,6 +24,7 @@ import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
 
+// add member
 class Add extends StatefulWidget {
   List<dynamic> countries;
   Add({Key key, @required this.countries}) : super(key: key);
@@ -704,30 +705,7 @@ class _AddWidgetState extends State<Add> {
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(4, 10, 4, 0),
-                          child: Container(
-                            width: double.maxFinite,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFEEEEEE),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                              child: TextFormField(
-                                controller: textController7,
-                                obscureText: false,
-                                onChanged: (_) => _loadAddress(),
-                                // onSaved: (newValue) => print(newValue),
-                                decoration: InputDecoration(
-                                  labelText: 'Zip Code',
-                                  labelStyle: FlutterFlowTheme.of(context)
+                                  style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
                                         fontFamily: 'Poppins',
