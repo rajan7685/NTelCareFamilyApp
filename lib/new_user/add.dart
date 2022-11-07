@@ -105,8 +105,11 @@ class _AddWidgetState extends State<Add> {
   Future pickimage(ImageSource source1) async {
     try {
       final image = await ImagePicker().pickImage(source: source1);
-      if (image == Null) {
-        return Null;
+      if (image == null) {
+        setState(() {
+          display = false;
+          return null;
+        });
       }
       // final imagePath = File(image.path);
       final imagePathPermanently = await savePermanently(image.path);
@@ -145,17 +148,19 @@ class _AddWidgetState extends State<Add> {
             "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
       },
     );
-    print(res.body);
-    placesData = jsonDecode(res.body);
-    setState(() {
-      textController8.text = placesData['data']['state_name'];
-      textController9.text = placesData['data']['county_name'];
-    });
-    dynamic countryValue = widget.countries.singleWhere((element) =>
-        element['code'] == placesData['data']['country_code'])['name'];
-    cityValue = placesData['data']['county_name'];
-    stateValue = placesData['data']['state_name'];
-    print('country $countryValue city $cityValue state $stateValue');
+
+    if (res.statusCode == 200) placesData = jsonDecode(res.body);
+
+    if (res.statusCode == 200 &&
+        placesData["data"] != null &&
+        placesData["data"]["country_code"] != null) {
+      setState(() {
+        textController8.text = placesData['data']['state_name'];
+        textController9.text = placesData['data']['county_name'];
+      });
+      cityValue = placesData['data']['county_name'];
+      stateValue = placesData['data']['state_name'];
+    }
   }
 
   @override
@@ -796,9 +801,7 @@ class _AddWidgetState extends State<Add> {
                                     EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                 child: TextFormField(
                                   controller: textController7,
-                                  obscureText: false,
-                                  onEditingComplete: _loadAddress,
-                                  // onSaved: (newValue) => print(newValue),
+                                  onChanged: (val) => _loadAddress(),
                                   decoration: InputDecoration(
                                     labelText: 'Zip Code',
                                     labelStyle: FlutterFlowTheme.of(context)
@@ -1915,8 +1918,8 @@ class _AddWidgetState extends State<Add> {
                                     res1.fields['fname'] = textController1.text;
                                     res1.fields['lname'] = textController2.text;
                                     res1.fields['email'] = textController5.text;
-                                    res1.fields['mobile'] =
-                                        textController4.text;
+                                    res1.fields['mobile'] = textController4.text
+                                        .replaceAll(".", "");
                                     res1.fields['relation'] = relationCode;
                                     res1.fields['executive'] =
                                         FFAppState().Chattoggle5.toString();
