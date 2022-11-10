@@ -72,11 +72,18 @@ class _DoorWidgetState extends State<DoorWidget> {
       setState(() {
         _isDoorDataLoading = true;
       });
+    String startDate =
+        DateTime.parse('${date.toString().split(" ").first} 00:00:00')
+            .toUtc()
+            .toString();
+    String endDate =
+        DateTime.parse('${date.toString().split(" ").first} 23:59:59')
+            .toUtc()
+            .toString();
     String uri =
-        "${ApiService.domain}/table/sensors?sensor_name=Door&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}";
+        "${ApiService.domain}/table/sensors?sensor_name=Door&senior_id=${widget.data}&start_date=$startDate&end_date=$endDate";
     Response res = await Dio().get(uri);
     _doorData = res.data["data"];
-    print(_doorData);
     setState(() {
       _isDoorDataLoading = false;
     });
