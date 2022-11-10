@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:n_tel_care_family_app/profile/profile_page.dart';
@@ -15,7 +13,6 @@ import 'package:n_tel_care_family_app/video/videos_widget.dart';
 import 'core/shared_preferences_service.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -52,15 +49,15 @@ void main() async {
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
-      // for IOS
+  // for IOS
   await flutterLocalNotificationsPlugin
-    .resolvePlatformSpecificImplementation<
-        IOSFlutterLocalNotificationsPlugin>()
-    ?.requestPermissions(
-    alert: true,
-    badge: true,
-    sound: true,
-    );
+      .resolvePlatformSpecificImplementation<
+          IOSFlutterLocalNotificationsPlugin>()
+      ?.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
@@ -95,12 +92,11 @@ class _MyAppState extends State<MyApp> {
   Future<void> _getFCMToken() async {
     String fcmToken = await FirebaseMessaging.instance.getToken();
     FFAppState().FCM = fcmToken;
-    print('FCM Token set : $fcmToken');
   }
 
-  void _onDidReceiveLocalNotification(int a, String b, String c, String d){
-      print("recieved notification");
-    }
+  void _onDidReceiveLocalNotification(int a, String b, String c, String d) {
+    print("recieved notification");
+  }
 
   @override
   void initState() {
@@ -108,17 +104,16 @@ class _MyAppState extends State<MyApp> {
     _getFCMToken();
     var initialzationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-        final DarwinInitializationSettings iosSettings = DarwinInitializationSettings(
-            requestSoundPermission: false,
-            requestBadgePermission: false,
-            requestAlertPermission: false,
-            onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
-        );
-    var initializationSettings =
-        InitializationSettings(android: initialzationSettingsAndroid, iOS: iosSettings);
+    final DarwinInitializationSettings iosSettings =
+        DarwinInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+      onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
+    );
+    var initializationSettings = InitializationSettings(
+        android: initialzationSettingsAndroid, iOS: iosSettings);
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
-    
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
@@ -131,12 +126,11 @@ class _MyAppState extends State<MyApp> {
             notification.body,
             NotificationDetails(
               iOS: DarwinNotificationDetails(
-                presentAlert: true,
-                presentBadge: true,
-                presentSound: true,
-                subtitle: "NtelCare",
-                interruptionLevel: InterruptionLevel.critical
-              ),
+                  presentAlert: true,
+                  presentBadge: true,
+                  presentSound: true,
+                  subtitle: "NtelCare",
+                  interruptionLevel: InterruptionLevel.critical),
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
