@@ -63,8 +63,16 @@ class _PillWidgetState extends State<PillWidget> {
       setState(() {
         _pillBoxdataLoading = true;
       });
+    String startDate =
+        DateTime.parse('${date.toString().split(" ").first} 00:00:00')
+            .toUtc()
+            .toString();
+    String endDate =
+        DateTime.parse('${date.toString().split(" ").first} 23:59:59')
+            .toUtc()
+            .toString();
     String pillboxDataUri =
-        '${ApiService.domain}/table/sensors?sensor_name=PillBox&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}';
+        '${ApiService.domain}/table/sensors?sensor_name=PillBox&senior_id=${widget.data}&start_date=$startDate&end_date=$endDate';
     Response res = await Dio().get(pillboxDataUri);
     _pillboxData = res.data["data"];
     setState(() {
