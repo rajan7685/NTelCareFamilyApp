@@ -75,6 +75,8 @@ class _PillWidgetState extends State<PillWidget> {
         '${ApiService.domain}/table/sensors?sensor_name=PillBox&senior_id=${widget.data}&start_date=$startDate&end_date=$endDate';
     Response res = await Dio().get(pillboxDataUri);
     _pillboxData = res.data["data"];
+    _pillboxData.sort((a, b) => DateTime.parse("${b["date"]} ${b["time"]}Z")
+        .compareTo(DateTime.parse("${a["date"]} ${a["time"]}Z")));
     setState(() {
       _pillBoxdataLoading = false;
     });

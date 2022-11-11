@@ -131,6 +131,8 @@ class _UrgentBandWidgetState extends State<UrgentBandWidget> {
         "${ApiService.domain}/table/sensors?sensor_name=SOS&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}";
     Response res = await Dio().get(uri);
     _bandData = res.data["data"];
+    _bandData.sort((a, b) => DateTime.parse("${b["date"]} ${b["time"]}Z")
+        .compareTo(DateTime.parse("${a["date"]} ${a["time"]}Z")));
     print("bandData $_bandData");
     setState(() {
       _isBandDataLoading = false;
