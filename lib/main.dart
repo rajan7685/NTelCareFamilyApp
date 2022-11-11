@@ -60,11 +60,11 @@ void main() async {
       );
   // All IOS Notification configurations have been taken away (except above line) for
   // Duplicate IOS notification problem (until further explanation or notie)
-  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-  //   alert: true,
-  //   badge: true,
-  //   sound: true,
-  // );
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
@@ -121,27 +121,27 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
       print("got notification ie not null");
-      if (notification != null) {
-        print("got notification ie not null");
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              // iOS: DarwinNotificationDetails(
-              //     presentAlert: true,
-              //     presentBadge: true,
-              //     presentSound: true,
-              //     subtitle: "NtelCare",
-              //     interruptionLevel: InterruptionLevel.critical),
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                color: Colors.white,
-                icon: "@mipmap/ic_launcher",
-              ),
-            ));
-      }
+      // if (notification != null) {
+      //   print("got notification ie not null");
+      //   flutterLocalNotificationsPlugin.show(s
+      //       notification.hashCode,
+      //       notification.title,
+      //       notification.body,
+      //       NotificationDetails(
+      //         // iOS: DarwinNotificationDetails(
+      //         //     presentAlert: true,
+      //         //     presentBadge: true,
+      //         //     presentSound: true,
+      //         //     subtitle: "NtelCare",
+      //         //     interruptionLevel: InterruptionLevel.critical),
+      //         android: AndroidNotificationDetails(
+      //           channel.id,
+      //           channel.name,
+      //           color: Colors.white,
+      //           icon: "@mipmap/ic_launcher",
+      //         ),
+      //       ));
+      // }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
