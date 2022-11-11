@@ -131,6 +131,8 @@ class _UrgentBandWidgetState extends State<UrgentBandWidget> {
         "${ApiService.domain}/table/sensors?sensor_name=SOS&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}";
     Response res = await Dio().get(uri);
     _bandData = res.data["data"];
+    _bandData.sort((a, b) => DateTime.parse("${b["date"]} ${b["time"]}Z")
+        .compareTo(DateTime.parse("${a["date"]} ${a["time"]}Z")));
     print("bandData $_bandData");
     setState(() {
       _isBandDataLoading = false;
@@ -744,21 +746,37 @@ class _UrgentBandWidgetState extends State<UrgentBandWidget> {
                               ),
                               if (daily ?? true)
                                 Expanded(
-                                  child: Text(
-                                    dateTime == null
-                                        ? DateFormat('dd-MM-yyyy')
-                                            .format(DateTime.now())
-                                        : DateFormat('dd-MM-yyyy')
-                                            .format(dateTime),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFFAFAFAF),
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w300,
-                                        ),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      DateTime time = await showDatePicker(
+                                          context: context,
+                                          initialDate: dateTime,
+                                          firstDate: DateTime.now()
+                                              .subtract(Duration(days: 1000)),
+                                          lastDate: DateTime.now());
+                                      if (time != null && time != dateTime) {
+                                        setState(() {
+                                          dateTime = time;
+                                        });
+                                        _loadBandData(dateTime);
+                                      }
+                                    },
+                                    child: Text(
+                                      dateTime == null
+                                          ? DateFormat('dd-MM-yyyy')
+                                              .format(DateTime.now())
+                                          : DateFormat('dd-MM-yyyy')
+                                              .format(dateTime),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFAFAFAF),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               if (weekly == true)

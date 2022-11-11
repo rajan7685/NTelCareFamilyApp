@@ -52,14 +52,27 @@ class _CriticalWidgetState extends State<CriticalWidget> {
         _isEventDataLoading = true;
       });
     }
+    String startDate =
+        DateTime.parse('${date.toString().split(" ").first} 00:00:00')
+            .toUtc()
+            .toString();
+    String endDate =
+        DateTime.parse('${date.toString().split(" ").first} 23:59:59')
+            .toUtc()
+            .toString();
     String uri =
-        "${ApiService.domain}/notification/senior?senior_id=$_seniorId&date=${DateFormat("yyyy-MM-dd").format(date)}";
+        "${ApiService.domain}/notification/senior?senior_id=$_seniorId&start_date=$startDate&&end_date=$endDate";
     Response res = await Dio().get(uri,
         options: Options(headers: {
           "Authorization":
               "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
         }));
     _eventList = res.data["data"];
+    _eventList.sort((a, b) =>
+        DateTime.parse("${b["date"].toString().split(" ").first} ${b["time"]}")
+            .compareTo(DateTime.parse(
+                "${a["date"].toString().split(" ").first} ${a["time"]}")));
+    print(_eventList);
     setState(() {
       _isEventDataLoading = false;
     });
@@ -392,26 +405,26 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
-                                          Text(
-                                            'Sort ',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: Color(0xFFD8D8D8),
-                                                ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 12, 0),
-                                            child: SvgPicture.asset(
-                                              'assets/images/9055020_bx_sort_icon.svg',
-                                              width: 20,
-                                              height: 20,
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
+                                          // Text(
+                                          //   'Sort ',
+                                          //   style: FlutterFlowTheme.of(context)
+                                          //       .bodyText1
+                                          //       .override(
+                                          //         fontFamily: 'Poppins',
+                                          //         color: Color(0xFFD8D8D8),
+                                          //       ),
+                                          // ),
+                                          // Padding(
+                                          //   padding:
+                                          //       EdgeInsetsDirectional.fromSTEB(
+                                          //           0, 0, 12, 0),
+                                          //   child: SvgPicture.asset(
+                                          //     'assets/images/9055020_bx_sort_icon.svg',
+                                          //     width: 20,
+                                          //     height: 20,
+                                          //     fit: BoxFit.contain,
+                                          //   ),
+                                          // ),
                                           InkWell(
                                             onTap: () async {
                                               DateTime _date =
@@ -578,9 +591,9 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                                                 children: [
                                                                   Text(
                                                                     DateFormat(
-                                                                            "h:mm a")
+                                                                            "h:mm:ss a")
                                                                         .format(
-                                                                            DateTime.parse("${_eventList[index]["date"].toString().split(" ").first} ${_eventList[index]["time"]}").toLocal()),
+                                                                            DateTime.parse("${_eventList[index]["date"].toString().split(" ").first} ${_eventList[index]["time"]}Z").toLocal()),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -590,7 +603,7 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                                                           color:
                                                                               Color(0xFFAFAFAF),
                                                                           fontSize:
-                                                                              12,
+                                                                              13,
                                                                           fontWeight:
                                                                               FontWeight.w200,
                                                                         ),

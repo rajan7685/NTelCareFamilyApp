@@ -114,6 +114,7 @@ class _EditCopy2WidgetState extends State<EditCopy2Widget> {
   }
 
   Future<void> _loadAddress() async {
+    print("calling loadAdrs");
     String uri =
         '${ApiService.domain}/zipcode/${countryCode.toLowerCase()}/${textController7.text}';
     final res = await http.get(

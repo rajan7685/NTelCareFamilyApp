@@ -72,11 +72,20 @@ class _DoorWidgetState extends State<DoorWidget> {
       setState(() {
         _isDoorDataLoading = true;
       });
+    String startDate =
+        DateTime.parse('${date.toString().split(" ").first} 00:00:00')
+            .toUtc()
+            .toString();
+    String endDate =
+        DateTime.parse('${date.toString().split(" ").first} 23:59:59')
+            .toUtc()
+            .toString();
     String uri =
-        "${ApiService.domain}/table/sensors?sensor_name=Door&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}";
+        "${ApiService.domain}/table/sensors?sensor_name=Door&senior_id=${widget.data}&start_date=$startDate&end_date=$endDate";
     Response res = await Dio().get(uri);
     _doorData = res.data["data"];
-    print(_doorData);
+    _doorData.sort((a, b) => DateTime.parse("${b["date"]} ${b["time"]}Z")
+        .compareTo(DateTime.parse("${a["date"]} ${a["time"]}Z")));
     setState(() {
       _isDoorDataLoading = false;
     });
@@ -742,21 +751,37 @@ class _DoorWidgetState extends State<DoorWidget> {
                               ),
                               if (daily ?? true)
                                 Expanded(
-                                  child: Text(
-                                    dateTime == null
-                                        ? DateFormat('dd-MM-yyyy')
-                                            .format(DateTime.now())
-                                        : DateFormat('dd-MM-yyyy')
-                                            .format(dateTime),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0xFFAFAFAF),
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w300,
-                                        ),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      DateTime time = await showDatePicker(
+                                          context: context,
+                                          initialDate: dateTime,
+                                          firstDate: DateTime.now()
+                                              .subtract(Duration(days: 1000)),
+                                          lastDate: DateTime.now());
+                                      if (time != null && time != dateTime) {
+                                        setState(() {
+                                          dateTime = time;
+                                        });
+                                        _loadDoorData(dateTime);
+                                      }
+                                    },
+                                    child: Text(
+                                      dateTime == null
+                                          ? DateFormat('dd-MM-yyyy')
+                                              .format(DateTime.now())
+                                          : DateFormat('dd-MM-yyyy')
+                                              .format(dateTime),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFAFAFAF),
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               if (weekly == true)
@@ -975,10 +1000,12 @@ class _DoorWidgetState extends State<DoorWidget> {
                                               TableRow(children: [
                                                 Text(
                                                   "No data",
+                                                  textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white),
                                                 ),
                                                 Text("available",
+                                                    textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         color: Colors.white))
                                               ]),
@@ -1013,7 +1040,7 @@ class _DoorWidgetState extends State<DoorWidget> {
                                                         _doorData[index]
                                                                 ["value"]
                                                             ? "Open"
-                                                            : "Close",
+                                                            : "Closed",
                                                         // textScaleFactor: 1.5,
                                                         textAlign:
                                                             TextAlign.center,

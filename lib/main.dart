@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'package:n_tel_care_family_app/landing/landing.dart';
 import 'package:n_tel_care_family_app/members/members.dart';
 import 'package:n_tel_care_family_app/profile/profile_page.dart';
@@ -15,7 +13,6 @@ import 'package:n_tel_care_family_app/video/videos_widget.dart';
 import 'core/shared_preferences_service.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -52,11 +49,22 @@ void main() async {
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+  // for IOS
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          IOSFlutterLocalNotificationsPlugin>()
+      ?.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+  // All IOS Notification configurations have been taken away (except above line) for
+  // Duplicate IOS notification problem (until further explanation or notie)
+  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+  //   alert: true,
+  //   badge: true,
+  //   sound: true,
+  // );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
@@ -86,40 +94,50 @@ class _MyAppState extends State<MyApp> {
   Future<void> _getFCMToken() async {
     String fcmToken = await FirebaseMessaging.instance.getToken();
     FFAppState().FCM = fcmToken;
-    print('FCM Token set : $fcmToken');
   }
+
+  // void _onDidReceiveLocalNotification(int a, String b, String c, String d) {
+  //   print("recieved notification");
+  // }
 
   @override
   void initState() {
     super.initState();
     _getFCMToken();
-    var initializationSettingsAndroid =
-        new AndroidInitializationSettings('ic_launcher');
     var initialzationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    var initializationSettings =
-        InitializationSettings(android: initialzationSettingsAndroid);
+    // final DarwinInitializationSettings iosSettings =
+    //     DarwinInitializationSettings(
+    //   requestSoundPermission: false,
+    //   requestBadgePermission: false,
+    //   requestAlertPermission: false,
+    //   onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
+    // );
+    var initializationSettings = InitializationSettings(
+      android: initialzationSettingsAndroid, /*iOS: iosSettings*/
+    );
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
-      // print('Got a message whilst in the foreground!');
-      // print('Message data: ${message.data}');
+      print("got notification ie not null");
       if (notification != null) {
-        // print(notification.body);
-        // print(channel.id);
+        print("got notification ie not null");
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,
             notification.body,
             NotificationDetails(
+              // iOS: DarwinNotificationDetails(
+              //     presentAlert: true,
+              //     presentBadge: true,
+              //     presentSound: true,
+              //     subtitle: "NtelCare",
+              //     interruptionLevel: InterruptionLevel.critical),
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
                 color: Colors.white,
-
-                // TODO add a proper drawable resource to android, for now using
-                //      one that already exists in example app.
                 icon: "@mipmap/ic_launcher",
               ),
             ));
@@ -129,7 +147,8 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
       AndroidNotification android = message.notification?.android;
-      if (notification != null && android != null) {
+      AppleNotification iphone = message.notification?.apple;
+      if (notification != null && android != null && iphone != null) {
         showDialog(
             context: context,
             builder: (_) {

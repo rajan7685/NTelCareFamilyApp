@@ -63,10 +63,20 @@ class _PillWidgetState extends State<PillWidget> {
       setState(() {
         _pillBoxdataLoading = true;
       });
+    String startDate =
+        DateTime.parse('${date.toString().split(" ").first} 00:00:00')
+            .toUtc()
+            .toString();
+    String endDate =
+        DateTime.parse('${date.toString().split(" ").first} 23:59:59')
+            .toUtc()
+            .toString();
     String pillboxDataUri =
-        '${ApiService.domain}/table/sensors?sensor_name=PillBox&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}';
+        '${ApiService.domain}/table/sensors?sensor_name=PillBox&senior_id=${widget.data}&start_date=$startDate&end_date=$endDate';
     Response res = await Dio().get(pillboxDataUri);
     _pillboxData = res.data["data"];
+    _pillboxData.sort((a, b) => DateTime.parse("${b["date"]} ${b["time"]}Z")
+        .compareTo(DateTime.parse("${a["date"]} ${a["time"]}Z")));
     setState(() {
       _pillBoxdataLoading = false;
     });
@@ -733,21 +743,37 @@ class _PillWidgetState extends State<PillWidget> {
                             ),
                             if (daily ?? true)
                               Expanded(
-                                child: Text(
-                                  dateTime == null
-                                      ? DateFormat('dd-MM-yyyy')
-                                          .format(DateTime.now())
-                                      : DateFormat('dd-MM-yyyy')
-                                          .format(dateTime),
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFFAFAFAF),
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w300,
-                                      ),
+                                child: InkWell(
+                                  onTap: () async {
+                                    DateTime time = await showDatePicker(
+                                        context: context,
+                                        initialDate: dateTime,
+                                        firstDate: DateTime.now()
+                                            .subtract(Duration(days: 1000)),
+                                        lastDate: DateTime.now());
+                                    if (time != null && time != dateTime) {
+                                      setState(() {
+                                        dateTime = time;
+                                      });
+                                      _loadPillboxTableData(dateTime);
+                                    }
+                                  },
+                                  child: Text(
+                                    dateTime == null
+                                        ? DateFormat('dd-MM-yyyy')
+                                            .format(DateTime.now())
+                                        : DateFormat('dd-MM-yyyy')
+                                            .format(dateTime),
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFFAFAFAF),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                  ),
                                 ),
                               ),
                             if (weekly == true)

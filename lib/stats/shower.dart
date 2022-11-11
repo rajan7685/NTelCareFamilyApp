@@ -61,10 +61,22 @@ class _ShowerWidgetState extends State<ShowerWidget> {
       setState(() {
         _isBathDataLoading = true;
       });
+    String startDate =
+        DateTime.parse('${date.toString().split(" ").first} 00:00:00')
+            .toUtc()
+            .toString();
+    String endDate =
+        DateTime.parse('${date.toString().split(" ").first} 23:59:59')
+            .toUtc()
+            .toString();
+    print("$startDate to $endDate");
     String uri =
-        "${ApiService.domain}/table/sensors?sensor_name=BathRoom&senior_id=${widget.data}&date=${DateFormat('yyyy-MM-dd').format(date)}";
+        "${ApiService.domain}/table/sensors?sensor_name=BathRoom&senior_id=${widget.data}&start_date=$startDate&end_date=$endDate";
     Response res = await Dio().get(uri);
     _bathData = res.data["data"];
+    _bathData = _bathData.where((data) => data["value"] == true).toList();
+    _bathData.sort((a, b) => DateTime.parse("${b["date"]} ${b["time"]}Z")
+        .compareTo(DateTime.parse("${a["date"]} ${a["time"]}Z")));
     setState(() {
       _isBathDataLoading = false;
     });
@@ -529,21 +541,37 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                             ),
                             if (daily ?? true)
                               Expanded(
-                                child: Text(
-                                  dateTime == null
-                                      ? DateFormat('dd-MM-yyyy')
-                                          .format(DateTime.now())
-                                      : DateFormat('dd-MM-yyyy')
-                                          .format(dateTime),
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFFAFAFAF),
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w300,
-                                      ),
+                                child: InkWell(
+                                  onTap: () async {
+                                    DateTime time = await showDatePicker(
+                                        context: context,
+                                        initialDate: dateTime,
+                                        firstDate: DateTime.now()
+                                            .subtract(Duration(days: 1000)),
+                                        lastDate: DateTime.now());
+                                    if (time != null && time != dateTime) {
+                                      setState(() {
+                                        dateTime = time;
+                                      });
+                                      _loadBathData(dateTime);
+                                    }
+                                  },
+                                  child: Text(
+                                    dateTime == null
+                                        ? DateFormat('dd-MM-yyyy')
+                                            .format(DateTime.now())
+                                        : DateFormat('dd-MM-yyyy')
+                                            .format(dateTime),
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFFAFAFAF),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                  ),
                                 ),
                               ),
                             if (weekly == true)
@@ -797,9 +825,11 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                                     padding:
                                                         EdgeInsets.all(10.0),
                                                     child: Text(
-                                                      _bathData[index]["value"]
+                                                      _bathData[index]
+                                                                  ["value"] !=
+                                                              null
                                                           ? "Accessed"
-                                                          : "nil",
+                                                          : "",
                                                       // textScaleFactor: 1.5,
                                                       textAlign:
                                                           TextAlign.center,
