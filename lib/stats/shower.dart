@@ -74,6 +74,9 @@ class _ShowerWidgetState extends State<ShowerWidget> {
         "${ApiService.domain}/table/sensors?sensor_name=BathRoom&senior_id=${widget.data}&start_date=$startDate&end_date=$endDate";
     Response res = await Dio().get(uri);
     _bathData = res.data["data"];
+    _bathData = _bathData.where((data) => data["value"] == true).toList();
+    _bathData.sort((a, b) => DateTime.parse("${b["date"]} ${b["time"]}Z")
+        .compareTo(DateTime.parse("${a["date"]} ${a["time"]}Z")));
     setState(() {
       _isBathDataLoading = false;
     });
@@ -822,9 +825,11 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                                     padding:
                                                         EdgeInsets.all(10.0),
                                                     child: Text(
-                                                      _bathData[index]["value"]
+                                                      _bathData[index]
+                                                                  ["value"] !=
+                                                              null
                                                           ? "Accessed"
-                                                          : "nil",
+                                                          : "",
                                                       // textScaleFactor: 1.5,
                                                       textAlign:
                                                           TextAlign.center,

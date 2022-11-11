@@ -68,6 +68,11 @@ class _CriticalWidgetState extends State<CriticalWidget> {
               "Bearer ${SharedPreferenceService.loadString(key: AccountsKeys.AccessTokenKey)}"
         }));
     _eventList = res.data["data"];
+    _eventList.sort((a, b) =>
+        DateTime.parse("${b["date"].toString().split(" ").first} ${b["time"]}")
+            .compareTo(DateTime.parse(
+                "${a["date"].toString().split(" ").first} ${a["time"]}")));
+    print(_eventList);
     setState(() {
       _isEventDataLoading = false;
     });
@@ -586,9 +591,9 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                                                 children: [
                                                                   Text(
                                                                     DateFormat(
-                                                                            "h:mm a")
+                                                                            "h:mm:ss a")
                                                                         .format(
-                                                                            DateTime.parse("${_eventList[index]["date"].toString().split(" ").first} ${_eventList[index]["time"]}").toLocal()),
+                                                                            DateTime.parse("${_eventList[index]["date"].toString().split(" ").first} ${_eventList[index]["time"]}Z").toLocal()),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyText1
@@ -598,7 +603,7 @@ class _CriticalWidgetState extends State<CriticalWidget> {
                                                                           color:
                                                                               Color(0xFFAFAFAF),
                                                                           fontSize:
-                                                                              12,
+                                                                              13,
                                                                           fontWeight:
                                                                               FontWeight.w200,
                                                                         ),
