@@ -58,11 +58,13 @@ void main() async {
         badge: true,
         sound: true,
       );
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+  // All IOS Notification configurations have been taken away (except above line) for
+  // Duplicate IOS notification problem (until further explanation or notie)
+  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+  //   alert: true,
+  //   badge: true,
+  //   sound: true,
+  // );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
@@ -94,9 +96,9 @@ class _MyAppState extends State<MyApp> {
     FFAppState().FCM = fcmToken;
   }
 
-  void _onDidReceiveLocalNotification(int a, String b, String c, String d) {
-    print("recieved notification");
-  }
+  // void _onDidReceiveLocalNotification(int a, String b, String c, String d) {
+  //   print("recieved notification");
+  // }
 
   @override
   void initState() {
@@ -104,15 +106,16 @@ class _MyAppState extends State<MyApp> {
     _getFCMToken();
     var initialzationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    final DarwinInitializationSettings iosSettings =
-        DarwinInitializationSettings(
-      requestSoundPermission: false,
-      requestBadgePermission: false,
-      requestAlertPermission: false,
-      onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
-    );
+    // final DarwinInitializationSettings iosSettings =
+    //     DarwinInitializationSettings(
+    //   requestSoundPermission: false,
+    //   requestBadgePermission: false,
+    //   requestAlertPermission: false,
+    //   onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
+    // );
     var initializationSettings = InitializationSettings(
-        android: initialzationSettingsAndroid, iOS: iosSettings);
+      android: initialzationSettingsAndroid, /*iOS: iosSettings*/
+    );
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -125,12 +128,12 @@ class _MyAppState extends State<MyApp> {
             notification.title,
             notification.body,
             NotificationDetails(
-              iOS: DarwinNotificationDetails(
-                  presentAlert: true,
-                  presentBadge: true,
-                  presentSound: true,
-                  subtitle: "NtelCare",
-                  interruptionLevel: InterruptionLevel.critical),
+              // iOS: DarwinNotificationDetails(
+              //     presentAlert: true,
+              //     presentBadge: true,
+              //     presentSound: true,
+              //     subtitle: "NtelCare",
+              //     interruptionLevel: InterruptionLevel.critical),
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
