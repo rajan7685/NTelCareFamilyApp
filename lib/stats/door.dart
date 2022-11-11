@@ -84,6 +84,8 @@ class _DoorWidgetState extends State<DoorWidget> {
         "${ApiService.domain}/table/sensors?sensor_name=Door&senior_id=${widget.data}&start_date=$startDate&end_date=$endDate";
     Response res = await Dio().get(uri);
     _doorData = res.data["data"];
+    _doorData.sort((a, b) => DateTime.parse("${b["date"]} ${b["time"]}Z")
+        .compareTo(DateTime.parse("${a["date"]} ${a["time"]}Z")));
     setState(() {
       _isDoorDataLoading = false;
     });
