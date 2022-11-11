@@ -1637,49 +1637,34 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                   .fromSTEB(15,
                                                                       0, 0, 0),
                                                           child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
                                                                     .start,
                                                             children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            10,
-                                                                            0,
-                                                                            0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      'PillBox',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText1
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Montserrat',
-                                                                            color:
-                                                                                Color(0xFF00B89F),
-                                                                            fontSize:
-                                                                                10,
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
-                                                                          ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
                                                               Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .max,
+                                                                children: [
+                                                                  Text(
+                                                                    'PillBox',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Montserrat',
+                                                                          color:
+                                                                              Color(0xFF00B89F),
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontWeight:
+                                                                              FontWeight.w300,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Row(
                                                                 children: [
                                                                   Text(
                                                                     dashboardData["sensors_status"]["pillbox"]["bool"] !=
@@ -1709,22 +1694,11 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                 ],
                                                               ),
                                                               Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
                                                                 children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10,
-                                                                            0,
-                                                                            0,
-                                                                            0),
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                      'assets/images/batteryL.svg',
-                                                                      width: 20,
-                                                                    ),
+                                                                  SvgPicture
+                                                                      .asset(
+                                                                    'assets/images/batteryL.svg',
+                                                                    width: 20,
                                                                   ),
                                                                   Padding(
                                                                     padding: EdgeInsetsDirectional
@@ -1862,8 +1836,6 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                             .fromSTEB(
                                                                 15, 0, 50, 0),
                                                     child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
@@ -1942,21 +1914,10 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          5,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                'assets/images/batteryL.svg',
-                                                                width: 20,
-                                                                color:
-                                                                    Colors.red,
-                                                              ),
+                                                            SvgPicture.asset(
+                                                              'assets/images/batteryL.svg',
+                                                              width: 20,
+                                                              color: Colors.red,
                                                             ),
                                                             Padding(
                                                               padding:
@@ -2165,20 +2126,12 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                       MainAxisSize
                                                                           .max,
                                                                   children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              5,
-                                                                              0,
-                                                                              0,
-                                                                              0),
-                                                                      child: SvgPicture.asset(
-                                                                          'assets/images/batteryL.svg',
-                                                                          width:
-                                                                              20,
-                                                                          color:
-                                                                              Color(0xFF00B89F)),
-                                                                    ),
+                                                                    SvgPicture.asset(
+                                                                        'assets/images/batteryL.svg',
+                                                                        width:
+                                                                            20,
+                                                                        color: Color(
+                                                                            0xFF00B89F)),
                                                                     Padding(
                                                                       padding: EdgeInsetsDirectional
                                                                           .fromSTEB(

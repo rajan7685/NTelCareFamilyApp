@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -9,14 +9,11 @@ import 'package:n_tel_care_family_app/components/custom_toast.dart';
 import 'package:n_tel_care_family_app/core/shared_preferences_service.dart';
 import 'package:n_tel_care_family_app/critical/critical_widget.dart';
 import 'package:n_tel_care_family_app/seniors_list/edit_seniors.dart';
-import 'package:n_tel_care_family_app/video/live_stream.dart';
 import 'package:n_tel_care_family_app/video/video_player.dart';
 import '../chat/chat_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 
 class VideoClipsWidget extends StatefulWidget {
   const VideoClipsWidget({Key key}) : super(key: key);
@@ -31,7 +28,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
   List<dynamic> _seniorList;
   bool _isSeniorsDataLoading = true;
   List<dynamic> _countries;
-  List<dynamic> _motionClips;
+  Map<String, dynamic> _motionClipsDataset;
   int isSelected = 0;
   bool _hasPermissionToViewVideo;
   bool _hasPermissionToViewLiveVideo;
@@ -71,12 +68,25 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
         }));
     rtspLink = res.data["data"]["videos"][0][id]["live_video"];
     // if (rtspLink != null && rtspLink.toString().isNotEmpty)
-    //   ScaffoldMessenger.of(context)
+    //   ScaffoldMessenger.of(context) 2022-10-22 09:31:58+00:00
     //       .showSnackBar(SnackBar(content: Text("RTSP link has been set")));
+    // var sortMapByValue = Map.fromEntries(
+    // fruits.entries.toList()
+    // ..sort((e1, e2) => e1.value.compareTo(e2.value)));
     setState(() {
-      _motionClips = res.data["data"]["videos"][0][id]["clips"];
+      _motionClipsDataset = groupBy(res.data["data"]["videos"][0][id]["clips"],
+          (item) => (item["date"] as String).split(" ").first);
+      _motionClipsDataset = Map.fromEntries(
+        _motionClipsDataset.entries.toList()
+          ..sort(
+            ((a, b) => DateTime.parse(b.key).compareTo(
+                  DateTime.parse(a.key),
+                )),
+          ),
+      );
       _areVideosDataLoading = false;
     });
+    print(_motionClipsDataset.keys.toList());
   }
 
   Future<void> _checkNetworkConnectivity() async {
@@ -92,6 +102,46 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
       Toast.showToast(context,
           message: 'You are not connected to internet.', type: ToastType.Error);
     }
+  }
+
+  Widget _videosByDateWidget(String title, List<dynamic> videos) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Text(
+            DateTime.parse(title).day == DateTime.now().day &&
+                    DateTime.parse(title).month == DateTime.now().month &&
+                    DateTime.parse(title).year == DateTime.now().year
+                ? "Today"
+                : (DateTime.parse(title).day ==
+                            DateTime.now().subtract(Duration(days: 1)).day &&
+                        DateTime.parse(title).month ==
+                            DateTime.now().subtract(Duration(days: 1)).month &&
+                        DateTime.parse(title).year ==
+                            DateTime.now().subtract(Duration(days: 1)).year
+                    ? "Yesterday"
+                    : DateFormat("MMM, dd yyyy").format(DateTime.parse(title))),
+            style: TextStyle(
+              color: Color(0xFF00B89F),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            itemCount: videos.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisSpacing: 8, crossAxisSpacing: 6, crossAxisCount: 4),
+            itemBuilder: (_, int index) => _videoWidget(videos[index]))
+      ],
+    );
   }
 
   Widget _videoWidget(Map<String, dynamic> video) {
@@ -703,25 +753,26 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                       child:
                                                           CircularProgressIndicator(),
                                                     )
-                                                  : GridView.builder(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 8),
-                                                      itemCount: _motionClips
-                                                          .length,
-                                                      gridDelegate:
-                                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                                              mainAxisSpacing:
-                                                                  8,
-                                                              crossAxisSpacing:
-                                                                  6,
-                                                              crossAxisCount:
-                                                                  4),
+                                                  // implement here
+                                                  : ListView.builder(
+                                                      shrinkWrap: true,
+                                                      itemCount:
+                                                          _motionClipsDataset
+                                                              .keys
+                                                              .toList()
+                                                              .length,
                                                       itemBuilder:
-                                                          (_, int index) =>
-                                                              _videoWidget(
-                                                                  _motionClips[
-                                                                      index])))
+                                                          (context, index) {
+                                                        String key =
+                                                            _motionClipsDataset
+                                                                    .keys
+                                                                    .toList()[
+                                                                index];
+                                                        return _videosByDateWidget(
+                                                            key,
+                                                            _motionClipsDataset[
+                                                                key]);
+                                                      }))
                                               : Center(
                                                   child: Text(
                                                     'You do not have permission to view this content',
