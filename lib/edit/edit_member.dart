@@ -534,93 +534,118 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                     color: Color(0xFFEEEEEE),
                                     borderRadius: BorderRadius.circular(15),
                                   ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 10, 0, 3),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'DOB',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          color:
-                                                              Color(0xFF9A9A9A),
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w300),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 0, 0),
-                                                  child: Text(
-                                                      DateFormat('MM-dd-yyyy')
-                                                          .format(selectedDate),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: Color(
-                                                                    0xFF606E87),
-                                                                fontSize: 16,
-                                                              )),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                  child: InkWell(
+                                    onTap: () async {
+                                      if (_hasPermissionToEdit) {
+                                        final DateTime picked =
+                                            await showDatePicker(
+                                                builder: (_, Widget child) {
+                                                  return Theme(
+                                                      data: Theme.of(context)
+                                                          .copyWith(
+                                                              colorScheme: ColorScheme.light(
+                                                                  primary: Color(
+                                                                      0xFF00B89F),
+                                                                  secondary:
+                                                                      Colors
+                                                                          .red),
+                                                              textButtonTheme:
+                                                                  TextButtonThemeData(
+                                                                      style: TextButton
+                                                                          .styleFrom(
+                                                                primary: Color(
+                                                                    0xFF00B89F),
+                                                              ))),
+                                                      child: child);
+                                                },
+                                                context: context,
+                                                initialDate: selectedDate,
+                                                firstDate: DateTime(1900, 8),
+                                                lastDate: DateTime.now());
+                                        if (picked != null &&
+                                            picked != selectedDate)
+                                          setState(() {
+                                            selectedDate = picked;
+                                          });
+                                      }
+                                    },
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 10, 0, 3),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'DOB',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                            fontFamily:
+                                                                'Montserrat',
+                                                            color: Color(
+                                                                0xFF9A9A9A),
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 0, 0, 0),
+                                                    child: Text(
+                                                        DateFormat('MM-dd-yyyy')
+                                                            .format(
+                                                                selectedDate),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Color(
+                                                                      0xFF606E87),
+                                                                  fontSize: 16,
+                                                                )),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 0, 0, 0),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            if (_hasPermissionToEdit) {
-                                              final DateTime picked =
-                                                  await showDatePicker(
-                                                      context: context,
-                                                      initialDate: selectedDate,
-                                                      firstDate:
-                                                          DateTime(1900, 8),
-                                                      lastDate: DateTime.now());
-                                              if (picked != null &&
-                                                  picked != selectedDate)
-                                                setState(() {
-                                                  selectedDate = picked;
-                                                });
-                                            }
-                                          },
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 0, 0, 0),
                                           child: Icon(
                                             Icons.arrow_drop_down_outlined,
                                             color: Colors.black,
                                             size: 20,
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

@@ -327,8 +327,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 children: [
                                   Icon(
                                     Icons.mail_outline,
-                                    color: FlutterFlowTheme.of(context)
-                                        .tertiaryColor,
+                                    color: Color(0xFF00B89F),
                                     size: 15,
                                   ),
                                   SizedBox(
@@ -363,8 +362,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   children: [
                                     Icon(
                                       Icons.phone_outlined,
-                                      color: FlutterFlowTheme.of(context)
-                                          .tertiaryColor,
+                                      color: Color(0xFF00B89F),
                                       size: 15,
                                     ),
                                     SizedBox(
@@ -397,8 +395,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   children: [
                                     Icon(
                                       Icons.location_on_outlined,
-                                      color: FlutterFlowTheme.of(context)
-                                          .tertiaryColor,
+                                      color: Color(0xFF00B89F),
                                       size: 15,
                                     ),
                                     SizedBox(

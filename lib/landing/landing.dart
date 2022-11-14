@@ -98,7 +98,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     dashboardData = _data.jsonBody["dashboard"];
     (dashboardData["sensors_active"] as List).forEach((e) =>
         _sensorActiveList.add((e["sensor_name"] as String).toLowerCase()));
-    print("sensor active list $_sensorActiveList");
+    print(dashboardData["sensors_status"]["bath"]["bool"]);
     setState(() {
       _isDashboardDataLoading = false;
     });
@@ -380,7 +380,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         isSelected ==
                                                                             index
                                                                     ? Colors
-                                                                        .blue
+                                                                        .white
                                                                     : Color(
                                                                         0xFF535353),
                                                                 fontSize: 12,
@@ -491,7 +491,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         10,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .w300,
+                                                                            .bold,
                                                                   ),
                                                             ),
                                                           ],
@@ -507,8 +507,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         [
                                                                         "heart_rate"] !=
                                                                     null
-                                                                ? "${dashboardData["watch_status"]["heart_rate"]} BPM"
-                                                                : "No Data",
+                                                                ? "${dashboardData["watch_status"]["heart_rate"] == '00' ? '--' : dashboardData["watch_status"]["heart_rate"]} BPM"
+                                                                : "--",
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyText1
@@ -652,7 +652,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                           fontSize:
                                                                               10,
                                                                           fontWeight:
-                                                                              FontWeight.w300,
+                                                                              FontWeight.bold,
                                                                         ),
                                                                   ),
                                                                 ],
@@ -668,11 +668,13 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                               [
                                                                               "blood_oxygen"] !=
                                                                           null
-                                                                      ? dashboardData[
-                                                                              "watch_status"]
-                                                                          [
-                                                                          "blood_oxygen"]
-                                                                      : "No Data",
+                                                                      ? (dashboardData["watch_status"]["blood_oxygen"] ==
+                                                                              '00'
+                                                                          ? '--'
+                                                                          : dashboardData["watch_status"]
+                                                                              [
+                                                                              "blood_oxygen"])
+                                                                      : "--",
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyText1
@@ -817,7 +819,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         10,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .w300,
+                                                                            .bold,
                                                                   ),
                                                             ),
                                                           ],
@@ -832,10 +834,16 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         [
                                                                         "sleep"] !=
                                                                     null
-                                                                ? dashboardData[
-                                                                        "watch_status"]
-                                                                    ["sleep"]
-                                                                : "No Data",
+                                                                ? (dashboardData["watch_status"]
+                                                                            [
+                                                                            "sleep"] ==
+                                                                        '00:00'
+                                                                    ? '-----'
+                                                                    : dashboardData[
+                                                                            "watch_status"]
+                                                                        [
+                                                                        "sleep"])
+                                                                : "-----",
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyText1
@@ -979,7 +987,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                           fontSize:
                                                                               10,
                                                                           fontWeight:
-                                                                              FontWeight.w300,
+                                                                              FontWeight.bold,
                                                                         ),
                                                                   ),
                                                                 ],
@@ -995,11 +1003,13 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                               [
                                                                               "step"] !=
                                                                           null
-                                                                      ? dashboardData[
-                                                                              "watch_status"]
-                                                                          [
-                                                                          "step"]
-                                                                      : "No Data",
+                                                                      ? (dashboardData["watch_status"]["step"] ==
+                                                                              '00'
+                                                                          ? '--'
+                                                                          : dashboardData["watch_status"]
+                                                                              [
+                                                                              "step"])
+                                                                      : "--",
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyText1
@@ -1145,7 +1155,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         10,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .w300,
+                                                                            .bold,
                                                                   ),
                                                             ),
                                                           ],
@@ -1160,10 +1170,16 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         [
                                                                         "calories"] !=
                                                                     null
-                                                                ? dashboardData[
-                                                                        "watch_status"]
-                                                                    ["calories"]
-                                                                : "No Data",
+                                                                ? (dashboardData["watch_status"]
+                                                                            [
+                                                                            "calories"] ==
+                                                                        '00'
+                                                                    ? '--'
+                                                                    : dashboardData[
+                                                                            "watch_status"]
+                                                                        [
+                                                                        "calories"])
+                                                                : "--",
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyText1
@@ -1307,7 +1323,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                           fontSize:
                                                                               10,
                                                                           fontWeight:
-                                                                              FontWeight.w300,
+                                                                              FontWeight.bold,
                                                                         ),
                                                                   ),
                                                                 ],
@@ -1323,11 +1339,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                               [
                                                                               "sys"] !=
                                                                           null
-                                                                      ? "SYS: " +
-                                                                          dashboardData["watch_status"]["blood_pressure"]
-                                                                              [
-                                                                              "sys"]
-                                                                      : "No Data",
+                                                                      ? "SYS: ${dashboardData["watch_status"]["blood_pressure"]["sys"] == '00' ? '--' : dashboardData["watch_status"]["blood_pressure"]["sys"]}"
+                                                                      : "--",
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyText1
@@ -1354,11 +1367,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                               [
                                                                               "dia"] !=
                                                                           null
-                                                                      ? "DIA: " +
-                                                                          dashboardData["watch_status"]["blood_pressure"]
-                                                                              [
-                                                                              "dia"]
-                                                                      : "No Data",
+                                                                      ? "DIA: ${dashboardData["watch_status"]["blood_pressure"]["dia"] == '00' ? '--' : dashboardData["watch_status"]["blood_pressure"]["dia"]}"
+                                                                      : "--",
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyText1
@@ -1504,7 +1514,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         10,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .w300,
+                                                                            .bold,
                                                                   ),
                                                             ),
                                                           ],
@@ -1519,11 +1529,16 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                         [
                                                                         "battery_level"] !=
                                                                     null
-                                                                ? dashboardData[
-                                                                        "watch_status"]
-                                                                    [
-                                                                    "battery_level"]
-                                                                : "No Data",
+                                                                ? (dashboardData["watch_status"]
+                                                                            [
+                                                                            "battery_level"] ==
+                                                                        '0%'
+                                                                    ? '--'
+                                                                    : dashboardData[
+                                                                            "watch_status"]
+                                                                        [
+                                                                        "battery_level"])
+                                                                : "--",
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyText1
@@ -1600,7 +1615,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             10, 0, 0, 0),
                                         child: Container(
-                                          height: 140,
+                                          // height: 140,
                                           decoration: BoxDecoration(
                                             color: Color(0xFF272E36),
                                             borderRadius:
@@ -1659,7 +1674,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                           fontSize:
                                                                               10,
                                                                           fontWeight:
-                                                                              FontWeight.w300,
+                                                                              FontWeight.bold,
                                                                         ),
                                                                   ),
                                                                 ],
@@ -1693,12 +1708,61 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                   ),
                                                                 ],
                                                               ),
+                                                              if (dashboardData[
+                                                                              "sensors_status"]
+                                                                          [
+                                                                          "pillbox"] !=
+                                                                      null &&
+                                                                  dashboardData[
+                                                                              "sensors_status"]
+                                                                          [
+                                                                          "pillbox"]
+                                                                      .toString()
+                                                                      .isNotEmpty)
+                                                                Text(
+                                                                  DateFormat(
+                                                                          'MMM dd, yyyy h:mm a')
+                                                                      .format(
+                                                                    DateTime.parse(
+                                                                            '${dashboardData["sensors_status"]["pillbox"]["date"]} ${dashboardData["sensors_status"]["pillbox"]["time"]}Z')
+                                                                        .toLocal(),
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Montserrat',
+                                                                        color: Color(
+                                                                            0xFFE5E5E5),
+                                                                        fontSize:
+                                                                            10,
+                                                                        fontWeight:
+                                                                            FontWeight.w200,
+                                                                      ),
+                                                                ),
+                                                              if (dashboardData[
+                                                                              "sensors_status"]
+                                                                          [
+                                                                          "pillbox"] !=
+                                                                      null &&
+                                                                  dashboardData[
+                                                                              "sensors_status"]
+                                                                          [
+                                                                          "pillbox"]
+                                                                      .toString()
+                                                                      .isNotEmpty)
+                                                                SizedBox(
+                                                                  height: 4,
+                                                                ),
                                                               Row(
                                                                 children: [
                                                                   SvgPicture
                                                                       .asset(
                                                                     'assets/images/batteryL.svg',
                                                                     width: 20,
+                                                                    color: Color(
+                                                                        0xFF00B89F),
                                                                   ),
                                                                   Padding(
                                                                     padding: EdgeInsetsDirectional
@@ -1720,7 +1784,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                             fontFamily:
                                                                                 'Montserrat',
                                                                             color:
-                                                                                Colors.yellow,
+                                                                                Color(0xFF00B89F),
                                                                             fontSize:
                                                                                 10,
                                                                             fontWeight:
@@ -1803,7 +1867,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        height: 140,
+                                        // height: 140,
                                         decoration: BoxDecoration(
                                           color: Color(0xFF272E36),
                                           borderRadius:
@@ -1864,7 +1928,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                           10,
                                                                       fontWeight:
                                                                           FontWeight
-                                                                              .w300,
+                                                                              .bold,
                                                                     ),
                                                               ),
                                                             ],
@@ -1910,6 +1974,49 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                             ),
                                                           ],
                                                         ),
+                                                        if (dashboardData[
+                                                                        "sensors_status"]
+                                                                    ["door"] !=
+                                                                null &&
+                                                            dashboardData[
+                                                                        "sensors_status"]
+                                                                    ["door"]
+                                                                .toString()
+                                                                .isNotEmpty)
+                                                          Text(
+                                                            DateFormat(
+                                                                    'MMM dd, yyyy h:mm a')
+                                                                .format(
+                                                              DateTime.parse(
+                                                                      '${dashboardData["sensors_status"]["door"]["date"]} ${dashboardData["sensors_status"]["door"]["time"]}Z')
+                                                                  .toLocal(),
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Color(
+                                                                      0xFFE5E5E5),
+                                                                  fontSize: 10,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w200,
+                                                                ),
+                                                          ),
+                                                        if (dashboardData[
+                                                                        "sensors_status"]
+                                                                    ["door"] !=
+                                                                null &&
+                                                            dashboardData[
+                                                                        "sensors_status"]
+                                                                    ["door"]
+                                                                .toString()
+                                                                .isNotEmpty)
+                                                          SizedBox(
+                                                            height: 4,
+                                                          ),
                                                         Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -1917,7 +2024,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                             SvgPicture.asset(
                                                               'assets/images/batteryL.svg',
                                                               width: 20,
-                                                              color: Colors.red,
+                                                              color: Color(
+                                                                  0xFF00B89F),
                                                             ),
                                                             Padding(
                                                               padding:
@@ -1943,8 +2051,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                     .override(
                                                                       fontFamily:
                                                                           'Montserrat',
-                                                                      color: Colors
-                                                                          .red,
+                                                                      color: Color(
+                                                                          0xFF00B89F),
                                                                       fontSize:
                                                                           10,
                                                                       fontWeight:
@@ -2017,7 +2125,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   10, 0, 0, 0),
                                           child: Container(
-                                            height: 140,
+                                            // height: 140,
                                             decoration: BoxDecoration(
                                               color: Color(0xFF272E36),
                                               borderRadius:
@@ -2085,7 +2193,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                               fontFamily: 'Montserrat',
                                                                               color: Color(0xFF00B89F),
                                                                               fontSize: 10,
-                                                                              fontWeight: FontWeight.w300,
+                                                                              fontWeight: FontWeight.bold,
                                                                             ),
                                                                       ),
                                                                     ],
@@ -2099,11 +2207,9 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                     Text(
                                                                       dashboardData["sensors_status"]["bath"] !=
                                                                               null
-                                                                          ? dashboardData["sensors_status"]["bath"].toString().isEmpty
+                                                                          ? (dashboardData["sensors_status"]["bath"].toString().isEmpty
                                                                               ? "Not Bathed"
-                                                                              : dashboardData["sensors_status"]["bath"]["bool"] != true
-                                                                                  ? "Not Bathed"
-                                                                                  : "Bathed"
+                                                                              : (dashboardData["sensors_status"]["bath"]["bool"] ? "Bathed" : "Not Bathed"))
                                                                           : "No Data",
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
@@ -2121,6 +2227,49 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                     ),
                                                                   ],
                                                                 ),
+                                                                if (dashboardData["sensors_status"]
+                                                                            [
+                                                                            "bath"] !=
+                                                                        null &&
+                                                                    dashboardData["sensors_status"]
+                                                                            [
+                                                                            "bath"]
+                                                                        .toString()
+                                                                        .isNotEmpty)
+                                                                  Text(
+                                                                    DateFormat(
+                                                                            'MMM dd, yyyy h:mm a')
+                                                                        .format(
+                                                                      DateTime.parse(
+                                                                              '${dashboardData["sensors_status"]["bath"]["date"]} ${dashboardData["sensors_status"]["bath"]["time"]}Z')
+                                                                          .toLocal(),
+                                                                    ),
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Montserrat',
+                                                                          color:
+                                                                              Color(0xFFE5E5E5),
+                                                                          fontSize:
+                                                                              10,
+                                                                          fontWeight:
+                                                                              FontWeight.w200,
+                                                                        ),
+                                                                  ),
+                                                                if (dashboardData["sensors_status"]
+                                                                            [
+                                                                            "bath"] !=
+                                                                        null &&
+                                                                    dashboardData["sensors_status"]
+                                                                            [
+                                                                            "bath"]
+                                                                        .toString()
+                                                                        .isNotEmpty)
+                                                                  SizedBox(
+                                                                    height: 4,
+                                                                  ),
                                                                 Row(
                                                                   mainAxisSize:
                                                                       MainAxisSize
@@ -2241,7 +2390,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        height: 140,
+                                        // height: 140,
                                         decoration: BoxDecoration(
                                           color: Color(0xFF272E36),
                                           borderRadius:
@@ -2308,7 +2457,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                           10,
                                                                       fontWeight:
                                                                           FontWeight
-                                                                              .w300,
+                                                                              .bold,
                                                                     ),
                                                               ),
                                                             ],
@@ -2354,6 +2503,49 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                             ),
                                                           ],
                                                         ),
+                                                        if (dashboardData[
+                                                                        "sensors_status"]
+                                                                    ["sos"] !=
+                                                                null &&
+                                                            dashboardData[
+                                                                        "sensors_status"]
+                                                                    ["sos"]
+                                                                .toString()
+                                                                .isNotEmpty)
+                                                          Text(
+                                                            DateFormat(
+                                                                    'MMM dd, yyyy h:mm a')
+                                                                .format(
+                                                              DateTime.parse(
+                                                                      '${dashboardData["sensors_status"]["sos"]["date"]} ${dashboardData["sensors_status"]["sos"]["time"]}Z')
+                                                                  .toLocal(),
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Color(
+                                                                      0xFFE5E5E5),
+                                                                  fontSize: 10,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w200,
+                                                                ),
+                                                          ),
+                                                        if (dashboardData[
+                                                                        "sensors_status"]
+                                                                    ["sos"] !=
+                                                                null &&
+                                                            dashboardData[
+                                                                        "sensors_status"]
+                                                                    ["sos"]
+                                                                .toString()
+                                                                .isNotEmpty)
+                                                          SizedBox(
+                                                            height: 4,
+                                                          ),
                                                         Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -2362,7 +2554,7 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          5,
+                                                                          0,
                                                                           0,
                                                                           0,
                                                                           0),
@@ -2370,8 +2562,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                   .asset(
                                                                 'assets/images/batteryL.svg',
                                                                 width: 20,
-                                                                color:
-                                                                    Colors.red,
+                                                                color: Color(
+                                                                    0xFF00B89F),
                                                               ),
                                                             ),
                                                             Padding(
@@ -2398,8 +2590,8 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
                                                                     .override(
                                                                       fontFamily:
                                                                           'Montserrat',
-                                                                      color: Colors
-                                                                          .red,
+                                                                      color: Color(
+                                                                          0xFF00B89F),
                                                                       fontSize:
                                                                           10,
                                                                       fontWeight:
@@ -2610,1303 +2802,3 @@ class _ModifiedLandingPageWidgetState extends State<ModifiedLandingPageWidget> {
     // return data;
   }
 }
-
-/*class dashboard extends StatefulWidget {
-  String data;
-  dashboard({Key key, @required this.data}) : super(key: key);
-
-  @override
-  State<dashboard> createState() => _dashboardState(data);
-}
-
-class _dashboardState extends State<dashboard> {
-  String id;
-  _dashboardState(this.id);
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFF272E36),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: InkWell(
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => StatsWidget(
-                              data: id,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15, 0, 50, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 10, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            'Heart Rate',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: Color(0xFF00B89F),
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          // FFAppState().heart_rate,
-                                          FFAppState().heart_rate != "rate"
-                                              ? FFAppState().heart_rate + " BPM"
-                                              : "0 BPM",
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFFE5E5E5),
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w200,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 20, 0, 0),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios_sharp,
-                                      color: Color(0xFF00B89F),
-                                      size: 35,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 1, 0, 0),
-                                    child: Image.asset(
-                                      'assets/images/15-health.png',
-                                      height: 90,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF272E36),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: InkWell(
-                        onTap: () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => OxygenWidget(
-                                data: id,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          15, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 10, 0, 0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'Blood Oxygen',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color:
-                                                            Color(0xFF00B89F),
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                FFAppState().blood_oxygen !=
-                                                        "oxygen"
-                                                    ? FFAppState().blood_oxygen
-                                                    : "0",
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyText1
-                                                    .override(
-                                                      fontFamily: 'Montserrat',
-                                                      color: Color(0xFFE5E5E5),
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 20, 0, 0),
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_sharp,
-                                        color: Color(0xFF00B89F),
-                                        size: 35,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 1, 0, 0),
-                                      child: Image.asset(
-                                        'assets/images/pulse-oximeter.png',
-                                        height: 90,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFF272E36),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: InkWell(
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SleepWidget(
-                              data: id,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15, 0, 50, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 10, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            'Sleep',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: Color(0xFF00B89F),
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          FFAppState().Sleep != "sleep"
-                                              ? FFAppState().Sleep
-                                              : "0",
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFFE5E5E5),
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w200,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 20, 0, 0),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios_sharp,
-                                      color: Color(0xFF00B89F),
-                                      size: 35,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 1, 0, 0),
-                                    child: Image.asset(
-                                      'assets/images/Layer_2_active.png',
-                                      height: 90,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF272E36),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: InkWell(
-                        onTap: () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => StepWidget(
-                                data: id,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          15, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 10, 0, 0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'Steps',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color:
-                                                            Color(0xFF00B89F),
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                FFAppState().Steps != "step"
-                                                    ? FFAppState().Steps
-                                                    : "0",
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyText1
-                                                    .override(
-                                                      fontFamily: 'Montserrat',
-                                                      color: Color(0xFFE5E5E5),
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 20, 0, 0),
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_sharp,
-                                        color: Color(0xFF00B89F),
-                                        size: 35,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 1, 0, 0),
-                                      child: Image.asset(
-                                        'assets/images/8679613_footprint_line_icon_active.png',
-                                        height: 90,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFF272E36),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: InkWell(
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CalorieWidget(
-                              data: id,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15, 0, 50, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 10, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            'Calorie\'s',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: Color(0xFF00B89F),
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          FFAppState().Calories != "calorie"
-                                              ? FFAppState().Calories
-                                              : "0",
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFFE5E5E5),
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w200,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 20, 0, 0),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios_sharp,
-                                      color: Color(0xFF00B89F),
-                                      size: 35,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 1, 0, 0),
-                                    child: Image.asset(
-                                      'assets/images/Group 697.png',
-                                      height: 90,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF272E36),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: InkWell(
-                        onTap: () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BloodWidget(
-                                data: id,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          15, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 10, 0, 0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'Blood Pressure',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color:
-                                                            Color(0xFF00B89F),
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                "SYS: " +
-                                                    (FFAppState().blood_sys !=
-                                                            "sys"
-                                                        ? FFAppState().blood_sys
-                                                        : "0"),
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyText1
-                                                    .override(
-                                                      fontFamily: 'Montserrat',
-                                                      color: Color(0xFFE5E5E5),
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                "DIA: " +
-                                                    (FFAppState().blood_dia !=
-                                                            "dia"
-                                                        ? FFAppState().blood_dia
-                                                        : "0"),
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyText1
-                                                    .override(
-                                                      fontFamily: 'Montserrat',
-                                                      color: Color(0xFFE5E5E5),
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 20, 0, 0),
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_sharp,
-                                        color: Color(0xFF00B89F),
-                                        size: 35,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 1, 0, 0),
-                                      child: Image.asset(
-                                        'assets/images/01.png',
-                                        height: 90,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFF272E36),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: InkWell(
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BatteryWidget(data: id),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15, 0, 50, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 10, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            'Smart Watch Battery',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: Color(0xFF00B89F),
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          FFAppState().battery_level !=
-                                                  "battery"
-                                              ? FFAppState().battery_level
-                                              : "0",
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFFE5E5E5),
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w200,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 20, 0, 0),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios_sharp,
-                                      color: Color(0xFF00B89F),
-                                      size: 35,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 1, 0, 0),
-                                    child: SvgPicture.asset(
-                                      'assets/images/65-battery (1).svg',
-                                      height: 90,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF272E36),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: InkWell(
-                        onTap: () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PillWidget(
-                                data: id,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          15, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 10, 0, 0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'SOS',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color:
-                                                            Color(0xFF00B89F),
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                FFAppState()
-                                                            .Pill_box
-                                                            .toString() !=
-                                                        "true"
-                                                    ? "Not Active"
-                                                    : "Active",
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyText1
-                                                    .override(
-                                                      fontFamily: 'Montserrat',
-                                                      color: Color(0xFFE5E5E5),
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 20, 0, 0),
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_sharp,
-                                        color: Color(0xFF00B89F),
-                                        size: 35,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 1, 0, 0),
-                                      child: Image.asset(
-                                        'assets/images/8675105_ic_fluent_pill_regular_icon.png',
-                                        height: 90,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFF272E36),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: InkWell(
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DoorWidget(
-                              data: id,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15, 0, 50, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 10, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            'Door',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Montserrat',
-                                                  color: Color(0xFF00B89F),
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          FFAppState().door.toString() != "true"
-                                              ? "Closed"
-                                              : "Open",
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFFE5E5E5),
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w200,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 20, 0, 0),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios_sharp,
-                                      color: Color(0xFF00B89F),
-                                      size: 35,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 1, 0, 0),
-                                    child: Image.asset(
-                                      'assets/images/7068954_furniture_door_interior_house_front_icon.png',
-                                      height: 90,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFF272E36),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: InkWell(
-                        onTap: () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ShowerWidget(
-                                data: id,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          15, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 10, 0, 0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'Shower',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Montserrat',
-                                                        color:
-                                                            Color(0xFF00B89F),
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                FFAppState()
-                                                            .shower
-                                                            .toString() !=
-                                                        "true"
-                                                    ? "Not Bathed"
-                                                    : "Bathed",
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyText1
-                                                    .override(
-                                                      fontFamily: 'Montserrat',
-                                                      color: Color(0xFFE5E5E5),
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 20, 0, 0),
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_sharp,
-                                        color: Color(0xFF00B89F),
-                                        size: 35,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 1, 0, 0),
-                                      child: Image.asset(
-                                        'assets/images/4944894_bath_bathroom_interiors_pedestal_tub_icon.png',
-                                        height: 90,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}*/

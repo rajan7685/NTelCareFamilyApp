@@ -143,7 +143,7 @@ class _ShowerWidgetState extends State<ShowerWidget> {
     setState(() {
       stepStat = temp;
     });
-    print(stepStat);
+    // print(stepStat);
   }
 
   List<charts.Series<StepStatMonth, String>> _createSampleData() {
@@ -212,10 +212,10 @@ class _ShowerWidgetState extends State<ShowerWidget> {
       time = selectedDatum.first.datum.day;
       selectedDatum.forEach((charts.SeriesDatum datumPair) {
         measures[datumPair.series.displayName] = datumPair.datum.Stat;
-        print(datumPair.datum.Stat);
-        print(datumPair.datum.avg);
-        print(datumPair.datum.max);
-        print(datumPair.datum.min);
+        // print(datumPair.datum.Stat);
+        // print(datumPair.datum.avg);
+        // print(datumPair.datum.max);
+        // print(datumPair.datum.min);
         Dialog errorDialog = Dialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
@@ -339,14 +339,14 @@ class _ShowerWidgetState extends State<ShowerWidget> {
 
   void getStepWeekRate() async {
     wDate = DateFormat('yyyy-MM-dd').format(dateTimeWeek);
-    print(wDate);
+    // print(wDate);
     var response = await getHrate.get(
         '${ApiService.domain}/graph/health_status/BathRoom/weekly?date=${wDate}&senior_id=${id}');
-    print(response.statusCode);
-    print(response.body.runtimeType);
-    print(response.body);
+    // print(response.statusCode);
+    // print(response.body.runtimeType);
+    // print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["BathRoom"]);
+    // print(rate["BathRoom"]);
     List<StepStatMonth> temp = StepStatWeekFromJson(rate["BathRoom"]);
     setState(() {
       stepMax = temp;
@@ -358,11 +358,11 @@ class _ShowerWidgetState extends State<ShowerWidget> {
 
     var response = await getHrate.get(
         '${ApiService.domain}/graph/health_status/BathRoom/monthly?date=${wDate1}&senior_id=${id}');
-    print(response.statusCode);
-    print(response.body.runtimeType);
-    print(response.body);
+    // print(response.statusCode);
+    // print(response.body.runtimeType);
+    // print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["BathRoom"]);
+    // print(rate["BathRoom"]);
     List<StepStatMonth> temp = StepStatWeekFromJson(rate["BathRoom"]);
     setState(() {
       stepMaxMon = temp;
@@ -371,14 +371,14 @@ class _ShowerWidgetState extends State<ShowerWidget> {
 
   void getStepYearlyRate() async {
     wDate2 = DateFormat('yyyy-MM-dd').format(dateTimeYear);
-    print(wDate2);
+    // print(wDate2);
     var response = await getHrate.get(
         '${ApiService.domain}/graph/health_status/BathRoom/yearly?date=${wDate2}&senior_id=${id}');
-    print(response.statusCode);
-    print(response.body.runtimeType);
-    print(response.body);
+    // print(response.statusCode);
+    // print(response.body.runtimeType);
+    // print(response.body);
     final rate = jsonDecode((response.body));
-    print(rate["BathRoom"]);
+    // print(rate["BathRoom"]);
     List<ShowerStatMax> temp = StepStatWeekMaxFromJson(rate["BathRoom"]);
     setState(() {
       stepMaxYr = temp;
@@ -490,8 +490,8 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                print(DateFormat('dd-MM-yyyy')
-                                    .format(dateTimeWeek));
+                                // print(DateFormat('dd-MM-yyyy')
+                                //     .format(dateTimeWeek));
 
                                 print(DateFormat('dd-MM-yyyy')
                                     .format(dateTimeWeek));
@@ -544,6 +544,23 @@ class _ShowerWidgetState extends State<ShowerWidget> {
                                 child: InkWell(
                                   onTap: () async {
                                     DateTime time = await showDatePicker(
+                                        builder: (_, Widget child) {
+                                          return Theme(
+                                              data: Theme.of(context).copyWith(
+                                                  colorScheme:
+                                                      ColorScheme.light(
+                                                          primary:
+                                                              Color(0xFF00B89F),
+                                                          secondary:
+                                                              Colors.red),
+                                                  textButtonTheme:
+                                                      TextButtonThemeData(
+                                                          style: TextButton
+                                                              .styleFrom(
+                                                    primary: Color(0xFF00B89F),
+                                                  ))),
+                                              child: child);
+                                        },
                                         context: context,
                                         initialDate: dateTime,
                                         firstDate: DateTime.now()

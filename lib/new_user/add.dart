@@ -236,41 +236,41 @@ class _AddWidgetState extends State<Add> {
                                       ),
                                     ),
                                   ),
-                                  Align(
-                                    alignment:
-                                        AlignmentDirectional(0.05, -0.43),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          17, 0, 0, 0),
-                                      child: Container(
-                                        width: 15,
-                                        height: 15,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF006B5D),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              '5',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Colors.white,
-                                                    fontSize: 8,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  // Align(
+                                  //   alignment:
+                                  //       AlignmentDirectional(0.05, -0.43),
+                                  //   child: Padding(
+                                  //     padding: EdgeInsetsDirectional.fromSTEB(
+                                  //         17, 0, 0, 0),
+                                  //     child: Container(
+                                  //       width: 15,
+                                  //       height: 15,
+                                  //       decoration: BoxDecoration(
+                                  //         color: Color(0xFF006B5D),
+                                  //         shape: BoxShape.circle,
+                                  //       ),
+                                  //       child: Row(
+                                  //         mainAxisSize: MainAxisSize.max,
+                                  //         mainAxisAlignment:
+                                  //             MainAxisAlignment.center,
+                                  //         children: [
+                                  //           Text(
+                                  //             '5',
+                                  //             style: FlutterFlowTheme.of(
+                                  //                     context)
+                                  //                 .bodyText1
+                                  //                 .override(
+                                  //                   fontFamily: 'Montserrat',
+                                  //                   color: Colors.white,
+                                  //                   fontSize: 8,
+                                  //                   fontWeight: FontWeight.bold,
+                                  //                 ),
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -490,113 +490,120 @@ class _AddWidgetState extends State<Add> {
                                     color: Color(0xFFEEEEEE),
                                     borderRadius: BorderRadius.circular(15),
                                   ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 10, 0, 3),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'DOB',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                          fontFamily:
-                                                              'Montserrat',
-                                                          color:
-                                                              Color(0xFF9A9A9A),
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w300),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 0, 0),
-                                                  child: Text(Date,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Montserrat',
-                                                                color: Color(
-                                                                    0xFF606E87),
-                                                                fontSize: 16,
-                                                              )),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    10, 0, 0, 0),
-                                            child: InkWell(
-                                              onTap: () async {
-                                                /*  showDatePicker(
-                                                  context: context,
-                                                  initialDate: dateTime == null
-                                                      ? DateTime.now()
-                                                      : dateTime,
-                                                  firstDate: DateTime(2001),
-                                                  lastDate: DateTime.now())
-                                              .then((date) {
-                                            setState(() {
-                                              dateTime = date;
-                                            });
-                                          });*/
-                                                final DateTime picked =
-                                                    await showDatePicker(
-                                                        context: context,
-                                                        initialDate:
-                                                            selectedDate,
-                                                        firstDate:
-                                                            DateTime(1900, 8),
-                                                        lastDate:
-                                                            DateTime.now());
-                                                if (picked != null &&
-                                                    picked != selectedDate)
-                                                  setState(() {
-                                                    selectedDate = picked;
-                                                  });
-                                                Date = DateFormat('MM-dd-yyyy')
-                                                    .format(selectedDate);
+                                  child: InkWell(
+                                    onTap: () async {
+                                      final DateTime picked =
+                                          await showDatePicker(
+                                              builder: (_, Widget child) {
+                                                return Theme(
+                                                    data: Theme.of(context)
+                                                        .copyWith(
+                                                            colorScheme: ColorScheme.light(
+                                                                primary: Color(
+                                                                    0xFF00B89F),
+                                                                secondary:
+                                                                    Colors.red),
+                                                            textButtonTheme:
+                                                                TextButtonThemeData(
+                                                                    style: TextButton
+                                                                        .styleFrom(
+                                                              primary: Color(
+                                                                  0xFF00B89F),
+                                                            ))),
+                                                    child: child);
                                               },
+                                              context: context,
+                                              initialDate: selectedDate,
+                                              firstDate: DateTime(1900, 8),
+                                              lastDate: DateTime.now());
+                                      if (picked != null &&
+                                          picked != selectedDate)
+                                        setState(() {
+                                          selectedDate = picked;
+                                        });
+                                      Date = DateFormat('MM-dd-yyyy')
+                                          .format(selectedDate);
+                                    },
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 10, 0, 3),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'DOB',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                            fontFamily:
+                                                                'Montserrat',
+                                                            color: Color(
+                                                                0xFF9A9A9A),
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 0, 0, 0),
+                                                    child: Text(Date,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  color: Color(
+                                                                      0xFF606E87),
+                                                                  fontSize: 16,
+                                                                )),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(10, 0, 0, 0),
                                               child: Icon(
                                                 Icons.arrow_drop_down_outlined,
                                                 color: Colors.black,
                                                 size: 20,
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

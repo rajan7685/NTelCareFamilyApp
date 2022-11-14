@@ -409,11 +409,12 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'Montserrat',
-                                                                  color: isSelected != null &&
+                                                                  color: isSelected !=
+                                                                              null &&
                                                                           isSelected ==
                                                                               index
                                                                       ? Colors
-                                                                          .blue
+                                                                          .white
                                                                       : Color(
                                                                           0xFF535353),
                                                                   fontSize: 12,
@@ -648,7 +649,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                                     children: [
                                                                                                       Icon(
                                                                                                         Icons.mail_outline,
-                                                                                                        color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                        color: Color(0xFF00B89F),
                                                                                                         size: 12,
                                                                                                       ),
                                                                                                       SizedBox(
@@ -673,7 +674,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                                     children: [
                                                                                                       Icon(
                                                                                                         Icons.phone_outlined,
-                                                                                                        color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                        color: Color(0xFF00B89F),
                                                                                                         size: 12,
                                                                                                       ),
                                                                                                       SizedBox(
@@ -844,7 +845,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                               children: [
                                                                                                 Icon(
                                                                                                   Icons.mail_outline,
-                                                                                                  color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                  color: Color(0xFF00B89F),
                                                                                                   size: 12,
                                                                                                 ),
                                                                                                 SizedBox(
@@ -869,7 +870,7 @@ class _MembersWidgetState extends State<MembersWidget> {
                                                                                               children: [
                                                                                                 Icon(
                                                                                                   Icons.phone_outlined,
-                                                                                                  color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                  color: Color(0xFF00B89F),
                                                                                                   size: 12,
                                                                                                 ),
                                                                                                 SizedBox(

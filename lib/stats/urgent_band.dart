@@ -477,216 +477,6 @@ class _UrgentBandWidgetState extends State<UrgentBandWidget> {
                             ),
                           ],
                         ),
-                        // Padding(
-                        //   padding:
-                        //       EdgeInsetsDirectional.fromSTEB(20, 25, 20, 0),
-                        //   child: Row(
-                        //     mainAxisSize: MainAxisSize.max,
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     children: [
-                        //       Expanded(
-                        //         child: InkWell(
-                        //             onTap: () async {
-                        //               setState(() {
-                        //                 color1 = Color(0xFF00B89F);
-                        //                 color2 = Color(0xFF1A1A1A);
-                        //                 color3 = Color(0xFF1A1A1A);
-                        //                 color4 = Color(0xFF1A1A1A);
-                        //                 daily = true;
-                        //                 weekly = false;
-                        //                 monthly = false;
-                        //                 yearly = false;
-                        //                 // getStepscount();
-                        //               });
-                        //             },
-                        //             child: Container(
-                        //               decoration: BoxDecoration(
-                        //                 color: color1,
-                        //                 borderRadius: BorderRadius.only(
-                        //                   bottomLeft: Radius.circular(10),
-                        //                   bottomRight: Radius.circular(0),
-                        //                   topLeft: Radius.circular(10),
-                        //                   topRight: Radius.circular(0),
-                        //                 ),
-                        //               ),
-                        //               child: Padding(
-                        //                 padding: EdgeInsetsDirectional.fromSTEB(
-                        //                     0, 5, 0, 5),
-                        //                 child: Row(
-                        //                   mainAxisSize: MainAxisSize.max,
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text(
-                        //                       'Daily',
-                        //                       style: FlutterFlowTheme.of(
-                        //                               context)
-                        //                           .bodyText1
-                        //                           .override(
-                        //                             fontFamily: 'Montserrat',
-                        //                             color: Color(0xFF6D6767),
-                        //                             fontSize: 18,
-                        //                             fontWeight: FontWeight.w200,
-                        //                           ),
-                        //                     ),
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             )),
-                        //       ),
-                        //       Expanded(
-                        //           child: InkWell(
-                        //         onTap: () async {
-                        //           setState(() {
-                        //             color1 = Color(0xFF1A1A1A);
-                        //             color2 = Color(0xFF00B89F);
-                        //             color3 = Color(0xFF1A1A1A);
-                        //             color4 = Color(0xFF1A1A1A);
-                        //             weekly = true;
-                        //             daily = false;
-                        //             monthly = false;
-                        //             yearly = false;
-                        //             dateTimeWeek = DateTime.now();
-                        //             //   getStepWeekRate();
-                        //           });
-                        //         },
-                        //         child: Container(
-                        //           decoration: BoxDecoration(
-                        //             color: color2,
-                        //             borderRadius: BorderRadius.circular(0),
-                        //           ),
-                        //           child: Padding(
-                        //             padding: EdgeInsetsDirectional.fromSTEB(
-                        //                 0, 5, 0, 5),
-                        //             child: Row(
-                        //               mainAxisSize: MainAxisSize.max,
-                        //               mainAxisAlignment:
-                        //                   MainAxisAlignment.center,
-                        //               children: [
-                        //                 Text(
-                        //                   'Weekly',
-                        //                   style: FlutterFlowTheme.of(context)
-                        //                       .bodyText1
-                        //                       .override(
-                        //                         fontFamily: 'Montserrat',
-                        //                         color: Color(0xFF6D6767),
-                        //                         fontSize: 18,
-                        //                         fontWeight: FontWeight.w200,
-                        //                       ),
-                        //                 ),
-                        //               ],
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       )),
-                        //       Expanded(
-                        //         child: InkWell(
-                        //           onTap: () async {
-                        //             setState(() {
-                        //               color1 = Color(0xFF1A1A1A);
-                        //               color2 = Color(0xFF1A1A1A);
-                        //               color3 = Color(0xFF00B89F);
-                        //               color4 = Color(0xFF1A1A1A);
-                        //               monthly = true;
-                        //               daily = false;
-                        //               weekly = false;
-                        //               yearly = false;
-                        //               dateTimeMonth = DateTime.now();
-                        //               getStepMonthlyRate();
-                        //             });
-                        //           },
-                        //           child: Container(
-                        //             decoration: BoxDecoration(
-                        //               color: color3,
-                        //               borderRadius: BorderRadius.only(
-                        //                 bottomLeft: Radius.circular(0),
-                        //                 bottomRight: Radius.circular(0),
-                        //                 topLeft: Radius.circular(0),
-                        //                 topRight: Radius.circular(0),
-                        //               ),
-                        //             ),
-                        //             child: Padding(
-                        //               padding: EdgeInsetsDirectional.fromSTEB(
-                        //                   0, 5, 0, 5),
-                        //               child: Row(
-                        //                 mainAxisSize: MainAxisSize.max,
-                        //                 mainAxisAlignment:
-                        //                     MainAxisAlignment.center,
-                        //                 children: [
-                        //                   Text(
-                        //                     'Monthly',
-                        //                     style: FlutterFlowTheme.of(context)
-                        //                         .bodyText1
-                        //                         .override(
-                        //                           fontFamily: 'Montserrat',
-                        //                           color: Color(0xFF6D6767),
-                        //                           fontSize: 18,
-                        //                           fontWeight: FontWeight.w200,
-                        //                         ),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //       Expanded(
-                        //         child: InkWell(
-                        //           onTap: () async {
-                        //             setState(() {
-                        //               color1 = Color(0xFF1A1A1A);
-                        //               color2 = Color(0xFF1A1A1A);
-                        //               color3 = Color(0xFF1A1A1A);
-                        //               color4 = Color(0xFF00B89F);
-                        //               monthly = false;
-                        //               daily = false;
-                        //               weekly = false;
-                        //               yearly = true;
-                        //               dateTimeYear = DateTime.now();
-                        //               //  getStepYearlyRate();
-                        //             });
-                        //           },
-                        //           child: Container(
-                        //             decoration: BoxDecoration(
-                        //               color: color4,
-                        //               borderRadius: BorderRadius.only(
-                        //                 bottomLeft: Radius.circular(0),
-                        //                 bottomRight: Radius.circular(10),
-                        //                 topLeft: Radius.circular(0),
-                        //                 topRight: Radius.circular(10),
-                        //               ),
-                        //             ),
-                        //             child: Padding(
-                        //               padding: EdgeInsetsDirectional.fromSTEB(
-                        //                   0, 5, 0, 5),
-                        //               child: Row(
-                        //                 mainAxisSize: MainAxisSize.max,
-                        //                 mainAxisAlignment:
-                        //                     MainAxisAlignment.center,
-                        //                 children: [
-                        //                   Text(
-                        //                     'Yearly',
-                        //                     style: FlutterFlowTheme.of(context)
-                        //                         .bodyText1
-                        //                         .override(
-                        //                           fontFamily: 'Montserrat',
-                        //                           color: Color(0xFF6D6767),
-                        //                           fontSize: 18,
-                        //                           fontWeight: FontWeight.w200,
-                        //                         ),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
-                        // if (daily == true)
-                        //   Daily()
-                        // else if (monthly == true)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
                           child: Row(
@@ -749,6 +539,25 @@ class _UrgentBandWidgetState extends State<UrgentBandWidget> {
                                   child: InkWell(
                                     onTap: () async {
                                       DateTime time = await showDatePicker(
+                                          builder: (_, Widget child) {
+                                            return Theme(
+                                                data: Theme.of(context)
+                                                    .copyWith(
+                                                        colorScheme:
+                                                            ColorScheme.light(
+                                                                primary: Color(
+                                                                    0xFF00B89F),
+                                                                secondary:
+                                                                    Colors.red),
+                                                        textButtonTheme:
+                                                            TextButtonThemeData(
+                                                                style: TextButton
+                                                                    .styleFrom(
+                                                          primary:
+                                                              Color(0xFF00B89F),
+                                                        ))),
+                                                child: child);
+                                          },
                                           context: context,
                                           initialDate: dateTime,
                                           firstDate: DateTime.now()
