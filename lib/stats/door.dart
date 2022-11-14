@@ -754,6 +754,25 @@ class _DoorWidgetState extends State<DoorWidget> {
                                   child: InkWell(
                                     onTap: () async {
                                       DateTime time = await showDatePicker(
+                                          builder: (_, Widget child) {
+                                            return Theme(
+                                                data: Theme.of(context)
+                                                    .copyWith(
+                                                        colorScheme:
+                                                            ColorScheme.light(
+                                                                primary: Color(
+                                                                    0xFF00B89F),
+                                                                secondary:
+                                                                    Colors.red),
+                                                        textButtonTheme:
+                                                            TextButtonThemeData(
+                                                                style: TextButton
+                                                                    .styleFrom(
+                                                          primary:
+                                                              Color(0xFF00B89F),
+                                                        ))),
+                                                child: child);
+                                          },
                                           context: context,
                                           initialDate: dateTime,
                                           firstDate: DateTime.now()

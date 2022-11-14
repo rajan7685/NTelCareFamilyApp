@@ -497,7 +497,7 @@ class _VideoClipsWidgetState extends State<VideoClipsWidget> {
                                                                         null &&
                                                                     isSelected ==
                                                                         index
-                                                                ? Colors.blue
+                                                                ? Colors.white
                                                                 : Color(
                                                                     0xFF535353),
                                                             fontSize: 12,
