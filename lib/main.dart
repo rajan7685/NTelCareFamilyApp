@@ -30,8 +30,8 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp()
-      .then((FirebaseApp value) => print('Firebase Service init $value.'));
+  // await Firebase.initializeApp()
+  //     .then((FirebaseApp value) => print('Firebase Service init $value.'));
   print('Handling a background message ${message.messageId}');
 }
 
@@ -42,8 +42,9 @@ void main() async {
     FlutterError.presentError(details);
   };
 
-  await Firebase.initializeApp()
-      .then((FirebaseApp value) => print('Firebase Service init $value.'));
+  print('starting firebase');
+  await Firebase.initializeApp();
+  print('invoked firebase init');
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
@@ -96,9 +97,9 @@ class _MyAppState extends State<MyApp> {
     FFAppState().FCM = fcmToken;
   }
 
-  // void _onDidReceiveLocalNotification(int a, String b, String c, String d) {
-  //   print("recieved notification");
-  // }
+  void _onDidReceiveLocalNotification(int a, String b, String c, String d) {
+    print("recieved notification");
+  }
 
   @override
   void initState() {
@@ -106,17 +107,17 @@ class _MyAppState extends State<MyApp> {
     _getFCMToken();
     var initialzationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    // final DarwinInitializationSettings iosSettings =
-    //     DarwinInitializationSettings(
-    //   requestSoundPermission: false,
-    //   requestBadgePermission: false,
-    //   requestAlertPermission: false,
-    //   onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
-    // );
-    var initializationSettings = InitializationSettings(
-      android: initialzationSettingsAndroid, /*iOS: iosSettings*/
+    final DarwinInitializationSettings iosSettings =
+        DarwinInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+      onDidReceiveLocalNotification: _onDidReceiveLocalNotification,
     );
-    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    var initializationSettings = InitializationSettings(
+      android: initialzationSettingsAndroid, iOS: iosSettings
+    );
+    flutterLocalNotificationsPlugin.initialize(initializationSettings, );
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
